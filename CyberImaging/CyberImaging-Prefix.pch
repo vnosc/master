@@ -1,0 +1,28 @@
+//
+// Prefix header for all source files of the 'CyberImaging' target in the 'CyberImaging' project
+//
+#ifdef __cplusplus
+#import <OpenCV/opencv2/opencv.hpp>
+#endif
+
+// Existing #import statements
+#ifdef __OBJC__
+
+// iOS/Cocoa
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+// 3rd-party
+#import "MBProgressHUD.h"
+#import "TBXML.h"
+#import "BHTabsViewController.h"
+#import "BHTabStyle.h"
+#import "BHTabView.h"
+#import "BHTabsView.h"
+#import "SVSegmentedControl.h"
+
+// 1st-party
+#import "ServiceObject.h"
+#import "BackgroundViewController.h"
+
+#endif
