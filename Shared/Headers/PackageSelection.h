@@ -56,8 +56,12 @@
 @property (retain, nonatomic) IBOutlet UILabel *frameBBox;
 @property (retain, nonatomic) IBOutlet UILabel *frameED;
 @property (retain, nonatomic) IBOutlet UILabel *frameDBL;
+@property (retain, nonatomic) IBOutlet UILabel *frameTemple;
 @property (retain, nonatomic) IBOutlet UILabel *frameMfr;
 @property (retain, nonatomic) IBOutlet UILabel *frameTypeLabel;
+@property (retain, nonatomic) IBOutlet UILabel *frameCollection;
+@property (retain, nonatomic) IBOutlet UILabel *frameGender;
+@property (retain, nonatomic) IBOutlet UILabel *frameColorLabel;
 
 @property (retain, nonatomic) IBOutlet ListsTableViewController *materialList;
 @property (retain) NSString *fontName;

@@ -57,8 +57,12 @@ extern ServiceObject* prescriptionXML;
 @synthesize frameBBox;
 @synthesize frameED;
 @synthesize frameDBL;
+@synthesize frameTemple;
 @synthesize frameMfr;
 @synthesize frameTypeLabel;
+@synthesize frameCollection;
+@synthesize frameGender;
+@synthesize frameColorLabel;
 @synthesize materialList;
 
 @synthesize fontName;
@@ -795,6 +799,8 @@ extern ServiceObject* prescriptionXML;
 		self.frameDBL.text = [NSString stringWithFormat:@"%g", [[self getField:@"DBL" forFrameId:self.selectedFrameId] floatValue]];
 		self.frameMfr.text = [self getField:@"FrameManufacturer" forFrameId:self.selectedFrameId];
 		self.frameTypeLabel.text = [self getField:@"FrameStyle" forFrameId:self.selectedFrameId];
+		self.frameCollection.text = [self getField:@"FrameCollection" forFrameId:self.selectedFrameId];
+		self.frameGender.text = [self getField:@"FrameGender" forFrameId:self.selectedFrameId];
 	}
 	else
 	{
@@ -808,6 +814,8 @@ extern ServiceObject* prescriptionXML;
 		
 		self.frameMfr.text = @"";
 		self.frameTypeLabel.text = @"";
+		self.frameCollection.text = @"";
+		self.frameGender.text = @"";		
 	}
 	
 	int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
@@ -990,6 +998,10 @@ extern ServiceObject* prescriptionXML;
 	[self setVspPriceLbl:nil];
 	[self setSavingsLbl:nil];
 	[self setColorView:nil];
+	[self setFrameCollection:nil];
+	[self setFrameGender:nil];
+	[self setFrameTemple:nil];
+	[self setFrameColorLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -1048,6 +1060,10 @@ extern ServiceObject* prescriptionXML;
 	[vspPriceLbl release];
 	[savingsLbl release];
 	[colorView release];
+	[frameCollection release];
+	[frameGender release];
+	[frameTemple release];
+	[frameColorLabel release];
 	[super dealloc];
 }
 

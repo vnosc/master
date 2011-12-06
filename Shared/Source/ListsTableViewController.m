@@ -288,7 +288,7 @@ typedef enum {
 		{
 			NSNumber* nsnum = [_sectionSelections objectAtIndex:sectionIndex];
 			int num = [nsnum intValue];
-			num |= (1 << row);
+			num ^= (1 << row);
 			nsnum = [NSNumber numberWithInt:num];
 			
 			[_sectionSelections replaceObjectAtIndex:sectionIndex withObject:nsnum];
