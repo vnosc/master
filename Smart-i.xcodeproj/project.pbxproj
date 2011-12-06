@@ -18,10 +18,6 @@
 		A734F8F3145B505D00B3FDC0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A734F8F2145B505D00B3FDC0 /* SystemConfiguration.framework */; };
 		A734F8F5145B506C00B3FDC0 /* libxml2.2.7.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A734F8F4145B506C00B3FDC0 /* libxml2.2.7.3.dylib */; };
 		A736C79B14746F6500A9B8E0 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A736C79A14746F6500A9B8E0 /* MainWindow.xib */; };
-		A77316D8147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = A77316D7147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml */; };
-		A77316DB147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = A77316DA147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml */; };
-		A77316DC147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = A77316DA147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml */; };
-		A77316DD147BFAF800D6338D /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = A77316D7147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml */; };
 		A77316EC147D5ADF00D6338D /* FrameStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = A77316EB147D5ADF00D6338D /* FrameStyling.m */; };
 		A77316ED147D5ADF00D6338D /* FrameStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = A77316EB147D5ADF00D6338D /* FrameStyling.m */; };
 		A77316EF147D5B0700D6338D /* FrameStyling.xib in Resources */ = {isa = PBXBuildFile; fileRef = A77316EE147D5B0700D6338D /* FrameStyling.xib */; };
@@ -199,7 +195,9 @@
 		A79717B414830EEC0086C7B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79717B314830EEC0086C7B5 /* Twitter.framework */; };
 		A7B7BD3514588122006DE5E8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */; };
 		A7B7BD3814588221006DE5E8 /* unityVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */; };
-		A7DF8D5D1484B27E005638ED /* PatientPrescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D3D1484B27E005638ED /* PatientPrescription.xib */; };
+		A7DAC4B3148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */; };
+		A7DAC4B4148D75E700CFD968 /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */; };
+		A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */; };
 		A7DF8D661484C410005638ED /* CaptureReticle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D651484C410005638ED /* CaptureReticle.png */; };
 		A7DF8D681484D0C6005638ED /* PackageSelectionColorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */; };
 		A7E9CCA914743F94004EF3D4 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD614743F94004EF3D4 /* 1.png */; };
@@ -542,8 +540,6 @@
 		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
 		A767289E147569D900857EAD /* Smart-i copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy-Info.plist"; sourceTree = "<absolute>"; };
-		A77316D7147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_eye_tree_eyeglasses.xml; path = "../../../../../Downloads/aptogo-FaceTracker-458e2fa/FaceTracker/haarcascade_eye_tree_eyeglasses.xml"; sourceTree = "<group>"; };
-		A77316DA147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_frontalface_alt2.xml; path = "../../../../../Downloads/aptogo-FaceTracker-458e2fa/FaceTracker/haarcascade_frontalface_alt2.xml"; sourceTree = "<group>"; };
 		A77316EA147D5ABA00D6338D /* FrameStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameStyling.h; sourceTree = "<group>"; };
 		A77316EB147D5ADF00D6338D /* FrameStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameStyling.m; sourceTree = "<group>"; };
 		A77316EE147D5B0700D6338D /* FrameStyling.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameStyling.xib; sourceTree = "<group>"; };
@@ -649,6 +645,9 @@
 		A79717B314830EEC0086C7B5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = unityVideo.mp4; sourceTree = "<group>"; };
+		A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
+		A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
+		A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7DF8D3D1484B27E005638ED /* PatientPrescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientPrescription.xib; sourceTree = "<group>"; };
 		A7DF8D651484C410005638ED /* CaptureReticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaptureReticle.png; sourceTree = "<group>"; };
 		A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageSelectionColorButton.png; sourceTree = "<group>"; };
@@ -994,6 +993,7 @@
 		A78AA3591476F54D00AFFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */,
 				A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */,
 				A7DF8D651484C410005638ED /* CaptureReticle.png */,
 				A78EB87514844DB500153C20 /* LoadingBackground.png */,
@@ -1592,8 +1592,8 @@
 		F1D2A43E141976F400E26C72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A77316DA147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml */,
-				A77316D7147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml */,
+				A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */,
+				A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */,
 				F1CACC311441506D0062A387 /* Entitlements.plist */,
 				F1E51B631447C0B90017D940 /* haarcascade_frontalface_default.xml */,
 				A759978D1474295500D9968C /* Smart-i-info.plist */,
@@ -1743,8 +1743,6 @@
 				A7F9C54F147592C000AA9C33 /* PatientList.xib in Resources */,
 				A7F9C5591475CF9400AA9C33 /* Loading.xib in Resources */,
 				A78AA35E1476F54D00AFFE04 /* logo.png in Resources */,
-				A77316DC147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml in Resources */,
-				A77316DD147BFAF800D6338D /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
 				A77316F0147D5B0700D6338D /* FrameStyling.xib in Resources */,
 				A77316F6147D682000D6338D /* Package-Selection-Gray_0012s_0000_Layer-3.png in Resources */,
 				A77316FA147D68C700D6338D /* facebook.png in Resources */,
@@ -1840,6 +1838,7 @@
 				A794A706148D4ADF00F4128B /* LensIndexView.xib in Resources */,
 				A794A708148D4ADF00F4128B /* LoadingView.xib in Resources */,
 				A78A24E5148D69EC001AFE4A /* HomePage.xib in Resources */,
+				A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1920,8 +1919,8 @@
 				A7F9C5551475CF1400AA9C33 /* Loading.xib in Resources */,
 				A7F9C5581475CF3200AA9C33 /* logo.jpg in Resources */,
 				A7F9C55B1475CFC100AA9C33 /* LoginView.xib in Resources */,
-				A77316D8147BF9C100D6338D /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
-				A77316DB147BFAEF00D6338D /* haarcascade_frontalface_alt2.xml in Resources */,
+				A7DAC4B3148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
+				A7DAC4B4148D75E700CFD968 /* haarcascade_frontalface_alt2.xml in Resources */,
 				A77316EF147D5B0700D6338D /* FrameStyling.xib in Resources */,
 				A77316F5147D682000D6338D /* Package-Selection-Gray_0012s_0000_Layer-3.png in Resources */,
 				A77316F9147D68C700D6338D /* facebook.png in Resources */,
@@ -1929,7 +1928,6 @@
 				A77316FE147D6BD100D6338D /* iPhone eMail Icon.jpg in Resources */,
 				A7731701147D6C2800D6338D /* mail-48x48.png in Resources */,
 				A7731709147D7DB600D6338D /* SVSegmentedControl.bundle in Resources */,
-				A7DF8D5D1484B27E005638ED /* PatientPrescription.xib in Resources */,
 				A794A67E148D4A3E00F4128B /* 8.png in Resources */,
 				A794A680148D4A3E00F4128B /* 9.png in Resources */,
 				A794A682148D4A3E00F4128B /* 10.png in Resources */,

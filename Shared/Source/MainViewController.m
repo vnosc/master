@@ -97,11 +97,19 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
 	//return NO;
+	NSLog(@"Rotating?");
 	return YES;
+	return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	NSLog(@"Will rotate?");
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}*/
 
 @end
