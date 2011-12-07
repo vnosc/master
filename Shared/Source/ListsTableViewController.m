@@ -284,12 +284,16 @@ typedef enum {
 	}
 	else
 	{
+		BOOL isSelected = YES;
+		
 		if (sectionIsCheckBox)
 		{
 			NSNumber* nsnum = [_sectionSelections objectAtIndex:sectionIndex];
 			int num = [nsnum intValue];
 			num ^= (1 << row);
 			nsnum = [NSNumber numberWithInt:num];
+			
+			isSelected = num & (1 << row);
 			
 			[_sectionSelections replaceObjectAtIndex:sectionIndex withObject:nsnum];
 		}
@@ -315,6 +319,7 @@ typedef enum {
 		NSDictionary* d = [[NSDictionary alloc] initWithObjectsAndKeys:
 						   [NSNumber numberWithInteger:sectionIndex], @"sectionIndex", 
 						   [NSNumber numberWithInteger:row], @"row",
+						   [NSNumber numberWithBool:isSelected], @"isSelected",
 						   nil];
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"ListsTableViewSelectionDidChangeNotification" object:self userInfo:d];

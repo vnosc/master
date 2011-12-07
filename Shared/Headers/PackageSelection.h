@@ -74,10 +74,16 @@
 @property (retain) NSMutableArray *packageIds;
 
 @property (retain) ServiceObject *packageInfo;
+@property (retain) ServiceObject *frameInfo;
+@property (retain) ServiceObject *lensTypeInfo;
+@property (retain) ServiceObject *lensMaterialInfo;
+@property (retain) ServiceObject *lensOptionInfo;
 
 @property (assign) NSInteger selectedFrameIndex;
 @property (assign) NSInteger selectedFrameId;
 @property (assign) NSInteger selectedPackageId;
+@property (assign) NSInteger selectedMaterialId;
+@property (retain) NSMutableArray *selectedOptionIds;
 
 @property (assign) BOOL hasSelectedLensType;
 @property (assign) BOOL hasSelectedPackageType;
@@ -101,14 +107,30 @@
 - (void) setUpOptionListForMaterial:(int)materialId;
 - (void) setUpColorsForFrame:(int)frameId;
 
+- (void)createGradientForLayer:(CALayer*)layerArg;
+
 - (void)listsTableSelected:(NSNotification*)n;
 - (void)listsTableSelectionCleared:(NSNotification*)n;
+
+- (NSString*) getKey:(int)itemId fromObject:(ServiceObject*)so forFieldName:(NSString*)cmpFieldName;
+- (NSString*) getField:(NSString*)fieldName fromObject:(ServiceObject*)so forId:(int)itemId cmpFieldName:(NSString*)cmpFieldName;
+
+- (NSString*) getPackageField:(NSString*)fieldName forId:(int)frameId;
+- (NSString*) getFrameField:(NSString*)fieldName forId:(int)frameId;
+- (NSString*) getMaterialField:(NSString*)fieldName forId:(int)materialId;
+- (NSString*) getOptionField:(NSString*)fieldName forId:(int)optionId;
+
+- (void) updatePrice;
+- (float) getCompleteCustomPrice;
 
 - (UIImage*)getFrameImage:(int)frameId;
 
 - (void) getLatestPrescriptionFromService;
 - (void) getLatestPatientFromService;
 - (void) loadPrescription:(ServiceObject *)prescription;
+- (void) loadPatientData:(ServiceObject *)patient;
+- (void)loadPatientImages;
+- (void)finishContinue:(id)sender;
 
 - (NSString*) getField:(NSString*)fieldName forFrameId:(int)frameId;
 

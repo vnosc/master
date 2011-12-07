@@ -637,30 +637,37 @@ extern UIColor* selectedMaterialColor;
 		
 		if (pvId)
 		{
-			NSLog(@"color hex %@", pvC);
-			
-			NSRange range;
-			range.location = 0;
-			range.length = 2;
-			NSString* rStr = [pvC substringWithRange:range];		
-			range.location = 2;
-			NSString* gStr = [pvC substringWithRange:range];
-			range.location = 4;		
-			NSString* bStr = [pvC substringWithRange:range];
-			
-			unsigned int r, g, b;
-			[[NSScanner scannerWithString:rStr] scanHexInt:&r];
-			[[NSScanner scannerWithString:gStr] scanHexInt:&g];
-			[[NSScanner scannerWithString:bStr] scanHexInt:&b];
-			
-			float red = (float) r / 255.0f;
-			float blue = (float) b / 255.0f;
-			float green = (float) g / 255.0f;
-		
 			self.selectedMaterialColorId = buttonIndex;
-			self.materialColorView.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+			self.materialColorView.backgroundColor = [self colorFromHex:pvC];
 		}
 	}
 	}
 }
+
+- (UIColor*)colorFromHex:(NSString*)pvC
+{
+	NSLog(@"color hex %@", pvC);
+	
+	NSRange range;
+	range.location = 0;
+	range.length = 2;
+	NSString* rStr = [pvC substringWithRange:range];		
+	range.location = 2;
+	NSString* gStr = [pvC substringWithRange:range];
+	range.location = 4;		
+	NSString* bStr = [pvC substringWithRange:range];
+	
+	unsigned int r, g, b;
+	[[NSScanner scannerWithString:rStr] scanHexInt:&r];
+	[[NSScanner scannerWithString:gStr] scanHexInt:&g];
+	[[NSScanner scannerWithString:bStr] scanHexInt:&b];
+	
+	float red = (float) r / 255.0f;
+	float blue = (float) b / 255.0f;
+	float green = (float) g / 255.0f;
+	
+	UIColor *col = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+	return col;
+}
+
 @end

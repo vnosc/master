@@ -78,6 +78,8 @@
 	[self.navigationController presentModalViewController:p animated:YES];
 }
 
+#ifdef OPTISUITE
+
 - (IBAction)patientConsultationClick:(id)sender {
 	LensIndexView *p = [[LensIndexView alloc] init];
 	p.title = @"Lens Index View";
@@ -89,4 +91,7 @@
 	p.title = @"Home Recreation";
 	[self.navigationController pushViewController:p animated:YES];
 }
+
+#endif
+
 @end

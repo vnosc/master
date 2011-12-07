@@ -37,6 +37,8 @@
 	return self;
 }*/
 
+#ifdef OPTISUITE
+
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (int) buttonImageLeftCap { return 6; }
@@ -99,6 +101,8 @@
 		}
 	}
 }
+
+#endif 
 
 /*- (void) viewDidAppear:(BOOL)animated
 {

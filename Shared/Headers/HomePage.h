@@ -27,7 +27,7 @@
 
 #ifndef HOMEPAGE_H
 
-#define HOMEPAGE_H
+//#define HOMEPAGE_H
 
 @interface HomePage : BackgroundViewController <UITabBarControllerDelegate>{
 	MainViewController *mainview;

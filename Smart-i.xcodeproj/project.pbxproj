@@ -198,6 +198,10 @@
 		A7DAC4B3148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */; };
 		A7DAC4B4148D75E700CFD968 /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */; };
 		A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */; };
+		A7DAC4F8148FEA1200CFD968 /* PatientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */; };
+		A7DAC4F9148FEA1200CFD968 /* PatientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */; };
+		A7DAC4FC148FEA2D00CFD968 /* PatientRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */; };
+		A7DAC4FD148FEA2D00CFD968 /* PatientRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */; };
 		A7DF8D661484C410005638ED /* CaptureReticle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D651484C410005638ED /* CaptureReticle.png */; };
 		A7DF8D681484D0C6005638ED /* PackageSelectionColorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */; };
 		A7E9CCA914743F94004EF3D4 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD614743F94004EF3D4 /* 1.png */; };
@@ -648,6 +652,9 @@
 		A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
 		A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
 		A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientRecord.m; sourceTree = "<group>"; };
+		A7DAC4FA148FEA2200CFD968 /* PatientRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientRecord.h; sourceTree = "<group>"; };
+		A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientRecord.xib; sourceTree = "<group>"; };
 		A7DF8D3D1484B27E005638ED /* PatientPrescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientPrescription.xib; sourceTree = "<group>"; };
 		A7DF8D651484C410005638ED /* CaptureReticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaptureReticle.png; sourceTree = "<group>"; };
 		A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageSelectionColorButton.png; sourceTree = "<group>"; };
@@ -1183,6 +1190,7 @@
 				A7E9CBC414743F94004EF3D4 /* PackageSelection.h */,
 				A7F9C553147593B300AA9C33 /* PatientList.h */,
 				A7E9CBC514743F94004EF3D4 /* PatientPrescription.h */,
+				A7DAC4FA148FEA2200CFD968 /* PatientRecord.h */,
 				A7E9CBC614743F94004EF3D4 /* PatientSearch.h */,
 				A7E9CBC714743F94004EF3D4 /* PrescriptionTextField.h */,
 				A7E9CBC814743F94004EF3D4 /* ProgressiveSelection.h */,
@@ -1404,6 +1412,7 @@
 				A7E9CC7814743F94004EF3D4 /* PackageSelection.m */,
 				A7F9C550147593A000AA9C33 /* PatientList.m */,
 				A7E9CC7914743F94004EF3D4 /* PatientPrescription.m */,
+				A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */,
 				A7E9CC7A14743F94004EF3D4 /* PatientSearch.m */,
 				A7E9CC7B14743F94004EF3D4 /* PrescriptionTextField.m */,
 				A7E9CC7C14743F94004EF3D4 /* ProgressiveSelection.m */,
@@ -1450,6 +1459,7 @@
 				A7E9CC9D14743F94004EF3D4 /* PackageSelection.xib */,
 				A7F9C54D147592C000AA9C33 /* PatientList.xib */,
 				A7DF8D3D1484B27E005638ED /* PatientPrescription.xib */,
+				A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */,
 				A7E9CC9F14743F94004EF3D4 /* PatientSearch.xib */,
 				A7E9CCA014743F94004EF3D4 /* ProgressiveSelection.xib */,
 				A7E9CCA114743F94004EF3D4 /* SelectionSubmenu.xib */,
@@ -1839,6 +1849,7 @@
 				A794A708148D4ADF00F4128B /* LoadingView.xib in Resources */,
 				A78A24E5148D69EC001AFE4A /* HomePage.xib in Resources */,
 				A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */,
+				A7DAC4FD148FEA2D00CFD968 /* PatientRecord.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1996,6 +2007,7 @@
 				A794A703148D4ADF00F4128B /* Coating.xib in Resources */,
 				A794A705148D4ADF00F4128B /* LensIndexView.xib in Resources */,
 				A794A707148D4ADF00F4128B /* LoadingView.xib in Resources */,
+				A7DAC4FC148FEA2D00CFD968 /* PatientRecord.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2090,6 +2102,7 @@
 				A78EB8EC1484563A00153C20 /* Coating.m in Sources */,
 				A78EB8ED1484563A00153C20 /* CoatingView.m in Sources */,
 				A78EB8EE1484563A00153C20 /* LensIndexView.m in Sources */,
+				A7DAC4F9148FEA1200CFD968 /* PatientRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2180,6 +2193,7 @@
 				A773170B147D7DB600D6338D /* SVSegmentedControl.m in Sources */,
 				A773170D147D7DB600D6338D /* SVSegmentedThumb.m in Sources */,
 				A724147C1481B20D003B3B0E /* BackgroundViewController.m in Sources */,
+				A7DAC4F8148FEA1200CFD968 /* PatientRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2303,7 +2317,7 @@
 		F18A2A4B144148E90059D635 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
@@ -2327,7 +2341,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64CFE08F-ACC0-4554-9E83-68B25A45F262";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -2373,7 +2387,7 @@
 		F1D2A44F141976F400E26C72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hoa Nguyen (7BWWC72UX5)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2396,7 +2410,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D4B18221-3C89-43FB-9D3F-142B3144DC4A";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2405,7 +2419,7 @@
 		F1D2A450141976F400E26C72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2427,7 +2441,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64CFE08F-ACC0-4554-9E83-68B25A45F262";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

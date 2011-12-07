@@ -74,9 +74,16 @@ extern ServiceObject* prescriptionXML;
 @synthesize packageIds;
 
 @synthesize packageInfo;
+@synthesize frameInfo;
+@synthesize lensTypeInfo;
+@synthesize lensMaterialInfo;
+@synthesize lensOptionInfo;
+
 @synthesize selectedFrameIndex;
 @synthesize selectedFrameId;
 @synthesize selectedPackageId;
+@synthesize selectedMaterialId;
+@synthesize selectedOptionIds;
 
 @synthesize hasSelectedLensType;
 @synthesize hasSelectedPackageType;
@@ -95,22 +102,23 @@ extern ServiceObject* prescriptionXML;
 		
 		self.selectedFrameIndex = -1;
 		
-		self.frmNames = [[NSMutableArray alloc] init];
-		self.frmIds = [[NSMutableArray alloc] init];
+		self.frmNames = [NSMutableArray array];
+		self.frmIds = [NSMutableArray array];
+		
+		
+		self.selectedOptionIds = [NSMutableArray array];
 
-		self.lensTypeIds = [[NSMutableArray alloc]
-						   initWithObjects:
+		self.lensTypeIds = [NSMutableArray arrayWithObjects:
 						   [NSNumber numberWithInt:24],
 						   [NSNumber numberWithInt:44], 
 						   [NSNumber numberWithInt:30],
 						   [NSNumber numberWithInt:43], nil];
 		
-		self.packageIds = [[NSMutableArray alloc]
-			initWithObjects:
-				[NSNumber numberWithInt:3],
-				[NSNumber numberWithInt:5], 
-				[NSNumber numberWithInt:7],
-				[NSNumber numberWithInt:0], nil];
+		self.packageIds = [NSMutableArray arrayWithObjects:
+						   [NSNumber numberWithInt:3],
+						   [NSNumber numberWithInt:5], 
+						   [NSNumber numberWithInt:7],
+						   [NSNumber numberWithInt:0], nil];
 		
 		self.hasSelectedLensType = NO;
 		self.hasSelectedPackageType = NO;
@@ -187,7 +195,11 @@ extern ServiceObject* prescriptionXML;
 	 object:self.materialList];
 	
 	[self setUpLensTypeBar];
-		
+	
+	ServiceObject* fso = [ServiceObject fromServiceMethod:@"GetAllFrameInfo" categoryKey:@"" startTag:@"Table"];
+	
+	self.frameInfo = fso;
+	
 	CALayer* layer;
 	
 	/*layer = self.frameView.layer;
@@ -243,6 +255,8 @@ extern ServiceObject* prescriptionXML;
 	
 	self.frameSelectorView.contentSize = CGSizeMake(1500, self.frameSelectorView.frame.size.height);
 	
+	[self createGradientForLayer:self.frameInfoView.layer];
+	
 	/*float height = self.packageSelectorView.frame.size.height;
 	self.packageSelectorView.contentSize = CGSizeMake(2100, height);
 	
@@ -280,31 +294,68 @@ extern ServiceObject* prescriptionXML;
 
 - (void)listsTableSelected:(NSNotification*)n
 {
-	NSLog(@"NOTIFICATION: %@, %@", n.name, n.object);
+	//NSLog(@"NOTIFICATION: %@, %@", n.name, n.object);
 	
 	NSInteger sectionIndex = [[n.userInfo objectForKey:@"sectionIndex"] integerValue];
 	NSInteger selectedRow = [[n.userInfo objectForKey:@"row"] integerValue];
-	NSLog(@"%d", selectedRow);
+	NSInteger isSelected = [[n.userInfo objectForKey:@"isSelected"] integerValue];
+	//NSLog(@"%d", selectedRow);
+
+	NSString* value = [self.materialList getOptionValueForSection:sectionIndex optionIndex:selectedRow];
 	
 	if (sectionIndex == 0)
 	{
-		NSString* value = [self.materialList getOptionValueForSection:sectionIndex optionIndex:selectedRow];
+		self.selectedMaterialId = [value intValue];
 		
 		[self setUpOptionListForMaterial:[value intValue]];
 	}
+	else if (sectionIndex == 1)
+	{
+		if (isSelected)
+			[self.selectedOptionIds addObject:value];
+		else if ([self.selectedOptionIds containsObject:value])
+			[self.selectedOptionIds removeObject:value];
+		
+		//NSLog(@"selected options: %@", self.selectedOptionIds);
+	}
+	else
+	{
+		return;
+	}
 	
+	[self updatePrice];
+}
+
+- (void)createGradientForLayer:(CALayer*)layerArg
+{
+	[layerArg setBorderColor:[UIColor whiteColor].CGColor];
+	[layerArg setCornerRadius:10.0f];
+	[layerArg setBorderWidth:3.0f];
+	[layerArg setMasksToBounds:YES];
+	
+	UIColor *veryLightGray = [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f];
+	CAGradientLayer *l = [CAGradientLayer layer];
+	//l.colors = [NSArray arrayWithObjects:[UIColor, nil
+	l.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.5f], [NSNumber numberWithFloat:1.0f], nil];
+	l.colors = [NSArray arrayWithObjects:veryLightGray.CGColor, [UIColor whiteColor].CGColor, veryLightGray.CGColor, nil];
+	l.frame = layerArg.bounds;
+	[layerArg insertSublayer:l atIndex:0];
 }
 
 - (void)listsTableSelectionCleared:(NSNotification*)n
 {
-	NSLog(@"NOTIFICATION: %@, %@", n.name, n.object);
+	//NSLog(@"NOTIFICATION: %@, %@", n.name, n.object);
 	
 	NSInteger sectionIndex = [[n.userInfo objectForKey:@"sectionIndex"] integerValue];
 		
 	if (sectionIndex == 0)
 	{
+		self.selectedMaterialId = -1;
+		[self.selectedOptionIds removeAllObjects];
 		[self.materialList removeSection:1];
 	}
+	
+	[self updatePrice];
 	
 }
 
@@ -313,6 +364,8 @@ extern ServiceObject* prescriptionXML;
 	[self.materialList removeSection:1];
 	[self.materialList removeSection:0];
 	
+	self.selectedMaterialId = -1;
+	
 	int si = [self.materialList addOrFindSection:@"Material" options:(1<<1)];
 	
 	//ServiceObject* mso = [ServiceObject fromServiceMethod:@"GetLensPlanMaterialAssociationInfoByLensPackageId?lensPackageId=0" categoryKey:@"" startTag:@"Table"];
@@ -320,6 +373,8 @@ extern ServiceObject* prescriptionXML;
 	//ServiceObject* mso = [ServiceObject fromServiceMethod:@"GetMaterialInfoByMaterialId?materialId=0" categoryKey:@"" startTag:@"Table"];
 	
 	ServiceObject* mso = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetLensMaterialInfoByLensTypeId?lensTypeId=%d", lensTypeId] categoryKey:@"" startTag:@"Table"];
+	
+	self.lensMaterialInfo = mso;
 	
 	BOOL hasObjs = YES;
 	
@@ -356,6 +411,8 @@ extern ServiceObject* prescriptionXML;
 	
 	ServiceObject* mso = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetCoveredOptionInfoByMaterialId?materialId=%d", materialId] categoryKey:@"" startTag:@"Table"];
 	
+	self.lensOptionInfo = mso;
+	
 	int si = [self.materialList addOrFindSection:@"Lens Options" options:(1<<1)|(1<<2)];
 	
 	BOOL hasObjs = YES;
@@ -378,10 +435,36 @@ extern ServiceObject* prescriptionXML;
 	[self.materialList.tableView reloadData];
 }
 
+- (UIColor*)colorFromHex:(NSString*)pvC
+{
+	NSLog(@"color hex %@", pvC);
+	
+	NSRange range;
+	range.location = 0;
+	range.length = 2;
+	NSString* rStr = [pvC substringWithRange:range];		
+	range.location = 2;
+	NSString* gStr = [pvC substringWithRange:range];
+	range.location = 4;		
+	NSString* bStr = [pvC substringWithRange:range];
+	
+	unsigned int r, g, b;
+	[[NSScanner scannerWithString:rStr] scanHexInt:&r];
+	[[NSScanner scannerWithString:gStr] scanHexInt:&g];
+	[[NSScanner scannerWithString:bStr] scanHexInt:&b];
+	
+	float red = (float) r / 255.0f;
+	float blue = (float) b / 255.0f;
+	float green = (float) g / 255.0f;
+	
+	UIColor *col = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+	return col;
+}
+
 - (void) setUpColorsForFrame:(int)frameId
 {	
-	NSString *cptCode = [self getField:@"CPTCode" forFrameId:frameId];
-	NSLog(@"cptCode %@", cptCode);
+	NSString *cptCode = [self getFrameField:@"CPTCode" forId:frameId];
+	//NSLog(@"cptCode %@", cptCode);
 	BOOL hasObjs = YES;
 	
 	int numColors = 0;
@@ -395,35 +478,57 @@ extern ServiceObject* prescriptionXML;
 	int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
 	NSMutableArray *tempFrmIds = [[NSMutableArray alloc] init];
 	
+	ServiceObject *so;
+	
+	if (packageId != 0)
+		so = self.packageInfo;
+	else
+		so = self.frameInfo;
+	
 	for (int cnt=1; hasObjs; cnt++)
 	{
 		NSString* key = [NSString stringWithFormat:@"Table%d", cnt];
-		id obj = [self.packageInfo.dict objectForKey:key];
+		id obj = [so.dict objectForKey:key];
 		
 		if (obj)
 		{
-			NSString* frameCode = [self.packageInfo getTextValueByName:[NSString stringWithFormat:@"%@/CPTCode", key]];
-			int cmpLensTypeId = [self.packageInfo getIntValueByName:[NSString stringWithFormat:@"%@/LensTypeId", key]];
-			int cmpPackageId = [self.packageInfo getIntValueByName:[NSString stringWithFormat:@"%@/LensPackageId", key]];
-			NSString* cmpFrameId = [self.packageInfo getTextValueByName:[NSString stringWithFormat:@"%@/FrameTypeId", key]];
+			NSString* frameCode = [so getTextValueByName:[NSString stringWithFormat:@"%@/CPTCode", key]];
 			
-			if (packageId == 0)
-				cmpPackageId = 0;
+			int cmpLensTypeId = lensTypeId;
+			int cmpPackageId = packageId;
 			
-			NSLog(@"frameCode compare: %@ vs %@", frameCode, cptCode);
+			NSString* cmpFrameId = [so getTextValueByName:[NSString stringWithFormat:@"%@/FrameTypeId", key]];
+			
+			if (packageId != 0)
+			{
+				cmpLensTypeId = [so getIntValueByName:[NSString stringWithFormat:@"%@/LensTypeId", key]];
+				cmpPackageId = [so getIntValueByName:[NSString stringWithFormat:@"%@/LensPackageId", key]];
+			}
+			
+			//NSLog(@"frameCode compare: %@ vs %@", frameCode, cptCode);
 			if ([frameCode isEqualToString:cptCode] && cmpLensTypeId == lensTypeId && cmpPackageId == packageId && ![tempFrmIds containsObject:cmpFrameId])
 			{
 				[tempFrmIds addObject:cmpFrameId];
-				int assocId = [self.packageInfo getIntValueByName:[NSString stringWithFormat:@"%@/AssociationId", key]];
-				NSString *colorStr = [self.packageInfo getTextValueByName:[NSString stringWithFormat:@"%@/FrameColor", key]];
-				NSLog(@"color: %@", colorStr);
-				self.selectedPackageId = assocId;
+				
+				NSString *colorStr = [so getTextValueByName:[NSString stringWithFormat:@"%@/FrameColor", key]];
+				//NSLog(@"color: %@", colorStr);
 				
 				UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
 				[b setBackgroundImage:cbimg forState:UIControlStateNormal];
 				//UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0,0,50,50)];
-				b.tag = [cmpFrameId intValue];
 				[b addTarget:self action:@selector(colorButtonClick:) forControlEvents:UIControlEventTouchDown];
+				
+				if (packageId != 0)
+				{
+					int assocId = 0;
+					assocId = [so getIntValueByName:[NSString stringWithFormat:@"%@/AssociationId", key]];
+					self.selectedPackageId = assocId;
+					b.tag = assocId;
+				}
+				else
+				{
+					b.tag = [cmpFrameId intValue];
+				}
 				
 				[self.colorView addSubview:b];
 				
@@ -432,7 +537,7 @@ extern ServiceObject* prescriptionXML;
 
 				CAGradientLayer *gl = [CAGradientLayer layer];
 				
-				UIColor *baseColor = [UIColor whiteColor];
+				/*UIColor *baseColor = [UIColor whiteColor];
 				
 				if ([colorStr hasSuffix:@"Hot"])
 					baseColor = [UIColor redColor];
@@ -453,20 +558,28 @@ extern ServiceObject* prescriptionXML;
 				if ([colorStr hasPrefix:@"Purple"])
 					baseColor = [UIColor purpleColor];
 				if ([colorStr hasSuffix:@"Sky"])
-					baseColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
+					baseColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];*/
+				
+				NSString* hexColor = [so getTextValueByName:[NSString stringWithFormat:@"%@/HexColorCode", key]];
+				NSString* hexColor2 = [so getTextValueByName:[NSString stringWithFormat:@"%@/HexColorCode2", key]];				
+				
+				UIColor *baseColor = [self colorFromHex:hexColor];
+				UIColor *baseColor2 = [self colorFromHex:hexColor2];
 				
 				if (baseColor != [UIColor whiteColor])
 				{
 					const CGFloat* ptr = CGColorGetComponents(baseColor.CGColor);
 					UIColor *col1 = [UIColor colorWithRed:ptr[0] green:ptr[1] blue:ptr[2] alpha:0.5f];
-					//UIColor *col2 = [UIColor colorWithRed:1.0f green:1.0f blue:0.0f alpha:0.5f];
-					UIColor *col2 = col1;
+					
+					const CGFloat* ptr2 = CGColorGetComponents(baseColor2.CGColor);
+					UIColor *col2 = [UIColor colorWithRed:ptr2[0] green:ptr2[1] blue:ptr2[2] alpha:0.5f];
+					
 					gl.colors = [NSArray arrayWithObjects:col1.CGColor, col2.CGColor, nil];
 					gl.frame = b.bounds;
 					[b.layer addSublayer:gl];
 				}
 				
-				NSLog(@"added color btn; number of subviews: %d", [self.colorView.subviews count]);
+				//NSLog(@"added color btn; number of subviews: %d", [self.colorView.subviews count]);
 				numColors++;
 				x += b.frame.size.width;
 			}
@@ -487,7 +600,23 @@ extern ServiceObject* prescriptionXML;
 - (void)colorButtonClick:(id)sender
 {
 	UIButton *b = (UIButton*)sender;
-	int frameId = b.tag;
+	
+	int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
+	
+	int frameId;
+	
+	if (packageId != 0)
+	{
+		int assocId = b.tag;
+		frameId = [[self getPackageField:@"FrameTypeId" forId:assocId] intValue];
+		
+		self.selectedPackageId = assocId;
+	}
+	else
+	{
+		frameId = b.tag;
+	}
+
 	[self selectFrame:frameId];
 }
 
@@ -514,7 +643,7 @@ extern ServiceObject* prescriptionXML;
 	svsc.thumb.backgroundImage = [UIImage imageNamed:@"PackageSelectionLensTypeBarHighlight.png"];
 	svsc.thumb.highlightedBackgroundImage = svsc.thumb.backgroundImage;
 	
-	//NSLog(@"%@", [UIFont fontNamesForFamilyName:@"Euphemia UCAS"]);
+	////NSLog(@"%@", [UIFont fontNamesForFamilyName:@"Euphemia UCAS"]);
 	
 	self.lensTypeBar = svsc;
 	
@@ -546,7 +675,7 @@ extern ServiceObject* prescriptionXML;
 	//svsc.thumb.backgroundImage = [UIImage imageNamed:@"PackageSelectionLensTypeBarHighlight.png"];
 	//svsc.thumb.highlightedBackgroundImage = svsc.thumb.backgroundImage;
 	
-	//NSLog(@"%@", [UIFont fontNamesForFamilyName:@"Euphemia UCAS"]);
+	////NSLog(@"%@", [UIFont fontNamesForFamilyName:@"Euphemia UCAS"]);
 	
 	//[svsc setFrame:CGRectMake(0, 0, 768, svsc.frame.size.height)];
 	
@@ -619,9 +748,18 @@ extern ServiceObject* prescriptionXML;
 	//[self.frameSelectorView release];
 	//self.frameSelectorView = [[UIScrollView alloc] initWithFrame:f];
 	
-	ServiceObject* so = [ServiceObject fromServiceMethod:@"GetLensTypePackageAssociationInfo?associationId=0" categoryKey:@"" startTag:@"Table"];
+	ServiceObject* so;
 	
-	self.packageInfo = so;
+	if (packageId != 0)
+	{
+		so = [ServiceObject fromServiceMethod:@"GetLensTypePackageAssociationInfo?associationId=0" categoryKey:@"" startTag:@"Table"];
+		
+		self.packageInfo = so;
+	}
+	else
+	{
+		so = self.frameInfo;
+	}
 	
 	BOOL hasObjs = YES;
 	
@@ -633,6 +771,7 @@ extern ServiceObject* prescriptionXML;
 	int fcnt=1;
 	for (int cnt=1; hasObjs; cnt++)
 	{
+		//NSLog(@"cnt %d", cnt);
 		NSString* key = [NSString stringWithFormat:@"Table%d", cnt];
 		id obj = [so.dict objectForKey:key];
 		
@@ -642,11 +781,16 @@ extern ServiceObject* prescriptionXML;
 			NSString* frameCode = [so getTextValueByName:[NSString stringWithFormat:@"%@/CPTCode", key]];
 			NSString* frameId = [so getTextValueByName:[NSString stringWithFormat:@"%@/FrameTypeId", key]];
 			
-			int cmpLensTypeId = [self.packageInfo getIntValueByName:[NSString stringWithFormat:@"%@/LensTypeId", key]];
-			int cmpPackageId = [self.packageInfo getIntValueByName:[NSString stringWithFormat:@"%@/LensPackageId", key]];
+			int cmpLensTypeId = lensTypeId;
+			int cmpPackageId = packageId; 
+			NSString* assocId = @"0";
 			
-			if (packageId == 0)
-				cmpPackageId = 0;
+			if (packageId != 0)
+			{
+				cmpLensTypeId = [so getIntValueByName:[NSString stringWithFormat:@"%@/LensTypeId", key]];
+				cmpPackageId = [so getIntValueByName:[NSString stringWithFormat:@"%@/LensPackageId", key]];
+				assocId = [so getTextValueByName:[NSString stringWithFormat:@"%@/AssociationId", key]];
+			}
 			
 			if ([frameCode length] > 0 && ![self.frmNames containsObject:frameCode] && cmpLensTypeId == lensTypeId && cmpPackageId == packageId)
 			{
@@ -677,10 +821,14 @@ extern ServiceObject* prescriptionXML;
 				[self.frameSelectorContent addSubview:cb];
 				[cb addTarget:self action:@selector(frameViewClicked:) forControlEvents:UIControlEventTouchUpInside];
 				cb.tag = fcnt-1;
-				NSLog(@"label added");
+				//NSLog(@"label added");
 				
 				[self.frmNames addObject:frameCode];
-				[self.frmIds addObject:frameId];
+				
+				if (packageId != 0)
+					[self.frmIds addObject:assocId];
+				else
+					[self.frmIds addObject:frameId];
 				
 				fcnt++;
 			}
@@ -698,33 +846,33 @@ extern ServiceObject* prescriptionXML;
 	else*/
 		[self selectFrameAtIndex:0];
 	
-	NSLog(@"views: %d", [self.frameSelectorView.subviews count]);
+	//NSLog(@"views: %d", [self.frameSelectorView.subviews count]);
 	
 }
 
 - (UIImage*)getFrameImage:(int)frameId
 {
 	NSString* url = [NSString stringWithFormat:@"http://smart-i.mobi/ShowFrameImage.aspx?frameId=%d", frameId];
-	NSLog(@"%@", url);
+	//NSLog(@"%@", url);
 	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
 	
 	return [UIImage imageWithData:imageData];
 }
 
-- (NSString*) getPackageKey:(int)frameId
+- (NSString*) getKey:(int)itemId fromObject:(ServiceObject*)so forFieldName:(NSString*)cmpFieldName
 {
-	BOOL hasObjs = [self.packageInfo hasData];
+	BOOL hasObjs = [so hasData];
 	
 	for (int cnt=1; hasObjs; cnt++)
 	{
 		NSString* key = [NSString stringWithFormat:@"Table%d", cnt];
-		id obj = [self.packageInfo.dict objectForKey:key];
+		id obj = [so.dict objectForKey:key];
 		
 		if (obj)
 		{
-			NSString* cmpFrameId = [self.packageInfo getTextValueByName:[NSString stringWithFormat:@"%@/FrameTypeId", key]];
+			NSString* cmpFrameId = [so getTextValueByName:[NSString stringWithFormat:@"%@/%@", key, cmpFieldName]];
 			
-			if ([cmpFrameId isEqualToString:[NSString stringWithFormat:@"%d", frameId]])
+			if ([cmpFrameId isEqualToString:[NSString stringWithFormat:@"%d", itemId]])
 			{
 				return key;
 			}
@@ -736,23 +884,43 @@ extern ServiceObject* prescriptionXML;
 	return nil;
 }
 
-- (NSString*) getField:(NSString*)fieldName forFrameId:(int)frameId
+- (NSString*) getField:(NSString*)fieldName fromObject:(ServiceObject*)so forId:(int)itemId cmpFieldName:(NSString*)cmpFieldName
 {
-	NSString* key = [self getPackageKey:frameId];
+	NSString* key = [self getKey:itemId fromObject:so forFieldName:cmpFieldName];
 	
 	if (key)
 	{
-		NSString* fieldValue = [self.packageInfo getTextValueByName:[NSString stringWithFormat:@"%@/%@", key, fieldName]];
+		NSString* fieldValue = [so getTextValueByName:[NSString stringWithFormat:@"%@/%@", key, fieldName]];
 		return fieldValue;
 	}
 	
 	return nil;
 }
 
+- (NSString*) getPackageField:(NSString*)fieldName forId:(int)frameId
+{
+	return [self getField:fieldName fromObject:self.packageInfo forId:frameId cmpFieldName:@"AssociationId"];
+}
+
+- (NSString*) getFrameField:(NSString*)fieldName forId:(int)frameId
+{
+	return [self getField:fieldName fromObject:self.frameInfo forId:frameId cmpFieldName:@"FrameTypeId"];
+}
+
+- (NSString*) getMaterialField:(NSString*)fieldName forId:(int)materialId
+{
+	return [self getField:fieldName fromObject:self.lensMaterialInfo forId:materialId cmpFieldName:@"MaterialId"];
+}
+
+- (NSString*) getOptionField:(NSString*)fieldName forId:(int)optionId
+{
+	return [self getField:fieldName fromObject:self.lensOptionInfo forId:optionId cmpFieldName:@"LensOptionId"];
+}
+
 - (void) frameViewClicked:(id)sender
 {
 	int frameNum = [sender tag];
-	NSLog(@"clicked %d", frameNum);
+	//NSLog(@"clicked %d", frameNum);
 	
 	[self selectFrameAtIndex:frameNum];
 }
@@ -763,13 +931,27 @@ extern ServiceObject* prescriptionXML;
 	
 	if (frameIdx < [self.frmIds count])
 	{
-		frameId = [[self.frmIds objectAtIndex:frameIdx] intValue];
+		int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
+		
+		if (packageId != 0)
+		{
+			int assocId = [[self.frmIds objectAtIndex:frameIdx] intValue];
+			frameId = [[self getPackageField:@"FrameTypeId" forId:assocId] intValue];
+			
+			self.selectedPackageId = assocId;
+		}
+		else
+		{
+			frameId = [[self.frmIds objectAtIndex:frameIdx] intValue];
+		}
 		
 		if (self.selectedFrameIndex != -1)
 		{
 			[[self.frameSelectorContent.subviews objectAtIndex:self.selectedFrameIndex*2] setBackgroundColor:[UIColor clearColor]];
 		}
+		
 		self.selectedFrameIndex = frameIdx;
+		
 	}
 	else
 	{
@@ -780,7 +962,7 @@ extern ServiceObject* prescriptionXML;
 }
 - (void) selectFrame:(int)frameId
 {
-	NSLog(@"selecting %d", frameId);
+	//NSLog(@"selecting %d", frameId);
 	
 	self.selectedFrameId = frameId;
 
@@ -792,15 +974,18 @@ extern ServiceObject* prescriptionXML;
 		//self.frameView.image = [[sv.subviews objectAtIndex:0] image];
 		self.frameView.image = [self getFrameImage:frameId];
 		
-		self.frameNameLabel.text = [self getField:@"CPTCode" forFrameId:self.selectedFrameId];
-		self.frameABox.text = [NSString stringWithFormat:@"%g", [[self getField:@"ABox" forFrameId:self.selectedFrameId] floatValue]];
-		self.frameBBox.text = [NSString stringWithFormat:@"%g", [[self getField:@"BBox" forFrameId:self.selectedFrameId] floatValue]];
-		self.frameED.text = [NSString stringWithFormat:@"%g", [[self getField:@"ED" forFrameId:self.selectedFrameId] floatValue]];
-		self.frameDBL.text = [NSString stringWithFormat:@"%g", [[self getField:@"DBL" forFrameId:self.selectedFrameId] floatValue]];
-		self.frameMfr.text = [self getField:@"FrameManufacturer" forFrameId:self.selectedFrameId];
-		self.frameTypeLabel.text = [self getField:@"FrameStyle" forFrameId:self.selectedFrameId];
-		self.frameCollection.text = [self getField:@"FrameCollection" forFrameId:self.selectedFrameId];
-		self.frameGender.text = [self getField:@"FrameGender" forFrameId:self.selectedFrameId];
+		self.frameNameLabel.text = [self getFrameField:@"CPTCode" forId:self.selectedFrameId];
+		self.frameABox.text = [NSString stringWithFormat:@"%g", [[self getFrameField:@"ABox" forId:self.selectedFrameId] floatValue]];
+		self.frameBBox.text = [NSString stringWithFormat:@"%g", [[self getFrameField:@"BBox" forId:self.selectedFrameId] floatValue]];
+		self.frameED.text = [NSString stringWithFormat:@"%g", [[self getFrameField:@"ED" forId:self.selectedFrameId] floatValue]];
+		self.frameDBL.text = [NSString stringWithFormat:@"%g", [[self getFrameField:@"DBL" forId:self.selectedFrameId] floatValue]];
+		self.frameTemple.text = [NSString stringWithFormat:@"%g", [[self getFrameField:@"TempleSize" forId:self.selectedFrameId] floatValue]];
+		self.frameMfr.text = [self getFrameField:@"FrameManufacturer" forId:self.selectedFrameId];
+		self.frameTypeLabel.text = [self getFrameField:@"Property_Frame_x0020_Type" forId:self.selectedFrameId];
+		self.frameCollection.text = [self getFrameField:@"Property_Collection" forId:self.selectedFrameId];
+		self.frameGender.text = [self getFrameField:@"Property_Gender" forId:self.selectedFrameId];
+		
+		self.frameColorLabel.text = [self getFrameField:@"FrameColor" forId:self.selectedFrameId];
 	}
 	else
 	{
@@ -811,33 +996,57 @@ extern ServiceObject* prescriptionXML;
 		self.frameBBox.text = @"";
 		self.frameED.text = @"";
 		self.frameDBL.text = @"";
+		self.frameTemple.text = @"";
 		
 		self.frameMfr.text = @"";
 		self.frameTypeLabel.text = @"";
 		self.frameCollection.text = @"";
 		self.frameGender.text = @"";		
+		self.frameColorLabel.text = @"";
 	}
 	
 	int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
 	
 	if (packageId > 0)
 	{
-		int materialId = [[self getField:@"MaterialId" forFrameId:self.selectedFrameId] intValue];
-		NSLog(@"materialId: %d", materialId);
+		int materialId = [[self getPackageField:@"MaterialId" forId:self.selectedPackageId] intValue];
+		//NSLog(@"materialId: %d", materialId);
 		[self setSelectedMaterial:materialId];
 		
-		int optionId = [[self getField:@"OptionId" forFrameId:self.selectedFrameId] intValue];
-		NSLog(@"optionId: %d", optionId);
+		int optionId = [[self getPackageField:@"OptionId" forId:self.selectedPackageId] intValue];
+		//NSLog(@"optionId: %d", optionId);
 		[self setSelectedOption:optionId inSection:1];
 		
-		int optionId2 = [[self getField:@"OptionIdtwo" forFrameId:self.selectedFrameId] intValue];
-		NSLog(@"optionId2: %d", optionId);
+		int optionId2 = [[self getPackageField:@"OptionIdtwo" forId:self.selectedPackageId] intValue];
+		//NSLog(@"optionId2: %d", optionId);
 		[self setSelectedOption:optionId2 inSection:1];
-		
-		float retailPrice = [[self getField:@"Price" forFrameId:self.selectedFrameId] intValue];
+	}
+	[self updatePrice];
+	
+	[self setUpColorsForFrame:frameId];
+}
+
+- (void) updatePrice
+{
+	int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
+	
+	if (packageId > 0)
+	{
+		float retailPrice = [[self getPackageField:@"Price" forId:self.selectedPackageId] floatValue];
 		self.retailPriceLbl.text = [NSString stringWithFormat:@"%.2f", retailPrice];
 
-		float vspPrice = [[self getField:@"VSPPrice" forFrameId:self.selectedFrameId] intValue];
+		float vspPrice = [[self getPackageField:@"VSPPrice" forId:self.selectedPackageId] floatValue];
+		self.vspPriceLbl.text = [NSString stringWithFormat:@"%.2f", vspPrice];
+		
+		float savings = retailPrice - vspPrice;
+		self.savingsLbl.text = [NSString stringWithFormat:@"%.2f", savings];
+	}
+	else if (packageId == 0)
+	{
+		float retailPrice = [self getCompleteCustomPrice];
+		self.retailPriceLbl.text = [NSString stringWithFormat:@"%.2f", retailPrice];
+		
+		float vspPrice = 0.0f;
 		self.vspPriceLbl.text = [NSString stringWithFormat:@"%.2f", vspPrice];
 		
 		float savings = retailPrice - vspPrice;
@@ -849,8 +1058,23 @@ extern ServiceObject* prescriptionXML;
 		self.vspPriceLbl.text = @"";
 		self.savingsLbl.text = @"";
 	}
+}
+
+- (float) getCompleteCustomPrice
+{
+	float totalPrice = 0.0f;
 	
-	[self setUpColorsForFrame:frameId];
+	totalPrice += [[self getFrameField:@"Price" forId:self.selectedFrameId] floatValue];
+	
+	totalPrice += [[self getMaterialField:@"Price" forId:self.selectedMaterialId] floatValue];
+	
+	for (NSString *oid in self.selectedOptionIds)
+	{
+		totalPrice += [[self getOptionField:@"Price" forId:[oid intValue]] floatValue];
+	}
+	
+	return totalPrice;
+	
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -924,7 +1148,7 @@ extern ServiceObject* prescriptionXML;
 	}
 	else
 	{
-		NSLog(@"Invalid response from web service at: %@", url);
+		//NSLog(@"Invalid response from web service at: %@", url);
 	}
 	
 }
@@ -1073,9 +1297,9 @@ extern ServiceObject* prescriptionXML;
 	
 	[tf resignFirstResponder];
 	[tf endEditing:YES];
-	NSLog(@"SPROING");
+	//NSLog(@"SPROING");
 	
-	NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
+	//NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
 	
 	PatientSearch *patient=[[PatientSearch alloc]init];
 	patient.title=@"Patient Selection";
@@ -1090,7 +1314,7 @@ extern ServiceObject* prescriptionXML;
 	
 	if ([returnedFrame length] > 0)
 	{
-		NSLog(@"Updating selected FrameId to %@", returnedFrame);
+		//NSLog(@"Updating selected FrameId to %@", returnedFrame);
 		[mobileSessionXML setObject:returnedFrame forKey:@"frameId"];
 		
 		[mobileSessionXML updateMobileSessionData];
@@ -1104,17 +1328,17 @@ extern ServiceObject* prescriptionXML;
 		return;
 	}
 	
-	if (self.selectedPackageId >= 0)
+	//if (self.selectedPackageId >= 0)
 	{
 		NSString *str = [NSString stringWithFormat:@"%d", self.selectedPackageId];
 		[mobileSessionXML setObject:str forKey:@"packageId"];
 		 
 		[mobileSessionXML updateMobileSessionData];
 	}
-	else
-	{
+	//else
+	//{
 		
-	}
+	//}
 	
 	if (currentPatientId == 0)
 	{

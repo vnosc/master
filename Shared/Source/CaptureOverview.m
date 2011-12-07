@@ -79,6 +79,16 @@ extern NSArray* patientImages;
 
 #pragma mark - View lifecycle
 
+- (void)createGradientForLayer:(CALayer*)layerArg
+{
+	CAGradientLayer *l = [CAGradientLayer layer];
+	//l.colors = [NSArray arrayWithObjects:[UIColor, nil
+	//l.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], [NSNumber numberWithFloat:0.6f], [NSNumber numberWithFloat:1.0f], nil];
+	l.colors = [NSArray arrayWithObjects:[UIColor lightGrayColor].CGColor, [UIColor darkGrayColor].CGColor, nil];
+	l.frame = layerArg.bounds;
+	[layerArg insertSublayer:l atIndex:0];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -94,12 +104,8 @@ extern NSArray* patientImages;
 	[self.frameInfo.layer setCornerRadius:25];
 	[self.frameInfo.layer setMasksToBounds:YES];
 	//CALayer *l = self.frameInfo.layer;
-	CAGradientLayer *l = [CAGradientLayer layer];
-	//l.colors = [NSArray arrayWithObjects:[UIColor, nil
-	//l.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], [NSNumber numberWithFloat:0.6f], [NSNumber numberWithFloat:1.0f], nil];
-	l.colors = [NSArray arrayWithObjects:[UIColor lightGrayColor].CGColor, [UIColor darkGrayColor].CGColor, nil];
-	l.frame = self.frameInfo.layer.bounds;
-	[self.frameInfo.layer insertSublayer:l atIndex:0];
+	
+	[self createGradientForLayer:self.frameInfo.layer];
 	
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
