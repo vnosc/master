@@ -7,6 +7,7 @@
 //
 
 #import "PackageSelection.h"
+#import "MemberSearch.h"
 
 #import "CaptureOverview.h"
 
@@ -156,6 +157,14 @@ extern ServiceObject* prescriptionXML;
 	UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:vc];
 	[pc presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
+
+- (IBAction)patientNameClicked:(id)sender {	
+	PatientRecord *patient=[[PatientRecord alloc]init];
+	patient.title=@"Patient Record";
+	//[self.navigationController pushViewController:patient animated:YES];
+	[self presentModalViewController:patient animated:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -166,9 +175,45 @@ extern ServiceObject* prescriptionXML;
 
 #pragma mark - View lifecycle
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	NSLog(@"we're outta here");
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	int memberId = [mobileSessionXML getIntValueByName:@"memberId"];
+	if (memberId == 0)
+	{
+		MemberSearch *patient=[[MemberSearch alloc]init];
+		patient.title=@"Member Search";
+		//[self.navigationController pushViewController:patient animated:YES];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"MemberSearchDidFinish" object:patient];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"MemberSearchDidCancel" object:patient];
+		
+		[self presentModalViewController:patient animated:YES];
+		return;
+	}
+	
+	[self loadEverything];
+}
+
+- (void)memberSearchDidFinish:(NSNotification*)n
+{
+	[self loadEverything];
+}
+
+- (void)memberSearchDidCancel:(NSNotification*)n
+{
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) loadEverything
+{
+	NSLog(@"View load");
 	
 	self.fontName = @"Verdana";
 	

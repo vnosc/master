@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PatientRecord : UIViewController
+@interface PatientRecord : BackgroundViewController
+- (IBAction)searchForDifferentPatient:(id)sender;
+- (IBAction)back:(id)sender;
 
 @end

@@ -202,6 +202,10 @@
 		A7DAC4F9148FEA1200CFD968 /* PatientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */; };
 		A7DAC4FC148FEA2D00CFD968 /* PatientRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */; };
 		A7DAC4FD148FEA2D00CFD968 /* PatientRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */; };
+		A7DAC4FF148FF42300CFD968 /* MemberSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */; };
+		A7DAC500148FF42300CFD968 /* MemberSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */; };
+		A7DAC502148FF43400CFD968 /* MemberSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAC501148FF43400CFD968 /* MemberSearch.m */; };
+		A7DAC503148FF43400CFD968 /* MemberSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAC501148FF43400CFD968 /* MemberSearch.m */; };
 		A7DF8D661484C410005638ED /* CaptureReticle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D651484C410005638ED /* CaptureReticle.png */; };
 		A7DF8D681484D0C6005638ED /* PackageSelectionColorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */; };
 		A7E9CCA914743F94004EF3D4 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD614743F94004EF3D4 /* 1.png */; };
@@ -655,6 +659,9 @@
 		A7DAC4F7148FEA1100CFD968 /* PatientRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientRecord.m; sourceTree = "<group>"; };
 		A7DAC4FA148FEA2200CFD968 /* PatientRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientRecord.h; sourceTree = "<group>"; };
 		A7DAC4FB148FEA2D00CFD968 /* PatientRecord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientRecord.xib; sourceTree = "<group>"; };
+		A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberSearch.xib; sourceTree = "<group>"; };
+		A7DAC501148FF43400CFD968 /* MemberSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberSearch.m; sourceTree = "<group>"; };
+		A7DAC504148FF44000CFD968 /* MemberSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberSearch.h; sourceTree = "<group>"; };
 		A7DF8D3D1484B27E005638ED /* PatientPrescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientPrescription.xib; sourceTree = "<group>"; };
 		A7DF8D651484C410005638ED /* CaptureReticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaptureReticle.png; sourceTree = "<group>"; };
 		A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageSelectionColorButton.png; sourceTree = "<group>"; };
@@ -1149,6 +1156,7 @@
 		A7E9CB9F14743F94004EF3D4 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				A7DAC504148FF44000CFD968 /* MemberSearch.h */,
 				A7E9CBA014743F94004EF3D4 /* Adjust.h */,
 				A724147A1481B20D003B3B0E /* BackgroundViewController.h */,
 				A7F9C49314756DEE00AA9C33 /* BillingTypeSelection.h */,
@@ -1371,6 +1379,7 @@
 		A7E9CC5314743F94004EF3D4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A7DAC501148FF43400CFD968 /* MemberSearch.m */,
 				A7E9CC5414743F94004EF3D4 /* Adjust.m */,
 				A724147B1481B20D003B3B0E /* BackgroundViewController.m */,
 				A7E9CC5514743F94004EF3D4 /* BHTabsFooterView.m */,
@@ -1433,6 +1442,7 @@
 		A7E9CC8714743F94004EF3D4 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */,
 				A7DF8D241484B27E005638ED /* XIB */,
 				A7E9CC8814743F94004EF3D4 /* Adjust.xib */,
 				A7E9CC8914743F94004EF3D4 /* BillingTypeSelection.xib */,
@@ -1850,6 +1860,7 @@
 				A78A24E5148D69EC001AFE4A /* HomePage.xib in Resources */,
 				A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */,
 				A7DAC4FD148FEA2D00CFD968 /* PatientRecord.xib in Resources */,
+				A7DAC500148FF42300CFD968 /* MemberSearch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2008,6 +2019,7 @@
 				A794A705148D4ADF00F4128B /* LensIndexView.xib in Resources */,
 				A794A707148D4ADF00F4128B /* LoadingView.xib in Resources */,
 				A7DAC4FC148FEA2D00CFD968 /* PatientRecord.xib in Resources */,
+				A7DAC4FF148FF42300CFD968 /* MemberSearch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2103,6 +2115,7 @@
 				A78EB8ED1484563A00153C20 /* CoatingView.m in Sources */,
 				A78EB8EE1484563A00153C20 /* LensIndexView.m in Sources */,
 				A7DAC4F9148FEA1200CFD968 /* PatientRecord.m in Sources */,
+				A7DAC503148FF43400CFD968 /* MemberSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2194,6 +2207,7 @@
 				A773170D147D7DB600D6338D /* SVSegmentedThumb.m in Sources */,
 				A724147C1481B20D003B3B0E /* BackgroundViewController.m in Sources */,
 				A7DAC4F8148FEA1200CFD968 /* PatientRecord.m in Sources */,
+				A7DAC502148FF43400CFD968 /* MemberSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

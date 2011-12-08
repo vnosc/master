@@ -10,6 +10,7 @@
 
 #import "ListsTableViewController.h"
 #import "PatientPrescription.h"
+#import "PatientRecord.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -96,6 +97,7 @@
 
 - (IBAction)clickSingleVision:(id)sender;
 - (IBAction)frameImagePopup:(id)sender;
+- (IBAction)patientNameClicked:(id)sender;
 
 - (void) updateAllPackageInfo;
 - (void) loadAllDataByPackage;

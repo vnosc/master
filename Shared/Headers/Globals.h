@@ -11,6 +11,7 @@
 
 int providerId = 0;
 ServiceObject* mobileSessionXML;
+ServiceObject* memberXML;
 ServiceObject* patientXML;
 ServiceObject* prescriptionXML;
 ServiceObject* frameXML;

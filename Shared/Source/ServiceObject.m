@@ -168,6 +168,7 @@
 	NSString* sessionId = [self getTextValueByName:@"sessionId"];
 	int frameId = [self getIntValueByName:@"frameId"];
 	int lensTypeId = [self getIntValueByName:@"lensTypeId"];
+	NSString* memberId = [self getTextValueByName:@"memberId"];
 	int patientId = [self getIntValueByName:@"patientId"];
 	int prescriptionId = [self getIntValueByName:@"prescriptionId"];
 	int materialId = [self getIntValueByName:@"materialId"];
@@ -177,7 +178,7 @@
 	int lensBrandId = [self getIntValueByName:@"lensBrandId"];
 	int lensDesignId = [self getIntValueByName:@"lensDesignId"];
 	
-	NSString *updurl=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/UpdateMobileSessionInfo?rowId=%d&providerId=%d&sessionId=%@&frameId=%d&lensTypeId=%d&patientId=%d&prescriptionId=%d&materialId=%d&lensOptionIds=%@&materialColorId=%d&tintColorId=%d&lensBrandId=%d&lensDesignId=%d", rowId, providerId, sessionId, frameId, lensTypeId, patientId, prescriptionId, materialId, lensOptionIds, materialColorId, tintColorId, lensBrandId, lensDesignId];
+	NSString *updurl=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/UpdateMobileSessionInfo?rowId=%d&providerId=%d&sessionId=%@&frameId=%d&lensTypeId=%d&memberId=%@&patientId=%d&prescriptionId=%d&materialId=%d&lensOptionIds=%@&materialColorId=%d&tintColorId=%d&lensBrandId=%d&lensDesignId=%d", rowId, providerId, sessionId, frameId, lensTypeId, memberId, patientId, prescriptionId, materialId, lensOptionIds, materialColorId, tintColorId, lensBrandId, lensDesignId];
 	
 	
 	NSLog(@"%@", updurl);
