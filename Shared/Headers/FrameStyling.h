@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CaptureOverview.h"
+#import "PatientRecord.h"
 
 @interface FrameStyling : BackgroundViewController <CAAction>
 //@interface FrameStyling : BackgroundViewController <CAAction>

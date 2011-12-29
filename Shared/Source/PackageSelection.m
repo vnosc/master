@@ -73,6 +73,8 @@ extern ServiceObject* prescriptionXML;
 @synthesize frmIds;
 @synthesize lensTypeIds;
 @synthesize packageIds;
+@synthesize lensTypeNames;
+@synthesize packageNames;
 
 @synthesize packageInfo;
 @synthesize frameInfo;
@@ -88,6 +90,8 @@ extern ServiceObject* prescriptionXML;
 
 @synthesize hasSelectedLensType;
 @synthesize hasSelectedPackageType;
+@synthesize hackAltLifeStyleMode;
+@synthesize hasLoaded;
 
 @synthesize HUD;
 @synthesize retailPriceLbl;
@@ -108,21 +112,10 @@ extern ServiceObject* prescriptionXML;
 		
 		
 		self.selectedOptionIds = [NSMutableArray array];
-
-		self.lensTypeIds = [NSMutableArray arrayWithObjects:
-						   [NSNumber numberWithInt:24],
-						   [NSNumber numberWithInt:44], 
-						   [NSNumber numberWithInt:30],
-						   [NSNumber numberWithInt:43], nil];
-		
-		self.packageIds = [NSMutableArray arrayWithObjects:
-						   [NSNumber numberWithInt:3],
-						   [NSNumber numberWithInt:5], 
-						   [NSNumber numberWithInt:7],
-						   [NSNumber numberWithInt:0], nil];
 		
 		self.hasSelectedLensType = NO;
 		self.hasSelectedPackageType = NO;
+		self.hackAltLifeStyleMode = NO;
 		
 		/*UIBarButtonItem* button1 = [self.toolbar.items objectAtIndex:0];
 		
@@ -158,7 +151,13 @@ extern ServiceObject* prescriptionXML;
 	[pc presentPopoverFromRect:r inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (IBAction)patientNameClicked:(id)sender {	
+- (IBAction)patientNameClicked:(NSNotification *)n {	
+	
+	UITextField *tf = (UITextField*) n.object;
+	
+	[tf resignFirstResponder];
+	[tf endEditing:YES];
+	
 	PatientRecord *patient=[[PatientRecord alloc]init];
 	patient.title=@"Patient Record";
 	//[self.navigationController pushViewController:patient animated:YES];
@@ -184,23 +183,99 @@ extern ServiceObject* prescriptionXML;
 {
     [super viewDidLoad];
 	
-	int memberId = [mobileSessionXML getIntValueByName:@"memberId"];
-	if (memberId == 0)
+	self.hasLoaded = NO;
+	
+	if (!self.hackAltLifeStyleMode)
 	{
-		MemberSearch *patient=[[MemberSearch alloc]init];
-		patient.title=@"Member Search";
+		self.lensTypeIds = [NSMutableArray arrayWithObjects:
+							[NSNumber numberWithInt:24],
+							[NSNumber numberWithInt:44], 
+							[NSNumber numberWithInt:30],
+							[NSNumber numberWithInt:43], nil];
+		
+		self.packageIds = [NSMutableArray arrayWithObjects:
+						   [NSNumber numberWithInt:3],
+						   [NSNumber numberWithInt:5], 
+						   [NSNumber numberWithInt:7],
+						   [NSNumber numberWithInt:0], nil];
+		
+		self.lensTypeNames = [NSMutableArray arrayWithObjects:
+							  @"Single Vision",
+							  @"Digital Single Vision",
+							  @"Progressive",
+							  @"Digital Progressive", nil];
+		
+		self.packageNames = [NSMutableArray arrayWithObjects:
+							 @"Signature Vision",
+							 @"Gold Vision",
+							 @"Platinum",
+							 @"Custom", nil];
+	}
+	else
+	{
+		self.lensTypeIds = [NSMutableArray arrayWithObjects:
+							[NSNumber numberWithInt:46], nil];
+		
+		self.packageIds = [NSMutableArray arrayWithObjects:
+						   [NSNumber numberWithInt:0],
+						   [NSNumber numberWithInt:0], 
+						   [NSNumber numberWithInt:0],
+						   [NSNumber numberWithInt:0], 
+						   [NSNumber numberWithInt:0],
+						   [NSNumber numberWithInt:0], 
+						   nil];
+		
+		self.lensTypeNames = [NSMutableArray arrayWithObjects:
+							  @"Sport",
+							  nil];
+		
+		self.packageNames = [NSMutableArray arrayWithObjects:
+							 @"Golf",
+							 @"Baseball/Training",
+							 @"Running",
+							 @"Snow/Water", 
+							 @"Tennis",
+							 @"Cycling", 							
+							 nil];		
+	}
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	if (!self.hasLoaded)
+	{
+		[self setupView];
+	}
+	
+	[self loadPatientData:patientXML];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	NSString* memberId = [mobileSessionXML getTextValueByName:@"memberId"];
+	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+	if (memberId == @"0" || patientId == 0)
+	{
+		PatientRecord *patient=[[PatientRecord alloc]init];
+		patient.title=@"Patient Record";
 		//[self.navigationController pushViewController:patient animated:YES];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"MemberSearchDidFinish" object:patient];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"MemberSearchDidCancel" object:patient];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"PatientRecordDidFinish" object:patient];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"PatientRecordDidCancel" object:patient];
 		
 		[self presentModalViewController:patient animated:YES];
 		return;
 	}
 	
-	[self loadEverything];
+	if (!self.hasLoaded)
+	{
+		[self loadEverything];
+	}
 }
-
 - (void)memberSearchDidFinish:(NSNotification*)n
 {
 	[self loadEverything];
@@ -208,10 +283,11 @@ extern ServiceObject* prescriptionXML;
 
 - (void)memberSearchDidCancel:(NSNotification*)n
 {
+	NSLog(@"cancelled member search in package selection");
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) loadEverything
+- (void) setupView
 {
 	NSLog(@"View load");
 	
@@ -241,6 +317,25 @@ extern ServiceObject* prescriptionXML;
 	
 	[self setUpLensTypeBar];
 	
+	self.frameSelectorView.contentSize = CGSizeMake(1500, self.frameSelectorView.frame.size.height);
+	
+	[self createGradientForLayer:self.frameInfoView.layer];
+	
+}
+
+- (void) loadEverything
+{
+	
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.labelText = @"Downloading info...";
+	
+	[HUD showWhileExecuting:@selector(doLoadEverything) onTarget:self withObject:self animated:YES];
+}
+
+- (void) doLoadEverything
+{
 	ServiceObject* fso = [ServiceObject fromServiceMethod:@"GetAllFrameInfo" categoryKey:@"" startTag:@"Table"];
 	
 	self.frameInfo = fso;
@@ -277,14 +372,6 @@ extern ServiceObject* prescriptionXML;
 	[layer setBorderWidth:3.0f];
 	[layer setMasksToBounds:YES];*/
 	
-	for (UIButton *btn in self.colorBtn)
-	{
-		layer = btn.layer;
-		[layer setCornerRadius:10];
-		[layer setBorderWidth:1.0f];
-		[layer setMasksToBounds:YES];		
-	}
-	
 	[self getLatestPatientFromService];
 	
 	[self loadPatientImages];
@@ -297,10 +384,6 @@ extern ServiceObject* prescriptionXML;
 	id img = [patientImages objectAtIndex:0];
 	if (img != [NSNull null])
 		self.patientPreview.image = [patientImages objectAtIndex:0];
-	
-	self.frameSelectorView.contentSize = CGSizeMake(1500, self.frameSelectorView.frame.size.height);
-	
-	[self createGradientForLayer:self.frameInfoView.layer];
 	
 	/*float height = self.packageSelectorView.frame.size.height;
 	self.packageSelectorView.contentSize = CGSizeMake(2100, height);
@@ -330,9 +413,13 @@ extern ServiceObject* prescriptionXML;
 	
 	self.packageSelectorView.backgroundColor = btvc.style.selectedTabColor;*/
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickedPatientName:) name:@"UITextFieldTextDidBeginEditingNotification" object:self.txtPatientName];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientNameClicked:) name:@"UITextFieldTextDidBeginEditingNotification" object:self.txtPatientName];
 	
-		[self getLatestPrescriptionFromService];
+	[self getLatestPrescriptionFromService];
+	
+	[self loadPatientData:patientXML];
+	
+	self.hasLoaded = YES;
 	
     // Do any additional setup after loading the view from its nib.
 }
@@ -672,12 +759,16 @@ extern ServiceObject* prescriptionXML;
 
 - (void) setUpLensTypeBar
 {
-	SVSegmentedControl *svsc = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"Single Vision", @"Digital Single Vision", @"Progressive", @"Digital Progressive", nil]];
+	SVSegmentedControl *svsc = [[SVSegmentedControl alloc] initWithSectionTitles:self.lensTypeNames];
 	svsc.selectedIndex = -1;
 	svsc.font = [UIFont fontWithName:self.fontName size:17.0f];
 	//svsc.crossFadeLabelsOnDrag = YES;
 	svsc.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 10, 5);
-	svsc.thumbEdgeInset = UIEdgeInsetsMake(0, 0, 8, 0);
+	
+	if (!self.hackAltLifeStyleMode)
+	svsc.thumbEdgeInset = UIEdgeInsetsMake(0, 0, 8, 0);		
+	else
+	svsc.thumbEdgeInset = UIEdgeInsetsMake(0, 10, 8, 10);
 	//svsc.thumbEdgeInset = UIEdgeInsetsMake(5, 5, 10, 5);
 	svsc.shadowOffset = CGSizeZero;
 	svsc.layer.anchorPoint = CGPointZero;
@@ -700,7 +791,7 @@ extern ServiceObject* prescriptionXML;
 
 - (void) setUpPackageBar:(int)packageIdx
 {
-	SVSegmentedControl *svsc = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"Signature Vision", @"Gold Vision", @"Platinum", @"Custom", nil]];
+	SVSegmentedControl *svsc = [[SVSegmentedControl alloc] initWithSectionTitles:self.packageNames];
 	
 	svsc.selectedIndex = -1;
 	svsc.font = [UIFont fontWithName:self.fontName size:13.0f];
@@ -728,7 +819,10 @@ extern ServiceObject* prescriptionXML;
 	
 	[self.mainSectionView addSubview:self.packageBar];	
 	
-	[svsc setFrame:CGRectMake(40, self.lensTypeBar.frame.origin.y+self.lensTypeBar.frame.size.height-6, self.packageInfoView.frame.origin.x-30, svsc.frame.size.height)];
+	if (!self.hackAltLifeStyleMode)
+		[svsc setFrame:CGRectMake(40, self.lensTypeBar.frame.origin.y+self.lensTypeBar.frame.size.height-6, self.packageInfoView.frame.origin.x-30, svsc.frame.size.height)];
+	else
+		[svsc setFrame:CGRectMake(-10, self.lensTypeBar.frame.origin.y+self.lensTypeBar.frame.size.height-6, svsc.frame.size.width, svsc.frame.size.height)];
 
 	[svsc addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
 }
@@ -762,7 +856,7 @@ extern ServiceObject* prescriptionXML;
 		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 		[self.navigationController.view addSubview:HUD];
 		
-		HUD.labelText = @"Downloading package info...";
+		HUD.labelText = @"Updating package info...";
 		
 		[HUD showWhileExecuting:@selector(loadAllDataByPackage) onTarget:self withObject:self animated:YES];
 	}
@@ -837,7 +931,13 @@ extern ServiceObject* prescriptionXML;
 				assocId = [so getTextValueByName:[NSString stringWithFormat:@"%@/AssociationId", key]];
 			}
 			
-			if ([frameCode length] > 0 && ![self.frmNames containsObject:frameCode] && cmpLensTypeId == lensTypeId && cmpPackageId == packageId)
+			BOOL extraComp = ![frameCode hasPrefix:@"EVO"];
+			if (self.hackAltLifeStyleMode)
+			{
+				extraComp = !extraComp;
+			}
+			
+			if ([frameCode length] > 0 && ![self.frmNames containsObject:frameCode] && cmpLensTypeId == lensTypeId && cmpPackageId == packageId && extraComp)
 			{
 				
 				UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,90,60)];
@@ -1122,13 +1222,6 @@ extern ServiceObject* prescriptionXML;
 	
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-	[self loadPatientData:patientXML];
-	
-	[super viewWillAppear:animated];
-}
-
 - (void) getLatestPatientFromService
 {
 	
@@ -1139,10 +1232,10 @@ extern ServiceObject* prescriptionXML;
 
 - (void) loadPatientData:(ServiceObject *)patient
 {
-	if ([patientXML hasData] && [patientXML.dict objectForKey:@"firstName"])
+	if ([patientXML hasData] && [patientXML.dict objectForKey:@"FirstName"])
 	{
-		[self.txtMemberId setText:[patient getTextValueByName:@"memberId"]];
-		[self.txtPatientName setText:[NSString stringWithFormat:@"%@ %@", [patient getTextValueByName:@"firstName"], [patient getTextValueByName:@"lastName"]]];
+		[self.txtMemberId setText:[patient getTextValueByName:@"MemberId"]];
+		[self.txtPatientName setText:[patient getTextValueByName:@"PatientFullName"]];
 	}
 }
 
@@ -1175,7 +1268,7 @@ extern ServiceObject* prescriptionXML;
 
 - (void) getLatestPrescriptionFromService
 {
-	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"patientId"]];
+	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]];
 	
 	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
 	prescriptionXML = [[ServiceObject alloc] initWithTBXML:tbxml];
@@ -1336,28 +1429,13 @@ extern ServiceObject* prescriptionXML;
 	[super dealloc];
 }
 
--(void)clickedPatientName:(NSNotification*)n
-{
-	UITextField *tf = (UITextField*) n.object;
-	
-	[tf resignFirstResponder];
-	[tf endEditing:YES];
-	//NSLog(@"SPROING");
-	
-	//NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
-	
-	PatientSearch *patient=[[PatientSearch alloc]init];
-	patient.title=@"Patient Selection";
-	//[self.navigationController pushViewController:patient animated:YES];
-	[self presentModalViewController:patient animated:YES];
-}
-
 - (IBAction)selectAndContinue:(id)sender {
 	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	
 	NSString* returnedFrame = [NSString stringWithFormat:@"%d", self.selectedFrameId];
 	
-	if ([returnedFrame length] > 0)
+	NSLog(@"returnedFrame %@", returnedFrame);
+	if ([returnedFrame length] > 0 && [returnedFrame intValue] > 0)
 	{
 		//NSLog(@"Updating selected FrameId to %@", returnedFrame);
 		[mobileSessionXML setObject:returnedFrame forKey:@"frameId"];
@@ -1373,7 +1451,8 @@ extern ServiceObject* prescriptionXML;
 		return;
 	}
 	
-	//if (self.selectedPackageId >= 0)
+	//int packageId = [[self.packageIds objectAtIndex:self.packageBar.selectedIndex] intValue];
+	//if (self.selectedPackageId >= 0 || packageId==0)
 	{
 		NSString *str = [NSString stringWithFormat:@"%d", self.selectedPackageId];
 		[mobileSessionXML setObject:str forKey:@"packageId"];
@@ -1387,10 +1466,10 @@ extern ServiceObject* prescriptionXML;
 	
 	if (currentPatientId == 0)
 	{
-		PatientSearch *patient=[[PatientSearch alloc]init];
-		patient.title=@"Patient Selection";
+		PatientRecord *patient=[[PatientRecord alloc]init];
+		patient.title=@"Patient Record";
 		//[self.navigationController pushViewController:patient animated:YES];
-				[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishContinue:) name:@"PatientSearchDidFinish" object:nil];
+				[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishContinue:) name:@"PatientRecordDidFinish" object:nil];
 		
 		[self presentModalViewController:patient animated:YES];
 	}
@@ -1400,7 +1479,7 @@ extern ServiceObject* prescriptionXML;
 
 - (void)finishContinue:(id)sender
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"PatientSearchDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"PatientRecordDidFinish" object:nil];
 	
 	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	

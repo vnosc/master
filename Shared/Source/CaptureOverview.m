@@ -47,6 +47,8 @@ extern NSArray* patientImages;
 
 @synthesize selectedImageView;
 
+@synthesize wantsToFinish;
+
 @synthesize HUD;
 
 - (id)init
@@ -107,38 +109,56 @@ extern NSArray* patientImages;
 	
 	[self createGradientForLayer:self.frameInfo.layer];
 	
-	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
-	
 	[self getLatestPatientFromService];
 	
 	[self getFrameInfoFromService];
 	
 	captureVC = [[CapturePicture alloc]init];
 	captureVC.title=@"Image Capture";
-
-	HUD.labelText = @"Downloading images...";
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickedPatientName:) name:@"UITextFieldTextDidBeginEditingNotification" object:self.txtPatientName];
 	
-	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test:) name:@"UINavigationControllerDidShowViewControllerNotification" object:self.navigationController];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelFinish:) name:@"PatientRecordDidCancel" object:nil];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelFinish:) name:@"SupplyFrameInfoDidCancel" object:nil];
+	
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+
+	HUD.labelText = @"Downloading images...";
 	
 	[HUD showWhileExecuting:@selector(loadPatientImages:) onTarget:self withObject:self animated:YES];
-	//[HUD show:YES];
-	
-    //HUD.delegate = self;
 	
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void) cancelFinish:(NSNotification*)n
+{
+	if (self.wantsToFinish)
+	{
+		NSLog(@"finish process cancelled");
+		self.wantsToFinish = NO;
+	}
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
 	[self loadPatientData:patientXML];
 	[self loadFrameData:frameXML];
+	[self refreshPatientImages];
 	
 	[super viewWillAppear:animated];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	if (self.wantsToFinish)
+	{
+		[self validateAll];
+	}
+}
 - (void) getLatestPatientFromService
 {
 	
@@ -149,10 +169,10 @@ extern NSArray* patientImages;
 
 - (void) loadPatientData:(ServiceObject *)patient
 {
-	if ([patientXML hasData] && [patientXML.dict objectForKey:@"firstName"])
+	if ([patientXML hasData] && [patientXML.dict objectForKey:@"FirstName"])
 	{
-		[self.txtMemberId setText:[patient getTextValueByName:@"memberId"]];
-		[self.txtPatientName setText:[NSString stringWithFormat:@"%@ %@", [patient getTextValueByName:@"firstName"], [patient getTextValueByName:@"lastName"]]];
+		[self.txtMemberId setText:[patient getTextValueByName:@"MemberId"]];
+		[self.txtPatientName setText:[patient getTextValueByName:@"PatientFullName"]];
 	}
 }
 
@@ -192,6 +212,23 @@ extern NSArray* patientImages;
 
 }
 
+- (void) refreshPatientImages
+{
+	int cnt=0;
+	
+	for (UIImageView* obj in self.imageViews)
+	{
+		
+		id img = [patientImages objectAtIndex:cnt];
+		if (img == [NSNull null])
+			obj.image = nil;
+		else
+			obj.image = img;
+		
+		cnt++;
+	}
+}
+
 - (void) getFrameInfoFromService
 {	
 	int frameIdx = [mobileSessionXML getIntValueByName:@"frameId"];
@@ -210,8 +247,8 @@ extern NSArray* patientImages;
 - (void) loadFrameData:(ServiceObject *)frame
 {
 	self.frameMfr.text = [frame getTextValueByName:@"FrameManufacturer"];
-	self.frameModel.text = [frame getTextValueByName:@"FrameModel"];
-	self.frameType.text = [frame getTextValueByName:@"FrameStyle"];
+	self.frameModel.text = [frame getTextValueByName:@"FrameType"];
+	self.frameType.text = [frame getTextValueByName:@"Property_Frame_x0020_Type"];
 	self.frameColor.text = [frame getTextValueByName:@"FrameColor"];
 	self.frameABox.text = [frame getTextValueByName:@"ABox"];
 	self.frameBBox.text = [frame getTextValueByName:@"BBox"];
@@ -330,6 +367,12 @@ extern NSArray* patientImages;
 		cnt++;
 	}*/
 	
+	self.wantsToFinish = YES;
+	[self validateAll];
+}	
+
+- (void) validateAll
+{
 	BOOL isValid = YES;
 	
 	isValid = isValid && [self validatePatient];
@@ -345,11 +388,11 @@ extern NSArray* patientImages;
 	
 	if (currentPatientId == 0)
 	{
-		PatientSearch *patient=[[PatientSearch alloc]init];
-		patient.title=@"Patient Selection";
+		PatientRecord *patient=[[PatientRecord alloc]init];
+		patient.title=@"Patient Record";
 		//[self.navigationController pushViewController:patient animated:YES];
 
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAndContinue:) name:@"PatientSearchDidFinish" object:nil];
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAndContinue:) name:@"PatientRecordDidFinish" object:patient];
 		
 		[self presentModalViewController:patient animated:YES];
 		
@@ -374,7 +417,7 @@ extern NSArray* patientImages;
 		frame.updateFrame = YES;
 		//[self.navigationController pushViewController:patient animated:YES];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAndContinue:) name:@"SupplyFrameInfoDidFinish" object:nil];
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAndContinue:) name:@"SupplyFrameInfoDidFinish" object:nil];
 		
 		[self presentModalViewController:frame animated:YES];
 		
@@ -393,7 +436,7 @@ extern NSArray* patientImages;
 {
 	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"PatientSearchDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"PatientRecordDidFinish" object:nil];
 	
 	if (currentPatientId != 0)
 	{
@@ -405,6 +448,8 @@ extern NSArray* patientImages;
 		patientImages = [[[NSArray alloc] initWithObjects:img1, img2, img3, img4, nil] retain];
 		
 		[self performSelectorInBackground:@selector(uploadImages:) withObject:self];
+		
+		self.wantsToFinish = NO;
 		
 		MeasureOverview *p = [[MeasureOverview alloc]init];
 		p.title=@"Eye Measurement";
@@ -426,11 +471,11 @@ extern NSArray* patientImages;
 		if (uiv.image)
 		{
 			NSString* suffix = [suffixes objectAtIndex:i];
-			NSString *fileName = [NSString stringWithFormat:@"%d_%@.jpg", patientId, suffix];
+			NSString *fileName = [NSString stringWithFormat:@"%d_%@.png", patientId, suffix];
 			
 			// Upload an image
 			NSData *imageData = UIImageJPEGRepresentation(uiv.image, 0);
-			[request addData:imageData withFileName:fileName andContentType:@"image/jpeg" forKey:[NSString stringWithFormat:@"image_%@", suffix]];
+			[request addData:imageData withFileName:fileName andContentType:@"image/png" forKey:[NSString stringWithFormat:@"image_%@", suffix]];
 		}
 	}
 	
@@ -473,8 +518,8 @@ extern NSArray* patientImages;
 	
 	NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
 	
-	PatientSearch *patient=[[PatientSearch alloc]init];
-	patient.title=@"Patient Selection";
+	PatientRecord *patient=[[PatientRecord alloc]init];
+	patient.title=@"Patient Record";
 	//[self.navigationController pushViewController:patient animated:YES];
 	[self presentModalViewController:patient animated:YES];
 }

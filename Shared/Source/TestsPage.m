@@ -92,6 +92,12 @@
 	[self.navigationController pushViewController:p animated:YES];
 }
 
+- (IBAction)wrapAngleMeasureClick:(id)sender {
+	MeasureWrapAngle *p = [[MeasureWrapAngle alloc] init];
+	p.title = @"Measure Wrap Angle";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
 #endif
 
 @end

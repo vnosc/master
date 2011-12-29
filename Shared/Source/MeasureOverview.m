@@ -38,6 +38,7 @@ extern ServiceObject* prescriptionXML;
 @synthesize imageLabel2;
 @synthesize imageLabel3;
 @synthesize imageLabel4;
+@synthesize measureDetailView;
 
 @synthesize measureVC;
 @synthesize suffixes;
@@ -74,6 +75,12 @@ extern ServiceObject* prescriptionXML;
 	
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
 	
+	[self.measureDetailView.layer setBorderWidth:3.0f];
+	[self.measureDetailView.layer setCornerRadius:25];
+	[self.measureDetailView.layer setMasksToBounds:YES];
+	//CALayer *l = self.frameInfo.layer;
+	
+	[self createGradientForLayer:self.measureDetailView.layer];
 	
 	self.imageLabel1.layer.backgroundColor = [UIColor blackColor].CGColor;
 	self.imageLabel2.layer.backgroundColor = [UIColor blackColor].CGColor;
@@ -106,7 +113,7 @@ extern ServiceObject* prescriptionXML;
 	int patientIdv = [mobileSessionXML getIntValueByName:@"patientId"];
 	patientXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetPatientInfo?patientId=%d", patientIdv]];
 	
-	if ([patientXML hasData] && [patientXML.dict objectForKey:@"firstName"])
+	if ([patientXML hasData] && [patientXML.dict objectForKey:@"FirstName"])
 	{
 		[self loadPatientData:patientXML];
 	}
@@ -115,8 +122,8 @@ extern ServiceObject* prescriptionXML;
 
 - (void) loadPatientData:(ServiceObject *)patient
 {
-	[self.txtMemberId setText:[patient getTextValueByName:@"memberId"]];
-	[self.txtPatientName setText:[NSString stringWithFormat:@"%@ %@", [patient getTextValueByName:@"firstName"], [patient getTextValueByName:@"lastName"]]];
+	[self.txtMemberId setText:[patient getTextValueByName:@"MemberId"]];
+	[self.txtPatientName setText:[patient getTextValueByName:@"PatientFullName"]];
 }
 
 - (void)loadPatientImages:(id)sender
@@ -225,6 +232,7 @@ extern ServiceObject* prescriptionXML;
 	[self setImageLabel2:nil];
 	[self setImageLabel3:nil];
 	[self setImageLabel4:nil];
+	[self setMeasureDetailView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -258,6 +266,7 @@ extern ServiceObject* prescriptionXML;
 	[imageLabel2 release];
 	[imageLabel3 release];
 	[imageLabel4 release];
+	[measureDetailView release];
     [super dealloc];
 }
 - (IBAction)touchImage:(id)sender {
@@ -368,6 +377,16 @@ extern ServiceObject* prescriptionXML;
 	}
 	
 	return isValid;
+}
+
+- (void)createGradientForLayer:(CALayer*)layerArg
+{
+	CAGradientLayer *l = [CAGradientLayer layer];
+	//l.colors = [NSArray arrayWithObjects:[UIColor, nil
+	//l.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], [NSNumber numberWithFloat:0.6f], [NSNumber numberWithFloat:1.0f], nil];
+	l.colors = [NSArray arrayWithObjects:[UIColor lightGrayColor].CGColor, [UIColor darkGrayColor].CGColor, nil];
+	l.frame = layerArg.bounds;
+	[layerArg insertSublayer:l atIndex:0];
 }
 
 - (void)measurementDone:(NSNotification*)n

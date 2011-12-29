@@ -13,6 +13,7 @@
 extern ServiceObject* memberXML;
 extern ServiceObject* mobileSessionXML;
 extern ServiceObject* patientXML;
+extern NSArray *patientImages;
 
 @implementation MemberSearch
 
@@ -31,6 +32,8 @@ extern ServiceObject* patientXML;
 @synthesize patientListHeader2;
 @synthesize patientListHeader3;
 @synthesize memberLastName;
+
+@synthesize HUD;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +60,21 @@ extern ServiceObject* patientXML;
     // Do any additional setup after loading the view from its nib.
 	
 	self.patientListSV.bounces = NO;
+	self.patientListSV.showsVerticalScrollIndicator = YES;
 	self.patientListSV.showsHorizontalScrollIndicator = NO;
+	
+	NSString* memberId = [mobileSessionXML getTextValueByName:@"memberId"];
+	if ([memberId length] > 0 && [memberXML hasData])
+	{
+		NSString* memberId = [memberXML getTextValueByName:@"MemberID"];
+		NSString* memberDOB = [[memberXML getTextValueByName:@"DOB"] substringToIndex:10];
+		
+		self.memberId.text = memberId;
+		self.dob.text = memberDOB;
+		
+		[self showMemberDetails];
+	}
+	
 }
 
 - (void)viewDidUnload
@@ -143,63 +160,72 @@ extern ServiceObject* patientXML;
 		}
 		else
 		{
-			ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMemberInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId.text, dob.text]];
-
-			if([result hasData])
-			{
-				int tempMemberId = [result getIntValueByName:@"MemberID"];
-				
-				if(tempMemberId==0)
-				{
-					UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"No members found." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-					[alert show];
-					[alert release];
-				}
-				else
-				{
-					memberXML = result;
-					
-					[mobileSessionXML setObject:[NSString stringWithFormat:@"%d", tempMemberId] forKey:@"memberId"];
-					
-					[mobileSessionXML updateMobileSessionData];
-					
-					NSString* memberFN = [[result getTextValueByName:@"Memberfirstname"] uppercaseString];
-					NSString* memberLN = [[result getTextValueByName:@"MemberlastName"] uppercaseString];
-					
-					NSString* memberPlan = [result getTextValueByName:@"InsPlan"];
-					NSString* memberPlanType = [result getTextValueByName:@"Plan"];
-					
-					self.memberNameLbl.text = [NSString stringWithFormat:@"%@, %@", memberLN, memberFN];
-					self.memberPlanLbl.text = memberPlan;
-					self.memberPlanTypeDescLbl.text = [NSString stringWithFormat:@"This is a %@ patient.", memberPlanType];
-					
-					[self showMemberDetails];
-				}
-			}
-			else
-			{
-				//NSLog(@"Invalid response from web service at: %@", url);
-				
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Invalid response from server" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];
-			}
+			HUD = [[MBProgressHUD alloc] initWithView:self.view];
+			[self.view addSubview:HUD];
+			
+			HUD.labelText = @"Searching...";
+			
+			[HUD showWhileExecuting:@selector(doSearch:) onTarget:self withObject:self animated:YES];
+			
 		}
-		
-		//[mainView showHome]; 
 	
 }
 
+- (void) doSearch:(id)sender
+{
+	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMemberInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId.text, dob.text]];
+	
+	if([result hasData])
+	{
+		NSString* tempMemberId = [result getTextValueByName:@"MemberID"];
+		
+		if(!tempMemberId)
+		{
+			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"No members found." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+			[alert show];
+			[alert release];
+		}
+		else
+		{
+			memberXML = [result retain];
+			
+			[mobileSessionXML setObject:[NSString stringWithFormat:@"%@", tempMemberId] forKey:@"memberId"];
+			
+			[mobileSessionXML updateMobileSessionData];
+			
+			[self showMemberDetails];
+		}
+	}
+	else
+	{
+		//NSLog(@"Invalid response from web service at: %@", url);
+		
+		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Invalid response from server" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		[alert show];
+		[alert release];
+	}
+}
 - (void) showMemberDetails
 {
-	self.memberDetailsView.hidden = NO;
+	NSString* memberFN = [[memberXML getTextValueByName:@"Memberfirstname"] uppercaseString];
+	NSString* memberLN = [[memberXML getTextValueByName:@"MemberlastName"] uppercaseString];
+	
+	NSString* memberPlan = [memberXML getTextValueByName:@"InsPlan"];
+	NSString* memberPlanType = [memberXML getTextValueByName:@"Plan"];
+	
+	NSString* memberId = [memberXML getTextValueByName:@"MemberID"];
+	NSString* memberDOB = [[memberXML getTextValueByName:@"DOB"] substringToIndex:10];
+	
+	self.memberNameLbl.text = [NSString stringWithFormat:@"%@, %@", memberLN, memberFN];
+	self.memberPlanLbl.text = memberPlan;
+	self.memberPlanTypeDescLbl.text = [NSString stringWithFormat:@"This is a %@ patient.", memberPlanType];
 	
 	for (id v in self.patientListSV.subviews)
 		[v removeFromSuperview];
 	
 	NSLog(@"---------------------------------");
 	
-	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetAllPatientInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId.text, dob.text] categoryKey:@"" startTag:@"Table"];	
+	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetAllPatientInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId, memberDOB] categoryKey:@"" startTag:@"Table"];	
 	
 	BOOL hasObjs = YES;
 	
@@ -264,20 +290,65 @@ extern ServiceObject* patientXML;
 	}
 	
 	[self.patientListSV setContentSize:CGSizeMake(self.patientListSV.frame.size.width, ny)];
+	
+	self.memberDetailsView.hidden = NO;
 }
 
 - (void)patientBtnClick:(id)sender
 {
+	UIButton *b = (UIButton*) sender;	
+	int patientId = b.tag;
+	
+	[mobileSessionXML setObject:[NSString stringWithFormat:@"%d", patientId] forKey:@"patientId"];
+	[mobileSessionXML updateMobileSessionData];
+	
+	HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:HUD];
+	
+	HUD.labelText = @"Getting patient info...";
+	
+	[HUD showWhileExecuting:@selector(loadImagesAndFinish:) onTarget:self withObject:sender animated:YES];
+}
+
+- (void)loadImagesAndFinish:(id)sender
+{
 	UIButton *b = (UIButton*) sender;
 	int patientId = b.tag;
 	
-	[mobileSessionXML setObject:[NSNumber numberWithInt:patientId] forKey:@"patientId"];
-	[mobileSessionXML updateMobileSessionData];
+	//[mobileSessionXML setObject:[NSString stringWithFormat:@"%d", patientId] forKey:@"patientId"];
+	//[mobileSessionXML updateMobileSessionData];
 	
 	ServiceObject *p = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetPatientInfo?patientId=%d", patientId]];
 	patientXML = p;
 	
+	[self loadPatientImages];
+	
 	[self continueToPrescriptionPage];
+}
+
+- (void)loadPatientImages
+{
+	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+	int cnt=0;
+	
+	cnt=0;
+	
+			NSArray *suffixes = [NSArray arrayWithObjects:@"dist", @"near", @"side", @"tryon", nil];
+	
+	NSMutableArray *tempImages = [NSMutableArray array];
+	
+	for (NSString *suffix in suffixes)
+	{
+		
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]];
+		UIImage *img = [[UIImage imageWithData:imageData] retain];
+		id imgG = img ? img : [NSNull null];
+		[tempImages addObject:imgG];
+		cnt++;
+	}
+	
+	patientImages = [[NSArray arrayWithArray:tempImages] retain];
+	
 }
 
 - (IBAction)cancel:(id)sender {

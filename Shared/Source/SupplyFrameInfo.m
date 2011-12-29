@@ -115,6 +115,7 @@ extern ServiceObject *mobileSessionXML;
 }
 
 - (IBAction)cancel:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SupplyFrameInfoDidCancel" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 }
 

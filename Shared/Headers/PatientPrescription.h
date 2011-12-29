@@ -33,6 +33,8 @@
 @property (retain, nonatomic) IBOutlet DatePickerTextField *patientDOB;
 @property (retain, nonatomic) IBOutlet UITextField *patientFirstName;
 @property (retain, nonatomic) IBOutlet UITextField *patientLastName;
+@property (retain, nonatomic) IBOutlet UIView *prescriptionInfo;
+@property (retain, nonatomic) IBOutlet UIView *frameInfo;
 
 @property (retain, nonatomic) IBOutlet UITextField *rSphere;
 @property (retain, nonatomic) IBOutlet UITextField *rCylinder;

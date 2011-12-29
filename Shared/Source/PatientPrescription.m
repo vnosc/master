@@ -8,6 +8,8 @@
 
 #import "PatientPrescription.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 extern ServiceObject* mobileSessionXML;
 
 extern ServiceObject* patientXML;
@@ -23,6 +25,8 @@ extern UIImage* patientImageProg;
 @synthesize patientDOB;
 @synthesize patientFirstName;
 @synthesize patientLastName;
+@synthesize prescriptionInfo;
+@synthesize frameInfo;
 
 @synthesize rSphere;
 @synthesize rCylinder;
@@ -107,6 +111,8 @@ extern UIImage* patientImageProg;
 	[packageId release];
 	[packageInfoView release];
 	[packageType release];
+	[prescriptionInfo release];
+	[frameInfo release];
     [super dealloc];
 }
 
@@ -159,7 +165,24 @@ extern UIImage* patientImageProg;
 		}
 		self.packageInfoView.hidden = NO;
 	}
+	
+	[self createGradientForLayer:self.frameInfo.layer];
+	[self createGradientForLayer:self.prescriptionInfo.layer];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)createGradientForLayer:(CALayer*)layerArg
+{
+	[layerArg setBorderWidth:3.0f];
+	[layerArg setCornerRadius:25];
+	[layerArg setMasksToBounds:YES];
+	
+	CAGradientLayer *l = [CAGradientLayer layer];
+	//l.colors = [NSArray arrayWithObjects:[UIColor, nil
+	//l.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], [NSNumber numberWithFloat:0.6f], [NSNumber numberWithFloat:1.0f], nil];
+	l.colors = [NSArray arrayWithObjects:[UIColor lightGrayColor].CGColor, [UIColor darkGrayColor].CGColor, nil];
+	l.frame = layerArg.bounds;
+	[layerArg insertSublayer:l atIndex:0];
 }
 
 - (void) getLatestPatientFromService
@@ -186,15 +209,15 @@ extern UIImage* patientImageProg;
 
 - (void) loadPatientData:(ServiceObject *)patient
 {
-	[patientId setText:[patient getTextValueByName:@"memberId"]];
-	[patientDOB setText:[patient getTextValueByName:@"dateOfBirth"]];
-	[patientFirstName setText:[patient getTextValueByName:@"firstName"]];
-	[patientLastName setText:[patient getTextValueByName:@"lastName"]];
+	[patientId setText:[patient getTextValueByName:@"MemberId"]];
+	[patientDOB setText:[[patient getTextValueByName:@"DOB"] substringToIndex:10]];
+	[patientFirstName setText:[patient getTextValueByName:@"FirstName"]];
+	[patientLastName setText:[patient getTextValueByName:@"LastName"]];
 }
 
 - (void) getLatestPrescriptionFromService
 {
-	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"patientId"]];
+	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]];
 	
 	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
 	prescriptionXML = [[ServiceObject alloc] initWithTBXML:tbxml];
@@ -259,8 +282,8 @@ extern UIImage* patientImageProg;
 - (void) loadFrameData:(ServiceObject *)frame
 {
 	self.frameMfr.text = [frame getTextValueByName:@"FrameManufacturer"];
-	self.frameModel.text = [frame getTextValueByName:@"FrameModel"];
-	self.frameType.text = [frame getTextValueByName:@"FrameStyle"];
+	self.frameModel.text = [frame getTextValueByName:@"FrameType"];
+	self.frameType.text = [frame getTextValueByName:@"Property_Frame_x0020_Type"];
 	self.frameColor.text = [frame getTextValueByName:@"FrameColor"];
 	self.frameABox.text = [frame getTextValueByName:@"ABox"];
 	self.frameBBox.text = [frame getTextValueByName:@"BBox"];
@@ -306,6 +329,8 @@ extern UIImage* patientImageProg;
 	[self setPackageId:nil];
 	[self setPackageInfoView:nil];
 	[self setPackageType:nil];
+	[self setPrescriptionInfo:nil];
+	[self setFrameInfo:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

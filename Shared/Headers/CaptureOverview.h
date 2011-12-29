@@ -15,6 +15,7 @@
 #import "CapturePicture.h"
 #import "MeasureOverview.h"
 
+#import "PatientRecord.h"
 #import "PatientSearch.h"
 #import "SupplyFrameInfo.h"
 #import "MBProgressHUD.h"
@@ -54,6 +55,8 @@
 @property (retain) NSArray* measureTexts;
 
 @property (nonatomic) int selectedImageView;
+
+@property (assign) BOOL wantsToFinish;
 
 @property (retain, nonatomic) MBProgressHUD* HUD;
 

@@ -12,6 +12,7 @@
 @synthesize viewController;
 
 @synthesize window=_window;
+@synthesize visualAcuityLeftEye,visualAcuityRightEye,astigmatismLeftEye,astigmatismRightEye,duochromeLeftEye,duochromeRightEye,colorTestLeftEye,colorTestRightEye,questionLeftEye,questionRightEye;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -22,6 +23,18 @@
 #else
 	NSLog(@"No version identifier found.");
 #endif
+	
+	visualAcuityLeftEye=@"0";
+    visualAcuityRightEye=@"0";
+    astigmatismLeftEye=@"0";
+    astigmatismRightEye=@"0";
+    duochromeLeftEye=@"0";
+    duochromeRightEye=@"0";
+    colorTestLeftEye=@"0";
+    colorTestRightEye=@"0";
+    questionLeftEye=@"0";
+    questionRightEye=@"0";
+	
     // Override point for customization after application launch.
 	//self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

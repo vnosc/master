@@ -15,9 +15,16 @@
 #import "LensSelectionandValidation.h"
 #import "UnityOpticsVideoView.h"
 #import "Coating.h"
+#import "VisionTestHomePage.h"
 
 extern int providerId;
 extern ServiceObject* mobileSessionXML;
+extern ServiceObject* memberXML;
+extern ServiceObject* patientXML;
+extern ServiceObject* prescriptionXML;
+extern ServiceObject* frameXML;
+extern ServiceObject* lensTypeXML;
+extern ServiceObject* materialXML;
 
 extern NSString* lensBrandName;
 extern NSString* lensDesignName;
@@ -32,6 +39,7 @@ extern NSArray* patientImagesMeasured;
 @synthesize hackDropDownView2;
 @synthesize sectionBtns;
 @synthesize sectionSubmenuViews;
+@synthesize testsBtn;
 @synthesize mainview;
 @synthesize adjust,lense,createuser,selectspect;
 @synthesize frameselect,framevalidate,lensselect,lensvalidate;
@@ -57,6 +65,10 @@ extern NSArray* patientImagesMeasured;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+#ifdef DEBUG
+	self.testsBtn.hidden = NO;
+#endif
 	
 	[self layoutSections];
 	
@@ -106,6 +118,7 @@ extern NSArray* patientImagesMeasured;
 - (IBAction)clearSessionBtnClick:(id)sender 
 {
 	[mobileSessionXML setObject:@"0" forKey:@"frameId"];
+	[mobileSessionXML setObject:@"0" forKey:@"memberId"];
 	[mobileSessionXML setObject:@"0" forKey:@"patientId"];
 	[mobileSessionXML setObject:@"0" forKey:@"prescriptionId"];
 	[mobileSessionXML setObject:@"0" forKey:@"lensTypeId"];
@@ -118,17 +131,29 @@ extern NSArray* patientImagesMeasured;
 	
 	[mobileSessionXML updateMobileSessionData];
 	
-	lensBrandName = nil;
-	lensDesignName = nil;
-	
-	patientImages = nil;
-	patientImagesMeasured = nil;
+	[self clearCachedData];
 	
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Session cleared." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	
 	[alert show];
 	[alert release];
 	
+}
+
+- (void)clearCachedData
+{
+	memberXML = nil;
+	patientXML = nil;
+	prescriptionXML = nil;
+	frameXML = nil;
+	lensTypeXML = nil;
+	materialXML = nil;
+	
+	lensBrandName = nil;
+	lensDesignName = nil;
+	
+	patientImages = nil;
+	patientImagesMeasured = nil;
 }
 
 - (IBAction)unityBtnClick:(id)sender {
@@ -166,11 +191,20 @@ extern NSArray* patientImagesMeasured;
 	[self toggleDropDown:[sender tag]-1];
 }
 
+- (IBAction)visualAcuityBtnClick:(id)sender {
+	VisionTestHomePage *p = [[VisionTestHomePage alloc] init];
+	p.title = @"Vision Test";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
 - (void) toggleDropDown:(int)idx
 {
-	UIView *v = [self.sectionSubmenuViews objectAtIndex:idx];
-	v.hidden = !v.hidden;
-	[self layoutSections];
+	if (idx < [self.sectionSubmenuViews count])
+	{
+		UIView *v = [self.sectionSubmenuViews objectAtIndex:idx];
+		v.hidden = !v.hidden;
+		[self layoutSections];
+	}
 }
 
 - (void) layoutSections
@@ -263,7 +297,7 @@ extern NSArray* patientImagesMeasured;
 {
 	
     LensIndexView *lensindex=[[LensIndexView alloc]init];
-    lensindex.title=@"LensIndex";
+    lensindex.title=@"Lens Index";
 	// lensIndexView.mainViewController=self;
     //UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:lensindex];
     
@@ -272,11 +306,24 @@ extern NSArray* patientImagesMeasured;
     //UINavigationController *nav2=[[UINavigationController alloc]initWithRootViewController:coating];
     
     UITabBarController *tabbar3=[[UITabBarController alloc]init];
+	tabbar3.title = @"Lens Index";
+	tabbar3.delegate = self;
     [tabbar3 setViewControllers:[NSArray arrayWithObjects:lensindex,coating,nil]];
     
     //[mainWindow addSubview:tabbar.view];
 	[self.navigationController pushViewController:tabbar3 animated:YES];
 
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+	NSLog(@"pring");
+}
+- (IBAction)lifeStyleBtnClick:(id)sender {
+	PackageSelection *p = [[PackageSelection alloc] init];
+	p.title = @"Package Selection";
+	p.hackAltLifeStyleMode = YES;
+	[self.navigationController pushViewController:p animated:YES];
 }
 -(IBAction) lensOptionBtnClick:(id)sender
 {
@@ -364,6 +411,7 @@ extern NSArray* patientImagesMeasured;
 	[self setHackDropDownView2:nil];
 	[self setSectionBtns:nil];
 	[self setSectionSubmenuViews:nil];
+    [self setTestsBtn:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -380,6 +428,7 @@ extern NSArray* patientImagesMeasured;
 	[hackDropDownView2 release];
 	[sectionBtns release];
 	[sectionSubmenuViews release];
+    [testsBtn release];
     [super dealloc];
 }
 
@@ -419,6 +468,7 @@ extern NSArray* patientImagesMeasured;
 - (IBAction)logoutBtnClick:(id)sender
 {
 	providerId = 0;
+	[self clearCachedData];
 	[mainview showLogin];
 }
 

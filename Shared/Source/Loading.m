@@ -40,7 +40,7 @@
 {
     [super viewDidLoad];
 	
-	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoadingBackground.png"]]];
+	//[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoadingBackground.png"]]];
 	
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
     // Do any additional setup after loading the view from its nib.

@@ -30,6 +30,8 @@
 @synthesize btnScratch;
 @synthesize btnTint;
 @synthesize modeSegment;
+@synthesize modeSegmentPlaceholder;
+@synthesize instLbl;
 @synthesize glassesViewLeft;
 @synthesize glassesViewRight;
 @synthesize glassLeft;
@@ -81,6 +83,11 @@
 
         // brushPattern=[[UIColor alloc]initWithWhite:0.1 alpha:0.0];
         //[UIColor colorWithPatternImage:];
+		
+		/*SVSegmentedControl *svsc = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"AR Coat", @"Polarized", @"Scratch Coat", @"Tint", nil]];
+		svsc.frame = self.modeSegmentPlaceholder.frame;
+		self.modeSegment = svsc;
+		[self.view addSubview:svsc];*/
 		
 		const CGFloat* comp = CGColorGetComponents([UIColor brownColor].CGColor);
 		NSLog(@"color: %f,%f,%f", comp[0], comp[1], comp[2]);
@@ -147,10 +154,10 @@
 	[layer setCornerRadius:25];
 	[layer setMasksToBounds:YES];
 	
-	layer = self.arControlBox.layer;
+	/*layer = self.arControlBox.layer;
 	[layer setBorderWidth:2.0f];
 	[layer setCornerRadius:25];
-	[layer setMasksToBounds:YES];
+	[layer setMasksToBounds:YES];*/
 	
 	layer = self.scratchCoatControlBox.layer;
 	[layer setBorderWidth:2.0f];
@@ -172,15 +179,21 @@
 	
 	self.glassLeft.brushPattern = brushPattern;
 	self.glassRight.brushPattern = brushPattern;
-	self.glassLeft.myPath=[[UIBezierPath alloc]init];
-	self.glassLeft.myPath.lineWidth=20;
-	self.glassRight.myPath=[[UIBezierPath alloc]init];
-	self.glassRight.myPath.lineWidth=20;	
+	
+	[self initScratchPaths];
+	[self applyTint:self.glassLeft];	
 	[self applyTint:self.glassRight];
 	
 	[self displayViewForMode:self.mode];
 }
 
+- (void) initScratchPaths
+{
+	self.glassLeft.myPath=[[UIBezierPath alloc]init];
+	self.glassLeft.myPath.lineWidth=20;
+	self.glassRight.myPath=[[UIBezierPath alloc]init];
+	self.glassRight.myPath.lineWidth=20;
+}
 - (void)viewDidUnload
 {
 	[self setTintSlider:nil];
@@ -205,6 +218,8 @@
 	[self setGlassesViewRight:nil];
 	[self setGlassesViewLeft:nil];
 	[self setModeSegment:nil];
+	[self setModeSegmentPlaceholder:nil];
+	[self setInstLbl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -240,6 +255,8 @@
 	[glassesViewRight release];
 	[glassesViewLeft release];
 	[modeSegment release];
+	[modeSegmentPlaceholder release];
+	[instLbl release];
 	[super dealloc];
 }
 - (IBAction)tintSliderChanged:(id)sender {
@@ -303,6 +320,12 @@
 	UISegmentedControl *segment = (UISegmentedControl*)sender;
 	self.mode = [segment selectedSegmentIndex];
 	[self displayViewForMode:self.mode];
+}
+
+- (IBAction)clearScratches:(id)sender {
+	[self initScratchPaths];
+	[self applyTint:self.glassLeft];	
+	[self applyTint:self.glassRight];
 }
 
 - (UIImage*) getTintedImage:(DraggableLens*)lens color:(UIColor*)color

@@ -9,6 +9,7 @@
 #import "FrameSelectionandValidationNew.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PatientSearch.h"
+#import "PatientRecord.h"
 #import "PatientPrescription.h"
 #import "ServiceObject.h"
 
@@ -60,7 +61,7 @@ extern ServiceObject* mobileSessionXML;
 	
 	[[self tabBarItem] setTitle:@"Frame Selection"];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishContinue:) name:@"PatientSearchDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishContinue:) name:@"PatientRecordDidFinish" object:nil];
 				 
     [self loadPageMobile:@"http://smart-i.mobi/Mobile_SelectFrame.aspx" wv:self.webView];
 }
@@ -89,8 +90,8 @@ extern ServiceObject* mobileSessionXML;
 	
 	if (currentPatientId == 0)
 	{
-		PatientSearch *patient=[[PatientSearch alloc]init];
-		patient.title=@"Patient Selection";
+		PatientRecord *patient=[[PatientRecord alloc]init];
+		patient.title=@"Patient Record";
 		//[self.navigationController pushViewController:patient animated:YES];
 		[self presentModalViewController:patient animated:YES];
 	}

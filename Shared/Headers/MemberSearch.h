@@ -33,8 +33,13 @@
 @property (retain, nonatomic) IBOutlet UILabel *patientListHeader2;
 @property (retain, nonatomic) IBOutlet UILabel *patientListHeader3;
 
+@property (retain, nonatomic) MBProgressHUD *HUD;
+
 - (IBAction)search:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (void)loadImagesAndFinish:(id)sender;
+- (void)loadPatientImages;
+- (void) showMemberDetails;
 
 -(void) continueToPrescriptionPage;
 -(void) continueToNewPatientPage;

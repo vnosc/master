@@ -63,6 +63,10 @@ extern NSArray* patientImages;
 			self.dragImage = [[UIImageView alloc] init];
 	[self.view addSubview:self.dragImage];
 	
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickedPatientName:) name:@"UITextFieldTextDidBeginEditingNotification" object:self.txtPatientName];
+	
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:@"PatientRecordDidFinish" object:nil];
+	
 	[self getLatestPatientFromService];
 	
 	[self loadPatientImages];
@@ -77,10 +81,7 @@ extern NSArray* patientImages;
 	id img = [patientImages objectAtIndex:0];
 	
 	for (UIImageView *iv in self.imageViews)
-	{
-		if (img != [NSNull null])
-			iv.image = img;
-		
+	{		
 		layer = iv.layer;
 		[layer setBorderWidth:3.0f];
 		[layer setCornerRadius:25];
@@ -117,12 +118,30 @@ extern NSArray* patientImages;
 {
 	[super viewWillAppear:animated];
 	
+	[self loadPatientData:patientXML];
+	
+	//[self refreshImages];
+	
 	for (UIButton *b in self.retakePictureBtns)
 	{
 		UIImageView *iv = [self.imageViews objectAtIndex:b.tag];
 		b.hidden = (iv.image == nil);
 		[b setExclusiveTouch:YES];
 	}
+}
+
+- (void)refreshImages:(NSNotification*)n
+{
+	/*id img = [patientImages objectAtIndex:0];
+	if (img == [NSNull null])
+		img = nil;
+	for (UIImageView *iv in self.imageViews)
+	{
+		iv.image = img;
+	}
+	
+	self.imageCompareL.image = img;
+	self.imageCompareR.image = img;*/
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
@@ -164,12 +183,28 @@ extern NSArray* patientImages;
 	
 }
 
+-(void)clickedPatientName:(NSNotification*)n
+{
+	UITextField *tf = (UITextField*) n.object;
+	
+	[tf resignFirstResponder];
+	[tf endEditing:YES];
+	NSLog(@"SPROING");
+	
+	NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
+	
+	PatientRecord *patient=[[PatientRecord alloc]init];
+	patient.title=@"Patient Record";
+	//[self.navigationController pushViewController:patient animated:YES];
+	[self presentModalViewController:patient animated:YES];
+}
+
 - (void) loadPatientData:(ServiceObject *)patient
 {
-	if ([patientXML hasData] && [patientXML.dict objectForKey:@"firstName"])
+	if ([patientXML hasData] && [patientXML.dict objectForKey:@"FirstName"])
 	{
-		[self.txtMemberId setText:[patient getTextValueByName:@"memberId"]];
-		[self.txtPatientName setText:[NSString stringWithFormat:@"%@ %@", [patient getTextValueByName:@"firstName"], [patient getTextValueByName:@"lastName"]]];
+		[self.txtMemberId setText:[patient getTextValueByName:@"MemberId"]];
+		[self.txtPatientName setText:[patient getTextValueByName:@"PatientFullName"]];
 	}
 }
 

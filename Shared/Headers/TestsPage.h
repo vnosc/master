@@ -16,6 +16,7 @@
 
 #import "LensIndexView.h"
 #import "HomePage.h"
+#import "MeasureWrapAngle.h"
 
 @interface TestsPage : BackgroundViewController
 - (IBAction)openCVTestingClick:(id)sender;
@@ -25,5 +26,6 @@
 - (IBAction)supplyFrameInfo:(id)sender;
 - (IBAction)patientConsultationClick:(id)sender;
 - (IBAction)mainMenuRecreationClick:(id)sender;
+- (IBAction)wrapAngleMeasureClick:(id)sender;
 
 @end

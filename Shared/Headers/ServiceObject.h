@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TBXML.h"
 
-@interface ServiceObject : NSObject
+@interface ServiceObject : NSObject <NSURLConnectionDelegate>
 {
 	NSMutableDictionary* dict;
 }

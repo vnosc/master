@@ -161,6 +161,7 @@ const int kEyeHaarOptions = 0;
 
 - (void) loadCascade:(cv::CascadeClassifier&)cascade filename:(NSString *)fn
 {
+	NSLog(@"test?");
     // Load the Haar cascade from resources
     NSString *cascadePath = [[NSBundle mainBundle] pathForResource:fn ofType:@"xml"];
     

@@ -39,6 +39,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *imageLabel3;
 @property (retain, nonatomic) IBOutlet UILabel *imageLabel4;
 
+@property (retain, nonatomic) IBOutlet UIView *measureDetailView;
 @property (retain, nonatomic) IBOutlet MeasurePicture* measureVC;
 
 @property (retain) NSArray* suffixes;

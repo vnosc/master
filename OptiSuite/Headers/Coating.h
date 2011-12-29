@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CoatingView.h"
+#import "SVSegmentedControl.h"
 
 @class DraggableLens;
 
@@ -33,6 +34,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *btnScratch;
 @property (retain, nonatomic) IBOutlet UIButton *btnTint;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *modeSegment;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *modeSegmentPlaceholder;
+@property (retain, nonatomic) IBOutlet UILabel *instLbl;
 
 @property (retain, nonatomic) IBOutlet UIView *glassesViewLeft;
 @property (retain, nonatomic) IBOutlet UIView *glassesViewRight;
@@ -66,6 +69,7 @@
 - (IBAction)tintColorBtnClick:(id)sender;
 - (IBAction)modeBtnClick:(id)sender;
 - (IBAction)modeSegmentChanged:(id)sender;
+- (IBAction)clearScratches:(id)sender;
 
 - (void) applyTint:(DraggableLens*)lens;
 - (void) applyTint:(DraggableLens*)lens strength:(float)tintStrength;

@@ -79,9 +79,11 @@
 
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *sectionBtns;
 @property (retain, nonatomic) IBOutletCollection(UIView) NSArray *sectionSubmenuViews;
+@property (retain, nonatomic) IBOutlet UIButton *testsBtn;
 
 -(IBAction) measurementBtnClick:(id)sender;
 -(IBAction) patientBtnClick:(id)sender;
+- (IBAction)lifeStyleBtnClick:(id)sender;
 -(IBAction) lensOptionBtnClick:(id)sender;
 -(IBAction) frameOptionBtnClick:(id)sender;
 -(IBAction) framesTryoutBtnClick:(id)sender;
@@ -95,6 +97,7 @@
 - (IBAction)frameStylingBtnClick:(id)sender;
 - (IBAction)privatePatientBtnClick:(id)sender;
 - (IBAction)productSelectDropDownClick:(id)sender;
+- (IBAction)visualAcuityBtnClick:(id)sender;
 
 - (void)pressTab;
 @end

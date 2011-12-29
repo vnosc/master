@@ -73,6 +73,8 @@
 @property (retain) NSMutableArray *frmIds;
 @property (retain) NSMutableArray *lensTypeIds;
 @property (retain) NSMutableArray *packageIds;
+@property (retain) NSMutableArray *lensTypeNames;
+@property (retain) NSMutableArray *packageNames;
 
 @property (retain) ServiceObject *packageInfo;
 @property (retain) ServiceObject *frameInfo;
@@ -88,10 +90,14 @@
 
 @property (assign) BOOL hasSelectedLensType;
 @property (assign) BOOL hasSelectedPackageType;
+@property (assign) BOOL hasLoaded;
+
 @property (retain, nonatomic) MBProgressHUD* HUD;
 @property (retain, nonatomic) IBOutlet UILabel *retailPriceLbl;
 @property (retain, nonatomic) IBOutlet UILabel *vspPriceLbl;
 @property (retain, nonatomic) IBOutlet UILabel *savingsLbl;
+
+@property (assign) BOOL hackAltLifeStyleMode;
 
 //@property (retain) NSDictionary
 
