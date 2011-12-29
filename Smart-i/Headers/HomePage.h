@@ -1,9 +1,9 @@
 //
-//  HomePage.h
+//  HomePage.h for Smart-i
 //  CyberImaging
 //
-//  Created by jay gurudev on 9/22/11.
-//  Copyright 2011 software house. All rights reserved.
+//  Created by Troy Potts on 12/29/11
+//  Copyright 2011 Pro Fit Optix. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -29,6 +29,14 @@
 	MainViewController *mainview;
 	
 }
+
+@property (retain, nonatomic) IBOutlet UIButton *hackDropDownButton;
+@property (retain, nonatomic) IBOutlet UIView *hackDropDownView;
+@property (retain, nonatomic) IBOutlet UIView *hackAfterDropDownView;
+@property (retain, nonatomic) IBOutlet UIView *hackDropDownView2;
+
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *sectionBtns;
+@property (retain, nonatomic) IBOutletCollection(UIView) NSArray *sectionSubmenuViews;
 
 @property (retain, nonatomic) IBOutlet UITabBarController *tbc;
 

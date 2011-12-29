@@ -30,6 +30,13 @@ extern NSArray* patientImagesMeasured;
 @synthesize mainview;
 @synthesize mainTabBar;
 
+@synthesize hackDropDownButton;
+@synthesize hackDropDownView;
+@synthesize hackAfterDropDownView;
+@synthesize hackDropDownView2;
+@synthesize sectionBtns;
+@synthesize sectionSubmenuViews;
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -169,6 +176,53 @@ extern NSArray* patientImagesMeasured;
 	
 	tabBarController.title = viewController.title;
 	return YES;
+}
+
+- (void) toggleDropDown:(int)idx
+{
+	if (idx < [self.sectionSubmenuViews count])
+	{
+		UIView *v = [self.sectionSubmenuViews objectAtIndex:idx];
+		v.hidden = !v.hidden;
+		[self layoutSections];
+	}
+}
+
+- (void) layoutSections
+{
+	float x = 20;
+	float y = 20;
+	
+	float ypad = 5;
+	
+	for (UIButton *b in self.sectionBtns)
+	{
+		b.frame = CGRectMake(x, y, b.frame.size.width, b.frame.size.height);
+		y += b.frame.size.height;
+		
+		int submenuIdx = [b tag] - 1;
+		if (submenuIdx >= 0 && [self.sectionSubmenuViews count] > submenuIdx)
+		{
+			UIView *v = [self.sectionSubmenuViews objectAtIndex:submenuIdx];
+			if (!v.hidden)
+			{
+				v.frame = CGRectMake(x + b.frame.size.width - v.frame.size.width, y, v.frame.size.width, v.frame.size.height);
+				y += v.frame.size.height;
+			}
+		}
+		y += ypad;
+	}
+	
+	/*self.hackDropDownView.hidden = hide;
+	 self.hackDropDownView.frame = CGRectMake(self.hackDropDownButton.frame.origin.x + self.hackDropDownButton.frame.size.width - self.hackDropDownView.frame.size.width, self.hackDropDownButton.frame.origin.y + self.hackDropDownButton.frame.size.height, self.hackDropDownView.frame.size.width, self.hackDropDownView.frame.size.height);
+	 
+	 float y = self.hackDropDownButton.frame.origin.y + self.hackDropDownButton.frame.size.height;
+	 if (!self.hackDropDownView.hidden)
+	 {
+	 y += self.hackDropDownView.frame.size.height;
+	 }
+	 
+	 self.hackAfterDropDownView.frame = CGRectMake(self.hackAfterDropDownView.frame.origin.x, y, self.hackAfterDropDownView.frame.size.width, self.hackAfterDropDownView.frame.size.height);*/
 }
 
 /*
