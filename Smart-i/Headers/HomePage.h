@@ -15,6 +15,9 @@
 #import "MainViewController.h"
 
 #import "Measurements.h"
+#import "LensIndexView.h"
+#import "VisionTestHomePage.h"
+#import "CaptureOverview.h"
 
 #define HomePage SmartI_HomePage
 
@@ -28,6 +31,9 @@
 	IBOutlet UIButton *logoutBtn;
 	MainViewController *mainview;
 	
+	PatientList *measure;
+	PatientList *lense;
+	PatientList *adjust;
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *hackDropDownButton;
@@ -42,6 +48,14 @@
 
 @property (nonatomic,retain) MainViewController *mainview;
 @property (retain, nonatomic) IBOutlet UITabBar *mainTabBar;
+- (IBAction)triggerDropDownMenu:(id)sender;
+- (IBAction)measurementBtnClick:(id)sender;
+- (IBAction)patientBtnClick:(id)sender;
+- (IBAction)frameStylingBtnClick:(id)sender;
+- (IBAction)visionTestBtnClick:(id)sender;
+- (IBAction)orderMgmtBtnClick:(id)sender;
+- (IBAction)claimMgmtBtnClick:(id)sender;
+- (IBAction)patientMgmtBtnClick:(id)sender;
 
 - (IBAction)logoutBtnClick:(id)sender;
 - (IBAction)clearSessionBtnClick:(id)sender;

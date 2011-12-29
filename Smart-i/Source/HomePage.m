@@ -9,6 +9,7 @@
 #import "HomePage.h"
 #import "HomeView.h"
 #import "CaptureOverview.h"
+#import "Coating.h"
 #import "Lenses.h"
 #import "RXCustomTabBar.h"
 #import "FrameSelectionandValidationNew.h"
@@ -55,19 +56,19 @@ extern NSArray* patientImagesMeasured;
 	
 	NSLog(@"uh...?");
 	
-	PatientList *measure=[[PatientList alloc]init];
+	measure=[[PatientList alloc]init];
 	measure.title=@"Order Management";
 	measure.firstURL=@"Mobile_ListOrder.aspx";
 	measure.btnLabels = [NSArray arrayWithObjects:@"View Orders", @"Create Private Order", @"Create Insurance Order", nil];
 	measure.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_NewOrder.aspx", @"", nil];
 	
-	PatientList *lense=[[PatientList alloc]init];
+	lense=[[PatientList alloc]init];
 	lense.title=@"Patient Management";
 	lense.firstURL=@"Mobile_ListPatients.aspx";
 	lense.btnLabels = [NSArray arrayWithObjects:@"List Patients", @"Search for New Patient", nil];
 	lense.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListPatients.aspx", @"Mobile_PatientValidation.aspx", nil];
 	
-	PatientList *adjust=[[PatientList alloc]init];
+	adjust=[[PatientList alloc]init];
 	adjust.title=@"Claim Management";
 	adjust.firstURL=@"Mobile_ListClaims.aspx";
 	adjust.btnLabels = [NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil];
@@ -80,6 +81,65 @@ extern NSArray* patientImagesMeasured;
 	
 	[mainview.mainWindow addSubview:tbc.view];
 	[self.view removeFromSuperview];
+}
+
+-(IBAction) measurementBtnClick:(id)sender
+{
+	CaptureOverview *h = [[CaptureOverview alloc]init];
+	h.title=@"Capture Image";
+	[self.navigationController pushViewController:h animated:YES];		
+}
+
+-(IBAction) patientBtnClick:(id)sender
+{
+	
+    LensIndexView *lensindex=[[LensIndexView alloc]init];
+    lensindex.title=@"Lens Index";
+	// lensIndexView.mainViewController=self;
+    //UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:lensindex];
+    
+    Coating *coating=[[Coating alloc]init];
+    coating.title=@"Coating";
+    //UINavigationController *nav2=[[UINavigationController alloc]initWithRootViewController:coating];
+    
+    UITabBarController *tabbar3=[[UITabBarController alloc]init];
+	tabbar3.title = @"Lens Index";
+	tabbar3.delegate = self;
+    [tabbar3 setViewControllers:[NSArray arrayWithObjects:lensindex,coating,nil]];
+    
+    //[mainWindow addSubview:tabbar.view];
+	[self.navigationController pushViewController:tabbar3 animated:YES];
+	
+}
+
+- (IBAction)visionTestBtnClick:(id)sender {
+	VisionTestHomePage *p = [[VisionTestHomePage alloc] init];
+	p.title = @"Vision Test";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
+- (IBAction)orderMgmtBtnClick:(id)sender {
+	[tbc setSelectedViewController:measure];
+}
+
+- (IBAction)claimMgmtBtnClick:(id)sender {
+	[tbc setSelectedViewController:lense];
+}
+
+- (IBAction)patientMgmtBtnClick:(id)sender {
+	[tbc setSelectedViewController:adjust];
+}
+
+- (IBAction)frameStylingBtnClick:(id)sender {
+	FrameStyling *p = [[FrameStyling alloc] init];
+	p.title = @"Frame Styling";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
+- (IBAction)privatePatientBtnClick:(id)sender {
+	FrameSelectionandValidationNew *p = [[FrameSelectionandValidationNew alloc] init];
+	p.title = @"Frame Selection";
+	[self.navigationController pushViewController:p animated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -190,8 +250,8 @@ extern NSArray* patientImagesMeasured;
 
 - (void) layoutSections
 {
-	float x = 20;
-	float y = 20;
+	float x = 284;
+	float y = 330;
 	
 	float ypad = 5;
 	
@@ -239,6 +299,10 @@ extern NSArray* patientImagesMeasured;
 	}
 	
 }*/
+
+- (IBAction)triggerDropDownMenu:(id)sender {
+	[self toggleDropDown:[sender tag]-1];
+}
 
 - (IBAction)logoutBtnClick:(id)sender
 {

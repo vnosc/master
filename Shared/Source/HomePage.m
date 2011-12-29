@@ -245,52 +245,9 @@ extern NSArray* patientImagesMeasured;
 
 -(IBAction) measurementBtnClick:(id)sender
 {
-	/*
-	lense=[[Lenses alloc]init];
-	lense.title=@"Measurement";
-	[self.navigationController pushViewController:lense animated:YES];
-	
-	*/
-	//h=[[HomeView alloc]init];
 	h=[[CaptureOverview alloc]init];
 	h.title=@"Capture Image";
-	
-	[self.navigationController pushViewController:h animated:YES];
-	
-	/*h.tabBarItem.image=[UIImage imageNamed:@"camera1.png"];
-	 
-	//[self.navigationController pushViewController:h animated:YES];
-	lense=[[Lenses alloc]init];
-	lense.title=@"Measurement";
-	lense.tabBarItem.image=[UIImage imageNamed:@"measurement.png"];
-	
-	adjust=[[Adjust alloc]init];
-	adjust.title=@"Advance";
-	adjust.tabBarItem.image=[UIImage imageNamed:@"advance1.png"];
-	
-	createuser=[[CreateUser alloc]init];
-	createuser.title=@"CreateUser";
-	createuser.tabBarItem.image=[UIImage imageNamed:@"useradd.png"];
-	
-	selectspect=[[SelectSpech alloc]init];
-	selectspect.title=@"SelectSpech";
-	//adjust.tabBarItem.image=[UIImage imageNamed:@"save-property.png"];
-		selectspect.tabBarItem.image=[UIImage imageNamed:@"specticon.png"];
-	
-	
-	tabbar=[[UITabBarController alloc]init];
-	
-	//RXCustomTabBar *rx=[[RXCustomTabBar alloc]init];
-	//tabbar=rx;
-	//rx.delegate=self;
-	//[rx	setViewControllers:[NSArray arrayWithObjects:h,lense,selectspect,adjust,createuser,nil]];
-	
-	tabbar.delegate=self;	
-	[tabbar setViewControllers:[NSArray arrayWithObjects:h,lense,selectspect,adjust,createuser,nil]];
-	
-	
-	[self.navigationController pushViewController:tabbar animated:YES];*/
-		
+	[self.navigationController pushViewController:h animated:YES];		
 }
 -(IBAction) patientBtnClick:(id)sender
 {
