@@ -117,7 +117,7 @@ extern ServiceObject* mobileSessionXML;
 			npitxt = self.npi.text;
 		
 #ifdef SMARTI
-        NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebserviceadv.asmx/ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
+        NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
 #else
 		NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
 #endif
@@ -154,7 +154,7 @@ extern ServiceObject* mobileSessionXML;
 				NSString* mobileSessionId = [TBXML textForElement:msEle];
 				
 #ifdef SMARTI
-				NSString *urlms=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebserviceadv.asmx/GetMobileSessionInfo?sessionId=%@", mobileSessionId];
+				NSString *urlms=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetMobileSessionInfo?sessionId=%@", mobileSessionId];
 #else
 				NSString *urlms=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetMobileSessionInfo?sessionId=%@", mobileSessionId];
 #endif

@@ -38,7 +38,7 @@
 + (TBXML *) executeRequest:(NSString *)serviceString
 {
 #ifdef SMARTI
-	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebserviceadv.asmx/%@", serviceString];
+	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
 #else
 	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
 #endif

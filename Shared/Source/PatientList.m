@@ -93,7 +93,7 @@ extern ServiceObject* mobileSessionXML;
 	self.webView.scalesPageToFit = YES;
 
 	
-	NSString *finalURL = [NSString stringWithFormat:@"http://dev.smarteyewear.net/%@", self.firstURL];
+	NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", self.firstURL];
     //[self loadPageMobile:@"http://smart-i.mobi/Mobile_ListPatients.aspx" wv:self.webView];
 	[self loadPageMobile:finalURL wv:self.webView];
 }
@@ -254,7 +254,7 @@ extern ServiceObject* mobileSessionXML;
 	int idx = [sender tag];
 	if (![[self.btnURLs objectAtIndex:idx] isEqualToString:@""])
 	{
-	NSString *finalURL = [NSString stringWithFormat:@"http://dev.smarteyewear.net/%@", [self.btnURLs objectAtIndex:idx]];
+	NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", [self.btnURLs objectAtIndex:idx]];
 	[self loadPageMobile:finalURL wv:self.webView];
 	}
 }

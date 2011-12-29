@@ -462,6 +462,9 @@
 		A79717B414830EEC0086C7B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79717B314830EEC0086C7B5 /* Twitter.framework */; };
 		A7B7BD3514588122006DE5E8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */; };
 		A7B7BD3814588221006DE5E8 /* unityVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */; };
+		A7BD1EA514AD069C006BEA80 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A796C69F1490BA8700D647C0 /* MessageUI.framework */; };
+		A7BD1EA714AD06A4006BEA80 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A796C6A01490BA8700D647C0 /* Security.framework */; };
+		A7BD1EA814AD06A4006BEA80 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79717B314830EEC0086C7B5 /* Twitter.framework */; };
 		A7DAC4B3148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */; };
 		A7DAC4B4148D75E700CFD968 /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */; };
 		A7DAC4B6148D7AE800CFD968 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */; };
@@ -1429,6 +1432,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BD1EA714AD06A4006BEA80 /* Security.framework in Frameworks */,
+				A7BD1EA814AD06A4006BEA80 /* Twitter.framework in Frameworks */,
+				A7BD1EA514AD069C006BEA80 /* MessageUI.framework in Frameworks */,
 				A734F8F5145B506C00B3FDC0 /* libxml2.2.7.3.dylib in Frameworks */,
 				A734F8F3145B505D00B3FDC0 /* SystemConfiguration.framework in Frameworks */,
 				B28419661439EC4900E1986A /* MobileCoreServices.framework in Frameworks */,
