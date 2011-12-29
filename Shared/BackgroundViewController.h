@@ -10,6 +10,7 @@
 
 @interface BackgroundViewController : UIViewController
 
+@property (assign) NSString* backgroundImageName;
 @property (retain) NSString* buttonImageName;
 @property (retain) NSString* buttonHighlightedImageName;
 @property (assign) int buttonImageLeftCap;

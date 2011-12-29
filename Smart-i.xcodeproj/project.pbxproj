@@ -3454,7 +3454,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3484,7 +3484,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3517,7 +3517,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3545,7 +3545,7 @@
 		F18A2A4B144148E90059D635 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
@@ -3568,8 +3568,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64CFE08F-ACC0-4554-9E83-68B25A45F262";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2064C27-3833-4365-8C9C-3D27620DAEB8";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -3615,8 +3615,8 @@
 		F1D2A44F141976F400E26C72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hoa Nguyen (7BWWC72UX5)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3637,8 +3637,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D4B18221-3C89-43FB-9D3F-142B3144DC4A";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3647,7 +3647,7 @@
 		F1D2A450141976F400E26C72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3669,7 +3669,7 @@
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64CFE08F-ACC0-4554-9E83-68B25A45F262";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers/\"/** \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)\"/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

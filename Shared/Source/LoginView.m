@@ -53,6 +53,7 @@ extern ServiceObject* mobileSessionXML;
 
 #pragma mark - View lifecycle
 
+- (NSString*) backgroundImageName { return @"LoginBackground.png"; }
 - (NSString*) buttonImageName { return @"LoginButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"LoginButtonTouch.png"; }
 - (int) buttonImageLeftCap { return 25; }
@@ -62,9 +63,7 @@ extern ServiceObject* mobileSessionXML;
 {
     [super viewDidLoad];
    // [btnRemember setSelected:YES];
-    
-	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackground.png"]];
-	
+
 	UIImage *loginBG = [UIImage imageNamed:@"LoginButton.png"];
 	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:25 topCapHeight:20];
 	self.usernameImage.image = loginBGS;

@@ -39,6 +39,7 @@
 
 #ifdef OPTISUITE
 
+- (NSString*) backgroundImageName { return @"MainBackground.png"; }
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (int) buttonImageLeftCap { return 6; }
@@ -49,7 +50,9 @@
 {
 	[super viewDidLoad];
 	
-	self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"MainBackground.png"]];
+	UIImage *bgImage = [UIImage imageNamed:self.backgroundImageName];
+	if (bgImage)
+		self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:bgImage];
 }
 
 - (void) viewWillAppear:(BOOL)animated
