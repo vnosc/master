@@ -45,6 +45,7 @@ extern NSArray* patientImagesMeasured;
 @synthesize frameselect,framevalidate,lensselect,lensvalidate;
 @synthesize h;
 
+- (NSString*) backgroundImageName { return @"MenuBackground.png"; }
 - (NSString*) buttonImageName { return @"MenuButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"MenuButtonTouch.png"; }
 - (int) buttonImageLeftCap { return 20; }
@@ -71,8 +72,6 @@ extern NSArray* patientImagesMeasured;
 #endif
 	
 	[self layoutSections];
-	
-	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MenuBackground.png"]]];
 }
 
 -(IBAction) patientImageBtnClick:(id)sender
