@@ -191,14 +191,15 @@
 	int lensBrandId = [self getIntValueByName:@"lensBrandId"];
 	int lensDesignId = [self getIntValueByName:@"lensDesignId"];
 	
-	NSString *updurl=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/UpdateMobileSessionInfo?rowId=%d&providerId=%d&sessionId=%@&frameId=%d&lensTypeId=%d&memberId=%@&patientId=%d&prescriptionId=%d&materialId=%d&lensOptionIds=%@&materialColorId=%d&tintColorId=%d&lensBrandId=%d&lensDesignId=%d", rowId, providerIdL, sessionId, frameId, lensTypeId, memberId, patientId, prescriptionId, materialId, lensOptionIds, materialColorId, tintColorId, lensBrandId, lensDesignId];
+	NSString *updurl=[NSString stringWithFormat:@"UpdateMobileSessionInfo?rowId=%d&providerId=%d&sessionId=%@&frameId=%d&lensTypeId=%d&memberId=%@&patientId=%d&prescriptionId=%d&materialId=%d&lensOptionIds=%@&materialColorId=%d&tintColorId=%d&lensBrandId=%d&lensDesignId=%d", rowId, providerIdL, sessionId, frameId, lensTypeId, memberId, patientId, prescriptionId, materialId, lensOptionIds, materialColorId, tintColorId, lensBrandId, lensDesignId];
 	
+	[ServiceObject executeServiceMethod:updurl];
 	
 	NSLog(@"%@", updurl);
 	
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:updurl]];
+	/*NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:updurl]];
 	
-	[[[NSURLConnection alloc] initWithRequest:req delegate:nil] start];
+	[[[NSURLConnection alloc] initWithRequest:req delegate:nil] start];*/
 	
 	return YES;
 }

@@ -216,19 +216,23 @@ extern UIColor* selectedMaterialColor;
 }
 
 - (void) getLatestPrescriptionFromService
-{
-	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]];
-	
-	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
-	prescriptionXML = [[ServiceObject alloc] initWithTBXML:tbxml];
+{	
+	prescriptionXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]]];
 	
 	if ([prescriptionXML hasData])
 	{
 		[self loadPrescription:prescriptionXML];
+		
+		int oldPresId = [mobileSessionXML getIntValueByName:@"prescriptionId"];
+		if (oldPresId == 0)
+		{
+			[mobileSessionXML setObject:[NSNumber numberWithInt:[prescriptionXML getIntValueByName:@"prescriptionId"]] forKey:@"prescriptionId"];
+			[mobileSessionXML updateMobileSessionData];
+		}
 	}
 	else
 	{
-		NSLog(@"Invalid response from web service at: %@", url);
+		NSLog(@"Invalid response from web service at: %@", prescriptionXML.url);
 	}
 	
 }

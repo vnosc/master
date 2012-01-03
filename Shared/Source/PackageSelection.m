@@ -1267,11 +1267,8 @@ extern ServiceObject* prescriptionXML;
 }
 
 - (void) getLatestPrescriptionFromService
-{
-	NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]];
-	
-	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
-	prescriptionXML = [[ServiceObject alloc] initWithTBXML:tbxml];
+{	
+	prescriptionXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetPrescriptionInfoByPatientId?patientId=%@&number=1", [patientXML getTextValueByName:@"PatientId"]]];
 	
 	if ([prescriptionXML hasData])
 	{
@@ -1286,7 +1283,7 @@ extern ServiceObject* prescriptionXML;
 	}
 	else
 	{
-		//NSLog(@"Invalid response from web service at: %@", url);
+		NSLog(@"Invalid response from web service at: %@", prescriptionXML.url);
 	}
 	
 }

@@ -114,13 +114,10 @@ extern ServiceObject* mobileSessionXML;
 		NSString *npitxt = @"shishir";
 		if (self.npi != nil)
 			npitxt = self.npi.text;
+ 
+		NSString *url2=[[NSString alloc]initWithFormat:@"ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
+		ServiceObject *so = [ServiceObject fromServiceMethod:url2];
 		
-#ifdef SMARTI
-        NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
-#else
-		NSString *url=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/ValidateProvider?provideremail=%@&password=%@&npi=%@",username.text,password.text,npitxt];
-#endif
-        
 		// look into dispatch for loading request in background
 		//HUD = [[MBProgressHUD alloc] initWithView:self.view];
 		//[self.view addSubview:HUD];
@@ -129,15 +126,15 @@ extern ServiceObject* mobileSessionXML;
 		//HUD.labelText = @"Logging in...";
 		//HUD.areAnimationsEnabled = NO;
 		//[HUD show:YES];
-		TBXML *tbxml=[TBXML tbxmlWithURL:[NSURL URLWithString:url]];
 		//[HUD hide:YES];
 		
-        TBXMLElement *root = tbxml.rootXMLElement;
 		NSLog(@"?!");
-        if(root)
+        
+		if([so hasData])
         {
-            TBXMLElement *idEle = [TBXML childElementNamed:@"providerid" parentElement:root];
-            if([[TBXML textForElement:idEle]intValue]==0)
+			int tempProviderId = [so getIntValueByName:@"providerid"];
+			
+            if([so getIntValueByName:@"providerid"] == 0)
             {
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Incorrect username or password." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
@@ -145,24 +142,12 @@ extern ServiceObject* mobileSessionXML;
                 
             }
             else
-            {
-				TBXMLElement *msEle = [TBXML childElementNamed:@"mobilesessionid" parentElement:root];
+            {	
+				providerId = tempProviderId;
 				
-				providerId = [[TBXML textForElement:idEle]intValue];
+				NSString* mobileSessionId = [so getTextValueByName:@"mobilesessionid"];
 				
-				NSString* mobileSessionId = [TBXML textForElement:msEle];
-				
-#ifdef SMARTI
-				NSString *urlms=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetMobileSessionInfo?sessionId=%@", mobileSessionId];
-#else
-				NSString *urlms=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetMobileSessionInfo?sessionId=%@", mobileSessionId];
-#endif
-
-				NSLog(@"%@", urlms);
-				
-				TBXML *tbxmlms=[TBXML tbxmlWithURL:[NSURL URLWithString:urlms]];
-				
-				mobileSessionXML = [[ServiceObject alloc] initWithTBXML:tbxmlms];
+				mobileSessionXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMobileSessionInfo?sessionId=%@", mobileSessionId]];
 				
 				NSLog(@"%@", mobileSessionId);
 				
