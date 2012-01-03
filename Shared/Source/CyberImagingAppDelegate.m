@@ -16,12 +16,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
 #if defined OPTISUITE
 	NSLog(@"OPTISUITE");
 #elif defined SMARTI
 	NSLog(@"SMART-I");
 #else
 	NSLog(@"No version identifier found.");
+#endif
+	
+#if defined DEBUG
+	NSLog(@"DEBUG");
+#elif defined RELEASE
+	NSLog(@"RELEASE");
+#elif defined ADHOC
+	NSLog(@"ADHOC");
+#else
+	NSLog(@"No build type identifier found.");
 #endif
 	
 	visualAcuityLeftEye=@"0";
