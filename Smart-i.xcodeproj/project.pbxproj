@@ -654,7 +654,6 @@
 		A7E9CD9B14743F94004EF3D4 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8314743F94004EF3D4 /* ThumbImageView.m */; };
 		A7E9CD9D14743F94004EF3D4 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8414743F94004EF3D4 /* UIImage+OpenCV.mm */; };
 		A7E9CD9F14743F94004EF3D4 /* UnityOpticsVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8514743F94004EF3D4 /* UnityOpticsVideoView.m */; };
-		A7E9CDA114743F94004EF3D4 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8614743F94004EF3D4 /* XMLDictionary.m */; };
 		A7E9CDA314743F94004EF3D4 /* Adjust.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC8814743F94004EF3D4 /* Adjust.xib */; };
 		A7E9CDA514743F94004EF3D4 /* BillingTypeSelection.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC8914743F94004EF3D4 /* BillingTypeSelection.xib */; };
 		A7E9CDA714743F94004EF3D4 /* CaptureOverview.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC8A14743F94004EF3D4 /* CaptureOverview.xib */; };
@@ -759,7 +758,6 @@
 		A7F9C4E114756F3000AA9C33 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8314743F94004EF3D4 /* ThumbImageView.m */; };
 		A7F9C4E214756F3000AA9C33 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8414743F94004EF3D4 /* UIImage+OpenCV.mm */; };
 		A7F9C4E314756F3000AA9C33 /* UnityOpticsVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8514743F94004EF3D4 /* UnityOpticsVideoView.m */; };
-		A7F9C4E414756F3000AA9C33 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9CC8614743F94004EF3D4 /* XMLDictionary.m */; };
 		A7F9C4E714756F3000AA9C33 /* libxml2.2.7.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A734F8F4145B506C00B3FDC0 /* libxml2.2.7.3.dylib */; };
 		A7F9C4E814756F3000AA9C33 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A734F8F2145B505D00B3FDC0 /* SystemConfiguration.framework */; };
 		A7F9C4E914756F3000AA9C33 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28419651439EC4900E1986A /* MobileCoreServices.framework */; };
@@ -1295,7 +1293,6 @@
 		A7E9CBD114743F94004EF3D4 /* ThumbImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbImageView.h; sourceTree = "<group>"; };
 		A7E9CBD214743F94004EF3D4 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		A7E9CBD314743F94004EF3D4 /* UnityOpticsVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityOpticsVideoView.h; sourceTree = "<group>"; };
-		A7E9CBD414743F94004EF3D4 /* XMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
 		A7E9CBD614743F94004EF3D4 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		A7E9CBD714743F94004EF3D4 /* 2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.PNG; sourceTree = "<group>"; };
 		A7E9CBD814743F94004EF3D4 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
@@ -1434,7 +1431,6 @@
 		A7E9CC8314743F94004EF3D4 /* ThumbImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbImageView.m; sourceTree = "<group>"; };
 		A7E9CC8414743F94004EF3D4 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		A7E9CC8514743F94004EF3D4 /* UnityOpticsVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityOpticsVideoView.m; sourceTree = "<group>"; };
-		A7E9CC8614743F94004EF3D4 /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
 		A7E9CC8814743F94004EF3D4 /* Adjust.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Adjust.xib; sourceTree = "<group>"; };
 		A7E9CC8914743F94004EF3D4 /* BillingTypeSelection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillingTypeSelection.xib; sourceTree = "<group>"; };
 		A7E9CC8A14743F94004EF3D4 /* CaptureOverview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptureOverview.xib; sourceTree = "<group>"; };
@@ -2255,7 +2251,6 @@
 				A7E9CBD114743F94004EF3D4 /* ThumbImageView.h */,
 				A7E9CBD214743F94004EF3D4 /* UIImage+OpenCV.h */,
 				A7E9CBD314743F94004EF3D4 /* UnityOpticsVideoView.h */,
-				A7E9CBD414743F94004EF3D4 /* XMLDictionary.h */,
 				A7BD205614AD2946006BEA80 /* Coating.h */,
 				A7BD205714AD2946006BEA80 /* CoatingView.h */,
 				A7BD205814AD2947006BEA80 /* LensIndexView.h */,
@@ -2483,7 +2478,6 @@
 				A7E9CC8314743F94004EF3D4 /* ThumbImageView.m */,
 				A7E9CC8414743F94004EF3D4 /* UIImage+OpenCV.mm */,
 				A7E9CC8514743F94004EF3D4 /* UnityOpticsVideoView.m */,
-				A7E9CC8614743F94004EF3D4 /* XMLDictionary.m */,
 				A78ECD541496558900ADA533 /* MeasureWrapAngle.m */,
 			);
 			path = Source;
@@ -3342,7 +3336,6 @@
 				A7F9C4E114756F3000AA9C33 /* ThumbImageView.m in Sources */,
 				A7F9C4E214756F3000AA9C33 /* UIImage+OpenCV.mm in Sources */,
 				A7F9C4E314756F3000AA9C33 /* UnityOpticsVideoView.m in Sources */,
-				A7F9C4E414756F3000AA9C33 /* XMLDictionary.m in Sources */,
 				A7F9C54814757F6500AA9C33 /* HomePage.m in Sources */,
 				A7F9C552147593A000AA9C33 /* PatientList.m in Sources */,
 				A77316ED147D5ADF00D6338D /* FrameStyling.m in Sources */,
@@ -3507,7 +3500,6 @@
 				A7E9CD9B14743F94004EF3D4 /* ThumbImageView.m in Sources */,
 				A7E9CD9D14743F94004EF3D4 /* UIImage+OpenCV.mm in Sources */,
 				A7E9CD9F14743F94004EF3D4 /* UnityOpticsVideoView.m in Sources */,
-				A7E9CDA114743F94004EF3D4 /* XMLDictionary.m in Sources */,
 				A7E9CDF114744818004EF3D4 /* HomePage.m in Sources */,
 				A7F9C551147593A000AA9C33 /* PatientList.m in Sources */,
 				A7F9C5611475DE4900AA9C33 /* HTMLNode.m in Sources */,
