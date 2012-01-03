@@ -17,6 +17,7 @@ extern ServiceObject* mobileSessionXML;
 
 @implementation PatientList
 @synthesize fakeNavBar;
+@synthesize sectionBar;
 @synthesize linkBar;
 @synthesize webView;
 @synthesize webView2;
@@ -24,6 +25,10 @@ extern ServiceObject* mobileSessionXML;
 @synthesize firstURL;
 @synthesize webLoads;
 
+@synthesize selectedSectionIdx;
+@synthesize selectedLinkIdxes;
+
+@synthesize sectionLabels;
 @synthesize btnLabels;
 @synthesize btnURLs;
 
@@ -46,6 +51,7 @@ extern ServiceObject* mobileSessionXML;
 	[webView2 release];
 	[fakeNavBar release];
 	[linkBar release];
+	[sectionBar release];
     [super dealloc];
 }
 
@@ -63,20 +69,47 @@ extern ServiceObject* mobileSessionXML;
 {
     [super viewDidLoad];
 	
+	self.selectedSectionIdx = 0;
+	self.selectedLinkIdxes = [[NSMutableArray alloc] init];
+	
 	self.fakeNavBar.delegate = self;
 	
-	NSMutableArray *btns = [[NSMutableArray alloc] init];
+	NSMutableArray *btns;
+	int cnt;
 	
-	int cnt=0;
-	for (id cLabel in self.btnLabels)
+	btns = [[NSMutableArray alloc] init];
+    cnt=0;
+	
+	for (id cLabel in self.sectionLabels)
 	{
-		UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:cLabel style:UIBarButtonItemStyleBordered target:self action:@selector(linkBtnClicked:)];
-		btnItem.tag = cnt;
+		[self.selectedLinkIdxes addObject:[NSNumber numberWithInt:0]];
+		
+		/*UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[btn addTarget:self action:@selector(sectionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+		[btn setTitle:cLabel forState:UIControlStateNormal];
+		btn.tag = cnt;
+		[btn sizeToFit];
+		
+		[[UIBarButtonItem alloc] initWithCustomView:btn];
+		
+		UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+		// UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:cLabel style:UIBarButtonItemStyleBordered target:self action:@selector(sectionBtnClicked:)];
+		//btnItem.tag = cnt;
 		[btns addObject:btnItem];
-		cnt++;
+		cnt++;*/
 	}
+
+	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:self.sectionLabels];
+	[segment setSegmentedControlStyle:UISegmentedControlStyleBar];
+	[segment addTarget:self action:@selector(sectionBtnClicked:) forControlEvents:UIControlEventValueChanged];
+	[segment setSelectedSegmentIndex:0];
 	
-	[self.linkBar setItems:[NSArray arrayWithArray:btns]];
+	UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:segment];
+	[self.sectionBar setItems:[NSArray arrayWithObjects:btnItem, nil]];
+	
+	//[self.sectionBar setItems:[NSArray arrayWithArray:btns]];
+	
+	[self setUpLinks];
 	
 	self.webView.hidden = YES;
 	
@@ -98,49 +131,28 @@ extern ServiceObject* mobileSessionXML;
 	[self loadPageMobile:finalURL wv:self.webView];
 }
 
--(IBAction) selectandcontinueBtnClick : (id) sender
+- (void) setUpLinks
 {
-	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
+	/*NSMutableArray *btns = [[NSMutableArray alloc] init];
+	int cnt=0;
+	for (id cLabel in [self.btnLabels objectAtIndex:self.selectedSectionIdx])
+	{
+		UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:cLabel style:UIBarButtonItemStyleBordered target:self action:@selector(linkBtnClicked:)];
+		btnItem.tag = cnt;
+		[btns addObject:btnItem];
+		cnt++;
+	}
+	
+	[self.linkBar setItems:[NSArray arrayWithArray:btns]];*/
+	
+	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:[self.btnLabels objectAtIndex:self.selectedSectionIdx]];
+	[segment setSegmentedControlStyle:UISegmentedControlStyleBar];
+	[segment addTarget:self action:@selector(linkBtnClicked:) forControlEvents:UIControlEventValueChanged];
+	[segment setSelectedSegmentIndex:[self selectedLinkIdxForSection:self.selectedSectionIdx]];
+	
+	UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:segment];
+	[self.linkBar setItems:[NSArray arrayWithObjects:btnItem, nil]];
 
-	NSString* returnedFrame = [self.webView stringByEvaluatingJavaScriptFromString:@"getFrameForService();"];
-	
-	if ([returnedFrame length] > 0)
-	{
-		NSLog(@"Updating selected FrameId to %@", returnedFrame);
-		[mobileSessionXML setObject:returnedFrame forKey:@"frameId"];
-		
-		[mobileSessionXML updateMobileSessionData];
-	}
-	else
-	{
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Please select a frame." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
-		
-		return;
-	}
-	
-	if (currentPatientId == 0)
-	{
-		PatientSearch *patient=[[PatientSearch alloc]init];
-		patient.title=@"Patient Selection";
-		//[self.navigationController pushViewController:patient animated:YES];
-		[self presentModalViewController:patient animated:YES];
-	}
-	else
-		[self finishContinue:self];
-}
-	 
-- (void)finishContinue:(id)sender
-{
-	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
-	
-	if (currentPatientId != 0)
-	{
-		PatientPrescription *patient=[[PatientPrescription alloc]init];
-		patient.title=@"Prescription Information";
-		[self.navigationController pushViewController:patient animated:YES];
-	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -155,6 +167,7 @@ extern ServiceObject* mobileSessionXML;
 	[self setWebView2:nil];
 	[self setFakeNavBar:nil];
 	[self setLinkBar:nil];
+	[self setSectionBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -169,6 +182,7 @@ extern ServiceObject* mobileSessionXML;
 - (void)loadPage:(NSString *)pageName wv:(UIWebView *)wv
 {
 	NSLog(@"Loading page %@", pageName);
+	[self.view setUserInteractionEnabled:NO];
 	NSURL* url = [NSURL URLWithString:pageName];
 	NSURLRequest* requestObj = [NSURLRequest requestWithURL:url];
 	[wv loadRequest:requestObj];
@@ -217,21 +231,34 @@ extern ServiceObject* mobileSessionXML;
 	
 	if (self.webLoads == 0)
 	{
-	[HUD hide:YES];
-	webViewArg.hidden = NO;
-	
-	NSLog(@"Webview finished loading.");
-	
-	NSString* pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-	NSLog(@"%@", pageTitle);
-	NSLog(@"%d", [self.fakeNavBar.items count]);
-	
-	if (!self.suppressPush)
-		[self.fakeNavBar pushNavigationItem:[[UINavigationItem alloc] initWithTitle:self.title] animated:YES];
-	
-	self.suppressPush = NO;
+		[HUD hide:YES];
+		webViewArg.hidden = NO;
+		
+		NSLog(@"Webview finished loading.");
+		
+		NSString* pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+		NSLog(@"%@", pageTitle);
+		NSLog(@"%d", [self.fakeNavBar.items count]);
+		
+		if (!self.suppressPush)
+			[self.fakeNavBar pushNavigationItem:[[UINavigationItem alloc] initWithTitle:self.title] animated:YES];
+		
+		self.suppressPush = NO;
 	
 		NSLog(@"%@", self.webView.request.URL.absoluteString);
+		
+		[self finishPageTransition];
+	}
+}
+
+- (void) finishPageTransition
+{
+	[self.view setUserInteractionEnabled:YES];
+	
+	if (changedSection)
+	{
+		[self setUpLinks];
+		changedSection = NO;
 	}
 }
 
@@ -251,11 +278,57 @@ extern ServiceObject* mobileSessionXML;
 
 - (void) linkBtnClicked:(id)sender
 {
-	int idx = [sender tag];
-	if (![[self.btnURLs objectAtIndex:idx] isEqualToString:@""])
+	UISegmentedControl *segment = (UISegmentedControl*)sender;
+	
+	if (segment)
 	{
-	NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", [self.btnURLs objectAtIndex:idx]];
-	[self loadPageMobile:finalURL wv:self.webView];
+		int idx = [segment selectedSegmentIndex];
+		
+		[self.selectedLinkIdxes replaceObjectAtIndex:self.selectedSectionIdx withObject:[NSNumber numberWithInt:idx]];
+		
+		NSString *btnURL = [[self.btnURLs objectAtIndex:self.selectedSectionIdx] objectAtIndex:idx];
+		
+		if (![btnURL isEqualToString:@""])
+		{
+			NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", btnURL];
+			[self loadPageMobile:finalURL wv:self.webView];
+		}
+		else
+		{
+			[self finishPageTransition];
+		}
 	}
 }
+
+- (void) sectionBtnClicked:(id)sender
+{
+	UISegmentedControl *segment = (UISegmentedControl*)sender;
+	
+	if (segment)
+	{
+		int idx = [segment selectedSegmentIndex];
+		
+		self.selectedSectionIdx = idx;
+		changedSection = YES;
+		
+		NSString *btnURL = [[self.btnURLs objectAtIndex:idx] objectAtIndex:[self selectedLinkIdxForSection:idx]];
+		
+		if (![btnURL isEqualToString:@""])
+		{
+			NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", btnURL];
+			[self loadPageMobile:finalURL wv:self.webView];
+		}
+		else
+		{
+			[self finishPageTransition];
+		}
+	}
+	
+}
+
+- (int) selectedLinkIdxForSection:(int)sectionIdx
+{
+	return [[self.selectedLinkIdxes objectAtIndex:sectionIdx] intValue];
+}
+
 @end
