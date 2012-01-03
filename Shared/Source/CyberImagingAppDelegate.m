@@ -35,6 +35,8 @@
     questionLeftEye=@"0";
     questionRightEye=@"0";
 	
+	[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+	
     // Override point for customization after application launch.
 	//self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
