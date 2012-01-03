@@ -84,7 +84,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">left.png</string>
+							<string key="NSResourceName">face_left.png</string>
 						</object>
 					</object>
 					<object class="IBUIImageView" id="532569669">
@@ -100,7 +100,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">right.png</string>
+							<string key="NSResourceName">face_right.png</string>
 						</object>
 					</object>
 					<object class="IBUIImageView" id="848456707">
@@ -563,14 +563,14 @@
 				<string>8.png</string>
 				<string>9.png</string>
 				<string>Portrait1.png</string>
-				<string>left.png</string>
-				<string>right.png</string>
+				<string>face_left.png</string>
+				<string>face_right.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{16, 16}</string>
 				<string>{46, 87}</string>
-				<string>{16, 16}</string>
+				<string>{46, 87}</string>
+				<string>{330, 41}</string>
 				<string>{330, 41}</string>
 				<string>{768, 1024}</string>
 				<string>{590, 885}</string>
