@@ -52,11 +52,10 @@
 
 + (NSString*) urlOfServiceMethod:(NSString *)serviceString
 {
-#ifdef SMARTI
-	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
-#else
-	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
-#endif
+	
+	NSString *wsurl = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Web Service URL"];
+	NSString *url = [NSString stringWithFormat:@"%@%@", wsurl, serviceString];
+	NSLog(url);
 	return url;
 }
 

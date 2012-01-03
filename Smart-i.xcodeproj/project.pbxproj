@@ -3634,18 +3634,22 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/",
 					DEBUG,
 					OPTISUITE,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3664,12 +3668,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/",
 					RELEASE,
 					OPTISUITE,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3677,6 +3684,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -3697,12 +3705,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					ADHOC,
 					OPTISUITE,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3710,6 +3721,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc Distribution";
@@ -3749,12 +3761,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					ADHOC,
 					SMARTI,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3763,6 +3778,7 @@
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc Distribution";
@@ -3818,12 +3834,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					DEBUG,
 					SMARTI,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3831,6 +3850,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3849,12 +3869,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"\"WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/\"",
 					RELEASE,
 					SMARTI,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3863,6 +3886,7 @@
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
+				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

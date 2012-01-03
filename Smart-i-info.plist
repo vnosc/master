@@ -32,5 +32,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>Web Service URL</key>
+	<string>${WEB_SERVICE_URL}</string>
 </dict>
 </plist>

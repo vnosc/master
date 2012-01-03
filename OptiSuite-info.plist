@@ -35,5 +35,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Web Service URL</key>
+	<string>${WEB_SERVICE_URL}</string>
 </dict>
 </plist>
