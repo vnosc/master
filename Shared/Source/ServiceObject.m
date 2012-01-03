@@ -11,17 +11,24 @@
 @implementation ServiceObject
 
 @synthesize dict;
+@synthesize url;
 
 + (ServiceObject *) fromServiceMethod:(NSString *)serviceString
 {
 	TBXML *tbxml= [ServiceObject executeRequest:serviceString];
-	return [[ServiceObject alloc] initWithTBXML:tbxml];
+	ServiceObject *so = [[ServiceObject alloc] initWithTBXML:tbxml];
+	NSString *url = [ServiceObject urlOfServiceMethod:serviceString];
+	so.url = url;
+	return so;
 }
 
 + (ServiceObject *) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag
 {
 	TBXML *tbxml= [ServiceObject executeRequest:serviceString];
-	return [[ServiceObject alloc] initWithTBXML:tbxml categoryKey:ck startTag:startTag];
+	ServiceObject *so = [[ServiceObject alloc] initWithTBXML:tbxml categoryKey:ck startTag:startTag];
+	NSString *url = [ServiceObject urlOfServiceMethod:serviceString];
+	so.url = url;
+	return so;
 }
 
 + (NSString *) getStringFromServiceMethod:(NSString *)serviceString
@@ -37,14 +44,20 @@
 
 + (TBXML *) executeRequest:(NSString *)serviceString
 {
+	NSString *url = [ServiceObject urlOfServiceMethod:serviceString];
+	NSLog(@"Service request: %@", url);
+	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
+	return tbxml;
+}
+
++ (NSString*) urlOfServiceMethod:(NSString *)serviceString
+{
 #ifdef SMARTI
 	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
 #else
 	NSString* url = [NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/%@", serviceString];
 #endif
-	NSLog(@"Service request: %@", url);
-	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
-	return tbxml;
+	return url;
 }
 
 - (id) init

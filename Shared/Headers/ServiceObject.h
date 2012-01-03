@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, retain) NSMutableDictionary* dict;
+@property (nonatomic, retain) NSString *url;
 
 - (id) initWithTBXML:(TBXML *)tbxmlArg;
 - (id) initWithTBXML:(TBXML *)tbxmlArg categoryKey:(NSString*)ck startTag:(NSString*)startTag;
@@ -22,6 +23,7 @@
 + (ServiceObject*) fromServiceMethod:(NSString *)serviceString;
 + (ServiceObject*) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag;
 
++ (NSString*) urlOfServiceMethod:(NSString *)serviceString;
 + (NSString *) getStringFromServiceMethod:(NSString *)serviceString;
 + (void) executeServiceMethod:(NSString *)serviceString;
 + (TBXML *) executeRequest:(NSString *)serviceString;
