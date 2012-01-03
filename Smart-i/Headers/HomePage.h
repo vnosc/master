@@ -34,6 +34,7 @@
 	PatientList *measure;
 	PatientList *lense;
 	PatientList *adjust;
+	PatientList *ncManagement;
 	
 	UINavigationController *ncMeasure;
 	UINavigationController *ncConsult;

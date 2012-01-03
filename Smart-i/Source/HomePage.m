@@ -58,17 +58,31 @@ extern NSArray* patientImagesMeasured;
 	
 	// -----------
 	
-	measure=[[PatientList alloc]init];
-	measure.title=@"Orders/Claims";
-	measure.firstURL=@"Mobile_ListOrder.aspx";
-	measure.btnLabels = [NSArray arrayWithObjects:@"View Orders", @"Create Private Order", @"Create Insurance Order", nil];
-	measure.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_NewOrder.aspx", @"", nil];
+	ncManagement = [[PatientList alloc]init];
+	ncManagement.title=@"Orders/Claims";
+	ncManagement.firstURL=@"Mobile_ListOrder.aspx";
+	ncManagement.sectionLabels = [NSArray arrayWithObjects:@"Order Management", @"Claim Management", @"Patient Management", nil];
+	
+	ncManagement.btnLabels = 
+	[NSArray arrayWithObjects:
+		[NSArray arrayWithObjects:@"View Orders", @"Create Private Order", @"Create Insurance Order", nil],
+		[NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil],
+		[NSArray arrayWithObjects:@"List Patients", @"Search for New Patient", nil],
+		nil];
+	
+	ncManagement.btnURLs = 
+	[NSArray arrayWithObjects:
+		[NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_NewOrder.aspx", @"", nil],
+		[NSArray arrayWithObjects:@"Mobile_ListClaims.aspx", @"Mobile_SubmitClaim.aspx", nil],
+		[NSArray arrayWithObjects:@"Mobile_ListPatients.aspx", @"Mobile_PatientValidation.aspx", nil],
+		nil];
 
 	// -----------
 	
 	CaptureOverview *h = [[CaptureOverview alloc]init];
 	h.title=@"Capture Image";
 	ncMeasure = [[UINavigationController alloc] initWithRootViewController:h];
+	ncMeasure.title = @"Measurement";
 	
 	// -----------
 	
@@ -82,12 +96,13 @@ extern NSArray* patientImagesMeasured;
     //UINavigationController *nav2=[[UINavigationController alloc]initWithRootViewController:coating];
     
     UITabBarController *tabbar3=[[UITabBarController alloc]init];
-	tabbar3.title = @"Lens Index";
-	tabbar3.delegate = self;
+	tabbar3.title = @"Patient Consultation";
+	//tabbar3.delegate = self;
     [tabbar3 setViewControllers:[NSArray arrayWithObjects:lensindex,coating,nil]];
     
     //[mainWindow addSubview:tabbar.view];
 	ncConsult = [[UINavigationController alloc] initWithRootViewController:tabbar3];
+	ncConsult.title = @"Consultation";
 	//[ncConsult pushViewController:tabbar3 animated:YES];
 	
 	// ----------
@@ -95,12 +110,14 @@ extern NSArray* patientImagesMeasured;
 	VisionTestHomePage *vt = [[VisionTestHomePage alloc] init];
 	vt.title = @"Vision Test";
 	ncVisionTest = [[UINavigationController alloc] initWithRootViewController:vt];
+	ncVisionTest.title = @"Vision Test";
 	
 	// ----------
 	
 	FrameStyling *fs = [[FrameStyling alloc] init];
 	fs.title = @"Frame Styling";
 	ncFrameStyling = [[UINavigationController alloc] initWithRootViewController:fs];
+	ncFrameStyling.title = @"Frame Styling";
 	
 	// ----------
 	
@@ -120,7 +137,7 @@ extern NSArray* patientImagesMeasured;
 	adjust.btnLabels = [NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil];
 	adjust.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListClaims.aspx", @"Mobile_SubmitClaim.aspx", nil];*/
 	
-	[tbc setViewControllers:[NSArray arrayWithObjects:self.navigationController, ncMeasure, ncConsult, ncVisionTest, ncFrameStyling, nil]];
+	[tbc setViewControllers:[NSArray arrayWithObjects:self.navigationController, ncManagement, ncMeasure, ncConsult, ncVisionTest, ncFrameStyling, nil]];
 	self.title = @"Main";
 	
 		//[self TabBarIncreaseFonts:self.tbc];
@@ -146,7 +163,7 @@ extern NSArray* patientImagesMeasured;
 }
 
 - (IBAction)orderMgmtBtnClick:(id)sender {
-	[tbc setSelectedViewController:measure];
+	[tbc setSelectedViewController:ncManagement];
 }
 
 - (IBAction)claimMgmtBtnClick:(id)sender {
@@ -251,7 +268,7 @@ extern NSArray* patientImagesMeasured;
 {
 	NSLog(@"YAY");
 }
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+/*- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
 	NSLog(@"YAY");
 }
@@ -261,9 +278,9 @@ extern NSArray* patientImagesMeasured;
 	NSLog(@"Index : %i",tabBarController.selectedIndex);
 
 	
-	tabBarController.title = viewController.title;
+	//tabBarController.title = viewController.title;
 	return YES;
-}
+}*/
 
 - (void) toggleDropDown:(int)idx
 {
