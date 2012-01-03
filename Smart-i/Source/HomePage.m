@@ -56,44 +56,23 @@ extern NSArray* patientImagesMeasured;
 	
 	NSLog(@"uh...?");
 	
+	// -----------
+	
 	measure=[[PatientList alloc]init];
-	measure.title=@"Order Management";
+	measure.title=@"Orders/Claims";
 	measure.firstURL=@"Mobile_ListOrder.aspx";
 	measure.btnLabels = [NSArray arrayWithObjects:@"View Orders", @"Create Private Order", @"Create Insurance Order", nil];
 	measure.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_NewOrder.aspx", @"", nil];
-	
-	lense=[[PatientList alloc]init];
-	lense.title=@"Patient Management";
-	lense.firstURL=@"Mobile_ListPatients.aspx";
-	lense.btnLabels = [NSArray arrayWithObjects:@"List Patients", @"Search for New Patient", nil];
-	lense.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListPatients.aspx", @"Mobile_PatientValidation.aspx", nil];
-	
-	adjust=[[PatientList alloc]init];
-	adjust.title=@"Claim Management";
-	adjust.firstURL=@"Mobile_ListClaims.aspx";
-	adjust.btnLabels = [NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil];
-	adjust.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListClaims.aspx", @"Mobile_SubmitClaim.aspx", nil];
-	
-	[tbc setViewControllers:[NSArray arrayWithObjects:self.navigationController,measure,lense,adjust, nil]];
-	self.title = @"Main";
-	
-		//[self TabBarIncreaseFonts:self.tbc];
-	
-	[mainview.mainWindow addSubview:tbc.view];
-	[self.view removeFromSuperview];
-}
 
--(IBAction) measurementBtnClick:(id)sender
-{
+	// -----------
+	
 	CaptureOverview *h = [[CaptureOverview alloc]init];
 	h.title=@"Capture Image";
-	[self.navigationController pushViewController:h animated:YES];		
-}
-
--(IBAction) patientBtnClick:(id)sender
-{
+	ncMeasure = [[UINavigationController alloc] initWithRootViewController:h];
 	
-    LensIndexView *lensindex=[[LensIndexView alloc]init];
+	// -----------
+	
+	LensIndexView *lensindex=[[LensIndexView alloc]init];
     lensindex.title=@"Lens Index";
 	// lensIndexView.mainViewController=self;
     //UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:lensindex];
@@ -108,7 +87,55 @@ extern NSArray* patientImagesMeasured;
     [tabbar3 setViewControllers:[NSArray arrayWithObjects:lensindex,coating,nil]];
     
     //[mainWindow addSubview:tabbar.view];
-	[self.navigationController pushViewController:tabbar3 animated:YES];
+	ncConsult = [[UINavigationController alloc] initWithRootViewController:tabbar3];
+	//[ncConsult pushViewController:tabbar3 animated:YES];
+	
+	// ----------
+	
+	VisionTestHomePage *vt = [[VisionTestHomePage alloc] init];
+	vt.title = @"Vision Test";
+	ncVisionTest = [[UINavigationController alloc] initWithRootViewController:vt];
+	
+	// ----------
+	
+	FrameStyling *fs = [[FrameStyling alloc] init];
+	fs.title = @"Frame Styling";
+	ncFrameStyling = [[UINavigationController alloc] initWithRootViewController:fs];
+	
+	// ----------
+	
+	/*h = [[CaptureOverview alloc]init];
+	h.title=@"Capture Image";
+	[self.navigationController pushViewController:h animated:YES];*/
+	
+	/*lense=[[PatientList alloc]init];
+	lense.title=@"Patient Management";
+	lense.firstURL=@"Mobile_ListPatients.aspx";
+	lense.btnLabels = [NSArray arrayWithObjects:@"List Patients", @"Search for New Patient", nil];
+	lense.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListPatients.aspx", @"Mobile_PatientValidation.aspx", nil];
+	
+	adjust=[[PatientList alloc]init];
+	adjust.title=@"Claim Management";
+	adjust.firstURL=@"Mobile_ListClaims.aspx";
+	adjust.btnLabels = [NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil];
+	adjust.btnURLs = [NSArray arrayWithObjects:@"Mobile_ListClaims.aspx", @"Mobile_SubmitClaim.aspx", nil];*/
+	
+	[tbc setViewControllers:[NSArray arrayWithObjects:self.navigationController, ncMeasure, ncConsult, ncVisionTest, ncFrameStyling, nil]];
+	self.title = @"Main";
+	
+		//[self TabBarIncreaseFonts:self.tbc];
+	
+	[mainview.mainWindow addSubview:tbc.view];
+	[self.view removeFromSuperview];
+}
+
+-(IBAction) measurementBtnClick:(id)sender
+{
+	[tbc setSelectedViewController:ncMeasure];
+}
+
+-(IBAction) patientBtnClick:(id)sender
+{
 	
 }
 
@@ -123,11 +150,11 @@ extern NSArray* patientImagesMeasured;
 }
 
 - (IBAction)claimMgmtBtnClick:(id)sender {
-	[tbc setSelectedViewController:lense];
+	//[tbc setSelectedViewController:lense];
 }
 
 - (IBAction)patientMgmtBtnClick:(id)sender {
-	[tbc setSelectedViewController:adjust];
+	//[tbc setSelectedViewController:adjust];
 }
 
 - (IBAction)frameStylingBtnClick:(id)sender {
@@ -250,8 +277,8 @@ extern NSArray* patientImagesMeasured;
 
 - (void) layoutSections
 {
-	float x = 284;
-	float y = 330;
+	float x = 264;
+	float y = 317;
 	
 	float ypad = 5;
 	

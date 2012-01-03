@@ -34,6 +34,11 @@
 	PatientList *measure;
 	PatientList *lense;
 	PatientList *adjust;
+	
+	UINavigationController *ncMeasure;
+	UINavigationController *ncConsult;
+	UINavigationController *ncVisionTest;
+	UINavigationController *ncFrameStyling;
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *hackDropDownButton;
