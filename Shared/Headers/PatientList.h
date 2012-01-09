@@ -43,10 +43,12 @@
 @property (retain, nonatomic) NSArray *btnURLs;
 
 -(IBAction) selectandcontinueBtnClick : (id) sender;
+- (IBAction)refreshBtnClick:(id)sender;
 - (void)loadPage:(NSString *)pageName wv:(UIWebView *)wv;
 - (void)loadPageMobile:(NSString *)pageName wv:(UIWebView *)wv;
 - (void)finishContinue:(id)sender;
 
+- (NSString*) getFullURL:(NSString*)lastPart;
 - (void) setUpLinks;
 - (void) finishPageTransition;
 

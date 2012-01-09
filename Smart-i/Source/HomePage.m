@@ -38,6 +38,12 @@ extern NSArray* patientImagesMeasured;
 @synthesize sectionBtns;
 @synthesize sectionSubmenuViews;
 
+- (NSString*) backgroundImageName { return @"MenuBackground.png"; }
+//- (NSString*) buttonImageName { return @"MenuButton.png"; }
+//- (NSString*) buttonHighlightedImageName { return @"MenuButtonTouch.png"; }
+//- (int) buttonImageLeftCap { return 20; }
+//- (int) buttonImageTopCap { return 6; }
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -65,14 +71,14 @@ extern NSArray* patientImagesMeasured;
 	
 	ncManagement.btnLabels = 
 	[NSArray arrayWithObjects:
-		[NSArray arrayWithObjects:@"View Orders", @"Create Private Order", @"Create Insurance Order", nil],
+		[NSArray arrayWithObjects:@"View Orders", @"Create Private Order (Complete Eyewear)", /*@"Create Private Order (Uncut)", */@"Create Insurance Order", nil],
 		[NSArray arrayWithObjects:@"List Claims", @"Submit New Claim", nil],
 		[NSArray arrayWithObjects:@"List Patients", @"Search for New Patient", nil],
 		nil];
 	
 	ncManagement.btnURLs = 
 	[NSArray arrayWithObjects:
-		[NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_NewOrder.aspx", @"", nil],
+		[NSArray arrayWithObjects:@"Mobile_ListOrder.aspx", @"Mobile_Create1stEyeCareOrder.aspx", /*@"Mobile_CreateLensOrder.aspx", */@"Mobile_NewOrder.aspx", nil],
 		[NSArray arrayWithObjects:@"Mobile_ListClaims.aspx", @"Mobile_SubmitClaim.aspx", nil],
 		[NSArray arrayWithObjects:@"Mobile_ListPatients.aspx", @"Mobile_PatientValidation.aspx", nil],
 		nil];
@@ -295,9 +301,9 @@ extern NSArray* patientImagesMeasured;
 - (void) layoutSections
 {
 	float x = 264;
-	float y = 317;
+	float y = 277;
 	
-	float ypad = 5;
+	float ypad = 8;
 	
 	for (UIButton *b in self.sectionBtns)
 	{

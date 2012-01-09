@@ -34,5 +34,7 @@
 	</array>
 	<key>Web Service URL</key>
 	<string>${WEB_SERVICE_URL}</string>
+	<key>Web Site URL</key>
+	<string>${WEB_SITE_URL}</string>
 </dict>
 </plist>

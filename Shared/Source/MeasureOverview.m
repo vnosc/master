@@ -44,6 +44,7 @@ extern ServiceObject* prescriptionXML;
 @synthesize suffixes;
 @synthesize measureTexts;
 
+@synthesize measureType;
 @synthesize selectedImageView;
 
 @synthesize HUD;
@@ -147,7 +148,7 @@ extern ServiceObject* prescriptionXML;
 		
 		NSString* suffix = [self.suffixes objectAtIndex:cnt];
 		
-		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]];
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]]];
 		obj.image = [[UIImage imageWithData:imageData] retain];
 		
 		cnt++;
@@ -288,6 +289,7 @@ extern ServiceObject* prescriptionXML;
 		measureVC = [[MeasurePicture alloc]init];
 		self.measureVC.title = [NSString stringWithFormat:@"Eye Measurement - %@", measureText];
 		self.measureVC.measureType = imageIdx;
+		self.measureType = imageIdx;
 		
 		NSLog(@"%@", uiv.image);
 		//self.measureVC.iv = [self.imageViews objectAtIndex:self.selectedImageView];
@@ -304,6 +306,15 @@ extern ServiceObject* prescriptionXML;
 		[alert show];
 		[alert release];
 	}
+}
+
+- (IBAction)wrapAngleBtnClicked:(id)sender {
+	
+	self.measureType = 4;
+	
+	MeasureWrapAngle *p = [[MeasureWrapAngle alloc] init];
+	p.title = @"Measure Wrap Angle";
+	[self.navigationController pushViewController:p animated:YES];
 }
 
 - (IBAction)saveAndContinue:(id)sender {
@@ -395,31 +406,38 @@ extern ServiceObject* prescriptionXML;
 	
 	NSLog(@"NOTIFICATION: %@, %@", n.name, n.object);
 
-	UIImage* finalImage = [d objectForKey:@"FinalImage"];
+	if ([self.imageViews count] > measureType && [d objectForKey:@"FinalImage"])
+	{
+		UIImage* finalImage = [d objectForKey:@"FinalImage"];
+		
+		UIImageView* uiv = [self.imageViews objectAtIndex:measureType];
+		uiv.image = finalImage;
+	}
 	
-	UIImageView* uiv = [self.imageViews objectAtIndex:measureVC.measureType];
-	uiv.image = finalImage;
-	
-	if (measureVC.measureType == 0)
+	if (measureType == 0)
 	{
 		self.txtRightDistPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightDistPD"] floatValue]];
 		self.txtLeftDistPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftDistPD"] floatValue]];
 		self.txtRightHeight.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightHeight"] floatValue]];
 		self.txtLeftHeight.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftHeight"] floatValue]];
 	}
-	else if (measureVC.measureType == 1)
+	else if (measureType == 1)
 	{
 		self.txtRightNearPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightNearPD"] floatValue]];
 		self.txtLeftNearPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftNearPD"] floatValue]];
 	}
-	else if (measureVC.measureType == 2)
+	else if (measureType == 2)
 	{
 		self.txtPantho.text = [NSString stringWithFormat:@"%.2fº", [[d objectForKey:@"Pantho"] floatValue]];
 	}
-	else if (measureVC.measureType == 3)
+	else if (measureType == 3)
 	{
 		self.txtVertex.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"Vertex"] floatValue]];
 		//self.txtWrap.text = [[d objectForKey:@"Wrap"] stringValue];
+	}
+	else if (measureType == 4)
+	{
+		self.txtWrap.text = [NSString stringWithFormat:@"%.2fº", [[d objectForKey:@"WrapAngle"] floatValue]];
 	}
 }
 
@@ -431,7 +449,7 @@ extern ServiceObject* prescriptionXML;
 
 - (void) uploadImages:(id)sender
 {
-	NSURL* url = [NSURL URLWithString:@"http://smart-i.mobi/UploadPatientImage.aspx"];
+	NSURL* url = [NSURL URLWithString:[ServiceObject urlOfWebPage:@"UploadPatientImage.aspx"]];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
 	
 	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];

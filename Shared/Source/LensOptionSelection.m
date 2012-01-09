@@ -347,10 +347,10 @@ extern UIColor* selectedMaterialColor;
 		
 		NSLog(@"Lens option selected %@", value);
 		
-		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowLensOptionImage.aspx?lensOptionId=%@&type=with", value]]];
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowLensOptionImage.aspx?lensOptionId=%@&type=with", value]]]];
 		self.withOptionImage.image = [UIImage imageWithData:imageData];
 
-		NSData* imageData2 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowLensOptionImage.aspx?lensOptionId=%@&type=without", value]]];
+		NSData* imageData2 = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowLensOptionImage.aspx?lensOptionId=%@&type=without", value]]]];
 		self.withoutOptionImage.image = [UIImage imageWithData:imageData2];
 		
 		[imageData release];

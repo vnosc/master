@@ -22,6 +22,14 @@
 		A73943BD14B36BFE006BFF36 /* face_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BA14B36BFE006BFF36 /* face_left.png */; };
 		A73943BE14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
 		A73943BF14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
+		A76E78E514B49D5200D2A589 /* DefaultButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E214B49D5200D2A589 /* DefaultButton.png */; };
+		A76E78E614B49D5200D2A589 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E314B49D5200D2A589 /* LoginBackground.png */; };
+		A76E78E714B49D5200D2A589 /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E414B49D5200D2A589 /* MainBackground.png */; };
+		A76E78EA14B49EF500D2A589 /* DefaultButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E914B49EF500D2A589 /* DefaultButtonHighlighted.png */; };
+		A76E78EC14B4D6F600D2A589 /* LoginButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78EB14B4D6F600D2A589 /* LoginButton.png */; };
+		A76E78EE14B4DA8E00D2A589 /* MenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78ED14B4DA8E00D2A589 /* MenuBackground.png */; };
+		A76E78EF14B4DC7000D2A589 /* CaptureReticle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DF8D651484C410005638ED /* CaptureReticle.png */; };
+		A76E78F014B4DC7F00D2A589 /* MeasureAdjustArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A72414851481E2A7003B3B0E /* MeasureAdjustArrow.png */; };
 		A77316EC147D5ADF00D6338D /* FrameStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = A77316EB147D5ADF00D6338D /* FrameStyling.m */; };
 		A77316ED147D5ADF00D6338D /* FrameStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = A77316EB147D5ADF00D6338D /* FrameStyling.m */; };
 		A77316EF147D5B0700D6338D /* FrameStyling.xib in Resources */ = {isa = PBXBuildFile; fileRef = A77316EE147D5B0700D6338D /* FrameStyling.xib */; };
@@ -885,6 +893,12 @@
 		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
 		A767289E147569D900857EAD /* Smart-i copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy-Info.plist"; sourceTree = "<absolute>"; };
+		A76E78E214B49D5200D2A589 /* DefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButton.png; sourceTree = "<group>"; };
+		A76E78E314B49D5200D2A589 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginBackground.png; sourceTree = "<group>"; };
+		A76E78E414B49D5200D2A589 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainBackground.png; sourceTree = "<group>"; };
+		A76E78E914B49EF500D2A589 /* DefaultButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButtonHighlighted.png; sourceTree = "<group>"; };
+		A76E78EB14B4D6F600D2A589 /* LoginButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButton.png; sourceTree = "<group>"; };
+		A76E78ED14B4DA8E00D2A589 /* MenuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuBackground.png; sourceTree = "<group>"; };
 		A77316EA147D5ABA00D6338D /* FrameStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameStyling.h; sourceTree = "<group>"; };
 		A77316EB147D5ADF00D6338D /* FrameStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameStyling.m; sourceTree = "<group>"; };
 		A77316EE147D5B0700D6338D /* FrameStyling.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameStyling.xib; sourceTree = "<group>"; };
@@ -2507,6 +2521,7 @@
 				A7E9CC9814743F94004EF3D4 /* Measurements.xib */,
 				A7E9CC9914743F94004EF3D4 /* MeasureOverview.xib */,
 				A7E9CC9A14743F94004EF3D4 /* MeasurePicture.xib */,
+				A78ECD551496558900ADA533 /* MeasureWrapAngle.xib */,
 				A7E9CC9B14743F94004EF3D4 /* NewUser.xib */,
 				A7E9CC9C14743F94004EF3D4 /* OpenCVTesting.xib */,
 				A7E9CC9D14743F94004EF3D4 /* PackageSelection.xib */,
@@ -2518,7 +2533,6 @@
 				A7E9CCA114743F94004EF3D4 /* SelectionSubmenu.xib */,
 				A7E9CCA214743F94004EF3D4 /* SelectSpech.xib */,
 				A7E9CCA314743F94004EF3D4 /* SupplyFrameInfo.xib */,
-				A78ECD551496558900ADA533 /* MeasureWrapAngle.xib */,
 				A7E9CCA414743F94004EF3D4 /* TestsPage.xib */,
 				A7E9CCA514743F94004EF3D4 /* UnityOpticsVideoView.xib */,
 			);
@@ -2577,6 +2591,12 @@
 		A7F9C5561475CF3200AA9C33 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A76E78ED14B4DA8E00D2A589 /* MenuBackground.png */,
+				A76E78EB14B4D6F600D2A589 /* LoginButton.png */,
+				A76E78E914B49EF500D2A589 /* DefaultButtonHighlighted.png */,
+				A76E78E214B49D5200D2A589 /* DefaultButton.png */,
+				A76E78E314B49D5200D2A589 /* LoginBackground.png */,
+				A76E78E414B49D5200D2A589 /* MainBackground.png */,
 				A7F9C5571475CF3200AA9C33 /* logo.jpg */,
 			);
 			name = Images;
@@ -3252,6 +3272,14 @@
 				A7BD205414AD2896006BEA80 /* yes.png in Resources */,
 				A73943BC14B36BFE006BFF36 /* face_left.png in Resources */,
 				A73943BE14B36BFE006BFF36 /* face_right.png in Resources */,
+				A76E78E514B49D5200D2A589 /* DefaultButton.png in Resources */,
+				A76E78E614B49D5200D2A589 /* LoginBackground.png in Resources */,
+				A76E78E714B49D5200D2A589 /* MainBackground.png in Resources */,
+				A76E78EA14B49EF500D2A589 /* DefaultButtonHighlighted.png in Resources */,
+				A76E78EC14B4D6F600D2A589 /* LoginButton.png in Resources */,
+				A76E78EE14B4DA8E00D2A589 /* MenuBackground.png in Resources */,
+				A76E78EF14B4DC7000D2A589 /* CaptureReticle.png in Resources */,
+				A76E78F014B4DC7F00D2A589 /* MeasureAdjustArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3634,7 +3662,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/",
 					DEBUG,
 					OPTISUITE,
 				);
@@ -3642,14 +3669,15 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
-				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SERVICE_URL = "http://smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://www.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3668,7 +3696,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/",
 					RELEASE,
 					OPTISUITE,
 				);
@@ -3676,7 +3703,7 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3684,7 +3711,8 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
-				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SERVICE_URL = "http://smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://www.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -3705,7 +3733,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					ADHOC,
 					OPTISUITE,
 				);
@@ -3713,7 +3740,7 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "OptiSuite-info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3721,7 +3748,8 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
-				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SERVICE_URL = "http://smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://www.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc Distribution";
@@ -3761,7 +3789,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					ADHOC,
 					SMARTI,
 				);
@@ -3769,7 +3796,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = YES;
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3779,6 +3807,7 @@
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://dev.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc Distribution";
@@ -3834,7 +3863,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"\"WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/\"",
 					DEBUG,
 					SMARTI,
 				);
@@ -3842,7 +3870,7 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://dev.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3851,6 +3879,7 @@
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://dev.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3869,7 +3898,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CyberImaging/CyberImaging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"\"WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/\"",
 					RELEASE,
 					SMARTI,
 				);
@@ -3877,7 +3905,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "Smart-i-Info.plist";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "--traditional";
-				INFOPLIST_PREPROCESSOR_DEFINITIONS = "WEB_SERVICE_URL=http://www.smart-i.ws/mobilewebservice.asmx/";
+				INFOPLIST_PREPROCESS = YES;
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
@@ -3887,6 +3916,7 @@
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
+				WEB_SITE_URL = "http://dev.smart-i.mobi/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

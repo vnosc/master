@@ -52,9 +52,16 @@
 
 + (NSString*) urlOfServiceMethod:(NSString *)serviceString
 {
-	
 	NSString *wsurl = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Web Service URL"];
 	NSString *url = [NSString stringWithFormat:@"%@%@", wsurl, serviceString];
+	NSLog(url);
+	return url;
+}
+
++ (NSString*) urlOfWebPage:(NSString *)pageString
+{
+	NSString *wsurl = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Web Site URL"];
+	NSString *url = [NSString stringWithFormat:@"%@%@", wsurl, pageString];
 	NSLog(url);
 	return url;
 }

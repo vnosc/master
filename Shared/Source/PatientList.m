@@ -126,11 +126,18 @@ extern ServiceObject* mobileSessionXML;
 	self.webView.scalesPageToFit = YES;
 
 	
-	NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", self.firstURL];
-    //[self loadPageMobile:@"http://smart-i.mobi/Mobile_ListPatients.aspx" wv:self.webView];
+	NSString *finalURL = [self getFullURL:self.firstURL];
+	
 	[self loadPageMobile:finalURL wv:self.webView];
 }
 
+- (NSString*) getFullURL:(NSString*)lastPart
+{
+	NSString *siteURL = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Web Site URL"];
+	NSLog(@"Site URL: %@", siteURL);
+	return [NSString stringWithFormat:@"%@%@", siteURL, lastPart];
+}
+						  
 - (void) setUpLinks
 {
 	/*NSMutableArray *btns = [[NSMutableArray alloc] init];
@@ -177,6 +184,10 @@ extern ServiceObject* mobileSessionXML;
 {
     // Return YES for supported orientations
 	return YES;
+}
+
+- (IBAction)refreshBtnClick:(id)sender {
+	[self goToLink:[self selectedLinkIdxForSection:self.selectedSectionIdx]];
 }
 
 - (void)loadPage:(NSString *)pageName wv:(UIWebView *)wv
@@ -284,20 +295,25 @@ extern ServiceObject* mobileSessionXML;
 	{
 		int idx = [segment selectedSegmentIndex];
 		
+		[self goToLink:idx];
+	}
+}
+
+- (void) goToLink:(int)idx
+{
 		[self.selectedLinkIdxes replaceObjectAtIndex:self.selectedSectionIdx withObject:[NSNumber numberWithInt:idx]];
 		
 		NSString *btnURL = [[self.btnURLs objectAtIndex:self.selectedSectionIdx] objectAtIndex:idx];
 		
 		if (![btnURL isEqualToString:@""])
 		{
-			NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", btnURL];
+			NSString *finalURL = [self getFullURL:btnURL];
 			[self loadPageMobile:finalURL wv:self.webView];
 		}
 		else
 		{
 			[self finishPageTransition];
 		}
-	}
 }
 
 - (void) sectionBtnClicked:(id)sender
@@ -315,7 +331,7 @@ extern ServiceObject* mobileSessionXML;
 		
 		if (![btnURL isEqualToString:@""])
 		{
-			NSString *finalURL = [NSString stringWithFormat:@"http://smart-i.mobi/%@", btnURL];
+			NSString *finalURL = [self getFullURL:btnURL];
 			[self loadPageMobile:finalURL wv:self.webView];
 		}
 		else

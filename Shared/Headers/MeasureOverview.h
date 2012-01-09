@@ -14,6 +14,7 @@
 #import "MBProgressHUD.h"
 
 #import "MeasurePicture.h"
+#import "MeasureWrapAngle.h"
 
 @interface MeasureOverview : BackgroundViewController
 
@@ -42,6 +43,8 @@
 @property (retain, nonatomic) IBOutlet UIView *measureDetailView;
 @property (retain, nonatomic) IBOutlet MeasurePicture* measureVC;
 
+@property (assign) int measureType;
+
 @property (retain) NSArray* suffixes;
 @property (retain) NSArray* measureTexts;
 @property (nonatomic) int selectedImageView;
@@ -59,6 +62,7 @@
 - (void) uploadImages:(id)sender;
 
 - (IBAction)touchImage:(id)sender;
+- (IBAction)wrapAngleBtnClicked:(id)sender;
 
 - (IBAction)saveAndContinue:(id)sender;
 

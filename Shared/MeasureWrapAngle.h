@@ -20,6 +20,7 @@
 
 - (IBAction)angleSliderChanged:(id)sender;
 - (void) setSliderPoint:(float)f2;
+- (IBAction)saveAndContinue:(id)sender;
 
 @end
 

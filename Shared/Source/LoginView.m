@@ -65,7 +65,13 @@ extern ServiceObject* mobileSessionXML;
    // [btnRemember setSelected:YES];
 
 	UIImage *loginBG = [UIImage imageNamed:@"LoginButton.png"];
+	
+#if defined OPTISUITE
 	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:25 topCapHeight:20];
+#else if defined SMARTI
+	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:15 topCapHeight:15];
+#endif
+	
 	self.usernameImage.image = loginBGS;
 	self.passwordImage.image = loginBGS;
 	

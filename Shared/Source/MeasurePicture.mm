@@ -403,7 +403,6 @@ extern ServiceObject* frameXML;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:vertex], @"Vertex",
-				 [NSNumber numberWithFloat:4], @"Wrap",
 				 finalImage, @"FinalImage",			 			 
 				 nil];
 		}

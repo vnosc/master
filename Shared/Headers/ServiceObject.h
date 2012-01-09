@@ -24,6 +24,8 @@
 + (ServiceObject*) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag;
 
 + (NSString*) urlOfServiceMethod:(NSString *)serviceString;
++ (NSString*) urlOfWebPage:(NSString *)pageString;
+
 + (NSString *) getStringFromServiceMethod:(NSString *)serviceString;
 + (void) executeServiceMethod:(NSString *)serviceString;
 + (TBXML *) executeRequest:(NSString *)serviceString;

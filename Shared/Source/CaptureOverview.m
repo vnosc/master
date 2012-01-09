@@ -197,7 +197,7 @@ extern NSArray* patientImages;
 		
 		NSString* suffix = [self.suffixes objectAtIndex:cnt];
 		
-		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]];
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true",  patientId, suffix]]]];
 		obj.image = [[UIImage imageWithData:imageData] retain];
 		
 		cnt++;
@@ -459,7 +459,7 @@ extern NSArray* patientImages;
 
 - (void) uploadImages:(id)sender
 {
-	NSURL* url = [NSURL URLWithString:@"http://smart-i.mobi/UploadPatientImage.aspx"];
+	NSURL* url = [NSURL URLWithString:[ServiceObject urlOfWebPage:@"UploadPatientImage.aspx"]];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
 
 	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];

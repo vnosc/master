@@ -191,11 +191,11 @@ extern UIImage* patientImageProg;
 	int patientIdv = [mobileSessionXML getIntValueByName:@"patientId"];
 	patientXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetPatientInfo?patientId=%d", patientIdv]];
 	
-	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d", patientIdv]]];
+	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d", patientIdv]]]];
 	patientImage1 = [[UIImage imageWithData:imageData] retain];
 	
-	//imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=prog", patientIdv]]];
-	imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=10003&type=prog"]]];
+	//imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=prog", patientIdv]]]];
+	imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=10003&type=prog"]]]];
 	patientImageProg = [[UIImage imageWithData:imageData] retain];
 	
 	[imageData release];
@@ -263,7 +263,7 @@ extern UIImage* patientImageProg;
 	int frameIdx = [mobileSessionXML getIntValueByName:@"frameId"];
 	frameXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetFrameInfoByFrameId?frameId=%d", frameIdx]];
 	
-	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowFrameImage.aspx?frameId=%d", frameIdx]]];
+	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowFrameImage.aspx?frameId=%d", frameIdx]]]];
 	self.frameIV.image = [[UIImage imageWithData:imageData] retain];
 	
 	if ([frameXML hasData])

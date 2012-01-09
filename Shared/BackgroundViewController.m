@@ -42,9 +42,22 @@
 - (NSString*) backgroundImageName { return @"MainBackground.png"; }
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
+- (UIColor*) textColor { return [UIColor whiteColor]; }
 - (int) buttonImageLeftCap { return 6; }
 - (int) buttonImageTopCap { return 6; }
 - (int) heightThreshold { return 70; }
+
+#else if defined SMARTI
+
+- (NSString*) backgroundImageName { return @"MainBackground.png"; }
+- (NSString*) buttonImageName { return @"DefaultButton.png"; }
+- (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
+- (UIColor*) textColor { return [UIColor darkGrayColor]; }
+- (int) buttonImageLeftCap { return 6; }
+- (int) buttonImageTopCap { return 6; }
+- (int) heightThreshold { return 70; }
+
+#endif
 
 - (void) viewDidLoad
 {
@@ -52,6 +65,7 @@
 	
 	UIImage *bgImage = [UIImage imageNamed:self.backgroundImageName];
 	if (bgImage)
+	
 		self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:bgImage];
 }
 
@@ -95,7 +109,7 @@
 				[b.layer setBorderWidth:0.0f];
 				//[b.layer setMasksToBounds:YES];
 				[b.layer setCornerRadius:0.0f];
-				[b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+				[b setTitleColor:self.textColor forState:UIControlStateNormal];
 			}
 		}
 		else if ([v isKindOfClass:[UIView class]] && ![v isKindOfClass:[UINavigationBar class]])
@@ -104,8 +118,6 @@
 		}
 	}
 }
-
-#endif 
 
 /*- (void) viewDidAppear:(BOOL)animated
 {

@@ -184,7 +184,7 @@ const int kEyeHaarOptions = 0;
 	for (NSString* suffix in co.suffixes)
 	{
 		
-		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]];
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]]];
 		UIImage *uiimg = [[UIImage imageWithData:imageData] retain];
 		id img = uiimg ? uiimg : [NSNull null];
 		

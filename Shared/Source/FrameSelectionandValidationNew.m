@@ -63,7 +63,7 @@ extern ServiceObject* mobileSessionXML;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishContinue:) name:@"PatientRecordDidFinish" object:nil];
 				 
-    [self loadPageMobile:@"http://smart-i.mobi/Mobile_SelectFrame.aspx" wv:self.webView];
+    [self loadPageMobile:[ServiceObject urlOfWebPage:@"Mobile_SelectFrame.aspx"] wv:self.webView];
 }
 
 -(IBAction) selectandcontinueBtnClick : (id) sender

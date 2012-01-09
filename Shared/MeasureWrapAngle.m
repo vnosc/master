@@ -104,6 +104,17 @@
 	
 	
 }
+
+- (IBAction)saveAndContinue:(id)sender {
+	
+	NSDictionary *d = [[NSDictionary alloc] initWithObjectsAndKeys:
+		 [NSNumber numberWithFloat:[self.angleField.text floatValue]], @"WrapAngle",
+		 nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"MeasurePictureDidCalculateMeasurement" object:self userInfo:d];
+	
+	[self.navigationController popViewControllerAnimated:YES];
+}
 @end
 
 

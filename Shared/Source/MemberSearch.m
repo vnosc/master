@@ -340,7 +340,7 @@ extern NSArray *patientImages;
 	for (NSString *suffix in suffixes)
 	{
 		
-		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://smart-i.mobi/ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]];
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]]];
 		UIImage *img = [[UIImage imageWithData:imageData] retain];
 		id imgG = img ? img : [NSNull null];
 		[tempImages addObject:imgG];
