@@ -34,6 +34,7 @@
 //	[[UITabBar appearance] setTintColor:[UIColor whiteColor]]; 
 	
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
+	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
 	
 #else
 	

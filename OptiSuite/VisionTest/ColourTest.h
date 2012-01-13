@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CyberImagingAppDelegate.h"
+
+#import "GlobalVariable.h"
 @interface ColourTest : UIViewController
 {
-    CyberImagingAppDelegate *app;
+    GlobalVariable *app;
     IBOutlet UIButton *nextTestBtn;
     IBOutlet UIButton *findOpticianBtn;
     IBOutlet UIButton *startTestBtn;

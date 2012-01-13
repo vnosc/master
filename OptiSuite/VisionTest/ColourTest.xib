@@ -90,7 +90,6 @@
 						<string key="NSFrame">{{365, 676}, {189, 59}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -149,8 +148,8 @@
 							<int key="NSfFlags">16</int>
 						</object>
 						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAxIDAAA</bytes>
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -174,7 +173,7 @@
 					<object class="IBUIButton" id="355040547">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{97, 320}, {100, 100}}</string>
+						<string key="NSFrame">{{100, 320}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="565576846"/>
@@ -201,7 +200,7 @@
 					<object class="IBUIButton" id="205238205">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{205, 320}, {100, 100}}</string>
+						<string key="NSFrame">{{208, 320}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="159501336"/>
@@ -221,7 +220,7 @@
 					<object class="IBUIButton" id="159501336">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{313, 320}, {100, 100}}</string>
+						<string key="NSFrame">{{316, 320}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1043706722"/>
@@ -241,7 +240,7 @@
 					<object class="IBUIButton" id="1043706722">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{421, 320}, {100, 100}}</string>
+						<string key="NSFrame">{{424, 320}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="436813802"/>
@@ -745,13 +744,13 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="button.png">{1457, 311}</string>
+			<string key="button.png">{638, 149}</string>
 			<string key="colortestimage1.png">{280, 280}</string>
-			<string key="findoptician.png">{287, 65}</string>
+			<string key="findoptician.png">{285, 63}</string>
 			<string key="mainimage.png">{700, 700}</string>
-			<string key="nexttest.png">{287, 65}</string>
+			<string key="nexttest.png">{285, 63}</string>
 			<string key="red.png">{768, 1024}</string>
-			<string key="startcolortestbtn.png">{363, 65}</string>
+			<string key="startcolortestbtn.png">{285, 63}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">301</string>
 	</data>

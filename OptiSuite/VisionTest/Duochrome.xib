@@ -161,7 +161,6 @@
 						<string key="NSFrame">{{365, 676}, {189, 59}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -196,9 +195,9 @@
 							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<object class="NSColor" key="IBUITextColor" id="494155097">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAxIDAAA</bytes>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -219,7 +218,10 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText">Label</string>
 						<reference key="IBUIFont" ref="327080413"/>
-						<reference key="IBUITextColor" ref="494155097"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
+						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -549,12 +551,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="findoptician.png">{287, 65}</string>
+			<string key="findoptician.png">{285, 63}</string>
 			<string key="mainimage.png">{700, 700}</string>
-			<string key="nexttest.png">{287, 65}</string>
-			<string key="no.png">{287, 65}</string>
-			<string key="startduochrometestbtn.png">{363, 65}</string>
-			<string key="yes.png">{287, 65}</string>
+			<string key="nexttest.png">{285, 63}</string>
+			<string key="no.png">{285, 63}</string>
+			<string key="startduochrometestbtn.png">{329, 63}</string>
+			<string key="yes.png">{285, 63}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">301</string>
 	</data>

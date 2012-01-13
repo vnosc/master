@@ -128,7 +128,7 @@ int result=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
     m=1;
     result=0;
     findOpticianBtn.hidden=YES;

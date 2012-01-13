@@ -36,7 +36,7 @@ int rightEyeResult1=0;
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	
 	
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lefteye.png"]] autorelease];
 	
     
     HUD.mode = MBProgressHUDModeCustomView;
@@ -100,14 +100,9 @@ int rightEyeResult1=0;
 
 -(void) jump1
 {
-
-    
     if(part1 <3)
     {
-        //mainImage.hidden=YES;
-        
         startTestBtn.hidden=YES;
-        
         if(y<2)
         {
             yesBtn.hidden=NO;
@@ -121,27 +116,20 @@ int rightEyeResult1=0;
             NSLog(@"The value of x is : %i",y);
             
             y++;
-           
-            
         }
         else
         {
             part1++;
             if(part1 !=3)
             {
-                
-              
                 y=1;
                 HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
                 
-                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
-                
+                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"righteye.png"]] autorelease];
                 
                 HUD.mode = MBProgressHUDModeCustomView;
                 
-                
                 [self.navigationController.view addSubview:HUD];
-                
                 
                 HUD.delegate = self;
                 
@@ -193,12 +181,10 @@ int rightEyeResult1=0;
                         rightLabel.text=@"RIGHT - 0%";
                         app.astigmatismRightEye=@"0%";
                     }
-                    
                 }
             }
         }
     }
-    
 }
 
 -(IBAction) yesOrNoBtnClick : (id) sender
@@ -243,7 +229,7 @@ int rightEyeResult1=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
     yesBtn.hidden=YES;
     noBtn.hidden=YES;
     leftLabel.hidden=YES;

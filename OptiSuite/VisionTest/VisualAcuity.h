@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
-#import "CyberImagingAppDelegate.h"
+#import "GlobalVariable.h"
 
 @interface VisualAcuity : UIViewController<MBProgressHUDDelegate>
 {
-    CyberImagingAppDelegate *app;
+    
     MBProgressHUD *HUD;
-
+    GlobalVariable *app;
     IBOutlet UIButton *startTestBtn;
     NSArray *array;
     IBOutlet UILabel *rendomTextLbl;

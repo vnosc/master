@@ -64,7 +64,7 @@ static int tabItemIndex = 1;
     tabItemIndex=1;
     [tabBar setSelectedItem:first];
     secondView.hidden=YES;
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
     testResultArray=[[NSMutableArray alloc]init];
     imageArray=[[NSMutableArray alloc]init];
     nextPageLeftArray=[[NSMutableArray alloc]init];
@@ -72,8 +72,7 @@ static int tabItemIndex = 1;
     nextPageRightArray =[[NSMutableArray alloc]init];
     testNameArray=[[NSMutableArray alloc]initWithObjects:@"Visual Acuity",@"Astigmatism",@"Duochrome",@"Color Test",@"Questions", nil];
     
-    
-    
+        
        
     if([app.visualAcuityLeftEye isEqualToString:@"100%"] && [app.visualAcuityRightEye isEqualToString:@"100%"])
     {

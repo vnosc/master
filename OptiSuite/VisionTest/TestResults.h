@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CyberImagingAppDelegate.h"
-
+#import "GlobalVariable.h"
 @interface TestResults : UIViewController
 {
-    CyberImagingAppDelegate *app;
+    GlobalVariable *app;
     NSMutableArray *testNameArray;
     NSMutableArray *testResultArray;
     NSMutableArray *imageArray;

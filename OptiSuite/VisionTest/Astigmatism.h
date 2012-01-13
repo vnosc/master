@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
-#import "CyberImagingAppDelegate.h"
 
+#import "GlobalVariable.h"
 @interface Astigmatism : UIViewController<MBProgressHUDDelegate>
 {
-    CyberImagingAppDelegate *app;
+    GlobalVariable *app;
     MBProgressHUD *HUD;
     IBOutlet UIButton *startTestBtn;
     IBOutlet UIImageView *mainImage;
@@ -25,7 +25,7 @@
 }
 @property (nonatomic,retain) UILabel *leftLabel;
 @property (nonatomic,retain) UILabel *rightLabel;
--(IBAction) yesOrNoBtnClick : (id) sender;
+-(IBAction) yesOrNoBtnClick : (id)sender;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 -(IBAction) startTestBtnClick : (id)sender;
 -(IBAction) findOpticianBtnClick : (id)sender;
 -(IBAction) nextTestBtnClick : (id)sender;

@@ -139,7 +139,7 @@
 					<object class="IBUIButton" id="362870634">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{84, 228}, {450, 100}}</string>
+						<string key="NSFrame">{{94, 228}, {435, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="637823286"/>
@@ -162,7 +162,7 @@
 					<object class="IBUIButton" id="637823286">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{84, 362}, {450, 100}}</string>
+						<string key="NSFrame">{{94, 362}, {435, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="218090288"/>
@@ -181,7 +181,7 @@
 					<object class="IBUIButton" id="218090288">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{84, 505}, {450, 100}}</string>
+						<string key="NSFrame">{{94, 497}, {435, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="909554088"/>
@@ -211,9 +211,9 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText">Label</string>
 						<reference key="IBUIFont" ref="802841209"/>
-						<object class="NSColor" key="IBUITextColor" id="772835015">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAxIDAAA</bytes>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -234,7 +234,10 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText">Label</string>
 						<reference key="IBUIFont" ref="802841209"/>
-						<reference key="IBUITextColor" ref="772835015"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
+						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -517,8 +520,8 @@
 							<reference ref="895403626"/>
 							<reference ref="909554088"/>
 							<reference ref="693676534"/>
-							<reference ref="362870634"/>
 							<reference ref="637823286"/>
+							<reference ref="362870634"/>
 							<reference ref="218090288"/>
 							<reference ref="140936923"/>
 						</array>
@@ -731,12 +734,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="button.png">{1457, 311}</string>
-			<string key="findoptician.png">{287, 65}</string>
+			<string key="button.png">{638, 149}</string>
+			<string key="findoptician.png">{285, 63}</string>
 			<string key="mainimage.png">{700, 700}</string>
-			<string key="nexttest.png">{287, 65}</string>
+			<string key="nexttest.png">{285, 63}</string>
 			<string key="red.png">{768, 1024}</string>
-			<string key="starttestbtn.png">{287, 65}</string>
+			<string key="starttestbtn.png">{285, 63}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">301</string>
 	</data>

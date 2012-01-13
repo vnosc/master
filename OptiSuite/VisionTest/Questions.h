@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CyberImagingAppDelegate.h"
+
+#import "GlobalVariable.h"
 @interface Questions : UIViewController
 {
-    CyberImagingAppDelegate *app;
+    GlobalVariable *app;
     IBOutlet UIButton *yesBtn;
     IBOutlet UIButton *noBtn;
     IBOutlet UILabel *scoreLbl;

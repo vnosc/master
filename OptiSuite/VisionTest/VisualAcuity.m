@@ -9,6 +9,7 @@
 #import "VisualAcuity.h"
 #import "VisualAcuityTestStart.h"
 #import "Astigmatism.h"
+#import "GlobalVariable.h"
 static int i=0;
 int a;
 int b;
@@ -41,7 +42,7 @@ int part=1;
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	
 	
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lefteye.png"]] autorelease];
 	
     
     HUD.mode = MBProgressHUDModeCustomView;
@@ -148,7 +149,7 @@ int part=1;
                 x=1;
                 HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         
-                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
+                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"righteye.png"]] autorelease];
         
         
                 HUD.mode = MBProgressHUDModeCustomView;
@@ -171,6 +172,7 @@ int part=1;
                     mainImage.image=[UIImage imageNamed:@"pass.png"];
                     findOptician.hidden=NO;
                     nextTest.hidden=NO;
+                    
                     app.visualAcuityRightEye=@"100%";
                     app.visualAcuityLeftEye=@"100%";
                 }
@@ -367,8 +369,8 @@ int part=1;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
+    
     redImageView.hidden=YES;
     firstBtn.hidden=YES;
     secondBtn.hidden=YES;

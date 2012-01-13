@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>smart-i.png</string>
+	<string>Smart-i_iPad.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.profitoptix.smart-i</string>
 	<key>CFBundleInfoDictionaryVersion</key>

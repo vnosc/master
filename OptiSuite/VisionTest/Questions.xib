@@ -48,7 +48,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">questions.png</string>
+							<string key="NSResourceName">question.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="1065642872">
@@ -166,7 +166,6 @@
 						<string key="NSFrame">{{365, 676}, {189, 59}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -198,8 +197,8 @@
 						<string key="IBUIText">Label</string>
 						<reference key="IBUIFont" ref="697003262"/>
 						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAxIDAAA</bytes>
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjMxMzcyNTUwMTMgMC4xODQzMTM3Mjk0AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -496,11 +495,11 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="findoptician.png">{287, 65}</string>
-			<string key="myresultsbtn.png">{363, 65}</string>
-			<string key="no.png">{287, 65}</string>
-			<string key="questions.png">{700, 700}</string>
-			<string key="yes.png">{287, 65}</string>
+			<string key="findoptician.png">{285, 63}</string>
+			<string key="myresultsbtn.png">{285, 63}</string>
+			<string key="no.png">{285, 63}</string>
+			<string key="question.png">{700, 700}</string>
+			<string key="yes.png">{285, 63}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">301</string>
 	</data>

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
-#import "CyberImagingAppDelegate.h"
+#import "GlobalVariable.h"
 @interface Duochrome : UIViewController<MBProgressHUDDelegate>
 {
-    CyberImagingAppDelegate *app;
+    GlobalVariable *app;
      MBProgressHUD *HUD;
     IBOutlet UIButton *startTestBtn;
     IBOutlet UIImageView *mainImage;

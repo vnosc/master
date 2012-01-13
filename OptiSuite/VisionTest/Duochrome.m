@@ -45,7 +45,7 @@ int rightEyeResult2=0;
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	
 	
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lefteye.png"]] autorelease];
 	
     
     HUD.mode = MBProgressHUDModeCustomView;
@@ -144,7 +144,7 @@ int rightEyeResult2=0;
                 z=1;
                 HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
                 
-                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]] autorelease];
+                HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"righteye.png"]] autorelease];
                 
                 
                 HUD.mode = MBProgressHUDModeCustomView;
@@ -246,7 +246,7 @@ int rightEyeResult2=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
     yesBtn.hidden=YES;
     noBtn.hidden=YES;
     leftLabel.hidden=YES;

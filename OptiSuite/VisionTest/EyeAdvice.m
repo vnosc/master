@@ -9,7 +9,8 @@
 #import "EyeAdvice.h"
 
 @implementation EyeAdvice
-
+@synthesize imgTextScroll;
+@synthesize textImageView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,8 +34,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    imgTextScroll.frame = CGRectMake(0, 0 ,768, 3985);
+	imgTextScroll.contentSize=CGSizeMake(620,6800);
+    
+    
 }
+-(IBAction) findOpticianBtnClick : (id)sender
+{
+    
+}
+-(IBAction) viewOtherEyeFactsBtnClick : (id)sender
+{
+    
+}
+-(IBAction) seeMoreBtnClick : (id)sender
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Leave Vision Test" message:@"Continuing means you will leave Vision Test and open a new app." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil];
+    [alert show];
+    [alert release];
+}
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex 
+{
+    if (buttonIndex == 0)
+	{
+		
+	}
+	else
+	{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://profitoptix.com"]]; 
+        
+    }
+    
+
+}
+
 
 - (void)viewDidUnload
 {

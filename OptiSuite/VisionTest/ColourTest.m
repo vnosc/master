@@ -282,7 +282,7 @@ static int scoreResult=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    app=[[UIApplication sharedApplication]delegate];
+    app=[GlobalVariable sharedInstance];
     findOpticianBtn.hidden=YES;
     nextTestBtn.hidden=YES;
     smallImage.hidden=YES;
