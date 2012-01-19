@@ -146,7 +146,6 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Save &amp; Continue</string>
 						<reference key="IBUIHighlightedTitleColor" ref="331840172"/>
 						<object class="NSColor" key="IBUINormalTitleColor">

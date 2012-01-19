@@ -45,9 +45,10 @@
 					<object class="IBUIButton" id="165652636">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{388, 568}, {208, 38}}</string>
+						<string key="NSFrame">{{388, 618}, {208, 38}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -68,17 +69,13 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">DefaultButton.png</string>
-						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="938123948">
 							<string key="name">Verdana-Bold</string>
 							<string key="family">Verdana</string>
 							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="802198471">
 							<string key="NSName">Verdana-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -87,7 +84,7 @@
 					<object class="IBUIButton" id="525463107">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{454, 625}, {142, 25}}</string>
+						<string key="NSFrame">{{388, 572}, {208, 38}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="165652636"/>
@@ -103,30 +100,18 @@
 							<reference key="NSCustomColorSpace" ref="493397348"/>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="380479265"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">capture.png</string>
-						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
-							<string key="name">Verdana-Bold</string>
-							<string key="family">Verdana</string>
-							<int key="traits">2</int>
-							<double key="pointSize">13</double>
-						</object>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Verdana-Bold</string>
-							<double key="NSSize">13</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUIFontDescription" ref="938123948"/>
+						<reference key="IBUIFont" ref="802198471"/>
 					</object>
 					<object class="IBUIButton" id="165045165">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{438, 523}, {28, 37}}</string>
+						<string key="NSFrame">{{424, 523}, {42, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="737823460"/>
 						<bool key="IBUIOpaque">NO</bool>
+						<int key="IBUIContentMode">4</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
@@ -159,7 +144,7 @@
 					<object class="IBUILabel" id="737823460">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{474, 529}, {122, 22}}</string>
+						<string key="NSFrame">{{466, 531}, {122, 22}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="525463107"/>
@@ -192,7 +177,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIImageView" id="1045416260">
 								<reference key="NSNextResponder" ref="976137730"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{424, 71}</string>
 								<reference key="NSSuperview" ref="976137730"/>
 								<reference key="NSWindow"/>
@@ -483,11 +468,11 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="165045165"/>
-							<reference ref="737823460"/>
 							<reference ref="976137730"/>
 							<reference ref="765783095"/>
 							<reference ref="165652636"/>
 							<reference ref="525463107"/>
+							<reference ref="737823460"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -577,6 +562,7 @@
 					<string>14.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>15.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
+					<string>19.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>2.IBPluginDependency</string>
 					<string>32.IBPluginDependency</string>
 					<string>33.IBPluginDependency</string>
@@ -596,9 +582,10 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="2"/>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -762,15 +749,11 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>DefaultButton.png</string>
-				<string>capture.png</string>
 				<string>checkbox-checked.png</string>
 				<string>checkbox.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{170, 45}</string>
-				<string>{95, 49}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
 			</object>

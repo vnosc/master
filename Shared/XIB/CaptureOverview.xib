@@ -160,13 +160,11 @@
 						<string key="NSFrame">{{224, 856}, {321, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Save Images &amp; Continue to Measurement</string>
 						<reference key="IBUIHighlightedTitleColor" ref="755578312"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
@@ -727,7 +725,6 @@
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Clear</string>
 										<reference key="IBUIHighlightedTitleColor" ref="755578312"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
@@ -820,7 +817,6 @@
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Clear</string>
 										<reference key="IBUIHighlightedTitleColor" ref="755578312"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
@@ -913,7 +909,6 @@
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Clear</string>
 										<reference key="IBUIHighlightedTitleColor" ref="755578312"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
@@ -1006,7 +1001,6 @@
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Clear</string>
 										<reference key="IBUIHighlightedTitleColor" ref="755578312"/>
 										<object class="NSColor" key="IBUINormalTitleColor">

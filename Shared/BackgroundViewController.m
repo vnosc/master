@@ -43,8 +43,8 @@
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (UIColor*) textColor { return [UIColor whiteColor]; }
-- (int) buttonImageLeftCap { return 6; }
-- (int) buttonImageTopCap { return 6; }
+- (int) buttonImageLeftCap { return 13; }
+- (int) buttonImageTopCap { return 15; }
 - (int) heightThreshold { return 70; }
 
 #else if defined SMARTI
@@ -92,7 +92,8 @@
 				UIImage *si = [i stretchableImageWithLeftCapWidth:self.buttonImageLeftCap topCapHeight:self.buttonImageTopCap];
 				
 				UIImage *i2 = [UIImage imageNamed:self.buttonHighlightedImageName];
-				UIImage *si2 = [i2 stretchableImageWithLeftCapWidth:self.buttonImageLeftCap topCapHeight:self.buttonImageTopCap];				
+				UIImage *si2 = [i2 stretchableImageWithLeftCapWidth:self.buttonImageLeftCap topCapHeight:self.buttonImageTopCap];
+		
 				/*UIGraphicsBeginImageContext(si.size);
 				 CGContextRef ctx = UIGraphicsGetCurrentContext();
 				 //CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);

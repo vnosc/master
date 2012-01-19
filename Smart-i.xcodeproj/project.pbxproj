@@ -348,6 +348,9 @@
 		A7A7EA0814BF545200E33A19 /* scrollbg.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7E9FB14BF545200E33A19 /* scrollbg.png */; };
 		A7A7EA0914BF545200E33A19 /* scrollbg.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7E9FB14BF545200E33A19 /* scrollbg.png */; };
 		A7A7EA0C14C0E81200E33A19 /* Smart-i_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7EA0B14C0E81200E33A19 /* Smart-i_iPad.png */; };
+		A7A7EB2B14C889D700E33A19 /* vsp_logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7EB2A14C889D700E33A19 /* vsp_logo_white.png */; };
+		A7A7EB2E14C88ADA00E33A19 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7EB2C14C88ADA00E33A19 /* checkbox-checked.png */; };
+		A7A7EB2F14C88ADA00E33A19 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A7EB2D14C88ADA00E33A19 /* checkbox.png */; };
 		A7B7BD3514588122006DE5E8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */; };
 		A7B7BD3814588221006DE5E8 /* unityVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */; };
 		A7BD1EA514AD069C006BEA80 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A796C69F1490BA8700D647C0 /* MessageUI.framework */; };
@@ -820,8 +823,6 @@
 		A7F9C50C14756F3000AA9C33 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBE714743F94004EF3D4 /* camera.png */; };
 		A7F9C50D14756F3000AA9C33 /* camera1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBE814743F94004EF3D4 /* camera1.png */; };
 		A7F9C50E14756F3000AA9C33 /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBE914743F94004EF3D4 /* capture.png */; };
-		A7F9C50F14756F3000AA9C33 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBEA14743F94004EF3D4 /* checkbox-checked.png */; };
-		A7F9C51014756F3000AA9C33 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBEB14743F94004EF3D4 /* checkbox.png */; };
 		A7F9C51114756F3000AA9C33 /* Icon_old.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBEC14743F94004EF3D4 /* Icon_old.png */; };
 		A7F9C51214756F3000AA9C33 /* lineeee.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBED14743F94004EF3D4 /* lineeee.png */; };
 		A7F9C51314756F3000AA9C33 /* measurement.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBEE14743F94004EF3D4 /* measurement.png */; };
@@ -1163,6 +1164,9 @@
 		A7A7E9FA14BF545200E33A19 /* righteye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = righteye.png; sourceTree = "<group>"; };
 		A7A7E9FB14BF545200E33A19 /* scrollbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scrollbg.png; sourceTree = "<group>"; };
 		A7A7EA0B14C0E81200E33A19 /* Smart-i_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Smart-i_iPad.png"; sourceTree = "<group>"; };
+		A7A7EB2A14C889D700E33A19 /* vsp_logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsp_logo_white.png; sourceTree = "<group>"; };
+		A7A7EB2C14C88ADA00E33A19 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
+		A7A7EB2D14C88ADA00E33A19 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = unityVideo.mp4; sourceTree = "<group>"; };
 		A7BD1EAA14AD2896006BEA80 /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
@@ -1623,6 +1627,9 @@
 		A78AA3591476F54D00AFFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A7A7EB2C14C88ADA00E33A19 /* checkbox-checked.png */,
+				A7A7EB2D14C88ADA00E33A19 /* checkbox.png */,
+				A7A7EB2A14C889D700E33A19 /* vsp_logo_white.png */,
 				A7DAC4B5148D7AE800CFD968 /* iTunesArtwork */,
 				A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */,
 				A7DF8D651484C410005638ED /* CaptureReticle.png */,
@@ -2532,7 +2539,6 @@
 		A7E9CC8714743F94004EF3D4 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
-				A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */,
 				A7E9CC8814743F94004EF3D4 /* Adjust.xib */,
 				A7E9CC8914743F94004EF3D4 /* BillingTypeSelection.xib */,
 				A7E9CC8A14743F94004EF3D4 /* CaptureOverview.xib */,
@@ -2554,6 +2560,7 @@
 				A7E9CC9914743F94004EF3D4 /* MeasureOverview.xib */,
 				A7E9CC9A14743F94004EF3D4 /* MeasurePicture.xib */,
 				A78ECD551496558900ADA533 /* MeasureWrapAngle.xib */,
+				A7DAC4FE148FF42300CFD968 /* MemberSearch.xib */,
 				A7E9CC9B14743F94004EF3D4 /* NewUser.xib */,
 				A7E9CC9C14743F94004EF3D4 /* OpenCVTesting.xib */,
 				A7E9CC9D14743F94004EF3D4 /* PackageSelection.xib */,
@@ -2815,8 +2822,6 @@
 				A7F9C50C14756F3000AA9C33 /* camera.png in Resources */,
 				A7F9C50D14756F3000AA9C33 /* camera1.png in Resources */,
 				A7F9C50E14756F3000AA9C33 /* capture.png in Resources */,
-				A7F9C50F14756F3000AA9C33 /* checkbox-checked.png in Resources */,
-				A7F9C51014756F3000AA9C33 /* checkbox.png in Resources */,
 				A7F9C51114756F3000AA9C33 /* Icon_old.png in Resources */,
 				A7F9C51214756F3000AA9C33 /* lineeee.png in Resources */,
 				A7F9C51314756F3000AA9C33 /* measurement.png in Resources */,
@@ -3060,6 +3065,9 @@
 				A7A7EA0514BF545200E33A19 /* question.png in Resources */,
 				A7A7EA0714BF545200E33A19 /* righteye.png in Resources */,
 				A7A7EA0914BF545200E33A19 /* scrollbg.png in Resources */,
+				A7A7EB2B14C889D700E33A19 /* vsp_logo_white.png in Resources */,
+				A7A7EB2E14C88ADA00E33A19 /* checkbox-checked.png in Resources */,
+				A7A7EB2F14C88ADA00E33A19 /* checkbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3827,7 +3835,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3850,7 +3858,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2064C27-3833-4365-8C9C-3D27620DAEB8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
@@ -3936,7 +3944,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3959,7 +3967,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64CFE08F-ACC0-4554-9E83-68B25A45F262";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;

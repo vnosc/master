@@ -927,7 +927,6 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Validate</string>
 						<reference key="IBUIHighlightedTitleColor" ref="486076502"/>
 						<object class="NSColor" key="IBUINormalTitleColor">

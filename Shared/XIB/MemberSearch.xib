@@ -360,7 +360,6 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Search</string>
 								<reference key="IBUIHighlightedTitleColor" ref="382233664"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -617,7 +616,6 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Reset</string>
 								<reference key="IBUIHighlightedTitleColor" ref="382233664"/>
 								<object class="NSColor" key="IBUINormalTitleColor">

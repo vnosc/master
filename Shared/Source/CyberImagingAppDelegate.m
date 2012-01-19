@@ -32,9 +32,11 @@
 	[[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
 	
 //	[[UITabBar appearance] setTintColor:[UIColor whiteColor]]; 
-	
-	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
+
 	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
+	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], [BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
+	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
+
 	
 #else
 	

@@ -54,21 +54,21 @@ extern ServiceObject* mobileSessionXML;
 #pragma mark - View lifecycle
 
 - (NSString*) backgroundImageName { return @"LoginBackground.png"; }
-- (NSString*) buttonImageName { return @"LoginButton.png"; }
-- (NSString*) buttonHighlightedImageName { return @"LoginButtonTouch.png"; }
-- (int) buttonImageLeftCap { return 25; }
-- (int) buttonImageTopCap { return 9; }
+// - (NSString*) buttonImageName { return @"LoginButton.png"; }
+// - (NSString*) buttonHighlightedImageName { return @"LoginButtonTouch.png"; }
+// - (int) buttonImageLeftCap { return 25; }
+// - (int) buttonImageTopCap { return 9; }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
    // [btnRemember setSelected:YES];
-
-	UIImage *loginBG = [UIImage imageNamed:@"LoginButton.png"];
 	
 #if defined OPTISUITE
-	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:25 topCapHeight:20];
+		UIImage *loginBG = [UIImage imageNamed:@"DefaultButton.png"];
+	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:13 topCapHeight:15];
 #else if defined SMARTI
+	UIImage *loginBG = [UIImage imageNamed:@"LoginButton.png"];
 	UIImage *loginBGS = [loginBG stretchableImageWithLeftCapWidth:15 topCapHeight:15];
 #endif
 	

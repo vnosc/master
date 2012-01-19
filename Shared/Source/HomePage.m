@@ -46,10 +46,12 @@ extern NSArray* patientImagesMeasured;
 @synthesize h;
 
 - (NSString*) backgroundImageName { return @"MenuBackground.png"; }
-- (NSString*) buttonImageName { return @"MenuButton.png"; }
-- (NSString*) buttonHighlightedImageName { return @"MenuButtonTouch.png"; }
-- (int) buttonImageLeftCap { return 20; }
-- (int) buttonImageTopCap { return 6; }
+// - (NSString*) buttonImageName { return @"MenuButton.png"; }
+// - (NSString*) buttonHighlightedImageName { return @"MenuButtonTouch.png"; }
+- (NSString*) buttonImageName { return @"DefaultButton.png"; }
+- (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
+// - (int) buttonImageLeftCap { return 20; }
+// - (int) buttonImageTopCap { return 6; }
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
