@@ -43,8 +43,8 @@
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (UIColor*) textColor { return [UIColor whiteColor]; }
-- (int) buttonImageLeftCap { return 13; }
-- (int) buttonImageTopCap { return 15; }
+- (int) buttonImageLeftCap { return 15; }
+- (int) buttonImageTopCap { return 13; }
 - (int) heightThreshold { return 70; }
 
 #else if defined SMARTI

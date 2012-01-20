@@ -24,6 +24,13 @@
 	NSLog(@"OPTISUITE");
 	
 	[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+
+	[[UILabel appearanceWhenContainedIn:[UISegmentedControl class], [UIScrollView class], nil] setColor:[UIColor blackColor]];
+	[[UILabel appearanceWhenContainedIn:[UIScrollView class], nil] setColor:[UIColor whiteColor]];
+
+	[[UILabel appearanceWhenContainedIn:[UITextField class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
+	
+	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
 	
 #elif defined SMARTI
 	
