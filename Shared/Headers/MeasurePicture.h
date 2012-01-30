@@ -77,6 +77,8 @@
 - (void) moveSelectedPoint:(NSString*)dir X:(int)x Y:(int)y;
 
 - (void) beginMeasureProcess;
+- (void) incrementProcessCounter;
+
 - (void) nextProcessStep:(UIEvent*)event notification:(NSNotification*)n;
 - (void) nextPDStep:(UIEvent*)event notification:(NSNotification*)n;
 - (void) nextPantoStep:(UIEvent*)event notification:(NSNotification*)n;
@@ -86,6 +88,7 @@
 - (void) beginRectStep:(NSString*)instructions;
 - (void) beginLineStep:(NSString*)instructions;
 - (void) beginPointStep:(NSString*)instructions;
+- (void) beginAdjustStep:(NSString*)instructions;
 
 - (void) prepareForMeasureRect;
 - (void) prepareForMeasureLine;

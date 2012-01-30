@@ -164,23 +164,22 @@ extern ServiceObject* frameXML;
     
     if (self.processStep == 0)
     {
-        NSLog(@"ProcessStep %d", processStep);
         self.rightEyePoint = p;
         
         [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-        self.touchView.dragged = YES;
+        // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
         
         [self beginPointStep:@"Please touch the center of the\nleft pupil."];
     }
     else if (self.processStep == 1)
     {
-        NSLog(@"ProcessStep %d", processStep);
         self.leftEyePoint = p;
-        self.processStep++;
+        
+        [self incrementProcessCounter];
         
         [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-        self.touchView.dragged = YES;
+        // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
         
         // UNCOMMENT TO SELECT BRIDGE
@@ -188,84 +187,64 @@ extern ServiceObject* frameXML;
          [alert show];
          [alert release];*/
         
-        [self touchesEnded:touches withEvent:event];
+        [self nextProcessStep:event notification:n];
     }
     
     else if (self.processStep == 2)
-    {
-        NSLog(@"ProcessStep %d", processStep);
-        self.processStep++;
-        
-        //[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-        self.touchView.dragged = YES;
+    {        
+        // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
-        
-        // UNCOMMENT FOR RECT BY HAND
-        [self beginPointStep:@"Please touch the center of the\nbottom of the right lens."];
+
+        [self beginPointStep:@"Please touch the\nbottom of the right lens."];
     }
     
     else if (self.processStep == 3)
     {
-        NSLog(@"ProcessStep %d", processStep);
-        self.processStep++;
+        CGPoint bottomRightPoint = CGPointMake(self.rightEyePoint.x, p.y);
+        CGPoint bottomLeftPoint = CGPointMake(self.rightEyePoint.x - 100, p.y);
+        MeasureLine *l = [self.touchView createLineFrom:bottomRightPoint to:bottomLeftPoint];
+        l.name = @"Right Frame Bottom Horizontal";
+        l.startLockY = YES;
+        l.endLockY = YES;
         
-        l.name = @"Right Frame Box";
+        [self.touchView setNeedsDisplay];
         
-        self.touchView.nextLineIsRect = YES;
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the left side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
+        [self beginPointStep:@"Please touch the\nbottom of the left lens."];
     }
     
     else if (1 == 0 && self.processStep == 2)
-    {
-        NSLog(@"ProcessStep %d", processStep);
-        
+    {   
         self.bridgePoint = p;
-        self.processStep++;
         
         //[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-        self.touchView.dragged = YES;
+        // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
         
         // UNCOMMENT FOR RECT BY HAND
-        [self prepareForMeasureRect];
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the right side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
+        [self beginRectStep:@"Please touch and drag to draw a rectangle around the right side of the frame."];
         
         // UNCOMMENT FOR POINTS
-        /*[self initLines];
-         
-         self.touchView.canAddLines = NO;
-         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-         [alert show];
-         [alert release];*/
+        //[self beginAdjustStep:@"Adjust the lines by hand."];
+        
     }
     else if (1 == 0 && self.processStep == 3)
     {
-        NSLog(@"ProcessStep %d", processStep);
-        self.processStep++;
-        
         l.name = @"Right Frame Box";
         
-        self.touchView.nextLineIsRect = YES;
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the left side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
+        [self beginRectStep:@"Please touch and drag to draw a rectangle around the left side of the frame."];
+
     }
     
     else if (self.processStep == 4)
     {
-        l.name = @"Left Frame Box";
+        CGPoint bottomLeftPoint = CGPointMake(self.leftEyePoint.x, p.y);
+        CGPoint bottomRightPoint = CGPointMake(self.leftEyePoint.x + 100, p.y);
+        MeasureLine *l = [self.touchView createLineFrom:bottomLeftPoint to:bottomRightPoint];
+        l.name = @"Left Frame Bottom Horizontal";
+        l.startLockY = YES;
+        l.endLockY = YES;
         
-        [self initLines];
-        
-        self.touchView.canAddLines = NO;
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
+        [self beginAdjustStep:@"Adjust the lines by hand."];
     }
 }
 
@@ -290,12 +269,9 @@ extern ServiceObject* frameXML;
     
     if (self.processStep == 0)
     {
-        NSLog(@"ProcessStep %d", processStep);
         
         l.name = @"Frame Across";
-        
-        self.processStep++;
-        
+      
         MeasurePoint* mp = l.lowerPoint;
         
         MeasureLine* upLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, l.upperPoint.y - 200)];
@@ -308,12 +284,7 @@ extern ServiceObject* frameXML;
         downLine.startMovesEnd = YES;
         downLine.endLockX = YES;
         
-        self.touchView.canAddLines = NO;
-        [self initLines];
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];						
+        [self beginAdjustStep:@"Adjust the lines by hand."];
     }
 }
 
@@ -338,35 +309,20 @@ extern ServiceObject* frameXML;
     
     if (self.processStep == 0)
     {
-        NSLog(@"ProcessStep %d", processStep);
-        
         self.rightEyePoint = p;
         
         [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
         
-        self.touchView.dragged = YES;
+        // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
         
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-        
-        self.touchView.userInteractionEnabled = YES;
-        self.touchView.canAddLines = YES;
-        
-        self.processStep++;
+        [self beginLineStep:@"Please touch and drag to draw a line across the front of the frame."];
     }
     else if (self.processStep == 1)
     {
-        
         [self.touchView.points removeObjectAtIndex:0];
         
-        self.touchView.canAddLines = NO;
-        [self initLines];
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];			
+        [self beginAdjustStep:@"Adjust the lines by hand."];
     }
     /*else if (self.processStep == 1)
      {	
@@ -381,20 +337,41 @@ extern ServiceObject* frameXML;
      }*/		
 
 }
+
+- (void) beginRectStep:(NSString *)instructions
+{
+    [self prepareForMeasureRect];
+    [self beginProcessStep:instructions];
+}
+
 - (void) beginPointStep:(NSString*)instructions
 {
     [self prepareForMeasurePoint];
     [self beginProcessStep:instructions];
 }
 
+- (void) beginAdjustStep:(NSString*)instructions
+{
+    [self initLines];
+    self.touchView.canAddLines = NO;
+    
+    [self beginProcessStep:instructions];
+}
+
 - (void) beginProcessStep:(NSString*)instructions
 {
-    self.processStep++;
+    [self incrementProcessCounter];
     
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:instructions delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
     [alert show];
     [alert release];    
+}
+
+- (void) incrementProcessCounter
+{
+    NSLog(@"ProcessStep %d", processStep);
+    self.processStep++;
 }
 
 - (void) prepareForMeasureRect
@@ -413,7 +390,7 @@ extern ServiceObject* frameXML;
 
 - (void) prepareForMeasurePoint
 {
-    self.touchView.userInteractionEnabled = YES;
+    self.touchView.userInteractionEnabled = NO;
     self.touchView.canAddLines = NO;
     self.touchView.nextLineIsRect = NO;   
 }
@@ -424,22 +401,22 @@ extern ServiceObject* frameXML;
 	
 	if (self.measureType == 0 || self.measureType == 1)
 	{
-		CGPoint lTopPoint = CGPointMake(self.leftEyePoint.x, self.leftEyePoint.y);
+		CGPoint lTopPoint = CGPointMake(self.leftEyePoint.x, self.leftEyePoint.y - 100);
 		CGPoint lBotPoint = CGPointMake(self.leftEyePoint.x, self.leftEyePoint.y);
 		MeasureLine* l1 = [self.touchView createLineFrom:lTopPoint toPoint:[self.touchView.points objectAtIndex:1]];
 		l1.name = @"Left Eye Vertical";
 		l1.endMovesStart = YES;
 		l1.startMovesEnd = YES;
 
-		CGPoint rTopPoint = CGPointMake(self.rightEyePoint.x, self.rightEyePoint.y);
+		CGPoint rTopPoint = CGPointMake(self.rightEyePoint.x, self.rightEyePoint.y - 100);
 		CGPoint rBotPoint = CGPointMake(self.rightEyePoint.x, self.rightEyePoint.y);
 		MeasureLine* l2 = [self.touchView createLineFrom:rTopPoint toPoint:[self.touchView.points objectAtIndex:0]];
 		l2.name = @"Right Eye Vertical";
 		l2.endMovesStart = YES;
 		l2.startMovesEnd = YES;
 		
-		[l1.start setHand:YES text:@"L" width:60.0f height:60.0f offsetX:0.0f offsetY:-200.0f];
-		[l2.start setHand:YES text:@"R" width:60.0f height:60.0f offsetX:0.0f offsetY:-200.0f];
+		[l1.start setHand:YES text:@"L" width:60.0f height:60.0f offsetX:0.0f offsetY:-50.0f];
+		[l2.start setHand:YES text:@"R" width:60.0f height:60.0f offsetX:0.0f offsetY:-50.0f];
 		/*float fakeRectDistX = 80.0f;
 		float fakeRectDistY = 60.0f;
 		
@@ -456,18 +433,9 @@ extern ServiceObject* frameXML;
 		//CGPoint bTopPoint = CGPointMake((lTopPoint.x + rTopPoint.x) / 2, (lTopPoint.y + rTopPoint.y) / 2);
 		//CGPoint bBotPoint = CGPointMake(bTopPoint.x, bTopPoint.y + 400);
 		//float bridgeDist = 50.0f;
-		
-		MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Box"];
-		MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Box"];
-		
-		float bridgeX = (rfb.rightPoint.x + lfb.leftPoint.x) / 2;
-		CGPoint bTopPoint = CGPointMake(bridgeX, MIN(rfb.upperPoint.y, lfb.upperPoint.y));
-		CGPoint bBotPoint = CGPointMake(bridgeX, MAX(rfb.lowerPoint.y, lfb.lowerPoint.y));
-		
-		MeasureLine* l3 = [self.touchView createLineFrom:bTopPoint to:bBotPoint];
-		l3.name = @"Bridge Vertical";
-		l3.startMovesEnd = YES;
-		l3.endMovesStart = YES;
+
+		//MeasureLine *l3 = [self createBridgeFromFrameBox];
+        MeasureLine *l3 = [self createBridgeFromPupils];
 		
 		//[self.touchView.points removeObjectAtIndex:6];
 		//[self.touchView.points removeObjectAtIndex:5];
@@ -475,7 +443,7 @@ extern ServiceObject* frameXML;
 		//[self.touchView.points removeObjectAtIndex:3];
 		//[self.touchView.points removeObjectAtIndex:2];
 		
-		/*MeasureLine* l4 = [self.touchView createLineFromPoint:l2.end to:CGPointMake(rBotPoint.x - 100, rBotPoint.y)];
+		MeasureLine* l4 = [self.touchView createLineFromPoint:l2.end to:CGPointMake(rBotPoint.x - 100, rBotPoint.y)];
 		l4.name = @"Right Frame Center Horizontal";
 		//l4.lockPointY = YES;
 		l4.endLockY = YES;
@@ -486,7 +454,7 @@ extern ServiceObject* frameXML;
 		l5.endLockY = YES;
 		l5.startMovesEnd = YES;
 
-		MeasureLine* l6 = [self.touchView createLineFrom:CGPointMake(l4.start.x, l4.start.y + 50) to:CGPointMake(l4.end.x, l4.end.y + 50)];
+		/*MeasureLine* l6 = [self.touchView createLineFrom:CGPointMake(l4.start.x, l4.start.y + 50) to:CGPointMake(l4.end.x, l4.end.y + 50)];
 		l6.name = @"Right Frame Bottom Horizontal";
 		l6.endLockY = YES;
 		l6.startMovesEnd = YES;
@@ -512,10 +480,46 @@ extern ServiceObject* frameXML;
 		l.lineColor = [UIColor redColor];
 		l.name = @"Line Across Eye";
 	}
-	self.touchView.dragged = YES;
+	// self.touchView.dragged = YES;
 	[self.touchView setNeedsDisplay];
 
     // Do any additional setup after loading the view from its nib.
+}
+
+- (MeasureLine*) createBridgeFromFrameBox
+{
+    MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Box"];
+    MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Box"];
+    
+    float bridgeX = (rfb.rightPoint.x + lfb.leftPoint.x) / 2;
+    CGPoint bTopPoint = CGPointMake(bridgeX, MIN(rfb.upperPoint.y, lfb.upperPoint.y));
+    CGPoint bBotPoint = CGPointMake(bridgeX, MAX(rfb.lowerPoint.y, lfb.lowerPoint.y));
+    
+    MeasureLine* l3 = [self.touchView createLineFrom:bTopPoint to:bBotPoint];
+    l3.name = @"Bridge Vertical";
+    l3.startMovesEnd = YES;
+    l3.endMovesStart = YES;
+    
+    return l3;
+
+}
+
+- (MeasureLine*) createBridgeFromPupils
+{
+    MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Bottom Horizontal"];
+    MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Bottom Horizontal"];
+    
+    float bridgeX = (self.rightEyePoint.x + self.leftEyePoint.x) / 2;
+    float bridgeY = (self.rightEyePoint.y + self.leftEyePoint.y) / 2;
+    CGPoint bTopPoint = CGPointMake(bridgeX, bridgeY - 150);
+    CGPoint bBotPoint = CGPointMake(bridgeX, MAX(rfb.lowerPoint.y, lfb.lowerPoint.y) + 50);
+    
+    MeasureLine* l3 = [self.touchView createLineFrom:bTopPoint to:bBotPoint];
+    l3.name = @"Bridge Vertical";
+    l3.startMovesEnd = YES;
+    l3.endMovesStart = YES;
+    
+    return l3;
 }
 
 - (void)viewDidUnload
@@ -554,7 +558,7 @@ extern ServiceObject* frameXML;
 	
 	/*self.touchView.grabbedPoint = nil;
 	self.touchView.grabbedLineObj = nil;
-	self.touchView.dragged = YES;
+	// self.touchView.dragged = YES;
 	[self.touchView setNeedsDisplay];
 	[self.touchView drawRect:self.touchView.frame];*/
 	
@@ -570,8 +574,10 @@ extern ServiceObject* frameXML;
 	{
 		MeasureLine* lev = [self.touchView lineByName:@"Left Eye Vertical"];
 		MeasureLine* rev = [self.touchView lineByName:@"Right Eye Vertical"];
-		MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Box"];
-		MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Box"];
+		//MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Box"];
+		//MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Box"];
+		MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Bottom Horizontal"];
+		MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Bottom Horizontal"];        
 		MeasureLine* bridge = [self.touchView lineByName:@"Bridge Vertical"];
 			
 		if (lev && rev && lfb && rfb && bridge)
@@ -581,7 +587,9 @@ extern ServiceObject* frameXML;
 			
 			float rScaleABox = [self transformPixelsToRealDistance:rfb.run]; // / 52.0f;
 			float rScaleBBox = [self transformPixelsToRealDistance:rfb.rise]; // / 31.0f;
-			
+            //float rScaleABox = [self transformPixelsToRealDistance:52.0f];
+			//float rScaleBBox = [self transformPixelsToRealDistance:48.0f];
+            
 			NSLog(@"R ABox in mm: %f", rScaleABox);
 			NSLog(@"R BBox in mm: %f", rScaleBBox);
 			
@@ -590,23 +598,25 @@ extern ServiceObject* frameXML;
 			
 			float lScaleABox = [self transformPixelsToRealDistance:lfb.run]; // / 52.0f;
 			float lScaleBBox = [self transformPixelsToRealDistance:lfb.rise]; // / 31.0f;			
-
+            //float lScaleABox = [self transformPixelsToRealDistance:52.0f];
+			//float lScaleBBox = [self transformPixelsToRealDistance:48.0f];
+            
 			NSLog(@"L ABox in mm: %f", lScaleABox);
 			NSLog(@"L BBox in mm: %f", lScaleBBox);
 			
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x] /rScaleABox + 0;
-			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x] /lScaleABox + 0;
-			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y] / rScaleBBox + 0;
-			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y] / lScaleBBox + 0;
+			float rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; ///rScaleABox + 0;
+			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; ///lScaleABox + 0;
+			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y]; /// rScaleBBox + 0;
+			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y];// / lScaleBBox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:rDistPD], @"RightDistPD",
 				 [NSNumber numberWithFloat:lDistPD], @"LeftDistPD",
-				 [NSNumber numberWithInt:rHeight], @"RightHeight",
-				 [NSNumber numberWithInt:lHeight], @"LeftHeight",
+				 [NSNumber numberWithFloat:rHeight], @"RightHeight",
+				 [NSNumber numberWithFloat:lHeight], @"LeftHeight",
 				 finalImage, @"FinalImage",
 				 nil];
 		}
@@ -650,8 +660,8 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x] /rScaleABox + 0;
-			float lNearPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x] /lScaleABox + 0;
+			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; // /rScaleABox + 0;
+			float lNearPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; // /lScaleABox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:rNearPD], @"RightNearPD",
