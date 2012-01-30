@@ -18,6 +18,8 @@
 }
 
 @property CGPoint focusPoint;
+@property (assign) int labelSize;
+
 @property (retain, nonatomic) IBOutlet UIScrollView *propertySV;
 
 @property (retain, nonatomic) IBOutlet UIImageView *imageView;
@@ -40,6 +42,8 @@
 @property (retain, nonatomic) IBOutlet UILabel *morphIterLabel;
 @property (retain, nonatomic) IBOutlet UISlider *threshSlider;
 @property (retain, nonatomic) IBOutlet UILabel *threshLabel;
+@property (retain, nonatomic) IBOutlet UILabel *labelSizeLabel;
+@property (retain, nonatomic) IBOutlet UISlider *labelSizeSlider;
 
 - (IBAction)revertBtnClick:(id)sender;
 
@@ -66,5 +70,6 @@
 - (IBAction)storeBtnClick:(id)sender;
 - (IBAction)threshSliderChanged:(id)sender;
 - (IBAction)detectPupilClick:(id)sender;
+- (IBAction)labelSizeSliderChanged:(id)sender;
 
 @end

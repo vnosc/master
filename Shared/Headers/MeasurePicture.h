@@ -20,6 +20,26 @@
 
 #import "LineView.h"
 
+/*@interface MeasureProcessStep
+{
+    UIEvent *_event;
+    NSNotification *_notification;
+}
+
++ (MeasureProcessStep *) stepWithEvent:(UIEvent*)event;
++ (MeasureProcessStep *) stepWithNotification:(NSNotification*)n;
+
+- (MeasureProcessStep *) initWithEvent:(UIEvent*)event notification:(NSNotification*)n;
+
+- (CGPoint*) touchPoint;
+
+- (void) setNotification:(NSNotification *)n;
+- (void) setMeasureLine:(MeasureLine *)l;
+- (void) setTouches:(NSSet *)l;
+- (void) setEvent:(
+
+@end*/
+
 @interface MeasurePicture : BackgroundViewController
 {
 	LineView* touchView;
@@ -57,6 +77,19 @@
 - (void) moveSelectedPoint:(NSString*)dir X:(int)x Y:(int)y;
 
 - (void) beginMeasureProcess;
+- (void) nextProcessStep:(UIEvent*)event notification:(NSNotification*)n;
+- (void) nextPDStep:(UIEvent*)event notification:(NSNotification*)n;
+- (void) nextPantoStep:(UIEvent*)event notification:(NSNotification*)n;
+- (void) nextVertexStep:(UIEvent*)event notification:(NSNotification*)n;
+
+- (void) beginProcessStep:(NSString*)instructions;
+- (void) beginRectStep:(NSString*)instructions;
+- (void) beginLineStep:(NSString*)instructions;
+- (void) beginPointStep:(NSString*)instructions;
+
+- (void) prepareForMeasureRect;
+- (void) prepareForMeasureLine;
+- (void) prepareForMeasurePoint;
 
 - (float) transformPixelsToRealDistance:(float)pixels;
 

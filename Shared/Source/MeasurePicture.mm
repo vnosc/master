@@ -108,6 +108,316 @@ extern ServiceObject* frameXML;
 	
 }
 
+- (void) nextProcessStep:(UIEvent*)event notification:(NSNotification*)n
+{
+    
+    NSDictionary *d = nil;
+    MeasureLine *l = nil;
+    CGPoint p;
+    NSSet *touches = nil;
+    
+    if (event == nil)
+    {
+        d = [n userInfo];
+        l = [d objectForKey:@"AddedLine"];
+    }
+    else
+    {
+        touches = [event allTouches];
+        UITouch *t = [[touches allObjects] objectAtIndex:0];
+        p = [t locationInView:self.touchView];
+    }
+    
+    if (self.measureType == 0 || self.measureType == 1) // dist PD/near PD
+    {
+        [self nextPDStep:event notification:n];
+    }
+    else if (self.measureType == 2) // panto
+    {
+        [self nextPantoStep:event notification:n];
+    }
+    else if (self.measureType == 3) // frame tryon
+    {
+        [self nextVertexStep:event notification:n];
+    }
+}
+
+- (void) nextPDStep:(UIEvent*)event notification:(NSNotification*)n
+{
+    
+    NSDictionary *d = nil;
+    MeasureLine *l = nil;
+    CGPoint p;
+    NSSet *touches = nil;
+    
+    if (event == nil)
+    {
+        d = [n userInfo];
+        l = [d objectForKey:@"AddedLine"];
+    }
+    else
+    {
+        touches = [event allTouches];
+        UITouch *t = [[touches allObjects] objectAtIndex:0];
+        p = [t locationInView:self.touchView];
+    }
+    
+    if (self.processStep == 0)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        self.rightEyePoint = p;
+        
+        [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
+        self.touchView.dragged = YES;
+        [self.touchView setNeedsDisplay];
+        
+        [self beginPointStep:@"Please touch the center of the\nleft pupil."];
+    }
+    else if (self.processStep == 1)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        self.leftEyePoint = p;
+        self.processStep++;
+        
+        [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
+        self.touchView.dragged = YES;
+        [self.touchView setNeedsDisplay];
+        
+        // UNCOMMENT TO SELECT BRIDGE
+        /*UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch the center of the\nbridge." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+         [alert show];
+         [alert release];*/
+        
+        [self touchesEnded:touches withEvent:event];
+    }
+    
+    else if (self.processStep == 2)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        self.processStep++;
+        
+        //[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
+        self.touchView.dragged = YES;
+        [self.touchView setNeedsDisplay];
+        
+        // UNCOMMENT FOR RECT BY HAND
+        [self beginPointStep:@"Please touch the center of the\nbottom of the right lens."];
+    }
+    
+    else if (self.processStep == 3)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        self.processStep++;
+        
+        l.name = @"Right Frame Box";
+        
+        self.touchView.nextLineIsRect = YES;
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the left side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    
+    else if (1 == 0 && self.processStep == 2)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        
+        self.bridgePoint = p;
+        self.processStep++;
+        
+        //[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
+        self.touchView.dragged = YES;
+        [self.touchView setNeedsDisplay];
+        
+        // UNCOMMENT FOR RECT BY HAND
+        [self prepareForMeasureRect];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the right side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        
+        // UNCOMMENT FOR POINTS
+        /*[self initLines];
+         
+         self.touchView.canAddLines = NO;
+         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+         [alert show];
+         [alert release];*/
+    }
+    else if (1 == 0 && self.processStep == 3)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        self.processStep++;
+        
+        l.name = @"Right Frame Box";
+        
+        self.touchView.nextLineIsRect = YES;
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the left side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    
+    else if (self.processStep == 4)
+    {
+        l.name = @"Left Frame Box";
+        
+        [self initLines];
+        
+        self.touchView.canAddLines = NO;
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+- (void) nextPantoStep:(UIEvent*)event notification:(NSNotification*)n
+{
+    NSDictionary *d = nil;
+    MeasureLine *l = nil;
+    CGPoint p;
+    NSSet *touches = nil;
+    
+    if (event == nil)
+    {
+        d = [n userInfo];
+        l = [d objectForKey:@"AddedLine"];
+    }
+    else
+    {
+        touches = [event allTouches];
+        UITouch *t = [[touches allObjects] objectAtIndex:0];
+        p = [t locationInView:self.touchView];
+    }
+    
+    if (self.processStep == 0)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        
+        l.name = @"Frame Across";
+        
+        self.processStep++;
+        
+        MeasurePoint* mp = l.lowerPoint;
+        
+        MeasureLine* upLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, l.upperPoint.y - 200)];
+        upLine.name = @"Vertical Up";
+        upLine.startMovesEnd = YES;
+        upLine.endLockX = YES;
+        
+        MeasureLine* downLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, mp.y + 200)];
+        downLine.name = @"Vertical Down";
+        downLine.startMovesEnd = YES;
+        downLine.endLockX = YES;
+        
+        self.touchView.canAddLines = NO;
+        [self initLines];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];						
+    }
+}
+
+- (void) nextVertexStep:(UIEvent *)event notification:(NSNotification *)n
+{
+    NSDictionary *d = nil;
+    MeasureLine *l = nil;
+    CGPoint p;
+    NSSet *touches = nil;
+    
+    if (event == nil)
+    {
+        d = [n userInfo];
+        l = [d objectForKey:@"AddedLine"];
+    }
+    else
+    {
+        touches = [event allTouches];
+        UITouch *t = [[touches allObjects] objectAtIndex:0];
+        p = [t locationInView:self.touchView];
+    }
+    
+    if (self.processStep == 0)
+    {
+        NSLog(@"ProcessStep %d", processStep);
+        
+        self.rightEyePoint = p;
+        
+        [self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
+        
+        self.touchView.dragged = YES;
+        [self.touchView setNeedsDisplay];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        
+        self.touchView.userInteractionEnabled = YES;
+        self.touchView.canAddLines = YES;
+        
+        self.processStep++;
+    }
+    else if (self.processStep == 1)
+    {
+        
+        [self.touchView.points removeObjectAtIndex:0];
+        
+        self.touchView.canAddLines = NO;
+        [self initLines];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];			
+    }
+    /*else if (self.processStep == 1)
+     {	
+     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+     [alert show];
+     [alert release];
+     
+     self.touchView.userInteractionEnabled = YES;
+     self.touchView.canAddLines = YES;
+     
+     self.processStep++;
+     }*/		
+
+}
+- (void) beginPointStep:(NSString*)instructions
+{
+    [self prepareForMeasurePoint];
+    [self beginProcessStep:instructions];
+}
+
+- (void) beginProcessStep:(NSString*)instructions
+{
+    self.processStep++;
+    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:instructions delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    [alert show];
+    [alert release];    
+}
+
+- (void) prepareForMeasureRect
+{
+    self.touchView.userInteractionEnabled = YES;
+    self.touchView.canAddLines = YES;
+    self.touchView.nextLineIsRect = YES;   
+}
+
+- (void) prepareForMeasureLine
+{
+    self.touchView.userInteractionEnabled = YES;
+    self.touchView.canAddLines = YES;
+    self.touchView.nextLineIsRect = NO;   
+}
+
+- (void) prepareForMeasurePoint
+{
+    self.touchView.userInteractionEnabled = YES;
+    self.touchView.canAddLines = NO;
+    self.touchView.nextLineIsRect = NO;   
+}
+
 - (void) initLines
 {
 	self.touchView.userInteractionEnabled = YES;
@@ -507,104 +817,7 @@ extern ServiceObject* frameXML;
 	
 	if (numTouches == 1 && [self.touchView pointInside:p withEvent:event])
 	{
-		
-		if (self.measureType == 0 || self.measureType == 1)
-		{
-			if (self.processStep == 0)
-			{
-				NSLog(@"ProcessStep %d", processStep);
-				self.rightEyePoint = p;
-				self.processStep++;
-				
-				[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-				self.touchView.dragged = YES;
-				[self.touchView setNeedsDisplay];
-				
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch the center of the\nleft pupil." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];
-			}
-			else if (self.processStep == 1)
-			{
-				NSLog(@"ProcessStep %d", processStep);
-				self.leftEyePoint = p;
-				self.processStep++;
-
-				[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-				self.touchView.dragged = YES;
-				[self.touchView setNeedsDisplay];
-				
-				// UNCOMMENT TO SELECT BRIDGE
-				/*UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch the center of the\nbridge." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];*/
-				
-				[self touchesEnded:touches withEvent:event];
-			}
-			else if (self.processStep == 2)
-			{
-				NSLog(@"ProcessStep %d", processStep);
-
-				self.bridgePoint = p;
-				self.processStep++;
-				
-				//[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-				self.touchView.dragged = YES;
-				[self.touchView setNeedsDisplay];
-				
-				// UNCOMMENT FOR RECT BY HAND
-				self.touchView.userInteractionEnabled = YES;
-				self.touchView.canAddLines = YES;
-				self.touchView.nextLineIsRect = YES;
-				
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the right side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];
-				
-				// UNCOMMENT FOR POINTS
-				/*[self initLines];
-				
-				self.touchView.canAddLines = NO;
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];*/
-			}
-		}
-		else if (self.measureType == 3)
-		{
-			if (self.processStep == 0)
-			{
-				NSLog(@"ProcessStep %d", processStep);
-
-				self.rightEyePoint = p;
-				
-				[self.touchView.points addObject:[[MeasurePoint alloc] initWithPoint:p]];
-				
-				self.touchView.dragged = YES;
-				[self.touchView setNeedsDisplay];
-				
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];
-				
-				self.touchView.userInteractionEnabled = YES;
-				self.touchView.canAddLines = YES;
-				
-				self.processStep++;
-			}
-			/*else if (self.processStep == 1)
-			{	
-				UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-				[alert show];
-				[alert release];
-				
-				self.touchView.userInteractionEnabled = YES;
-				self.touchView.canAddLines = YES;
-				
-				self.processStep++;
-			}*/		
-			
-		}
+        [self nextProcessStep:event notification:nil];
 		
 		if (!self.zoomSlider.isEnabled && [self.touchView.points count] >= 2)
 		{
@@ -620,88 +833,11 @@ extern ServiceObject* frameXML;
 	
 }
 
+//- (void) nextProcessStep:(MeasureProcessStep*)ps
+
 - (void)touchViewAddedLine:(NSNotification*)n
 {
-	NSDictionary* d = [n userInfo];
-	
-	MeasureLine* l = [d objectForKey:@"AddedLine"];
-	
-	if (self.measureType == 0 || self.measureType == 1)
-	{
-		if (self.processStep == 3)
-		{
-			NSLog(@"ProcessStep %d", processStep);
-			self.processStep++;
-			
-			l.name = @"Right Frame Box";
-			
-			self.touchView.nextLineIsRect = YES;
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a rectangle around the left side of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];
-		}
-		else if (self.processStep == 4)
-		{
-			l.name = @"Left Frame Box";
-			
-			[self initLines];
-			
-			self.touchView.canAddLines = NO;
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];
-		}
-	}
-	else if (self.measureType == 2)
-	{
-		if (self.processStep == 0)
-		{
-			NSLog(@"ProcessStep %d", processStep);
-			
-			l.name = @"Frame Across";
-			
-			self.processStep++;
-			
-			MeasurePoint* mp = l.lowerPoint;
-			
-			MeasureLine* upLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, l.upperPoint.y - 200)];
-			upLine.name = @"Vertical Up";
-			upLine.startMovesEnd = YES;
-			upLine.endLockX = YES;
-			
-			MeasureLine* downLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, mp.y + 200)];
-			downLine.name = @"Vertical Down";
-			downLine.startMovesEnd = YES;
-			downLine.endLockX = YES;
-			
-			self.touchView.canAddLines = NO;
-			[self initLines];
-			
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];						
-		}
-	}
-	else if (self.measureType == 3)
-	{
-		if (self.processStep == 1)
-		{
-
-					[self.touchView.points removeObjectAtIndex:0];
-			
-			self.touchView.canAddLines = NO;
-			[self initLines];
-			
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Adjust the white lines by hand." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];			
-		}
-	}
-}
-
--(void) continueProcess
-{
-	
+    [self nextProcessStep:nil notification:n];
 }
 
 -(IBAction)scale:(id)sender
@@ -826,3 +962,28 @@ extern ServiceObject* frameXML;
 }
 
 @end
+
+/*@implementation MeasureProcessStep
+
++ (MeasureProcessStep *) stepWithEvent:(UIEvent *)event
+{
+    MeasureProcessStep *obj = [[MeasureProcessStep alloc] initWithEvent:event notification:nil];
+    return obj;
+}
+
++ (MeasureProcessStep *) stepWithNotification:(NSNotification *)n
+{
+    MeasureProcessStep *obj = [[MeasureProcessStep alloc] initWithEvent:nil notification:n];    
+}
+
+- (MeasureProcessStep *) initWithEvent:(UIEvent *)event notification:(NSNotification *)n
+{
+    if (self = [self init])
+    {
+        _event = event;
+        _notification = n;
+    }
+    return self;
+}
+
+@end*/

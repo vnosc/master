@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A70D99E41474119600008FBC /* CodeDescription.txt in Resources */ = {isa = PBXBuildFile; fileRef = A70D99E31474119600008FBC /* CodeDescription.txt */; };
+		A71DC2D014CF303000F9F983 /* OptiSuite-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A71DC2CF14CF303000F9F983 /* OptiSuite-info.plist */; };
 		A724147C1481B20D003B3B0E /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A724147B1481B20D003B3B0E /* BackgroundViewController.m */; };
 		A724147D1481B20D003B3B0E /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A724147B1481B20D003B3B0E /* BackgroundViewController.m */; };
 		A72414811481B372003B3B0E /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A724147F1481B372003B3B0E /* MainBackground.png */; };
@@ -50,6 +51,8 @@
 		A773170C147D7DB600D6338D /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731706147D7DB600D6338D /* SVSegmentedControl.m */; };
 		A773170D147D7DB600D6338D /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731708147D7DB600D6338D /* SVSegmentedThumb.m */; };
 		A773170E147D7DB600D6338D /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731708147D7DB600D6338D /* SVSegmentedThumb.m */; };
+		A78A052F14D71AB80028F6FA /* MeasureProcessStep.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A052E14D71AB80028F6FA /* MeasureProcessStep.m */; };
+		A78A053014D71AB80028F6FA /* MeasureProcessStep.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A052E14D71AB80028F6FA /* MeasureProcessStep.m */; };
 		A78A24E5148D69EC001AFE4A /* HomePage.xib in Resources */ = {isa = PBXBuildFile; fileRef = A78A24E2148D69E4001AFE4A /* HomePage.xib */; };
 		A78AA35E1476F54D00AFFE04 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A78AA35A1476F54D00AFFE04 /* logo.png */; };
 		A78EB8681483E95300153C20 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A78EB8621483E95300153C20 /* LoginBackground.png */; };
@@ -894,6 +897,7 @@
 
 /* Begin PBXFileReference section */
 		A70D99E31474119600008FBC /* CodeDescription.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeDescription.txt; sourceTree = "<group>"; };
+		A71DC2CF14CF303000F9F983 /* OptiSuite-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OptiSuite-info.plist"; sourceTree = SOURCE_ROOT; };
 		A724147A1481B20D003B3B0E /* BackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundViewController.h; path = ../BackgroundViewController.h; sourceTree = "<group>"; };
 		A724147B1481B20D003B3B0E /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundViewController.m; path = ../BackgroundViewController.m; sourceTree = "<group>"; };
 		A724147F1481B372003B3B0E /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MainBackground.png; path = OptiSuite/Images/MainBackground.png; sourceTree = SOURCE_ROOT; };
@@ -906,9 +910,7 @@
 		A736C79A14746F6500A9B8E0 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = Shared/XIB/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		A73943BA14B36BFE006BFF36 /* face_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_left.png; sourceTree = "<group>"; };
 		A73943BB14B36BFE006BFF36 /* face_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_right.png; sourceTree = "<group>"; };
-		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
-		A767289E147569D900857EAD /* Smart-i copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy-Info.plist"; sourceTree = "<absolute>"; };
 		A76E78E214B49D5200D2A589 /* DefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButton.png; sourceTree = "<group>"; };
 		A76E78E314B49D5200D2A589 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginBackground.png; sourceTree = "<group>"; };
 		A76E78E414B49D5200D2A589 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainBackground.png; sourceTree = "<group>"; };
@@ -928,6 +930,8 @@
 		A7731706147D7DB600D6338D /* SVSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedControl.m; sourceTree = "<group>"; };
 		A7731707147D7DB600D6338D /* SVSegmentedThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSegmentedThumb.h; sourceTree = "<group>"; };
 		A7731708147D7DB600D6338D /* SVSegmentedThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedThumb.m; sourceTree = "<group>"; };
+		A78A052D14D71AB80028F6FA /* MeasureProcessStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeasureProcessStep.h; path = Shared/MeasureProcessStep.h; sourceTree = SOURCE_ROOT; };
+		A78A052E14D71AB80028F6FA /* MeasureProcessStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeasureProcessStep.m; path = Shared/MeasureProcessStep.m; sourceTree = SOURCE_ROOT; };
 		A78A24E2148D69E4001AFE4A /* HomePage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePage.xib; sourceTree = "<group>"; };
 		A78AA35A1476F54D00AFFE04 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		A78EB8621483E95300153C20 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = OptiSuite/Images/LoginBackground.png; sourceTree = SOURCE_ROOT; };
@@ -1509,7 +1513,6 @@
 		A7F9C49214756CAF00AA9C33 /* HomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HomePage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		A7F9C49314756DEE00AA9C33 /* BillingTypeSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillingTypeSelection.h; sourceTree = "<group>"; };
 		A7F9C54214756F3000AA9C33 /* OptiSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptiSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7F9C54414756F3100AA9C33 /* Smart-i copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy2-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy2-Info.plist"; sourceTree = "<absolute>"; };
 		A7F9C54614757C8900AA9C33 /* HomePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HomePage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A7F9C5491475800500AA9C33 /* HomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HomePage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		A7F9C54D147592C000AA9C33 /* PatientList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PatientList.xib; path = Shared/PatientList.xib; sourceTree = SOURCE_ROOT; };
@@ -2512,6 +2515,8 @@
 				A7E9CC7214743F94004EF3D4 /* Measurements.m */,
 				A7E9CC7314743F94004EF3D4 /* MeasureOverview.m */,
 				A7E9CC7414743F94004EF3D4 /* MeasurePicture.mm */,
+				A78A052D14D71AB80028F6FA /* MeasureProcessStep.h */,
+				A78A052E14D71AB80028F6FA /* MeasureProcessStep.m */,
 				A7E9CC7514743F94004EF3D4 /* MeasurePoint.m */,
 				A7E9CC7614743F94004EF3D4 /* NewUser.m */,
 				A7E9CC7714743F94004EF3D4 /* OpenCVTesting.mm */,
@@ -2665,8 +2670,6 @@
 				A7E9CDE914744297004EF3D4 /* Smart-i */,
 				A78AA3571476F54D00AFFE04 /* OptiSuite */,
 				F1D2A43D141976F400E26C72 /* CyberImaging */,
-				A767289E147569D900857EAD /* Smart-i copy-Info.plist */,
-				A7F9C54414756F3100AA9C33 /* Smart-i copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2723,7 +2726,7 @@
 				F1CACC311441506D0062A387 /* Entitlements.plist */,
 				F1E51B631447C0B90017D940 /* haarcascade_frontalface_default.xml */,
 				A759978D1474295500D9968C /* Smart-i-info.plist */,
-				A759978C1474283300D9968C /* OptiSuite-info.plist */,
+				A71DC2CF14CF303000F9F983 /* OptiSuite-info.plist */,
 				F1D2A443141976F400E26C72 /* CyberImaging-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -3068,6 +3071,7 @@
 				A7A7EB2B14C889D700E33A19 /* vsp_logo_white.png in Resources */,
 				A7A7EB2E14C88ADA00E33A19 /* checkbox-checked.png in Resources */,
 				A7A7EB2F14C88ADA00E33A19 /* checkbox.png in Resources */,
+				A71DC2D014CF303000F9F983 /* OptiSuite-info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3502,6 +3506,7 @@
 				A7BD205F14AD2959006BEA80 /* CoatingView.m in Sources */,
 				A7BD206114AD2959006BEA80 /* LensIndexView.m in Sources */,
 				A7A7E9FD14BF545200E33A19 /* GlobalVariable.m in Sources */,
+				A78A053014D71AB80028F6FA /* MeasureProcessStep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3669,6 +3674,7 @@
 				A7BD205E14AD2959006BEA80 /* CoatingView.m in Sources */,
 				A7BD206014AD2959006BEA80 /* LensIndexView.m in Sources */,
 				A7A7E9FC14BF545200E33A19 /* GlobalVariable.m in Sources */,
+				A78A052F14D71AB80028F6FA /* MeasureProcessStep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3813,7 +3819,9 @@
 		F18A2A4A144148E90059D635 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = Beta;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				BUNDLE_SUFFIX = "";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -3871,7 +3879,9 @@
 		F1D2A44C141976F400E26C72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = Dev;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				BUNDLE_SUFFIX = .dev;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hoa Nguyen (7BWWC72UX5)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3890,7 +3900,9 @@
 		F1D2A44D141976F400E26C72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = "";
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				BUNDLE_SUFFIX = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
