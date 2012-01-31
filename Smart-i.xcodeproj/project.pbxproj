@@ -4162,8 +4162,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4186,8 +4184,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				STRIP_INSTALLED_PRODUCT = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				WEB_SERVICE_URL = "http://smart-i.ws/mobilewebservice.asmx/";
@@ -4200,8 +4196,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4223,8 +4217,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				STRIP_INSTALLED_PRODUCT = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
@@ -4239,8 +4231,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4262,7 +4252,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = OptiSuite;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				STRIP_INSTALLED_PRODUCT = NO;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OptiSuite/Headers\" \"$(SRCROOT)\" ${SDK_DIR}/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
@@ -4282,16 +4271,15 @@
 				);
 				BUNDLE_SUFFIX = beta;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -4302,8 +4290,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4326,7 +4312,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
@@ -4345,8 +4330,8 @@
 					armv7,
 				);
 				BUNDLE_SUFFIX = dev;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -4355,8 +4340,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -4371,16 +4355,15 @@
 					armv7,
 				);
 				BUNDLE_SUFFIX = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -4390,8 +4373,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4414,8 +4395,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
@@ -4428,8 +4407,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4452,8 +4429,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "766A8D55-CA66-4068-90DD-014CE2173690";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "766A8D55-CA66-4068-90DD-014CE2173690";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
