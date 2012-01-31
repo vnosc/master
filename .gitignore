@@ -1,2 +1,8 @@
 *.DS_Store
 *.xcuserstate
+*.mode1v3
+*.pbxuser
+*.xcsettings
+*.xcscheme
+*.xcbkptlist
+xcschememanagement.plist
