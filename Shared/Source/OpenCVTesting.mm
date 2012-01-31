@@ -45,6 +45,7 @@ const int kEyeHaarOptions = 0;
 @implementation OpenCVTesting
 
 @synthesize focusPoint;
+@synthesize labelSize;
 @synthesize propertySV;
 
 @synthesize imageView;
@@ -67,6 +68,8 @@ const int kEyeHaarOptions = 0;
 @synthesize morphIterLabel;
 @synthesize threshSlider;
 @synthesize threshLabel;
+@synthesize labelSizeLabel;
+@synthesize labelSizeSlider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,6 +94,8 @@ const int kEyeHaarOptions = 0;
 {
     [super viewDidLoad];
 	
+    self.labelSize = 100;
+    
 	[self loadPatientImages];
 	
 	self.apertureSegment.selectedSegmentIndex = 1;
@@ -148,7 +153,8 @@ const int kEyeHaarOptions = 0;
 		
 		//CGPoint p = CGPointMake(p2.x - self.imageView.bounds.origin.x, p2.y - self.imageView.bounds.origin.y);
 		
-		CGRect r = CGRectMake(p.x - 50, p.y - 50, 100, 100);
+        int dist = self.labelSize / 2;
+		CGRect r = CGRectMake(p.x - dist, p.y - dist, dist, dist);
 		
 		[self drawFakeLabelAt:r];
 	}
@@ -199,21 +205,21 @@ const int kEyeHaarOptions = 0;
 
 - (void) drawFakeLabelAt:(CGRect)r
 {
-	UIGraphicsBeginImageContext(_baseImage.size);
+	UIGraphicsBeginImageContext(self.imageView.image.size);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
 	UIColor *white = [UIColor whiteColor];
 	[white setStroke];
 	[white setFill];
 	//CGContextDrawImage(context, CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height), self.imageView.image.CGImage);
-	[_baseImage drawInRect:CGRectMake(0, 0, _baseImage.size.width, _baseImage.size.height)];
+	[self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
 	CGContextFillRect(context, r);
 	
 	UIImage *retImg = UIGraphicsGetImageFromCurrentImageContext();
 	
-	_baseImage = [retImg retain];
+	//_baseImage = [retImg retain];
 	
-	self.imageView.image = _baseImage;
+	self.imageView.image = retImg;
 }
 
 - (void)doGaussianBlur
@@ -425,13 +431,23 @@ const int kEyeHaarOptions = 0;
 
 	NSLog(@"contours: %d", (int) contours.size());
 	
-	[[UIColor greenColor] setStroke];
-	
+    int biggestContourIdx = 0;
 	for (int i = 0; i < contours.size(); i++)
 	{
-		std::vector<cv::Point> contour = contours[i];
-		CGContextMoveToPoint(ctx, contour[0].x, contour[0].y);
-		CGContextAddLineToPoint(ctx, contour[contour.size()-1].x, contour[contour.size()-1].y);
+        if (contours[i].size() > contours[biggestContourIdx].size())
+            biggestContourIdx = i;
+    }
+    
+    std::vector<cv::Point> contour = contours[biggestContourIdx];
+    
+    int csize = contour.size();
+    NSLog(@"biggest contour details: size %d, first %d,%d, last %d,%d", csize, contour[0].x, contour[0].y, contour[csize-1].x, contour[csize-1].y );
+    
+    [[UIColor greenColor] setStroke];
+    CGContextMoveToPoint(ctx, contour[0].x, contour[0].y);
+    for (int j = 1; j < csize; j++)
+    {
+		CGContextAddLineToPoint(ctx, contour[j].x, contour[j].y);
 	}
 	
 	CGContextClosePath(ctx);
@@ -444,10 +460,27 @@ const int kEyeHaarOptions = 0;
 		//circleRect = CGRectInset(circleRect, 5, 5);
 		CGContextStrokeEllipseInRect(ctx, circleRect);
 	}*/
-	
-	self.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
+    
+    //cv::moments([imageWithContours CVMat]);
+
+    double contourArea = cv::contourArea(contour);
+    NSLog(@"contour area: %f", contourArea);
+    
+    std::vector<cv::Point> approxPoly;
+    
+    cv::approxPolyDP(contour, approxPoly, 5, YES);
+    
+    int psize = approxPoly.size();
+    
+    [[UIColor blueColor] setStroke];
+    for (int j = 0; j < psize; j++)
+    {
+        CGContextStrokeRect(ctx, CGRectMake(approxPoly[j].x, approxPoly[j].y, 3, 3));
+	}
+    
+    UIImage *imageWithContours = UIGraphicsGetImageFromCurrentImageContext();
+    self.imageView.image = imageWithContours;
+    UIGraphicsEndImageContext();
 }
 
 - (void)doGoodFeaturesToTrack
@@ -590,6 +623,8 @@ const int kEyeHaarOptions = 0;
 	[self setMorphIterLabel:nil];
 	[self setThreshSlider:nil];
 	[self setThreshLabel:nil];
+    [self setLabelSizeLabel:nil];
+    [self setLabelSizeSlider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -623,6 +658,8 @@ const int kEyeHaarOptions = 0;
 	[morphIterLabel release];
 	[threshSlider release];
 	[threshLabel release];
+    [labelSizeLabel release];
+    [labelSizeSlider release];
     [super dealloc];
 }
 - (IBAction)revertBtnClick:(id)sender {
@@ -769,6 +806,11 @@ const int kEyeHaarOptions = 0;
 	UIGraphicsEndImageContext();
 	
 	//return eyes;
+}
+
+- (IBAction)labelSizeSliderChanged:(id)sender {
+    self.labelSize = (int) self.labelSizeSlider.value;
+    [self.labelSizeLabel setText:[NSString stringWithFormat:@"%d", self.labelSize]];
 }
 
 @end

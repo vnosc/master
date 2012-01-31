@@ -31,6 +31,10 @@
 	[[UILabel appearanceWhenContainedIn:[UITextField class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
 	
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
+    
+    [[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
+	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], [BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
+    [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
 	
 #elif defined SMARTI
 	
@@ -42,6 +46,8 @@
 
 	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
 	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], [BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
+    [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
+    
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
 
 	

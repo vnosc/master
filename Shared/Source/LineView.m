@@ -128,10 +128,10 @@
 		MeasureLine* lev = [self lineByName:@"Left Eye Vertical"];
 		MeasureLine* rev = [self lineByName:@"Right Eye Vertical"];
 		MeasureLine* bv = [self lineByName:@"Bridge Vertical"];
-		MeasureLine* rb = [self lineByName:@"Right Frame Box"];
-		MeasureLine* lb = [self lineByName:@"Left Frame Box"];
+		MeasureLine* rfb = [self lineByName:@"Right Frame Box"];
+		MeasureLine* lfb = [self lineByName:@"Left Frame Box"];
 		
-		if (lev && rev && bv && rb && lb)
+		if (lev && rev && bv)
 		{
 			NSLog(@"found both eye verticals");
 			CGContextRef c = UIGraphicsGetCurrentContext();
@@ -150,42 +150,19 @@
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lev.start.x, lev.start.y);
-			CGContextAddLineToPoint(c, lev.start.x, lb.lowerPoint.y);        
-			CGContextSetLineWidth(c, LINE_WIDTH); 
-			CGContextClosePath(c);
-			CGContextStrokePath(c);
-			
-			CGContextMoveToPoint(c, rev.start.x, rev.start.y);
-			CGContextAddLineToPoint(c, rev.start.x, rb.lowerPoint.y);        
-			CGContextSetLineWidth(c, LINE_WIDTH); 
-			CGContextClosePath(c);
-			CGContextStrokePath(c);
-			
-			/*CGContextMoveToPoint(c, rb.rightPoint.x, rb.midpoint.y);
-			CGContextAddLineToPoint(c, bv.start.x, rb.midpoint.y);        
-			CGContextSetLineWidth(c, LINE_WIDTH); 
-			CGContextClosePath(c);
-			CGContextStrokePath(c);
-			
-			CGContextMoveToPoint(c, lb.leftPoint.x, lb.midpoint.y);
-			CGContextAddLineToPoint(c, bv.start.x, lb.midpoint.y);        
-			CGContextSetLineWidth(c, LINE_WIDTH); 
-			CGContextClosePath(c);
-			CGContextStrokePath(c);*/
-			
-			CGContextMoveToPoint(c, lev.start.x, lev.start.y);
+            CGContextMoveToPoint(c, lev.start.x, lev.start.y);
 			CGContextAddLineToPoint(c, lev.start.x - ARROW_LENGTH, lev.start.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
-		
+            
 			CGContextMoveToPoint(c, lev.start.x, lev.start.y);
 			CGContextAddLineToPoint(c, lev.start.x - ARROW_LENGTH, lev.start.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
-			
+            
+            
 			CGContextMoveToPoint(c, bv.start.x, rev.start.y);
 			CGContextAddLineToPoint(c, bv.start.x - ARROW_LENGTH, rev.start.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
@@ -221,9 +198,36 @@
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
+        }
 			
-			// ---
+        if (lev && rev && lfb && rfb)
+        {
 			
+        
+            CGContextMoveToPoint(c, lev.start.x, lev.start.y);
+            CGContextAddLineToPoint(c, lev.start.x, lfb.lowerPoint.y);        
+            CGContextSetLineWidth(c, LINE_WIDTH); 
+            CGContextClosePath(c);
+            CGContextStrokePath(c);
+            
+            CGContextMoveToPoint(c, rev.start.x, rev.start.y);
+            CGContextAddLineToPoint(c, rev.start.x, rfb.lowerPoint.y);        
+            CGContextSetLineWidth(c, LINE_WIDTH); 
+            CGContextClosePath(c);
+            CGContextStrokePath(c);
+            
+            /*CGContextMoveToPoint(c, rb.rightPoint.x, rb.midpoint.y);
+             CGContextAddLineToPoint(c, bv.start.x, rb.midpoint.y);        
+             CGContextSetLineWidth(c, LINE_WIDTH); 
+             CGContextClosePath(c);
+             CGContextStrokePath(c);
+             
+             CGContextMoveToPoint(c, lb.leftPoint.x, lb.midpoint.y);
+             CGContextAddLineToPoint(c, bv.start.x, lb.midpoint.y);        
+             CGContextSetLineWidth(c, LINE_WIDTH); 
+             CGContextClosePath(c);
+             CGContextStrokePath(c);*/
+        
 			CGContextMoveToPoint(c, lev.start.x, lev.start.y);
 			CGContextAddLineToPoint(c, lev.start.x - ARROW_LENGTH, lev.start.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
@@ -236,14 +240,14 @@
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lev.start.x, lb.lowerPoint.y);
-			CGContextAddLineToPoint(c, lev.start.x - ARROW_LENGTH, lb.lowerPoint.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, lev.start.x, lfb.lowerPoint.y);
+			CGContextAddLineToPoint(c, lev.start.x - ARROW_LENGTH, lfb.lowerPoint.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lev.start.x, lb.lowerPoint.y);
-			CGContextAddLineToPoint(c, lev.start.x + ARROW_LENGTH, lb.lowerPoint.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, lev.start.x, lfb.lowerPoint.y);
+			CGContextAddLineToPoint(c, lev.start.x + ARROW_LENGTH, lfb.lowerPoint.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH);
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
@@ -260,14 +264,14 @@
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rev.start.x, rb.lowerPoint.y);
-			CGContextAddLineToPoint(c, rev.start.x - ARROW_LENGTH, rb.lowerPoint.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, rev.start.x, rfb.lowerPoint.y);
+			CGContextAddLineToPoint(c, rev.start.x - ARROW_LENGTH, rfb.lowerPoint.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rev.start.x, rb.lowerPoint.y);
-			CGContextAddLineToPoint(c, rev.start.x + ARROW_LENGTH, rb.lowerPoint.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, rev.start.x, rfb.lowerPoint.y);
+			CGContextAddLineToPoint(c, rev.start.x + ARROW_LENGTH, rfb.lowerPoint.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH);
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
@@ -280,33 +284,46 @@
 		{
 			NSLog(@"found both left frame horizontals");
 			
+            CGPoint cp = lfch.end.point;
+            CGPoint bp = lfbh.end.point;
+            
+			if (lfch.end.x < lfbh.end.x)
+                bp = CGPointMake(lfch.end.x, lfbh.end.y);
+			else
+                cp = CGPointMake(lfbh.end.x, lfch.end.y);
+            
+            if (self.grabbedPoint == lfch.end)
+                lfbh.end.x = lfch.end.x;
+            else if (self.grabbedPoint == lfbh.end)
+                lfch.end.x = lfbh.end.x;
+            
 			[LINE_COLOR setStroke];
-			CGContextMoveToPoint(c, lfch.end.x, lfch.end.y);
-			CGContextAddLineToPoint(c, lfbh.end.x, lfbh.end.y);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, bp.x, bp.y);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lfch.end.x, lfch.end.y);
-			CGContextAddLineToPoint(c, lfch.end.x - ARROW_LENGTH, lfch.end.y + ARROW_LENGTH);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, cp.x - ARROW_LENGTH, cp.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lfch.end.x, lfch.end.y);
-			CGContextAddLineToPoint(c, lfch.end.x + ARROW_LENGTH, lfch.end.y + ARROW_LENGTH);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, cp.x + ARROW_LENGTH, cp.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, lfbh.end.x, lfbh.end.y);
-			CGContextAddLineToPoint(c, lfbh.end.x - ARROW_LENGTH, lfbh.end.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, bp.x, bp.y);
+			CGContextAddLineToPoint(c, bp.x - ARROW_LENGTH, bp.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 													  
-			CGContextMoveToPoint(c, lfbh.end.x, lfbh.end.y);
-			CGContextAddLineToPoint(c, lfbh.end.x + ARROW_LENGTH, lfbh.end.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, bp.x, bp.y);
+			CGContextAddLineToPoint(c, bp.x + ARROW_LENGTH, bp.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
@@ -660,6 +677,12 @@
 	{
 		[self.nextResponder touchesBegan:touches withEvent:event];
 	}
+}
+
+- (void) setNeedsDisplay
+{
+    self.dragged = YES;
+    [super setNeedsDisplay];
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
