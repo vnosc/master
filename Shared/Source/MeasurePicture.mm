@@ -607,10 +607,10 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; ///rScaleABox + 0;
-			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; ///lScaleABox + 0;
-			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y]; /// rScaleBBox + 0;
-			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y];// / lScaleBBox + 0;
+			float rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; // * (720 / self.vImagePreview.frame.size.width) ; ///rScaleABox + 0;
+			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; // * (720 / self.vImagePreview.frame.size.width); ///lScaleABox + 0;
+			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y]; // * (960 / self.vImagePreview.frame.size.height); /// rScaleBBox + 0;
+			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y]; // * (960 / self.vImagePreview.frame.size.height);  // / lScaleBBox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:rDistPD], @"RightDistPD",
@@ -660,7 +660,7 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; // /rScaleABox + 0;
+			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x] * (720 / self.vImagePreview.frame.size.width); // /rScaleABox + 0;
 			float lNearPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; // /lScaleABox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
