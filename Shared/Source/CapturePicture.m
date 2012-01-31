@@ -11,6 +11,7 @@
 @implementation CapturePicture
 @synthesize vImagePreview;
 @synthesize stillImageOutput;
+@synthesize navigationTitleLabel;
 @synthesize captureVideoPreviewLayer;
 
 @synthesize iv;
@@ -42,12 +43,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	CALayer *layer = self.vImagePreview.layer;
-	
-	[layer setBorderWidth:3.0f];
-	[layer setCornerRadius:25];
-	[layer setMasksToBounds:YES];
+    
+    //[self setImagePreviewMask];
 	
     // Do any additional setup after loading the view from its nib.
 //}
@@ -60,6 +57,39 @@
     
 	[self createCamera];
 	
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationTitleLabel.text = self.navigationItem.title;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    //[[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
+
+- (void) setImagePreviewMask
+{
+	CALayer *layer = self.vImagePreview.layer;
+	
+	[layer setBorderWidth:3.0f];
+	[layer setCornerRadius:25];
+	[layer setMasksToBounds:YES];
+}
+
+- (NSString*) getRectString:(CGRect)r
+{
+    return [NSString stringWithFormat:@"%f,%f,%f,%f", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }
 
 - (void) createCamera
@@ -76,11 +106,17 @@
     //[overlayImageView setFrame:CGRectMake(0,187,290,2)];
     //[captureVideoPreviewLayer addSublayer:overlayImageView.layer];
     
-	[self.vImagePreview setBounds:CGRectMake(40,40,648,864)];
-	captureVideoPreviewLayer.frame = self.vImagePreview.bounds;
-	NSLog(@"%f,%f", self.vImagePreview.bounds.size.width, self.vImagePreview.bounds.size.height);
+	//[self.vImagePreview setBounds:CGRectMake(40,40,648,864)];
+    NSLog(@"vImagePreview bounds: %@", [self getRectString:self.vImagePreview.bounds]);
+    NSLog(@"vImagePreview frame: %@", [self getRectString:self.vImagePreview.frame]);
+    
+	captureVideoPreviewLayer.frame = self.vImagePreview.frame;
+
 	self.vImagePreview.layer.sublayers = nil;
 	[self.vImagePreview.layer addSublayer:captureVideoPreviewLayer];
+    
+    NSLog(@"captureVideoPreviewLayer bounds: %@", [self getRectString:captureVideoPreviewLayer.bounds]);
+    NSLog(@"captureVideoPreviewLayer frame: %@", [self getRectString:captureVideoPreviewLayer.frame]);    
     
 	//   UIImageView *overlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"aadi.png"]];
 	//  [overlayImageView setFrame:CGRectMake(0,187,290,2)];
@@ -125,6 +161,7 @@
 - (void)viewDidUnload
 {
 	[self setVImagePreview:nil];
+    [self setNavigationTitleLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -138,6 +175,7 @@
 
 - (void)dealloc {
 	[vImagePreview release];
+    [navigationTitleLabel release];
 	[super dealloc];
 }
 	
@@ -202,5 +240,9 @@
 - (IBAction)changeCamera:(id)sender {
 	self.usingFrontCamera = !self.usingFrontCamera;
 	[self createCamera];
+}
+
+- (IBAction)backBtnClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

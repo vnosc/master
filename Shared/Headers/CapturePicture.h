@@ -25,6 +25,7 @@
 @property(nonatomic, retain) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 @property(nonatomic, retain)AVCaptureStillImageOutput *stillImageOutput;
+@property (retain, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 
 @property(nonatomic, retain) UIImageView* iv;
 @property int measureType;
@@ -32,9 +33,11 @@
 
 @property (retain) NSArray* instMessages;
 
+- (void) setImagePreviewMask;
 - (void) createCamera;
 
 - (IBAction)captureBtnClick:(id)sender;
 - (IBAction)changeCamera:(id)sender;
+- (IBAction)backBtnClick:(id)sender;
 
 @end

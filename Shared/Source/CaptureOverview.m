@@ -56,7 +56,7 @@ extern NSArray* patientImages;
 	if (self = [super init])
 	{
 		self.suffixes = [NSArray arrayWithObjects:@"dist", @"near", @"side", @"tryon", nil];
-		self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Near PD", @"Panto/Vertex/Wrap", @"Frame Try-On", nil];
+		self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Near PD", @"Panto/Vertex", @"Frame Try-On", nil];
 	}
 	return self;
 }
@@ -66,7 +66,7 @@ extern NSArray* patientImages;
     if (self) {
         // Custom initialization
 		self.suffixes = [NSArray arrayWithObjects:@"dist", @"near", @"side", @"tryon", nil];
-		self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Near PD", @"Panto/Vertex/Wrap", @"Frame Try-On", nil];
+		self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Near PD", @"Panto/Vertex", @"Frame Try-On", nil];
     }
     return self;
 }
