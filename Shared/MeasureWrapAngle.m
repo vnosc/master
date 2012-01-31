@@ -14,6 +14,7 @@
 @synthesize sliderLine;
 @synthesize diagLine;
 @synthesize angleField;
+@synthesize wrapImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,8 +42,14 @@
 {
     [super viewDidLoad];
 	
+    CGAffineTransform rotateTransform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                -90.0 * M_PI / 180.0f);
+    
+    self.wrapImageView.transform = rotateTransform;
+    
 	self.measureAreaView.contentMode = UIViewContentModeRedraw;
-	
+	self.measureAreaView.effOffset = 22;
+    
 	float f2 = self.angleSlider.value;
 	[self setSliderPoint:f2];
 	
@@ -54,6 +61,7 @@
 	[self setMeasureAreaView:nil];
 	[self setAngleSlider:nil];
 	[self setAngleField:nil];
+    [self setWrapImageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -69,6 +77,7 @@
 	[measureAreaView release];
 	[angleSlider release];
 	[angleField release];
+    [wrapImageView release];
 	[super dealloc];
 }
 - (IBAction)angleSliderChanged:(id)sender {
@@ -80,7 +89,7 @@
 - (void) setSliderPoint:(float)f2
 {	
 	//NSLog(@"again angleSlider.value: %f - f2: %f", self.angleSlider.value, f2);
-	float effWidth = (self.measureAreaView.frame.size.width - 10);
+	float effWidth = (self.measureAreaView.frame.size.width - self.measureAreaView.effOffset);
 	float x = f2 * effWidth;
 
 	self.sliderLine.start.point = CGPointMake(x, self.measureAreaView.frame.size.height);
@@ -120,6 +129,7 @@
 
 @implementation MeasureAreaView
 
+@synthesize effOffset;
 @synthesize anglePointX;
 
 - (id) initWithFrame:(CGRect)frame
@@ -127,6 +137,7 @@
 	if (self = [super initWithFrame:frame])
 	{
 		self.anglePointX = 0.0f;
+        self.effOffset = 23;
 	}
 	return self;
 }
@@ -135,8 +146,11 @@
 	float width = rect.size.width;
 	float height = rect.size.height;
 	
-	float effWidth = width - 10;
+	float effWidth = width - self.effOffset;
+    float effWidthRatio = effWidth / width;
 	
+    int lineWidth = 2;
+    
 	CGPoint anglePoint = CGPointMake(self.anglePointX, height);
 	
 	//UIGraphicsBeginImageContext(self.frame.size);
@@ -145,7 +159,7 @@
 	
 	CGContextBeginPath(ctx);
 	[[UIColor redColor] setStroke];
-	CGContextSetLineWidth(ctx, 5);
+	CGContextSetLineWidth(ctx, lineWidth);
 	CGContextMoveToPoint(ctx, self.anglePointX, height);
 	CGContextAddLineToPoint(ctx, effWidth, height/2);
 	CGContextAddLineToPoint(ctx, self.anglePointX, 0);
@@ -153,14 +167,14 @@
 	
 	CGContextBeginPath(ctx);
 	[[UIColor blackColor] setStroke];
-	CGContextSetLineWidth(ctx, 5);
+	CGContextSetLineWidth(ctx, lineWidth);
 	CGContextMoveToPoint(ctx, 10, height/2);
 	CGContextAddLineToPoint(ctx, effWidth, height/2);
 	CGContextStrokePath(ctx);
 	
 	CGContextBeginPath(ctx);
 	[[UIColor greenColor] setStroke];
-	CGContextSetLineWidth(ctx, 5);
+	CGContextSetLineWidth(ctx, lineWidth);
 	CGContextMoveToPoint(ctx, effWidth, 0);
 	CGContextAddLineToPoint(ctx, effWidth, height);
 	CGContextStrokePath(ctx);
