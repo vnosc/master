@@ -53,7 +53,7 @@ extern ServiceObject* mobileSessionXML;
 
 #pragma mark - View lifecycle
 
-- (NSString*) backgroundImageName { return @"LoginBackground.png"; }
+- (NSString*) backgroundImageName { return @"MainBackground.png"; }
 // - (NSString*) buttonImageName { return @"LoginButton.png"; }
 // - (NSString*) buttonHighlightedImageName { return @"LoginButtonTouch.png"; }
 // - (int) buttonImageLeftCap { return 25; }

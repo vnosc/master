@@ -694,6 +694,9 @@
 		A7E9A8F614D87F6900273CF0 /* vspglobal_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8F514D87F6900273CF0 /* vspglobal_logo.png */; };
 		A7E9A8F814D87F8300273CF0 /* frame_wrap.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8F714D87F8300273CF0 /* frame_wrap.png */; };
 		A7E9A8F914D87F8300273CF0 /* frame_wrap.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8F714D87F8300273CF0 /* frame_wrap.png */; };
+		A7E9A8FB14D889F600273CF0 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8FA14D889F600273CF0 /* LoginView.xib */; };
+		A7E9A8FE14D88AF100273CF0 /* RememberMeChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8FC14D88AF100273CF0 /* RememberMeChecked.png */; };
+		A7E9A8FF14D88AF100273CF0 /* RememberMeUnchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8FD14D88AF100273CF0 /* RememberMeUnchecked.png */; };
 		A7E9CCA914743F94004EF3D4 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD614743F94004EF3D4 /* 1.png */; };
 		A7E9CCAB14743F94004EF3D4 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD714743F94004EF3D4 /* 2.PNG */; };
 		A7E9CCAD14743F94004EF3D4 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD814743F94004EF3D4 /* 3.png */; };
@@ -970,7 +973,6 @@
 		A7F9C52614756F3000AA9C33 /* Lenses.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9214743F94004EF3D4 /* Lenses.xib */; };
 		A7F9C52714756F3000AA9C33 /* LensOptionSelection.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9314743F94004EF3D4 /* LensOptionSelection.xib */; };
 		A7F9C52814756F3000AA9C33 /* LensSelectionandValidation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9414743F94004EF3D4 /* LensSelectionandValidation.xib */; };
-		A7F9C52A14756F3000AA9C33 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9614743F94004EF3D4 /* LoginView.xib */; };
 		A7F9C52B14756F3000AA9C33 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9714743F94004EF3D4 /* MainViewController.xib */; };
 		A7F9C52C14756F3000AA9C33 /* Measurements.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9814743F94004EF3D4 /* Measurements.xib */; };
 		A7F9C52D14756F3000AA9C33 /* MeasureOverview.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CC9914743F94004EF3D4 /* MeasureOverview.xib */; };
@@ -1488,6 +1490,9 @@
 		A7DF8D671484D0C6005638ED /* PackageSelectionColorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageSelectionColorButton.png; sourceTree = "<group>"; };
 		A7E9A8F514D87F6900273CF0 /* vspglobal_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vspglobal_logo.png; sourceTree = "<group>"; };
 		A7E9A8F714D87F8300273CF0 /* frame_wrap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_wrap.png; sourceTree = "<group>"; };
+		A7E9A8FA14D889F600273CF0 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		A7E9A8FC14D88AF100273CF0 /* RememberMeChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RememberMeChecked.png; sourceTree = "<group>"; };
+		A7E9A8FD14D88AF100273CF0 /* RememberMeUnchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RememberMeUnchecked.png; sourceTree = "<group>"; };
 		A7E9CBA014743F94004EF3D4 /* Adjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Adjust.h; sourceTree = "<group>"; };
 		A7E9CBA114743F94004EF3D4 /* BHTabsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHTabsFooterView.h; sourceTree = "<group>"; };
 		A7E9CBA214743F94004EF3D4 /* BHTabStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHTabStyle.h; sourceTree = "<group>"; };
@@ -1949,6 +1954,8 @@
 		A78AA3591476F54D00AFFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A7E9A8FC14D88AF100273CF0 /* RememberMeChecked.png */,
+				A7E9A8FD14D88AF100273CF0 /* RememberMeUnchecked.png */,
 				A7E9A8F514D87F6900273CF0 /* vspglobal_logo.png */,
 				A7A7EB2C14C88ADA00E33A19 /* checkbox-checked.png */,
 				A7A7EB2D14C88ADA00E33A19 /* checkbox.png */,
@@ -1988,6 +1995,7 @@
 		A78AA35C1476F54D00AFFE04 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				A7E9A8FA14D889F600273CF0 /* LoginView.xib */,
 				A78A24E2148D69E4001AFE4A /* HomePage.xib */,
 			);
 			path = XIB;
@@ -3210,7 +3218,6 @@
 				A7F9C52614756F3000AA9C33 /* Lenses.xib in Resources */,
 				A7F9C52714756F3000AA9C33 /* LensOptionSelection.xib in Resources */,
 				A7F9C52814756F3000AA9C33 /* LensSelectionandValidation.xib in Resources */,
-				A7F9C52A14756F3000AA9C33 /* LoginView.xib in Resources */,
 				A7F9C52B14756F3000AA9C33 /* MainViewController.xib in Resources */,
 				A7F9C52C14756F3000AA9C33 /* Measurements.xib in Resources */,
 				A7F9C52D14756F3000AA9C33 /* MeasureOverview.xib in Resources */,
@@ -3434,6 +3441,9 @@
 				A7A7EB2F14C88ADA00E33A19 /* checkbox.png in Resources */,
 				A7E9A8F614D87F6900273CF0 /* vspglobal_logo.png in Resources */,
 				A7E9A8F914D87F8300273CF0 /* frame_wrap.png in Resources */,
+				A7E9A8FB14D889F600273CF0 /* LoginView.xib in Resources */,
+				A7E9A8FE14D88AF100273CF0 /* RememberMeChecked.png in Resources */,
+				A7E9A8FF14D88AF100273CF0 /* RememberMeUnchecked.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
