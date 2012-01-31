@@ -4259,10 +4259,12 @@
 		F18A2A4A144148E90059D635 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = Beta;
 				ARCHS = (
 					armv6,
 					armv7,
 				);
+				BUNDLE_SUFFIX = beta;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
@@ -4321,10 +4323,12 @@
 		F1D2A44C141976F400E26C72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = Dev;
 				ARCHS = (
 					armv6,
 					armv7,
 				);
+				BUNDLE_SUFFIX = dev;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4345,10 +4349,12 @@
 		F1D2A44D141976F400E26C72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_SUFFIX = "";
 				ARCHS = (
 					armv6,
 					armv7,
 				);
+				BUNDLE_SUFFIX = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Pro Fit Optix";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pro Fit Optix";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
