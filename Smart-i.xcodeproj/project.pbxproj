@@ -2837,6 +2837,7 @@
 				A7E9CC7314743F94004EF3D4 /* MeasureOverview.m */,
 				A7E9CC7414743F94004EF3D4 /* MeasurePicture.mm */,
 				A7E9CC7514743F94004EF3D4 /* MeasurePoint.m */,
+				A78ECD541496558900ADA533 /* MeasureWrapAngle.m */,
 				A7E9CC7614743F94004EF3D4 /* NewUser.m */,
 				A7E9CC7714743F94004EF3D4 /* OpenCVTesting.mm */,
 				A7E9CC7814743F94004EF3D4 /* PackageSelection.m */,
@@ -2855,7 +2856,6 @@
 				A7E9CC8314743F94004EF3D4 /* ThumbImageView.m */,
 				A7E9CC8414743F94004EF3D4 /* UIImage+OpenCV.mm */,
 				A7E9CC8514743F94004EF3D4 /* UnityOpticsVideoView.m */,
-				A78ECD541496558900ADA533 /* MeasureWrapAngle.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
