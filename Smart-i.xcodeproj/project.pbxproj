@@ -1107,7 +1107,6 @@
 		A73943BB14B36BFE006BFF36 /* face_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_right.png; sourceTree = "<group>"; };
 		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
-		A767289E147569D900857EAD /* Smart-i copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy-Info.plist"; sourceTree = "<absolute>"; };
 		A76E78E214B49D5200D2A589 /* DefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButton.png; sourceTree = "<group>"; };
 		A76E78E314B49D5200D2A589 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginBackground.png; sourceTree = "<group>"; };
 		A76E78E414B49D5200D2A589 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainBackground.png; sourceTree = "<group>"; };
@@ -1708,7 +1707,6 @@
 		A7F9C49214756CAF00AA9C33 /* HomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HomePage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		A7F9C49314756DEE00AA9C33 /* BillingTypeSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillingTypeSelection.h; sourceTree = "<group>"; };
 		A7F9C54214756F3000AA9C33 /* OptiSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OptiSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7F9C54414756F3100AA9C33 /* Smart-i copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Smart-i copy2-Info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/Smart-i copy2-Info.plist"; sourceTree = "<absolute>"; };
 		A7F9C54614757C8900AA9C33 /* HomePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HomePage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A7F9C5491475800500AA9C33 /* HomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HomePage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		A7F9C54D147592C000AA9C33 /* PatientList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PatientList.xib; path = Shared/PatientList.xib; sourceTree = SOURCE_ROOT; };
@@ -2977,15 +2975,10 @@
 		F1D2A428141976F400E26C72 = {
 			isa = PBXGroup;
 			children = (
-				A796C69F1490BA8700D647C0 /* MessageUI.framework */,
-				A796C6A01490BA8700D647C0 /* Security.framework */,
-				A79717B314830EEC0086C7B5 /* Twitter.framework */,
 				A7E9CB9E14743F94004EF3D4 /* Shared */,
 				A7E9CDE914744297004EF3D4 /* Smart-i */,
 				A78AA3571476F54D00AFFE04 /* OptiSuite */,
 				F1D2A43D141976F400E26C72 /* CyberImaging */,
-				A767289E147569D900857EAD /* Smart-i copy-Info.plist */,
-				A7F9C54414756F3100AA9C33 /* Smart-i copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3002,6 +2995,9 @@
 		F1D2A436141976F400E26C72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A796C69F1490BA8700D647C0 /* MessageUI.framework */,
+				A796C6A01490BA8700D647C0 /* Security.framework */,
+				A79717B314830EEC0086C7B5 /* Twitter.framework */,
 				A734F8F4145B506C00B3FDC0 /* libxml2.2.7.3.dylib */,
 				A734F8F2145B505D00B3FDC0 /* SystemConfiguration.framework */,
 				A734F8F0145B502900B3FDC0 /* CFNetwork.framework */,
