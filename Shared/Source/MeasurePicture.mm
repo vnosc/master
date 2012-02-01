@@ -204,8 +204,8 @@ extern ServiceObject* frameXML;
         CGPoint bottomLeftPoint = CGPointMake(self.rightEyePoint.x - 100, p.y);
         MeasureLine *l = [self.touchView createLineFrom:bottomRightPoint to:bottomLeftPoint];
         l.name = @"Right Frame Bottom Horizontal";
-        l.startLockY = YES;
         l.endLockY = YES;
+        l.startMovesEnd = YES;
         
         [self.touchView setNeedsDisplay];
         
@@ -241,8 +241,8 @@ extern ServiceObject* frameXML;
         CGPoint bottomRightPoint = CGPointMake(self.leftEyePoint.x + 100, p.y);
         MeasureLine *l = [self.touchView createLineFrom:bottomLeftPoint to:bottomRightPoint];
         l.name = @"Left Frame Bottom Horizontal";
-        l.startLockY = YES;
         l.endLockY = YES;
+        l.startMovesEnd = YES;
         
         [self beginAdjustStep:@"Adjust the lines by hand."];
     }
@@ -446,12 +446,12 @@ extern ServiceObject* frameXML;
 		MeasureLine* l4 = [self.touchView createLineFromPoint:l2.end to:CGPointMake(rBotPoint.x - 100, rBotPoint.y)];
 		l4.name = @"Right Frame Center Horizontal";
 		//l4.lockPointY = YES;
-		l4.endLockY = YES;
+		l4.endMovesStart = YES;
 		l4.startMovesEnd = YES;
 
 		MeasureLine* l5 = [self.touchView createLineFromPoint:l1.end to:CGPointMake(lBotPoint.x + 100, lBotPoint.y)];
 		l5.name = @"Left Frame Center Horizontal";
-		l5.endLockY = YES;
+        l5.endMovesStart = YES;
 		l5.startMovesEnd = YES;
 
 		/*MeasureLine* l6 = [self.touchView createLineFrom:CGPointMake(l4.start.x, l4.start.y + 50) to:CGPointMake(l4.end.x, l4.end.y + 50)];
@@ -463,6 +463,8 @@ extern ServiceObject* frameXML;
 		l7.name = @"Left Frame Bottom Horizontal";
 		l7.endLockY = YES;
 		l7.startMovesEnd = YES;*/
+        
+        [self addRelatedLines];
 		
 	}
 	else if (self.measureType == 3)
@@ -520,6 +522,24 @@ extern ServiceObject* frameXML;
     l3.endMovesStart = YES;
     
     return l3;
+}
+
+- (void)addRelatedLines
+{
+    if (self.measureType == 0 || self.measureType == 1)
+    {
+		MeasureLine* lev = [self.touchView lineByName:@"Left Eye Vertical"];
+		MeasureLine* rev = [self.touchView lineByName:@"Right Eye Vertical"];
+        
+        MeasureLine *rfch = [self.touchView lineByName:@"Right Frame Center Horizontal"];
+        MeasureLine *lfch = [self.touchView lineByName:@"Left Frame Center Horizontal"];        
+        
+        [rev.relatedLines addObject:rfch];
+        [lev.relatedLines addObject:lfch];
+        
+        [rfch.relatedLines addObject:rev];
+        [lfch.relatedLines addObject:lev];
+    }
 }
 
 - (void)viewDidUnload

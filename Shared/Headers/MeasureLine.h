@@ -30,6 +30,7 @@
 
 - (void)movePoint:(MeasurePoint*)mp from:(CGPoint)from to:(CGPoint)to;
 - (void)movePoint:(MeasurePoint*)mp from:(CGPoint)from to:(CGPoint)to recurse:(BOOL)recurse;
+- (void)movePoint:(MeasurePoint*)mp from:(CGPoint)from to:(CGPoint)to recurse:(BOOL)recurse override:(BOOL)override;
 
 - (void)adjustForPoint:(MeasurePoint*)mp moved:(CGPoint)moved;
 
@@ -47,8 +48,14 @@
 - (float) distance:(CGPoint)p1 p2:(CGPoint)p2;
 - (float) dotProduct:(CGPoint)p1 p2:(CGPoint)p2;
 
+- (BOOL) containsPoint:(MeasurePoint*)mp;
+
 - (NSNumber*) angleBetween:(MeasureLine*)l;
+- (MeasurePoint*) otherPointThan:(MeasurePoint*) mp;
 - (MeasurePoint*) sharedPoint:(MeasureLine*) l;
+- (MeasurePoint*) nonSharedPoint:(MeasureLine*) l;
+
+@property (retain, nonatomic) NSMutableArray *relatedLines;
 
 @property (retain) MeasurePoint *start, *end;
 @property MeasurePoint *upperPoint, *lowerPoint, *leftPoint, *rightPoint;

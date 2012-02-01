@@ -61,7 +61,15 @@ extern int blendMode;
 
 - (CGPoint) fromPoint:(CGPoint)p toPoint:(CGPoint)s lockX:(BOOL)lx lockY:(BOOL)ly
 {
-	p = CGPointMake(lx ? p.x : s.x, ly ? p.y : s.y);
+    return [self fromPoint:p toPoint:s lockX:lx lockY:ly override:NO];
+}
+
+- (CGPoint) fromPoint:(CGPoint)p toPoint:(CGPoint)s lockX:(BOOL)lx lockY:(BOOL)ly override:(BOOL)override
+{
+    if (!override)
+        p = CGPointMake(lx ? p.x : s.x, ly ? p.y : s.y);
+    else
+        p = s;
 	return p;
 }
 

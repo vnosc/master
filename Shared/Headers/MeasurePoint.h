@@ -31,6 +31,7 @@
 - (void)movePointTo:(CGPoint)pointArg;
 
 - (CGPoint) fromPoint:(CGPoint)p toPoint:(CGPoint)s lockX:(BOOL)lx lockY:(BOOL)ly;
+- (CGPoint) fromPoint:(CGPoint)p toPoint:(CGPoint)s lockX:(BOOL)lx lockY:(BOOL)ly override:(BOOL)override;
 
 - (void)drawPoint:(CGRect)rect at:(CGPoint)at withColor:(UIColor*)color;
 
