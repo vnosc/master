@@ -95,6 +95,8 @@ extern NSArray* patientImages;
 {
     [super viewDidLoad];
 	
+    [self setBoxBackground:self.frameInfo];
+    
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
 	
 	self.imageLabel1.layer.backgroundColor = [UIColor blackColor].CGColor;
