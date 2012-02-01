@@ -43,27 +43,27 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="199966562">
+							<object class="IBUIImageView" id="17793801">
 								<reference key="NSNextResponder" ref="1069492058"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{0, 48}, {700, 700}}</string>
+								<string key="NSFrame">{{246, 7}, {700, 781}}</string>
 								<reference key="NSSuperview" ref="1069492058"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="398747420"/>
 								<string key="NSReuseIdentifierKey">_NS:569</string>
-								<int key="IBUIContentMode">6</int>
+								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">frame_wrap.png</string>
+									<string key="NSResourceName">frame_wrap_rotated.png</string>
 								</object>
 							</object>
 						</array>
 						<string key="NSFrame">{{34, 20}, {700, 795}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="199966562"/>
+						<reference key="NSNextKeyView" ref="17793801"/>
 						<string key="NSReuseIdentifierKey">_NS:212</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -77,10 +77,10 @@
 					<object class="IBUISlider" id="398747420">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{34, 803}, {686, 23}}</string>
+						<string key="NSFrame">{{32, 873}, {686, 23}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="513734448"/>
+						<reference key="NSNextKeyView" ref="1018116767"/>
 						<string key="NSReuseIdentifierKey">_NS:624</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -100,7 +100,7 @@
 					<object class="IBUITextField" id="996334130">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{371, 848}, {97, 31}}</string>
+						<string key="NSFrame">{{371, 906}, {97, 31}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="858982518"/>
@@ -134,7 +134,7 @@
 					<object class="IBUILabel" id="513734448">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{300, 853}, {44, 21}}</string>
+						<string key="NSFrame">{{300, 911}, {44, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="996334130"/>
@@ -162,7 +162,7 @@
 					<object class="IBUIButton" id="858982518">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{590, 845}, {144, 37}}</string>
+						<string key="NSFrame">{{590, 903}, {144, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -191,8 +191,30 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
+					<object class="IBUISlider" id="1018116767">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{153, 910}, {118, 23}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="513734448"/>
+						<string key="NSReuseIdentifierKey">_NS:624</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<float key="IBUIValue">1</float>
+						<object class="NSColor" key="IBUIMinimumTrackTintColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
+						</object>
+						<object class="NSColor" key="IBUIMaximumTrackTintColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+					</object>
 				</array>
-				<string key="NSFrame">{{0, 64}, {768, 911}}</string>
+				<string key="NSFrame">{{0, 64}, {768, 960}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1069492058"/>
@@ -208,7 +230,6 @@
 					<int key="IBUIBarStyle">1</int>
 					<bool key="IBUIPrompted">NO</bool>
 				</object>
-				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 		</array>
@@ -250,9 +271,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">wrapImageView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="199966562"/>
+						<reference key="destination" ref="17793801"/>
 					</object>
 					<int key="connectionID">17</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">frameWidthSlider</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1018116767"/>
+					</object>
+					<int key="connectionID">19</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -271,6 +300,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">15</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">frameWidthSliderChanged:</string>
+						<reference key="source" ref="1018116767"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">20</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -297,10 +335,11 @@
 						<reference key="object" ref="766721923"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1069492058"/>
-							<reference ref="398747420"/>
-							<reference ref="858982518"/>
 							<reference ref="996334130"/>
 							<reference ref="513734448"/>
+							<reference ref="858982518"/>
+							<reference ref="1018116767"/>
+							<reference ref="398747420"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -308,7 +347,7 @@
 						<int key="objectID">5</int>
 						<reference key="object" ref="1069492058"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="199966562"/>
+							<reference ref="17793801"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -334,8 +373,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="199966562"/>
+						<reference key="object" ref="17793801"/>
 						<reference key="parent" ref="1069492058"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="1018116767"/>
+						<reference key="parent" ref="766721923"/>
 					</object>
 				</array>
 			</object>
@@ -346,6 +390,7 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.CustomClassName">MeasureAreaView</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -357,7 +402,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">20</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -382,11 +427,16 @@
 					<string key="superclassName">BackgroundViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="angleSliderChanged:">id</string>
+						<string key="frameWidthSliderChanged:">id</string>
 						<string key="saveAndContinue:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="angleSliderChanged:">
 							<string key="name">angleSliderChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="frameWidthSliderChanged:">
+							<string key="name">frameWidthSliderChanged:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="saveAndContinue:">
@@ -397,6 +447,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="angleField">UITextField</string>
 						<string key="angleSlider">UISlider</string>
+						<string key="frameWidthSlider">UISlider</string>
 						<string key="measureAreaView">MeasureAreaView</string>
 						<string key="wrapImageView">UIImageView</string>
 					</dictionary>
@@ -407,6 +458,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="angleSlider">
 							<string key="name">angleSlider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="frameWidthSlider">
+							<string key="name">frameWidthSlider</string>
 							<string key="candidateClassName">UISlider</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="measureAreaView">
@@ -430,8 +485,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">frame_wrap.png</string>
-			<string key="NS.object.0">{581, 165}</string>
+			<string key="NS.key.0">frame_wrap_rotated.png</string>
+			<string key="NS.object.0">{165, 581}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

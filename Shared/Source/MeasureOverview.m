@@ -18,11 +18,18 @@ extern ServiceObject* prescriptionXML;
 @implementation MeasureOverview
 @synthesize txtPatientName;
 @synthesize txtMemberId;
+
 @synthesize imageView1;
 @synthesize imageView2;
 @synthesize imageView3;
 @synthesize imageView4;
 @synthesize imageViews;
+
+@synthesize imageLabel1;
+@synthesize imageLabel2;
+@synthesize imageLabel3;
+@synthesize imageLabel4;
+@synthesize imageLabels;
 
 @synthesize txtRightDistPD;
 @synthesize txtLeftDistPD;
@@ -34,10 +41,6 @@ extern ServiceObject* prescriptionXML;
 @synthesize txtVertex;
 @synthesize txtWrap;
 
-@synthesize imageLabel1;
-@synthesize imageLabel2;
-@synthesize imageLabel3;
-@synthesize imageLabel4;
 @synthesize measureDetailView;
 
 @synthesize measureVC;
@@ -55,7 +58,7 @@ extern ServiceObject* prescriptionXML;
     if (self) {
         // Custom initialization
 				self.suffixes = [NSArray arrayWithObjects:@"distm", @"nearm", @"pantho", @"vertwrap", nil];
-				self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Near PD", @"Pantoscopic Angle", @"Vertex Distance", nil];
+				self.measureTexts = [NSArray arrayWithObjects:@"Dist PD/Height", @"Frame Wrap", @"Pantoscopic Angle", @"Vertex Distance", nil];
     }
     return self;
 }
@@ -75,7 +78,10 @@ extern ServiceObject* prescriptionXML;
     [super viewDidLoad];
 	
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
-	
+	self.imageLabels = [[NSArray alloc] initWithObjects:self.imageLabel1, self.imageLabel2, self.imageLabel3, self.imageLabel4, nil];	
+    
+    [self initImageLabelsText];
+    
 	[self.measureDetailView.layer setBorderWidth:3.0f];
 	[self.measureDetailView.layer setCornerRadius:25];
 	[self.measureDetailView.layer setMasksToBounds:YES];
@@ -150,27 +156,61 @@ extern ServiceObject* prescriptionXML;
 		
 		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[ServiceObject urlOfWebPage:[NSString stringWithFormat:@"ShowPatientImage.aspx?patientId=%d&type=%@&ignore=true", patientId, suffix]]]];
 		obj.image = [[UIImage imageWithData:imageData] retain];
-		
+        
 		cnt++;
 	}
-	
 	
 	cnt = 0;
 	for (UIImageView* obj in self.imageViews)
 	{
 		if (obj.image == nil && [patientImages objectAtIndex:cnt] != [NSNull null])
-			obj.image = [patientImages objectAtIndex:cnt];
+        {
+            if (cnt != 1)
+                obj.image = [patientImages objectAtIndex:cnt];
+            else
+            {
+                obj.image = [UIImage imageNamed:@"frame_wrap_rotated.png"];
+                
+                [obj setContentMode:UIViewContentModeScaleAspectFit];
+                [obj setBackgroundColor:[UIColor whiteColor]];
+                
+                /*CGAffineTransform rotateTransform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                            -90.0 * M_PI / 180.0f);
+                
+                obj.transform = rotateTransform;*/
+            }
+        }
+        
 		if (cnt < 2)
 			cnt++;
 	}
+
+	[self updatePatientImagesMeasured];
+}
+
+- (void) initImageLabelsText
+{
+    int cnt=0;
 	
+	for (UILabel* obj in self.imageLabels)
+	{
+		
+        [obj setText:[NSString stringWithFormat:@"Measure %@", [self.measureTexts objectAtIndex:cnt]]];
+        
+		cnt++;
+	}
+}
+
+- (void) updatePatientImagesMeasured
+{
 	id img1 = self.imageView1.image ? self.imageView1.image : [NSNull null];
 	id img2 = self.imageView2.image ? self.imageView2.image : [NSNull null];
 	id img3 = self.imageView3.image ? self.imageView3.image : [NSNull null];
 	id img4 = self.imageView4.image ? self.imageView4.image : [NSNull null];
 	
-	patientImagesMeasured = [[[NSArray alloc] initWithObjects:img1, img2, img3, img4, nil] retain];
-	
+    img2 = [NSNull null];
+    
+	patientImagesMeasured = [[[NSArray alloc] initWithObjects:img1, img2, img3, img4, nil] retain];	
 }
 
 - (void) getLatestPrescriptionFromService
@@ -279,6 +319,12 @@ extern ServiceObject* prescriptionXML;
 	self.selectedImageView = imageIdx;
 	NSLog(@"%d", self.selectedImageView);
 	
+    if (imageIdx == 1)
+    {
+        [self showWrapAnglePage];
+        return;
+    }
+    
 	NSString* measureText = [self.measureTexts objectAtIndex:imageIdx ];
 	
 	if ([patientImages objectAtIndex:adjustedIdx] != [NSNull null])
@@ -310,6 +356,11 @@ extern ServiceObject* prescriptionXML;
 
 - (IBAction)wrapAngleBtnClicked:(id)sender {
 	
+    [self showWrapAnglePage];
+}
+
+- (void) showWrapAnglePage
+{
 	self.measureType = 4;
 	
 	MeasureWrapAngle *p = [[MeasureWrapAngle alloc] init];
@@ -349,12 +400,7 @@ extern ServiceObject* prescriptionXML;
 		
 		[ServiceObject executeServiceMethod:[NSString stringWithFormat:@"UpdatePrescriptionMeasurements?prescriptionId=%d&REDistPD=%@&LEDistPD=%@&RENearPD=%@&LENearPD=%@&REHeight=%@&LEHeight=%@&PanthoscopicAngle=%@&VertexDistance=%@&WrapAngle=%@", prescriptionId, self.txtRightDistPD.text, self.txtLeftDistPD.text, self.txtRightNearPD.text, self.txtLeftNearPD.text, self.txtRightHeight.text, self.txtLeftHeight.text, self.txtPantho.text, self.txtVertex.text, self.txtWrap.text]];
 		
-		id img1 = self.imageView1.image ? self.imageView1.image : [NSNull null];
-		id img2 = self.imageView2.image ? self.imageView2.image : [NSNull null];
-		id img3 = self.imageView3.image ? self.imageView3.image : [NSNull null];
-		id img4 = self.imageView4.image ? self.imageView4.image : [NSNull null];
-		
-		patientImagesMeasured = [[[NSArray alloc] initWithObjects:img1, img2, img3, img4, nil] retain];
+		[self updatePatientImagesMeasured];
 		
 		[self performSelectorInBackground:@selector(uploadImages:) withObject:self];
 		
@@ -418,6 +464,8 @@ extern ServiceObject* prescriptionXML;
 	{
 		self.txtRightDistPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightDistPD"] floatValue]];
 		self.txtLeftDistPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftDistPD"] floatValue]];
+		self.txtRightNearPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightDistPD"] floatValue] - 2.8f];
+		self.txtLeftNearPD.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftDistPD"] floatValue] - 2.8f];        
 		self.txtRightHeight.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"RightHeight"] floatValue]];
 		self.txtLeftHeight.text = [NSString stringWithFormat:@"%.2f", [[d objectForKey:@"LeftHeight"] floatValue]];
 	}

@@ -20,11 +20,18 @@
 
 @property (retain, nonatomic) IBOutlet UITextField *txtPatientName;
 @property (retain, nonatomic) IBOutlet UITextField *txtMemberId;
+
 @property (retain, nonatomic) IBOutlet UIImageView *imageView1;
 @property (retain, nonatomic) IBOutlet UIImageView *imageView2;
 @property (retain, nonatomic) IBOutlet UIImageView *imageView3;
 @property (retain, nonatomic) IBOutlet UIImageView *imageView4;
 @property (retain, nonatomic) IBOutlet NSArray* imageViews;
+
+@property (retain, nonatomic) IBOutlet UILabel *imageLabel1;
+@property (retain, nonatomic) IBOutlet UILabel *imageLabel2;
+@property (retain, nonatomic) IBOutlet UILabel *imageLabel3;
+@property (retain, nonatomic) IBOutlet UILabel *imageLabel4;
+@property (retain, nonatomic) IBOutlet NSArray* imageLabels;
 
 @property (retain, nonatomic) IBOutlet UITextField *txtRightDistPD;
 @property (retain, nonatomic) IBOutlet UITextField *txtLeftDistPD;
@@ -35,10 +42,6 @@
 @property (retain, nonatomic) IBOutlet UITextField *txtPantho;
 @property (retain, nonatomic) IBOutlet UITextField *txtVertex;
 @property (retain, nonatomic) IBOutlet UITextField *txtWrap;
-@property (retain, nonatomic) IBOutlet UILabel *imageLabel1;
-@property (retain, nonatomic) IBOutlet UILabel *imageLabel2;
-@property (retain, nonatomic) IBOutlet UILabel *imageLabel3;
-@property (retain, nonatomic) IBOutlet UILabel *imageLabel4;
 
 @property (retain, nonatomic) IBOutlet UIView *measureDetailView;
 @property (retain, nonatomic) IBOutlet MeasurePicture* measureVC;
