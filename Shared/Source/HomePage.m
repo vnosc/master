@@ -204,9 +204,11 @@ extern NSArray* patientImagesMeasured;
     
     FSFavoritesView *fav=[[FSFavoritesView alloc]init];
 
+    FrameStyling *fs = [[FrameStyling alloc] init];
+    
     //FSFavoritesView *favorites=[[FSFavoritesView alloc]init];
     rdx=[[RXCustomTabBar1 alloc]init];
-    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav, nil]];
+    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav,fs, nil]];
     //rdx.selectedIndex=2;
     //    self.navigationController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:rdx animated:YES]; 
