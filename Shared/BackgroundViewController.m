@@ -78,6 +78,12 @@
 	[self applyChangesToSubviews:self.view];
 }
 
+- (void) setStretchBackground:(UIImageView*)v imageName:(NSString*)imageName leftCap:(int)leftCap topCap:(int)topCap
+{
+    //[v setBackgroundColor:[UIColor colorWithPatternImage:[[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCap topCapHeight:topCap]]];
+    [v setImage:[[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCap topCapHeight:topCap]];
+}
+
 - (void) applyChangesToSubviews:(UIView*)mv
 {
 	for (UIView *v in mv.subviews)
@@ -118,6 +124,14 @@
 			[self applyChangesToSubviews:v];
 		}
 	}
+}
+
+- (void) setBoxBackground:(UIView*)v
+{
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:v.bounds];
+    [self setStretchBackground:iv imageName:@"BoxBackground.png" leftCap:10 topCap:26];
+    [v insertSubview:iv atIndex:0];
+    [v setNeedsDisplay];
 }
 
 /*- (void) viewDidAppear:(BOOL)animated

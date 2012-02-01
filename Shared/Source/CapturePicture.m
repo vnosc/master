@@ -12,13 +12,20 @@
 @synthesize vImagePreview;
 @synthesize stillImageOutput;
 @synthesize navigationTitleLabel;
+@synthesize instView;
+@synthesize instTextView;
+@synthesize instViewBG;
 @synthesize captureVideoPreviewLayer;
 
 @synthesize iv;
+@synthesize guideView;
+@synthesize instBtn;
 @synthesize measureType;
 @synthesize instMessages;
 
 @synthesize usingFrontCamera;
+@synthesize guidesOn;
+@synthesize displayInstructions;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +33,7 @@
     if (self) {
         // Custom initialization
 		self.instMessages = [[NSArray alloc] initWithObjects:@"Please take a picture of the patient staring directly at the camera.", @"Please take a picture of the patient looking down.", @"Please take a picture of the patient from the side.", @"Please take a picture of the patient without his or her glasses on.", nil];
+        self.guidesOn = YES;
     }
     return self;
 }
@@ -44,19 +52,28 @@
 {
     [super viewDidLoad];
     
+    [self setInstructionsText];
+    [self showInstructions:NO];
+    
+    [self setBoxBackground:self.instView];
+    
     //[self setImagePreviewMask];
-	
-    // Do any additional setup after loading the view from its nib.
-//}
-
-//-(void) viewDidAppear:(BOOL)animated
-//{
-	// vline=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aadi.png"]];
-	//  vline.frame=CGRectMake(144,187,0,374);
-	//  hline=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lineeee.png"]];
     
 	[self createCamera];
-	
+    
+    [self initGuideImage];
+    
+    [self toggleGuideDisplay];
+}
+
+- (void) initGuideImage
+{
+    guideImage = [UIImage imageNamed:@"three_lines.png"];
+}
+
+- (void) toggleGuideDisplay
+{
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -125,32 +142,40 @@
     
 	NSArray* devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
 	
-	AVCaptureDevice *device;
-	if (self.usingFrontCamera)
-		device = [devices objectAtIndex:1];
-	else
-		device = [devices objectAtIndex:0];
-    
-	NSError *error = nil;
-	AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-	if (!input) {
-		// Handle the error appropriately.
-		NSLog(@"ERROR: trying to open camera: %@", error);
-	}
-	[session addInput:input];
-    
-	[session startRunning];
-    
-    stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    [stillImageOutput setOutputSettings:outputSettings];
-    
-    [session addOutput:stillImageOutput];
+    if ([devices count] > 0)
+    {
+        AVCaptureDevice *device;
+        if (self.usingFrontCamera)
+            device = [devices objectAtIndex:1];
+        else
+            device = [devices objectAtIndex:0];
+        
+        NSError *error = nil;
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+        if (!input) {
+            // Handle the error appropriately.
+            NSLog(@"ERROR: trying to open camera: %@", error);
+        }
+        [session addInput:input];
+        
+        [session startRunning];
+        
+        stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+        [stillImageOutput setOutputSettings:outputSettings];
+        
+        [session addOutput:stillImageOutput];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	if (self.measureType >= 0 && self.measureType < [self.instMessages count])
+    [self showInstructionsAlert];
+}
+
+- (void) showInstructionsAlert
+{
+    if (self.measureType >= 0 && self.measureType < [self.instMessages count])
 	{
 		NSString* msg = [self.instMessages objectAtIndex:self.measureType];
 		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:msg  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -158,10 +183,37 @@
 		[alert release];
 	}
 }
+
+- (void) setInstructionsText
+{
+    if (self.measureType >= 0 && self.measureType < [self.instMessages count])
+	{
+		NSString* msg = [self.instMessages objectAtIndex:self.measureType];    
+        self.instTextView.text = msg;
+    }
+}
+
+- (void) showInstructions:(BOOL)isShown
+{
+    self.displayInstructions = isShown;
+    
+    [self.instView setHidden:!isShown];
+    
+    if (isShown)
+        [self.instBtn setTitle:@"Hide Instructions" forState:UIControlStateNormal];
+    else
+        [self.instBtn setTitle:@"Show Instructions" forState:UIControlStateNormal];
+}
+
 - (void)viewDidUnload
 {
 	[self setVImagePreview:nil];
     [self setNavigationTitleLabel:nil];
+    [self setGuideView:nil];
+    [self setInstView:nil];
+    [self setInstTextView:nil];
+    [self setInstBtn:nil];
+    [self setInstViewBG:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -176,6 +228,11 @@
 - (void)dealloc {
 	[vImagePreview release];
     [navigationTitleLabel release];
+    [guideView release];
+    [instView release];
+    [instTextView release];
+    [instBtn release];
+    [instViewBG release];
 	[super dealloc];
 }
 	
@@ -244,5 +301,11 @@
 
 - (IBAction)backBtnClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)instBtnClick:(id)sender {
+
+    [self showInstructions:!self.displayInstructions];
+    
 }
 @end

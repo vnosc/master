@@ -19,7 +19,9 @@
 #import <ImageIO/ImageIO.h>
 
 @interface CapturePicture : BackgroundViewController
-
+{
+    UIImage *guideImage;
+}
 @property (retain, nonatomic) IBOutlet UIView *vImagePreview;
 
 @property(nonatomic, retain) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
@@ -27,17 +29,33 @@
 @property(nonatomic, retain)AVCaptureStillImageOutput *stillImageOutput;
 @property (retain, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 
+@property (retain, nonatomic) IBOutlet UIView *instView;
+@property (retain, nonatomic) IBOutlet UITextView *instTextView;
+@property (retain, nonatomic) IBOutlet UIImageView *instViewBG;
+
 @property(nonatomic, retain) UIImageView* iv;
+@property (retain, nonatomic) IBOutlet UIImageView *guideView;
+@property (retain, nonatomic) IBOutlet UIButton *instBtn;
 @property int measureType;
 @property BOOL usingFrontCamera;
+@property BOOL guidesOn;
+@property BOOL displayInstructions;
 
 @property (retain) NSArray* instMessages;
 
 - (void) setImagePreviewMask;
 - (void) createCamera;
+- (void) initGuideImage;
+- (void) toggleGuideDisplay;
+
+- (void) showInstructions:(BOOL)isShown;
+
+- (void) showInstructionsAlert;
+- (void) setInstructionsText;
 
 - (IBAction)captureBtnClick:(id)sender;
 - (IBAction)changeCamera:(id)sender;
 - (IBAction)backBtnClick:(id)sender;
+- (IBAction)instBtnClick:(id)sender;
 
 @end

@@ -19,5 +19,8 @@
 @property (assign) int heightThreshold;
 
 - (void) applyChangesToSubviews:(UIView*)mv;
+- (void) setStretchBackground:(UIView*)v imageName:(NSString*)imageName leftCap:(int)leftCap topCap:(int)topCap;
+
+- (void) setBoxBackground:(UIView*)v;
 
 @end
