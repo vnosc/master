@@ -14,13 +14,15 @@
 @synthesize navigationTitleLabel;
 @synthesize instView;
 @synthesize instTextView;
-@synthesize instViewBG;
 @synthesize captureVideoPreviewLayer;
 
 @synthesize iv;
 @synthesize guideView;
 @synthesize instBtn;
+@synthesize guideBtn;
 @synthesize measureType;
+
+@synthesize alertMessages;
 @synthesize instMessages;
 
 @synthesize usingFrontCamera;
@@ -32,7 +34,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-		self.instMessages = [[NSArray alloc] initWithObjects:@"Please take a picture of the patient staring directly at the camera.", @"Please take a picture of the patient looking down.", @"Please take a picture of the patient from the side.", @"Please take a picture of the patient without his or her glasses on.", nil];
+		self.alertMessages = [[NSArray alloc] initWithObjects:@"Please take a picture of the patient staring directly at the camera.", @"Please take a picture of the patient looking down.", @"Please take a picture of the patient from the side.", @"Please take a picture of the patient without his or her glasses on.", nil];
+        self.instMessages = 
+        
+            [[NSArray alloc] initWithObjects:
+                @"Please take a picture of the patient staring directly at the camera.\nZoom in or out until the patient's eyes and frames are contained within the three blue lines.", 
+                @"Please take a picture of the patient looking down.", 
+                @"Please take a picture of the patient from the side.", 
+                @"Please take a picture of the patient without his or her glasses on.", nil];
+        
         self.guidesOn = YES;
     }
     return self;
@@ -62,18 +72,59 @@
 	[self createCamera];
     
     [self initGuideImage];
-    
-    [self toggleGuideDisplay];
+    [self showGuides:YES];
 }
 
 - (void) initGuideImage
 {
-    guideImage = [UIImage imageNamed:@"three_lines.png"];
+    guideImage = [UIImage imageNamed:@"threelines.png"];
+    
+    self.guideView.image = guideImage;
+    [self.guideView setContentMode:UIViewContentModeCenter];
 }
 
-- (void) toggleGuideDisplay
+- (void) showGuides:(BOOL)isShown
 {
+    self.guidesOn = isShown;
     
+    [self.guideView setHidden:!isShown];
+    
+    if (isShown)
+        [self.guideBtn setTitle:@"Hide Guides" forState:UIControlStateNormal];
+    else
+        [self.guideBtn setTitle:@"Show Guides" forState:UIControlStateNormal];    
+}
+
+- (void) showInstructionsAlert
+{
+    if (self.measureType >= 0 && self.measureType < [self.alertMessages count])
+	{
+		NSString* msg = [self.alertMessages objectAtIndex:self.measureType];
+		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:msg  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		[alert show];
+		[alert release];
+	}
+}
+
+- (void) setInstructionsText
+{
+    if (self.measureType >= 0 && self.measureType < [self.instMessages count])
+	{
+		NSString* msg = [self.instMessages objectAtIndex:self.measureType];    
+        self.instTextView.text = msg;
+    }
+}
+
+- (void) showInstructions:(BOOL)isShown
+{
+    self.displayInstructions = isShown;
+    
+    [self.instView setHidden:!isShown];
+    
+    if (isShown)
+        [self.instBtn setTitle:@"Hide Instructions" forState:UIControlStateNormal];
+    else
+        [self.instBtn setTitle:@"Show Instructions" forState:UIControlStateNormal];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -173,38 +224,6 @@
     [self showInstructionsAlert];
 }
 
-- (void) showInstructionsAlert
-{
-    if (self.measureType >= 0 && self.measureType < [self.instMessages count])
-	{
-		NSString* msg = [self.instMessages objectAtIndex:self.measureType];
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:msg  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
-	}
-}
-
-- (void) setInstructionsText
-{
-    if (self.measureType >= 0 && self.measureType < [self.instMessages count])
-	{
-		NSString* msg = [self.instMessages objectAtIndex:self.measureType];    
-        self.instTextView.text = msg;
-    }
-}
-
-- (void) showInstructions:(BOOL)isShown
-{
-    self.displayInstructions = isShown;
-    
-    [self.instView setHidden:!isShown];
-    
-    if (isShown)
-        [self.instBtn setTitle:@"Hide Instructions" forState:UIControlStateNormal];
-    else
-        [self.instBtn setTitle:@"Show Instructions" forState:UIControlStateNormal];
-}
-
 - (void)viewDidUnload
 {
 	[self setVImagePreview:nil];
@@ -214,6 +233,7 @@
     [self setInstTextView:nil];
     [self setInstBtn:nil];
     [self setInstViewBG:nil];
+    [self setGuideBtn:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -232,7 +252,7 @@
     [instView release];
     [instTextView release];
     [instBtn release];
-    [instViewBG release];
+    [guideBtn release];
 	[super dealloc];
 }
 	
@@ -307,5 +327,9 @@
 
     [self showInstructions:!self.displayInstructions];
     
+}
+
+- (IBAction)guideBtnClick:(id)sender {
+    [self showGuides:!self.guidesOn];
 }
 @end
