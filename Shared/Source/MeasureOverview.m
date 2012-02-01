@@ -77,6 +77,8 @@ extern ServiceObject* prescriptionXML;
 {
     [super viewDidLoad];
 	
+    [self setBoxBackground:self.measureDetailView];
+    
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
 	self.imageLabels = [[NSArray alloc] initWithObjects:self.imageLabel1, self.imageLabel2, self.imageLabel3, self.imageLabel4, nil];	
     
