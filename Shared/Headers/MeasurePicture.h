@@ -58,7 +58,10 @@
 @property (retain, nonatomic) IBOutlet UIView *imageContainer;
 @property (retain, nonatomic) IBOutlet UIImageView *vImagePreview;
 @property (retain, nonatomic) IBOutlet LineView *touchView;
+@property (retain, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property int measureType;
+@property (retain, nonatomic) IBOutlet UIView *instView;
+@property (retain, nonatomic) IBOutlet UITextView *instTextView;
 
 @property CGPoint rightEyePoint;
 @property CGPoint leftEyePoint;
@@ -96,6 +99,10 @@
 
 - (float) transformPixelsToRealDistance:(float)pixels;
 
+- (void) changeInstructions:(NSString*)instructions;
+
+- (void) setZoomLevel:(float)zoomValue;
+
 - (IBAction)captureBtnClick:(id)sender;
 - (IBAction)cancelMeasure:(id)sender;
 - (IBAction)moveSelectedUp:(id)sender;
@@ -103,6 +110,7 @@
 - (IBAction)moveSelectedLeft:(id)sender;
 - (IBAction)moveSelectedRight:(id)sender;
 - (IBAction)resetBtnClick:(id)sender;
+- (IBAction)backBtnClick:(id)sender;
 
 -(IBAction)scale:(id)sender;
 - (IBAction)pan:(id)sender;

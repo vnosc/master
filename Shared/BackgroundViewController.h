@@ -20,7 +20,10 @@
 
 - (void) applyChangesToSubviews:(UIView*)mv;
 - (void) setStretchBackground:(UIView*)v imageName:(NSString*)imageName leftCap:(int)leftCap topCap:(int)topCap;
+- (UIImage*) getStretchBackgroundForImage:(NSString*)imageName leftCap:(int)leftCap topCap:(int)topCap;
 
 - (void) setBoxBackground:(UIView*)v;
+- (void) setBoxBackgroundLarge:(UIView*)v;
+- (void) setDropDownBackground:(UIButton*)btn;
 
 @end

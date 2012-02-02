@@ -98,6 +98,18 @@
 	[self.navigationController pushViewController:p animated:YES];
 }
 
+- (IBAction)hipaaBtnClick:(id)sender {
+    PatientConsentForm *p = [[PatientConsentForm alloc] init];
+	p.title = @"Patient Consent Form";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
+- (IBAction)newLensThicknessPageBtnClick:(id)sender {
+    LensThicknessPage *p = [[LensThicknessPage alloc] init];
+	p.title = @"Lens Thickness";
+	[self.navigationController pushViewController:p animated:YES];
+}
+
 #endif
 
 @end

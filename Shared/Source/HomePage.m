@@ -16,6 +16,7 @@
 #import "UnityOpticsVideoView.h"
 #import "Coating.h"
 #import "VisionTestHomePage.h"
+#import "PatientConsentForm.h"
 #import "FrameStyling.h"
 #import "FSHomePage.h"
 #import "FSFavoritesView.h"
@@ -192,26 +193,25 @@ extern NSArray* patientImagesMeasured;
      [self.navigationController pushViewController:p animated:YES];*/
     
     FrameCatelogs *frameCatelogs=[[FrameCatelogs alloc]init];
-    //frameCatelogs.hidesBottomBarWhenPushed=YES;
+    frameCatelogs.hidesBottomBarWhenPushed=YES;
     
     //  UINavigationController *frameCatNavController=[[UINavigationController alloc]initWithRootViewController:frameCatelogs];
     
     TOTakePhotoView *takePhotoView=[[TOTakePhotoView alloc]init];
-    // takePhotoView.hidesBottomBarWhenPushed=YES;
+     takePhotoView.hidesBottomBarWhenPushed=YES;
     // UINavigationController *takePhotoNavController=[[UINavigationController alloc]initWithRootViewController:takePhotoView];
     
     FSHomePage *homePage1=[[FSHomePage alloc]init];
-    
+    homePage1.hidesBottomBarWhenPushed=YES;
     FSFavoritesView *fav=[[FSFavoritesView alloc]init];
 
-    FrameStyling *fs = [[FrameStyling alloc] init];
-    
     //FSFavoritesView *favorites=[[FSFavoritesView alloc]init];
     rdx=[[RXCustomTabBar1 alloc]init];
-    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav,fs, nil]];
+    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav, nil]];
     //rdx.selectedIndex=2;
     //    self.navigationController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:rdx animated:YES]; 
+    
      
    
     
@@ -287,20 +287,29 @@ extern NSArray* patientImagesMeasured;
 	h.title=@"Capture Image";
 	[self.navigationController pushViewController:h animated:YES];		
 }
+
+- (IBAction)patientCareBtnClick:(id)sender {
+    PatientConsentForm *p = [[PatientConsentForm alloc] init];
+	p.title = @"Receipt of Notice of Privacy Policies & Consent Form";
+	[self.navigationController pushViewController:p animated:YES];
+}
 -(IBAction) patientBtnClick:(id)sender
 {
 	
-    LensIndexView *lensindex=[[LensIndexView alloc]init];
-    lensindex.title=@"Lens Index";
+    /*LensIndexView *lensindex=[[LensIndexView alloc]init];
+    lensindex.title=@"Lens Index";*/
 	// lensIndexView.mainViewController=self;
     //UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:lensindex];
+    
+    LensThicknessPage *lensindex=[[LensThicknessPage alloc]init];
+    lensindex.title=@"Lens Thickness";
     
     Coating *coating=[[Coating alloc]init];
     coating.title=@"Coating";
     //UINavigationController *nav2=[[UINavigationController alloc]initWithRootViewController:coating];
     
     UITabBarController *tabbar3=[[UITabBarController alloc]init];
-	tabbar3.title = @"Lens Index";
+	tabbar3.title = @"Lens Thickness";
 	tabbar3.delegate = self;
     [tabbar3 setViewControllers:[NSArray arrayWithObjects:lensindex,coating,nil]];
     
@@ -311,8 +320,8 @@ extern NSArray* patientImagesMeasured;
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-	NSLog(@"pring");
 }
+
 - (IBAction)lifeStyleBtnClick:(id)sender {
 	PackageSelection *p = [[PackageSelection alloc] init];
 	p.title = @"Package Selection";

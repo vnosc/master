@@ -131,6 +131,10 @@ extern ServiceObject* patientXML;
 	self.didSelectNewPatient = YES;
 	self.cancelBtn.title = @"Select & Continue";
 	[self loadEverything];
+    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please confirm the selected patient's details." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
 }
 
 - (void)memberSearchDidCancel:(NSNotification*)n

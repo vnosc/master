@@ -84,6 +84,11 @@
     [v setImage:[[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCap topCapHeight:topCap]];
 }
 
+- (UIImage*) getStretchBackgroundForImage:(NSString*)imageName leftCap:(int)leftCap topCap:(int)topCap
+{
+    return [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCap topCapHeight:topCap];
+}
+
 - (void) applyChangesToSubviews:(UIView*)mv
 {
 	for (UIView *v in mv.subviews)
@@ -132,6 +137,39 @@
     [self setStretchBackground:iv imageName:@"BoxBackground.png" leftCap:10 topCap:26];
     [v insertSubview:iv atIndex:0];
     [v setNeedsDisplay];
+}
+
+- (void) setBoxBackgroundLarge:(UIView*)v
+{
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:v.bounds];
+    [self setStretchBackground:iv imageName:@"BoxBackgroundLarge.png" leftCap:10 topCap:34];
+    [v insertSubview:iv atIndex:0];
+    [v setNeedsDisplay];
+}
+
+- (void) setDropDownBackground:(UIButton*)btn
+{
+    //[btn setBackgroundImage:[self getStretchBackgroundForImage:@"DropDown.png" leftCap:70 topCap:30] forState:UIControlStateNormal];
+    UIImage *downArrow = [UIImage imageNamed:@"DropDownArrow.png"];
+    
+    float sizeRatio = btn.bounds.size.height / (downArrow.size.height + 4);
+    NSLog(@"%f", sizeRatio);
+    
+    float width = downArrow.size.width * sizeRatio;
+    float height = downArrow.size.height * sizeRatio;
+    
+    int paddingRight = 3;
+    
+    UIImageView *iv = [[UIImageView alloc] 
+                       initWithFrame:
+                       CGRectMake(btn.bounds.size.width - width - paddingRight, 
+                                  (btn.bounds.size.height - height)/2, 
+                                  width, height)];
+    iv.image = downArrow;
+    [iv setContentMode:UIViewContentModeScaleToFill];
+
+    [btn addSubview:iv];
+    [btn setNeedsDisplay];
 }
 
 /*- (void) viewDidAppear:(BOOL)animated

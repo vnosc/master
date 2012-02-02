@@ -14,7 +14,6 @@
 	UIButton *btn2;
 	UIButton *btn3;
 	UIButton *btn4;
-    UIButton *btn5;
     UIButton *btnBg;
 }
 @property (nonatomic,retain)UIButton *btnBg;
@@ -22,7 +21,6 @@
 @property (nonatomic, retain) UIButton *btn2;
 @property (nonatomic, retain) UIButton *btn3;
 @property (nonatomic, retain) UIButton *btn4;
-@property (nonatomic, retain) UIButton *btn5;
 
 -(void) hideTabBar;
 -(void) addCustomElements;

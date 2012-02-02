@@ -17,6 +17,8 @@
 #import "LensIndexView.h"
 #import "HomePage.h"
 #import "MeasureWrapAngle.h"
+#import "PatientConsentForm.h"
+#import "LensThicknessPage.h"
 
 @interface TestsPage : BackgroundViewController
 - (IBAction)openCVTestingClick:(id)sender;
@@ -27,5 +29,7 @@
 - (IBAction)patientConsultationClick:(id)sender;
 - (IBAction)mainMenuRecreationClick:(id)sender;
 - (IBAction)wrapAngleMeasureClick:(id)sender;
+- (IBAction)hipaaBtnClick:(id)sender;
+- (IBAction)newLensThicknessPageBtnClick:(id)sender;
 
 @end

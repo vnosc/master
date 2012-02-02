@@ -15,6 +15,7 @@ int a=0;
 extern int providerId;
 extern ServiceObject* patientXML;
 extern ServiceObject* mobileSessionXML;
+extern ServiceObject* providerXML;
 
 @implementation LoginView
 @synthesize username,password;
@@ -157,7 +158,7 @@ extern ServiceObject* mobileSessionXML;
             else
             {	
 				providerId = tempProviderId;
-				
+				providerXML = so;
 				NSString* mobileSessionId = [so getTextValueByName:@"mobilesessionid"];
 				
 				mobileSessionXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMobileSessionInfo?sessionId=%@", mobileSessionId]];

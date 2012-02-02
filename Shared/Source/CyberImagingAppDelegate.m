@@ -25,8 +25,8 @@
 	
 	[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
 
-	[[UILabel appearanceWhenContainedIn:[UISegmentedControl class], [UIScrollView class], nil] setColor:[UIColor blackColor]];
-	[[UILabel appearanceWhenContainedIn:[UIScrollView class], nil] setColor:[UIColor whiteColor]];
+	/*[[UILabel appearanceWhenContainedIn:[UISegmentedControl class], [UIScrollView class], nil] setColor:[UIColor blackColor]];
+	[[UILabel appearanceWhenContainedIn:[UIScrollView class], nil] setColor:[UIColor whiteColor]];*/
 
 	[[UILabel appearanceWhenContainedIn:[UITextField class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
 	
@@ -37,6 +37,7 @@
     [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
     
     [[UILabel appearanceWhenContainedIn:[UIPickerView class], nil] setColor:[UIColor blackColor]];
+    [[UILabel appearanceWhenContainedIn:[UIPickerView class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
     
     [[HeaderLabel appearanceWhenContainedIn:[UIView class], nil] setColor:[UIColor blackColor]];
 	

@@ -10,10 +10,11 @@
 
 @implementation RXCustomTabBar1
 
-@synthesize btn1, btn2, btn3, btn4, btn5, btnBg;
+@synthesize btn1, btn2, btn3, btn4,btnBg;
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self hidesBottomBarWhenPushed];
 	//self.selectedIndex=3;
 	[self hideTabBar];
 	[self addCustomElements];
@@ -37,7 +38,6 @@
     self.btn2.hidden = 1;
     self.btn3.hidden = 1;
     self.btn4.hidden = 1;
-    self.btn5.hidden = 1;
 }
 
 - (void)showNewTabBar 
@@ -46,7 +46,6 @@
     self.btn2.hidden = 0;
     self.btn3.hidden = 0;
     self.btn4.hidden = 0;
-    self.btn5.hidden = 0;
 }
 
 -(void)addCustomElements
@@ -56,56 +55,49 @@
 
     self.btnBg = [UIButton buttonWithType:UIButtonTypeCustom]; //Setup the button
 	btnBg.frame = CGRectMake(0,880, 768, 75);; // Set the frame (size and position) of the button)
-	[btnBg setBackgroundImage:btnbgImage forState:UIControlStateNormal]; // Set the image for the normal state of the button
+	//[btnBg setBackgroundImage:btnbgImage forState:UIControlStateNormal]; // Set the image for the normal state of the button
 	//[btn1 setBackgroundImage:btnImageSelected forState:UIControlStateSelected]; // Set the image for the selected state of the button
 	[btnBg setTag:0]; // Assign the button a "tag" so when our "click" event is called we know which button was pressed.
 //	[btn1 setSelected:true];
     
     
 	// Initialise our two images
-	UIImage *btnImage = [UIImage imageNamed:@"home01.png"];
-	UIImage *btnImageSelected = [UIImage imageNamed:@"home1.png"];
+	UIImage *btnImage = [UIImage imageNamed:@"FS_framecatelog.png"];
+	UIImage *btnImageSelected = [UIImage imageNamed:@"FS_framecatelog1.png"];
 	
 	self.btn1 = [UIButton buttonWithType:UIButtonTypeCustom]; //Setup the button
-	btn1.frame = CGRectMake(64,880, 80, 75); // Set the frame (size and position) of the button)
+	btn1.frame = CGRectMake(28,26, 176, 37); // Set the frame (size and position) of the button)
 	[btn1 setBackgroundImage:btnImage forState:UIControlStateNormal]; // Set the image for the normal state of the button
 	[btn1 setBackgroundImage:btnImageSelected forState:UIControlStateSelected]; // Set the image for the selected state of the button
-	[btn1 setTag:0]; // Assign the button a "tag" so when our "click" event is called we know which button was pressed.
-	[btn1 setSelected:true]; // Set this button as selected (we will select the others to false as we only want Tab 1 to be selected initially
+	[btn1 setTag:1]; // Assign the button a "tag" so when our "click" event is called we know which button was pressed.
+	//[btn1 setSelected:true]; // Set this button as selected (we will select the others to false as we only want Tab 1 to be selected initially
 	//[btn1 setTitle:@"Frame Catelogs" forState:UIControlStateNormal];
 	//b Now we repeat the process for the other buttons
-	btnImage = [UIImage imageNamed:@"search1.png"];
-	btnImageSelected = [UIImage imageNamed:@"search01.png"];
+	btnImage = [UIImage imageNamed:@"FS_tryon.png"];
+	btnImageSelected = [UIImage imageNamed:@"FS_tryon1.png"];
 	self.btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn2.frame = CGRectMake(204, 880, 80, 75);
+	btn2.frame = CGRectMake(209,26, 176, 37);
 	[btn2 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn2 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
-	[btn2 setTag:1];
+	[btn2 setTag:2];
    // [btn2 setTitle:@"TryOn" forState:UIControlStateNormal];
-	btnImage = [UIImage imageNamed:@"spect1.png"];
-	btnImageSelected = [UIImage imageNamed:@"spect01.png"];
+	btnImage = [UIImage imageNamed:@"FS_myfavorite.png"];
+	btnImageSelected = [UIImage imageNamed:@"FS_myfavorite1.png"];
 	self.btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn3.frame = CGRectMake(344,880, 80, 75);
+	btn3.frame = CGRectMake(387,26, 176, 37);
 	[btn3 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn3 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
-	[btn3 setTag:2];
+	[btn3 setTag:3];
    // [btn3 setTitle:@"Fevorites" forState:UIControlStateNormal];
 	//[btn3 setSelected:true];
-	btnImage = [UIImage imageNamed:@"FSfavorite.png"];
-	btnImageSelected = [UIImage imageNamed:@"FSfavorite01.png"];
+	btnImage = [UIImage imageNamed:@"FS_compareframes.png"];
+	btnImageSelected = [UIImage imageNamed:@"FS_compareframes1.png"];
 	self.btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn4.frame = CGRectMake(484, 880, 80, 75);
+	btn4.frame = CGRectMake(563,26, 176, 37);
 	[btn4 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn4 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
-	[btn4 setTag:3];
+	[btn4 setTag:4];
    // [btn4 setTitle:@"Home" forState:UIControlStateNormal];
-    btnImage = [UIImage imageNamed:@"FStryon.png"];
-	btnImageSelected = [UIImage imageNamed:@"FStryonselected.png"];
-	self.btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn5.frame = CGRectMake(624, 880, 80, 75);
-	[btn5 setBackgroundImage:btnImage forState:UIControlStateNormal];
-	[btn5 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
-	[btn5 setTag:4];
 
 	
 	// Add my new buttons to the view
@@ -114,14 +106,12 @@
 	[self.view addSubview:btn2];
 	[self.view addSubview:btn3];
 	[self.view addSubview:btn4];
-    [self.view addSubview:btn5];
 	
 	// Setup event handlers so that the buttonClicked method will respond to the touch up inside event.
 	[btn1 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 	[btn2 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 	[btn3 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 	[btn4 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [btn5 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)buttonClicked:(id)sender
@@ -134,40 +124,29 @@
 {
 	switch(tabID)
 	{
-		case 0:
+		case 1:
 			[btn1 setSelected:true];
 			[btn2 setSelected:false];
 			[btn3 setSelected:false];
 			[btn4 setSelected:false];
-            [btn5 setSelected:false];
 			break;
-		case 1:
+		case 2:
 			[btn1 setSelected:false];
 			[btn2 setSelected:true];
 			[btn3 setSelected:false];
 			[btn4 setSelected:false];
-            [btn5 setSelected:false];
-			break;
-		case 2:
-			[btn1 setSelected:false];
-			[btn2 setSelected:false];
-			[btn3 setSelected:true];
-			[btn4 setSelected:false];
-            [btn5 setSelected:false];
 			break;
 		case 3:
 			[btn1 setSelected:false];
 			[btn2 setSelected:false];
-			[btn3 setSelected:false];
-			[btn4 setSelected:true];
-            [btn5 setSelected:false];
-            break;
+			[btn3 setSelected:true];
+			[btn4 setSelected:false];
+			break;
 		case 4:
 			[btn1 setSelected:false];
 			[btn2 setSelected:false];
 			[btn3 setSelected:false];
-			[btn4 setSelected:false];
-            [btn5 setSelected:true];
+			[btn4 setSelected:true];
 			break;
 	}	
 	
@@ -181,7 +160,6 @@
 	[btn2 release];
 	[btn3 release];
 	[btn4 release];
-    [btn5 release];
     [super dealloc];
 }
 

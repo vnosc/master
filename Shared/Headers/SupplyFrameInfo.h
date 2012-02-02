@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SupplyFrameInfo : BackgroundViewController
+{
+    int _frameId;
+}
 @property (retain, nonatomic) IBOutlet UITextField *txtSKU;
 @property (retain, nonatomic) IBOutlet UITextField *txtModelNumber;
 
@@ -26,7 +29,10 @@
 - (IBAction)btnSearchSKUClick:(id)sender;
 - (IBAction)btnSearchModelNumberClick:(id)sender;
 
-- (IBAction)cancel:(id)sender;
+- (IBAction)cancelBtnClick:(id)sender;
 - (void)selectFrame:(int)frameId;
+- (IBAction)continueWithoutSelectingBtnClick:(id)sender;
+- (void) finish;
+- (void) cancel;
 
 @end

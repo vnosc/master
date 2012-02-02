@@ -15,6 +15,7 @@ extern ServiceObject* frameXML;
 @synthesize imageContainer;
 @synthesize vImagePreview;
 @synthesize touchView;
+@synthesize navigationTitleLabel;
 
 @synthesize rightEyePoint, leftEyePoint, bridgePoint;
 @synthesize processStep;
@@ -26,6 +27,8 @@ extern ServiceObject* frameXML;
 @synthesize zoomSlider;
 
 @synthesize measureType;
+@synthesize instView;
+@synthesize instTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,22 +56,55 @@ extern ServiceObject* frameXML;
 {
     [super viewDidLoad];
 	
+    [self setBoxBackground:self.instView];
+    
 	//[self.view addGestureRecognizer:self.pinchGR];
 	//[self.view addGestureRecognizer:self.panGR];
 	[self beginMeasureProcess];
 	
-	CALayer *layer = self.imageContainer.layer;
-	[layer setBorderWidth:3.0f];
-	[layer setCornerRadius:25];
-	[layer setMasksToBounds:YES];
+	//[self setImagePreviewMask];
 	
 	[[NSNotificationCenter defaultCenter]
 	 addObserver:self
 	 selector:@selector(touchViewAddedLine:)
 	 name:@"LineViewDidAddLine"
 	 object:self.touchView];
+    
 	//[self initLines];
 	
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationTitleLabel.text = self.navigationItem.title;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    //[[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
+
+- (void) setImagePreviewMask
+{
+	CALayer *layer = self.vImagePreview.layer;
+	
+	[layer setBorderWidth:3.0f];
+	[layer setCornerRadius:25];
+	[layer setMasksToBounds:YES];
+}
+
+- (void) setInstructionsTextTo:(NSString*)instText
+{
+    self.instTextView.text = instText;
 }
 
 - (void) beginMeasureProcess
@@ -76,6 +112,9 @@ extern ServiceObject* frameXML;
 	self.processStep = 0;
 
 	[self.touchView initData];
+    
+    [self setZoomLevel:0];
+    self.zoomSlider.enabled = NO;
 
 	self.touchView.userInteractionEnabled = NO;
 	
@@ -86,24 +125,18 @@ extern ServiceObject* frameXML;
 	
 	if (self.measureType == 0 || self.measureType == 1)
 	{
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch the center of the\nright pupil." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
+        [self changeInstructions:@"Please touch the center of the\nright pupil."];
 	}
 	else if (self.measureType == 2)
 	{
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch and drag to draw a line across the front of the frame." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
+        [self changeInstructions:@"Please touch and drag to draw a line across the front of the frame."];
 	
 		self.touchView.userInteractionEnabled = YES;
 		self.touchView.canAddLines = YES;
 	}
 	else if (self.measureType == 3)
 	{
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please touch the center of the\n pupil." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
+        [self changeInstructions:@"Please touch the center of the\n pupil."];
 	}
 	
 }
@@ -274,15 +307,15 @@ extern ServiceObject* frameXML;
       
         MeasurePoint* mp = l.lowerPoint;
         
-        MeasureLine* upLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, l.upperPoint.y - 200)];
+        MeasureLine* upLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, l.upperPoint.y)];
         upLine.name = @"Vertical Up";
         upLine.startMovesEnd = YES;
         upLine.endLockX = YES;
         
-        MeasureLine* downLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, mp.y + 200)];
+        /*MeasureLine* downLine = [self.touchView createLineFromPoint:mp to:CGPointMake(mp.x, mp.y + 200)];
         downLine.name = @"Vertical Down";
         downLine.startMovesEnd = YES;
-        downLine.endLockX = YES;
+        downLine.endLockX = YES;*/
         
         [self beginAdjustStep:@"Adjust the lines by hand."];
     }
@@ -344,6 +377,12 @@ extern ServiceObject* frameXML;
     [self beginProcessStep:instructions];
 }
 
+- (void) beginLineStep:(NSString*)instructions
+{
+    [self prepareForMeasureLine];
+    [self beginProcessStep:instructions];
+}
+
 - (void) beginPointStep:(NSString*)instructions
 {
     [self prepareForMeasurePoint];
@@ -361,6 +400,14 @@ extern ServiceObject* frameXML;
 - (void) beginProcessStep:(NSString*)instructions
 {
     [self incrementProcessCounter];
+    
+    [self changeInstructions:instructions];
+}
+
+- (void) changeInstructions:(NSString*)instructions
+{
+
+    [self setInstructionsTextTo:[instructions stringByReplacingOccurrencesOfString:@"\n" withString:@" "]];
     
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:instructions delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
@@ -551,6 +598,9 @@ extern ServiceObject* frameXML;
 	[self setPanGR:nil];
 	[self setZoomSlider:nil];
 	[self setImageContainer:nil];
+    [self setNavigationTitleLabel:nil];
+    [self setInstTextView:nil];
+    [self setInstView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -569,6 +619,9 @@ extern ServiceObject* frameXML;
 	[panGR release];
 	[zoomSlider release];
 	[imageContainer release];
+    [navigationTitleLabel release];
+    [instTextView release];
+    [instView release];
 	[super dealloc];
 }
 	
@@ -807,6 +860,10 @@ extern ServiceObject* frameXML;
 	[self beginMeasureProcess];
 }
 
+- (IBAction)backBtnClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void) moveSelectedPoint:(NSString*)dir X:(int)x Y:(int)y
 {
 	MeasurePoint* mp = self.touchView.grabbedPoint;
@@ -949,10 +1006,17 @@ extern ServiceObject* frameXML;
 
 - (IBAction)zoomSliderChanged:(id)sender {
 	
-	BOOL isRight = self.zoomSlider.value < 0;
-	BOOL isLeft = self.zoomSlider.value > 0;
-	float portion = ABS(self.zoomSlider.value / self.zoomSlider.maximumValue);
-	float scale = ABS(self.zoomSlider.value / 50) + 1;
+    [self setZoomLevel:self.zoomSlider.value];
+}
+
+- (void) setZoomLevel:(float)zoomValue
+{
+    self.zoomSlider.value = zoomValue;
+    
+	BOOL isRight = zoomValue < 0;
+	BOOL isLeft = zoomValue > 0;
+	float portion = ABS(zoomValue / self.zoomSlider.maximumValue);
+	float scale = ABS(zoomValue / 50) + 1;
 	
 	CGPoint o = [self.vImagePreview center];
 	CGPoint rp = CGPointMake(0,0);

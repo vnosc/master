@@ -95,6 +95,8 @@ extern NSArray* patientImages;
 {
     [super viewDidLoad];
 	
+    [self validateAll];
+    
     [self setBoxBackground:self.frameInfo];
     
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
@@ -145,9 +147,15 @@ extern NSArray* patientImages;
 
 - (void) viewWillAppear:(BOOL)animated
 {
-	[self loadPatientData:patientXML];
-	[self loadFrameData:frameXML];
-	[self refreshPatientImages];
+	int newPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
+    
+    if (newPatientId != _patientId)
+    {
+        [self loadPatientData:patientXML];
+        [self loadFrameData:frameXML];
+        
+        [self refreshPatientImages];
+    }
 	
 	[super viewWillAppear:animated];
 }
@@ -156,11 +164,10 @@ extern NSArray* patientImages;
 {
 	[super viewDidAppear:animated];
 	
-	if (self.wantsToFinish)
-	{
-		[self validateAll];
-	}
+    if (self.wantsToFinish)
+        [self validateAllAndFinish];
 }
+
 - (void) getLatestPatientFromService
 {
 	
@@ -173,6 +180,8 @@ extern NSArray* patientImages;
 {
 	if ([patientXML hasData] && [patientXML.dict objectForKey:@"FirstName"])
 	{
+        _patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+        
 		[self.txtMemberId setText:[patient getTextValueByName:@"MemberId"]];
 		[self.txtPatientName setText:[patient getTextValueByName:@"PatientFullName"]];
 	}
@@ -234,16 +243,20 @@ extern NSArray* patientImages;
 - (void) getFrameInfoFromService
 {	
 	int frameIdx = [mobileSessionXML getIntValueByName:@"frameId"];
-	frameXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetFrameInfoByFrameId?frameId=%d", frameIdx]];
-	
-	if ([frameXML hasData])
-	{
-		[self loadFrameData:frameXML];
-	}
-	else
-	{
-		NSLog(@"Invalid response from web service");
-	}
+    
+    if (frameIdx != 0)
+    {
+        frameXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetFrameInfoByFrameId?frameId=%d", frameIdx]];
+        
+        if ([frameXML hasData])
+        {
+            [self loadFrameData:frameXML];
+        }
+        else
+        {
+            NSLog(@"Invalid response from web service");
+        }
+    }
 }
 
 - (void) loadFrameData:(ServiceObject *)frame
@@ -370,18 +383,27 @@ extern NSArray* patientImages;
 	}*/
 	
 	self.wantsToFinish = YES;
-	[self validateAll];
+	
+    [self validateAllAndFinish];
+}
+
+- (void) validateAllAndFinish
+{
+    BOOL isValid = [self validateAll];
+    if (isValid)
+        [self uploadImagesAndFinish:self];
 }	
 
-- (void) validateAll
+- (BOOL) validateAll
 {
 	BOOL isValid = YES;
 	
 	isValid = isValid && [self validatePatient];
-	isValid = isValid && [self validateFrame];
 	
-	if (isValid)
-		[self uploadImagesAndFinish:self];
+    //isValid = isValid && [self validateFrame];
+    [self validateFrame];
+	
+    return isValid;
 }
 
 - (BOOL) validatePatient
@@ -516,10 +538,7 @@ extern NSArray* patientImages;
 
 	[tf resignFirstResponder];
 	[tf endEditing:YES];
-	NSLog(@"SPROING");
-	
-	NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
-	
+
 	PatientRecord *patient=[[PatientRecord alloc]init];
 	patient.title=@"Patient Record";
 	//[self.navigationController pushViewController:patient animated:YES];

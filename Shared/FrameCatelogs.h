@@ -24,18 +24,26 @@
     
     UIActivityIndicatorView *indicator;
     
-    IBOutlet UILabel *frameColorLbl;
-    IBOutlet UILabel *sizeLbl;
-    IBOutlet UILabel *frameNameLbl;
+    IBOutlet UILabel *EyeLbl;
+    IBOutlet UILabel *ALbl;
+    IBOutlet UILabel *BLbl;
+    IBOutlet UILabel *EDLbl;
+    IBOutlet UILabel *DBLLbl;
+    IBOutlet UILabel *templeLbl;
     
     IBOutlet UIButton *titelButton;
+    
+    IBOutlet UIView *frameView;
    
     
 }
+@property (nonatomic,retain)IBOutlet UILabel *EyeLbl;
+@property (nonatomic,retain)IBOutlet UILabel *ALbl;
+@property (nonatomic,retain)IBOutlet UILabel *BLbl;
+@property (nonatomic,retain)IBOutlet UILabel *EDLbl;
+@property (nonatomic,retain)IBOutlet UILabel *DBLLbl;
+@property (nonatomic,retain)IBOutlet UILabel *templeLbl;
 @property (nonatomic,retain) IBOutlet UIButton *titelButton;
-@property (nonatomic,retain)IBOutlet UILabel *frameNameLbl;
-@property (nonatomic,retain)IBOutlet UILabel *frameColorLbl;
-@property (nonatomic,retain)IBOutlet UILabel *sizeLbl;
 @property (nonatomic,retain) UIActivityIndicatorView *indicator;
 @property (nonatomic,retain)NSMutableArray *manName;
 @property (nonatomic,retain)NSMutableArray *frameIdArray;

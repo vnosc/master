@@ -90,6 +90,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *testsBtn;
 
 -(IBAction) measurementBtnClick:(id)sender;
+- (IBAction)patientCareBtnClick:(id)sender;
 -(IBAction) patientBtnClick:(id)sender;
 - (IBAction)lifeStyleBtnClick:(id)sender;
 -(IBAction) lensOptionBtnClick:(id)sender;

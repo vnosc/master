@@ -154,7 +154,7 @@ extern NSArray *patientImages;
 		
 		if([memberId.text length]==0 || [dob.text length]==0)
 		{
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Please enter a member ID and a date of birth." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please enter a member ID and a date of birth." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 			[alert show];
 			[alert release];
 		}

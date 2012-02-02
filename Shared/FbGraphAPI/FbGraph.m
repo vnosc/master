@@ -279,7 +279,7 @@
 	 *
 	 * See:  http://code.google.com/p/json-framework for an easy json parser
 	 */
-	
+	[b removeFromSuperview];
 	return return_value;
 }
 

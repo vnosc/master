@@ -21,7 +21,9 @@
 #import "MBProgressHUD.h"
 
 @interface CaptureOverview : BackgroundViewController
-
+{
+    int _patientId;
+}
 @property (retain, nonatomic) IBOutlet UITextField *txtPatientName;
 @property (retain, nonatomic) IBOutlet UITextField *txtMemberId;
 @property (retain, nonatomic) IBOutlet UIImageView *imageView1;
@@ -70,6 +72,9 @@
 
 - (BOOL) validatePatient;
 - (BOOL) validateFrame;
+
+- (BOOL) validateAll;
+- (void) validateAllAndFinish;
 
 - (IBAction)touchImage:(id)sender;
 - (IBAction)clearImage:(id)sender;

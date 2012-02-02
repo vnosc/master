@@ -8,7 +8,7 @@
 
 #import "FrameCatelogs.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ServiceObject.h"
 @implementation FrameCatelogs
 @synthesize frameCatScrollView;
 @synthesize selectMainFrameImage;
@@ -18,10 +18,10 @@
 @synthesize manName;
 @synthesize indicator;
 @synthesize frameTypeArray;
-@synthesize frameColorLbl;
-@synthesize sizeLbl;
-@synthesize frameNameLbl;
-@synthesize titelButton;
+
+@synthesize ALbl;
+@synthesize BLbl;
+@synthesize EDLbl,DBLLbl,templeLbl,EyeLbl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +37,8 @@
 {
     NSLog(@".......3..............");
     
+    frameView.layer.cornerRadius=20.0;
+    
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
     
         //[self fillImageScrollView];
@@ -46,7 +48,7 @@
 {
     manName=[[NSMutableArray alloc]init];
     
-    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetDistinctFrameManufacturer"];
+    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameCollectionByBrand?brand=MARCHON"];
     
     NSLog(@"URL OF EVENT : %@",urlString);
     TBXML *tbxml1 =[TBXML tbxmlWithURL:[NSURL URLWithString:urlString]];
@@ -65,7 +67,7 @@
                 
                 while (tableEle)
                 {
-                    TBXMLElement *manufacturerEle = [TBXML childElementNamed:@"frameManufacturer" parentElement:tableEle];
+                    TBXMLElement *manufacturerEle = [TBXML childElementNamed:@"CollectionName" parentElement:tableEle];
                     if(manufacturerEle)
                     {
                         [manName addObject:[TBXML textForElement:manufacturerEle]];
@@ -89,12 +91,13 @@
         //catListBtn.titleLabel.textColor=[UIColor blackColor];
         //[catListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
        // [catListBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [catListBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [catListBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         catListBtn.tag=i;
         [catListBtn addTarget:self action:@selector(clickCatelogsButton:) forControlEvents:UIControlEventTouchUpInside];
         [self.frameCatScrollView addSubview:catListBtn];
     }
-    
+    frameCatScrollView.contentSize=CGSizeMake(180,[manName count]*30);
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:[manName objectAtIndex:0] forState:UIControlStateNormal];
     
@@ -122,6 +125,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     NSLog(@"............2.................");
     
@@ -135,7 +139,7 @@
 	indicator.frame = CGRectMake(0.0, 0.0, 100, 100);
 	indicator.center = self.view.center;
     indicator.layer.cornerRadius=5.0;
-	[self.navigationController.view addSubview:indicator];
+	[self.view addSubview:indicator];
     indicator.hidesWhenStopped=YES;
     [indicator startAnimating];
     
@@ -171,32 +175,32 @@
                 TBXMLElement *tableEle = [TBXML childElementNamed:@"Table" parentElement:subrootEle];
                 if(tableEle)
                 {
-                    TBXMLElement *frameColorEle = [TBXML childElementNamed:@"FrameColor" parentElement:tableEle];
-                    TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"FrameType" parentElement:
-                                                  tableEle];
-                    TBXMLElement *frameNameEle = [TBXML childElementNamed:@"CPTCode" parentElement:
-                                                  tableEle];
+                   // TBXMLElement *frameColorEle = [TBXML childElementNamed:@"FrameColor" parentElement:tableEle];
+                    //TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"FrameType" parentElement:tableEle];
+                    //TBXMLElement *frameNameEle = [TBXML childElementNamed:@"CPTCode" parentElement:tableEle];
                     TBXMLElement *frameAEle = [TBXML childElementNamed:@"ABox" parentElement:
                                                   tableEle];
                     TBXMLElement *frameBEle = [TBXML childElementNamed:@"BBox" parentElement:
                                                   tableEle];
+                    TBXMLElement *frameEDEle = [TBXML childElementNamed:@"ED" parentElement:
+                                               tableEle];
+                    TBXMLElement *frameDBLEle = [TBXML childElementNamed:@"DBL" parentElement:
+                                               tableEle];
+                    TBXMLElement *frameEyeEle = [TBXML childElementNamed:@"EyeSize" parentElement:
+                                               tableEle];
+                    TBXMLElement *frameTemEle = [TBXML childElementNamed:@"TempleSize" parentElement:
+                                                 tableEle];
                   // <ABox>48.00</ABox><BBox>25.00</BBox>
-                    if(frameTypeEle)
+                    if(frameAEle)
                     {
-                        
-                       // sizeLbl.text=[TBXML textForElement:frameTypeEle];
-                        NSString *str=[[NSString alloc]initWithFormat:@"Size:%@-%@ | Ref:%@",[TBXML textForElement:frameAEle],[TBXML textForElement:frameBEle],[TBXML textForElement:frameTypeEle]];
-                        sizeLbl.text=str;
-                        frameNameLbl.text=[TBXML textForElement:frameNameEle];
+                        EyeLbl.text=[TBXML textForElement:frameEyeEle];
+                        ALbl.text=[TBXML textForElement:frameAEle];
+                        BLbl.text=[TBXML textForElement:frameBEle];
+                        EDLbl.text=[TBXML textForElement:frameEDEle];
+                        DBLLbl.text=[TBXML textForElement:frameDBLEle];
+                        templeLbl.text=[TBXML textForElement:frameTemEle];
                     }
-                    if (frameColorEle) 
-                    {
-                        frameColorLbl.text=[TBXML textForElement:frameColorEle];
-                    }
-                    else
-                    {
-                        frameColorLbl.text=@" ";
-                    }
+                    
                 }
             } 
         }
@@ -225,7 +229,7 @@
     UIButton *btn=(UIButton *)[sender userInfo];
    // http://smart-i.ws/mobilewebservice.asmx/GetFrameTypeByManufacturer?manufacturer=Nike
     
-    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameTypeByManufacturer?manufacturer=%@",btn.currentTitle];
+    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameByBrandAndCollection?brand=MARCHON&collection=%@",btn.currentTitle];
     
     NSLog(@"URL OF EVENT : %@",urlString);
     TBXML *tbxml1 =[TBXML tbxmlWithURL:[NSURL URLWithString:urlString]];
@@ -243,8 +247,8 @@
             
             while (tableEle)
             {
-                TBXMLElement *frameIdEle = [TBXML childElementNamed:@"FrameTypeId" parentElement:tableEle];
-                TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"FrameType" parentElement:tableEle];
+                TBXMLElement *frameIdEle = [TBXML childElementNamed:@"frametypeid" parentElement:tableEle];
+                TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"frametype" parentElement:tableEle];
                 if(frameIdEle)
                 {
                     [frameIdArray addObject:[TBXML textForElement:frameIdEle]];
@@ -259,11 +263,11 @@
     {
         [imageScrollView removeFromSuperview];
     }
-    imageScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(215, 635, 532, 125)];
+    imageScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(237, 615, 490, 115)];
     imageScrollView.layer.cornerRadius=10.0;
     imageScrollView.alwaysBounceHorizontal=YES;
     imageScrollView.alwaysBounceVertical=NO;
-    imageScrollView.backgroundColor=[UIColor whiteColor];
+    imageScrollView.backgroundColor=[UIColor clearColor];
     
    // NSLog(@"Array : %@ ",frameTypeArray);
     
@@ -293,7 +297,7 @@
         }
         
         
-        CGRect imgRect=CGRectMake(i*150,0,150,100);
+        CGRect imgRect=CGRectMake(i*150,0,150,90);
         asyncImage = [[[AsyncImageView alloc]
                        initWithFrame:imgRect] autorelease];
         
@@ -308,7 +312,7 @@
         [asyncImage loadImageFromURL:url tag:i];
         
         UIButton *imageButton=[[UIButton alloc]init];
-        [imageButton setFrame:CGRectMake(0,0,150,125)];
+        [imageButton setFrame:CGRectMake(0,0,150,115)];
        // [imageButton setImage:[asyncImage image] forState:UIControlStateNormal];
         imageButton.tag=i;
         [imageButton addTarget:self action:@selector(clickImageButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -316,7 +320,7 @@
         
         [imageScrollView addSubview:asyncImage];
         
-        UILabel *frameTypelbl=[[UILabel alloc]initWithFrame:CGRectMake(i*150,100,150,25)];
+        UILabel *frameTypelbl=[[UILabel alloc]initWithFrame:CGRectMake(i*150,90,150,25)];
         frameTypelbl.backgroundColor=[UIColor grayColor];
         frameTypelbl.text=[frameTypeArray objectAtIndex:i];
         frameTypelbl.textColor=[UIColor whiteColor];
@@ -326,7 +330,7 @@
          
     }
  //   NSLog(@"ARRAY COUNT :%i",[frameIdArray count]);
-    imageScrollView.contentSize=CGSizeMake([frameIdArray count]*150, 125);
+    imageScrollView.contentSize=CGSizeMake([frameIdArray count]*150, 115);
     [self.view addSubview:imageScrollView];
     
     
@@ -359,7 +363,9 @@
 
 -(IBAction)saveButtonClickOnCatelogsView:(id)sender
 {
-    
+    ServiceObject *obj=[[ServiceObject alloc]init];
+    NSString *memberId=[obj getTextValueByName:@"memberId"];
+    NSLog(@"Member ID : %@",memberId);
 }
 
 

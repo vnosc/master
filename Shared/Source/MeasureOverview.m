@@ -77,8 +77,6 @@ extern ServiceObject* prescriptionXML;
 {
     [super viewDidLoad];
 	
-    [self setBoxBackground:self.measureDetailView];
-    
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
 	self.imageLabels = [[NSArray alloc] initWithObjects:self.imageLabel1, self.imageLabel2, self.imageLabel3, self.imageLabel4, nil];	
     
@@ -165,7 +163,7 @@ extern ServiceObject* prescriptionXML;
 	cnt = 0;
 	for (UIImageView* obj in self.imageViews)
 	{
-		if (obj.image == nil && [patientImages objectAtIndex:cnt] != [NSNull null])
+		if (obj.image == nil && (cnt == 1 || [patientImages objectAtIndex:cnt] != [NSNull null]))
         {
             if (cnt != 1)
                 obj.image = [patientImages objectAtIndex:cnt];

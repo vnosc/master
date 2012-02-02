@@ -76,7 +76,7 @@
 	[indicator stopAnimating];
 	UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageWithData:data]] autorelease];
 	//make sizing choices based on your needs, experiment with these. maybe not all the calls below are needed.
-	imageView.contentMode = UIViewContentModeScaleToFill;
+	imageView.contentMode = UIViewContentModeScaleAspectFit;
 	imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth || UIViewAutoresizingFlexibleHeight );
 	[self addSubview:imageView];
 	

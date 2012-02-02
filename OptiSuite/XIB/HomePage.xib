@@ -239,6 +239,29 @@
 						<reference key="IBUIFontDescription" ref="378413492"/>
 						<reference key="IBUIFont" ref="775350542"/>
 					</object>
+					<object class="IBUIButton" id="727918287">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{20, 423}, {201, 37}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="633312229"/>
+						<string key="NSReuseIdentifierKey">_NS:241</string>
+						<reference key="IBUIBackgroundColor" ref="119443417"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<double key="IBUIContentEdgeInsets.top">0.0</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">10</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUINormalTitle">patient care</string>
+						<reference key="IBUIHighlightedTitleColor" ref="865628684"/>
+						<reference key="IBUINormalTitleColor" ref="865628684"/>
+						<reference key="IBUINormalTitleShadowColor" ref="885573392"/>
+						<reference key="IBUIFontDescription" ref="378413492"/>
+						<reference key="IBUIFont" ref="775350542"/>
+					</object>
 					<object class="IBUIButton" id="70279396">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
@@ -297,7 +320,7 @@
 								<string key="NSFrame">{{5, 50}, {144, 24}}</string>
 								<reference key="NSSuperview" ref="470517062"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="633312229"/>
+								<reference key="NSNextKeyView" ref="727918287"/>
 								<reference key="IBUIBackgroundColor" ref="119443417"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -610,26 +633,6 @@
 					<int key="connectionID">49</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
-						<string key="label">sectionBtns</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="633312229"/>
-						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
-						<bool key="addsContentToExistingCollection">NO</bool>
-					</object>
-					<int key="connectionID">57</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
-						<string key="label">sectionBtns</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="70279396"/>
-						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
-						<bool key="addsContentToExistingCollection">NO</bool>
-					</object>
-					<int key="connectionID">58</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">frameOptionBtn</string>
 						<reference key="source" ref="841351856"/>
@@ -658,6 +661,44 @@
 					<int key="connectionID">87</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">testsBtn</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="183367123"/>
+					</object>
+					<int key="connectionID">112</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">sectionBtns</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="727918287"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">NO</bool>
+					</object>
+					<int key="connectionID">117</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">sectionBtns</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="633312229"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">NO</bool>
+					</object>
+					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">sectionBtns</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="70279396"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">NO</bool>
+					</object>
+					<int key="connectionID">119</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">sectionBtns</string>
 						<reference key="source" ref="841351856"/>
@@ -665,7 +706,7 @@
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">NO</bool>
 					</object>
-					<int key="connectionID">107</int>
+					<int key="connectionID">120</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -675,7 +716,7 @@
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">NO</bool>
 					</object>
-					<int key="connectionID">108</int>
+					<int key="connectionID">121</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -685,7 +726,7 @@
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">NO</bool>
 					</object>
-					<int key="connectionID">109</int>
+					<int key="connectionID">122</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -695,7 +736,7 @@
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">NO</bool>
 					</object>
-					<int key="connectionID">110</int>
+					<int key="connectionID">123</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -705,15 +746,7 @@
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">NO</bool>
 					</object>
-					<int key="connectionID">111</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">testsBtn</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="183367123"/>
-					</object>
-					<int key="connectionID">112</int>
+					<int key="connectionID">124</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -850,6 +883,15 @@
 					</object>
 					<int key="connectionID">104</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">patientCareBtnClick:</string>
+						<reference key="source" ref="727918287"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">125</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -892,6 +934,7 @@
 							<reference ref="633312229"/>
 							<reference ref="70279396"/>
 							<reference ref="577502006"/>
+							<reference ref="727918287"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1019,6 +1062,11 @@
 						<reference key="object" ref="577502006"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">114</int>
+						<reference key="object" ref="727918287"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1031,6 +1079,7 @@
 					<string>-2.IBPluginDependency</string>
 					<string>102.IBPluginDependency</string>
 					<string>113.IBPluginDependency</string>
+					<string>114.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
@@ -1082,6 +1131,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -1096,7 +1146,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">113</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1127,6 +1177,7 @@
 							<string>measurementBtnClick:</string>
 							<string>packageSelectBtnClick:</string>
 							<string>patientBtnClick:</string>
+							<string>patientCareBtnClick:</string>
 							<string>patientImageBtnClick:</string>
 							<string>privatePatientBtnClick:</string>
 							<string>productSelectDropDownClick:</string>
@@ -1136,6 +1187,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1170,6 +1222,7 @@
 							<string>measurementBtnClick:</string>
 							<string>packageSelectBtnClick:</string>
 							<string>patientBtnClick:</string>
+							<string>patientCareBtnClick:</string>
 							<string>patientImageBtnClick:</string>
 							<string>privatePatientBtnClick:</string>
 							<string>productSelectDropDownClick:</string>
@@ -1221,6 +1274,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">patientBtnClick:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">patientCareBtnClick:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

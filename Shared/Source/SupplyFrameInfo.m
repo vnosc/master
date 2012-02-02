@@ -114,13 +114,20 @@ extern ServiceObject *mobileSessionXML;
 	}
 }
 
-- (IBAction)cancel:(id)sender {
+- (IBAction)cancelBtnClick:(id)sender {
+    [self cancel];
+}
+
+- (void) cancel
+{
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SupplyFrameInfoDidCancel" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)selectFrame:(int)frameId
 {
+    _frameId = frameId;
+    
 	NSString* frameIdStr = [NSString stringWithFormat:@"%d", frameId];
 	
 	if (self.updateFrame)
@@ -130,10 +137,22 @@ extern ServiceObject *mobileSessionXML;
 		
 		[mobileSessionXML updateMobileSessionData];
 	}
-	
+    
+    [self finish];
+}
+
+- (void) finish
+{
+    NSString* frameIdStr = [NSString stringWithFormat:@"%d", _frameId];
+    
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:frameIdStr, @"frameId", self.txtModelNumber.text, @"frameType", nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SupplyFrameInfoDidFinish" object:self userInfo:userInfo];
 	[self dismissModalViewControllerAnimated:YES];
 
+}
+
+- (IBAction)continueWithoutSelectingBtnClick:(id)sender {
+    
+    [self cancel];
 }
 @end
