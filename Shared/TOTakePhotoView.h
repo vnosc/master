@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface TOTakePhotoView : UIViewController {
+@interface TOTakePhotoView : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     
 }
 -(IBAction)pressTakeMyPhotoButton:(id)sender;

@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Smart-i_iPad.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.profitoptix.smart-i</string>
+	<string>com.profitoptix.</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

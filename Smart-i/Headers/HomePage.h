@@ -18,13 +18,16 @@
 #import "LensIndexView.h"
 #import "VisionTestHomePage.h"
 #import "CaptureOverview.h"
+#import "TOTakePhotoView.h"
+#import "RXCustomTabBar1.h"
+#import "FrameCatelogs.h"
 
 #define HomePage SmartI_HomePage
 
 #ifndef HOMEPAGE_H
 
 #define HOMEPAGE_H
-
+//@class FSHomePage;
 @interface SmartI_HomePage : BackgroundViewController <UITabBarControllerDelegate, UITabBarDelegate>{
 
 	IBOutlet UIButton *clearSessionBtn;
@@ -40,8 +43,9 @@
 	UINavigationController *ncConsult;
 	UINavigationController *ncVisionTest;
 	UINavigationController *ncFrameStyling;
+    RXCustomTabBar1 *rdx;
 }
-
+@property (nonatomic,retain)RXCustomTabBar1 *rdx;
 @property (retain, nonatomic) IBOutlet UIButton *hackDropDownButton;
 @property (retain, nonatomic) IBOutlet UIView *hackDropDownView;
 @property (retain, nonatomic) IBOutlet UIView *hackAfterDropDownView;

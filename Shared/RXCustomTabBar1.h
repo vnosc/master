@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+//@class HOMEPa;
 
 @interface RXCustomTabBar1 : UITabBarController {
 	UIButton *btn1;
 	UIButton *btn2;
 	UIButton *btn3;
 	UIButton *btn4;
+    UIButton *btnBg;
 }
-
+@property (nonatomic,retain)UIButton *btnBg;
 @property (nonatomic, retain) UIButton *btn1;
 @property (nonatomic, retain) UIButton *btn2;
 @property (nonatomic, retain) UIButton *btn3;
@@ -27,4 +29,6 @@
 -(void) hideNewTabBar;
 -(void) ShowNewTabBar;
 
+-(void)selectTab:(int)tabID;
++(void)callmethod;
 @end

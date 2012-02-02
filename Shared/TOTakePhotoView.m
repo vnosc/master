@@ -50,9 +50,18 @@
     PhotoPreview *photoPreview=[[PhotoPreview alloc]init];
     if(btn.tag==1)
     {
+        /*
+        UIImagePickerController *picker	= [[UIImagePickerController alloc]init];
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+      //  picker.wantsFullScreenLayout = YES;
+        [self presentModalViewController:picker 
+                                animated:YES];
+        [picker release];
+         */
         photoPreview.photoTakeType=@"camera";
     }
-    else
+    else if(btn.tag==2)
     {
         photoPreview.photoTakeType=@"gellary";
     }
@@ -61,10 +70,22 @@
 
 -(IBAction)pressUseModelButton:(id)sender
 {
+    UIButton *btn=(UIButton *)sender;
     PhotoPreview *photoPreview=[[PhotoPreview alloc]init];
-    photoPreview.photoTakeType=@"model";
+    photoPreview.photoTakeType=[NSString stringWithFormat:@"%i",btn.tag];
     [self.navigationController pushViewController:photoPreview animated:YES];
 }
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+	NSData *dataImage = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"],1);
+    UIImage *img = [[UIImage alloc] initWithData:dataImage];
+
+    
+}
+
 
 - (void)viewDidUnload
 {

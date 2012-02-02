@@ -42,6 +42,7 @@
 #import "FbGraph.h"
 #import "SBJSON.h"
 #import "FbGraphFile.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation FbGraph
 
@@ -63,7 +64,7 @@
 
 - (void)authenticateUserWithCallbackObject:(id)anObject andSelector:(SEL)selector andExtendedPermissions:(NSString *)extended_permissions andSuperView:(UIView *)super_view {
 	
-	self.callbackObject = anObject;
+	/*self.callbackObject = anObject;
 	self.callbackSelector = selector;
 	
 	NSString *url_string = [NSString stringWithFormat:@"https://graph.facebook.com/oauth/authorize?client_id=%@&redirect_uri=%@&scope=%@&type=user_agent&display=touch", facebookClientID, redirectUri, extended_permissions];
@@ -80,9 +81,47 @@
 	[aWebView release];
 	
 	[webView loadRequest:request];	
-	[super_view addSubview:webView];
+	[super_view addSubview:webView];*/
+    
+    
+    
+    self.callbackObject = anObject;
+    self.callbackSelector = selector;
+    
+    NSString *url_string = [NSString stringWithFormat:@"https://graph.facebook.com/oauth/authorize?client_id=%@&redirect_uri=%@&scope=%@&type=user_agent&display=touch", facebookClientID, redirectUri, extended_permissions];
+    NSURL *url = [NSURL URLWithString:url_string];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    CGRect webFrame = CGRectMake(10, 70, 750, 900);
+    
+    
+    aWebView = [[UIWebView alloc] initWithFrame:webFrame];
+    [aWebView setDelegate:self];
+    
+    aWebView.layer.masksToBounds=YES;
+    aWebView.layer.cornerRadius=10.0;
+    aWebView.layer.borderWidth=1.0;
+    aWebView.layer.borderColor=[[UIColor blackColor] CGColor];
+    self.webView = aWebView;
+    
+    [aWebView release];
+    
+    [webView loadRequest:request]; 
+    [super_view addSubview:webView];
+    
+    b = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [b addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [b setBackgroundImage:[UIImage imageNamed:@"closeButton.png"] forState:UIControlStateNormal];
+    b.frame=CGRectMake(2,65,50,50);
+    [super_view addSubview:b];
+    
 }
-
+-(IBAction) buttonClicked : (id) sender
+{
+    [aWebView removeFromSuperview];
+    [b removeFromSuperview];
+}
 -(void)authenticateUserWithCallbackObject:(id)anObject andSelector:(SEL)selector andExtendedPermissions:(NSString *)extended_permissions {
 	
 	UIWindow* window = [UIApplication sharedApplication].keyWindow;

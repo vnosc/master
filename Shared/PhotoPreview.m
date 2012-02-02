@@ -50,7 +50,7 @@
     [super viewDidLoad];
     
     
-    preViewBottom=[[UIView alloc]initWithFrame:CGRectMake(0, 820, 768, 140)];
+    preViewBottom=[[UIView alloc]initWithFrame:CGRectMake(0, 720, 768, 140)];
     preViewBottom.backgroundColor=[UIColor clearColor];
     [self.view addSubview:preViewBottom];
     UILabel *labelInfo=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 768, 60)];
@@ -72,28 +72,36 @@
     
     
     
-    imagePickerController=[[UIImagePickerController alloc]init];
-    imagePickerController.delegate=self;
+    //imagePickerController=[[UIImagePickerController alloc]init];
+    //imagePickerController.delegate=self;
     if([photoTakeType isEqualToString:@"camera"])
     {
-        imagePickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
+       // imagePickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
+        [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(jump1) userInfo:nil repeats:NO];
+        
     }
+    
     else if([photoTakeType isEqualToString:@"gellary"])
     {
-        imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+       // imagePickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
         
         [NSTimer scheduledTimerWithTimeInterval:0.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
+    }
+    else if([photoTakeType isEqualToString:@"1"])
+    {
+        [preViewBottom removeFromSuperview];
+        preViewImageView.image=[UIImage imageNamed:@"main-cropped.jpg"];
+        [self addRightCircle:CGRectMake(80,160,600,200) image:@"spectDemo.png"];
+        [self addSpectTryOnView];
     }
     else
     {
         [preViewBottom removeFromSuperview];
-        preViewImageView.image=[UIImage imageNamed:@"main-cropped.jpg"];
-        [self addRightCircle:CGRectMake(80,160,600,200) image:@"2.png"];
+        preViewImageView.image=[UIImage imageNamed:@"FSMaleModelPhoto.jpg"];
+        [self addRightCircle:CGRectMake(140,265,470,130) image:@"spectDemo.png"];
         [self addSpectTryOnView];
     }
      
-    
-    
 }
 
 -(IBAction)doneButtonClick:(id)sender
@@ -139,7 +147,7 @@
     */
     
     [holderview removeFromSuperview];
-    [self addRightCircle:CGRectMake(holderview.frame.origin.x, holderview.frame.origin.y, holderview1.frame.origin.x+holderview1.frame.size.width -holderview.frame.origin.x,100) image:@"2.PNG"];
+    [self addRightCircle:CGRectMake(holderview.frame.origin.x, holderview.frame.origin.y, holderview1.frame.origin.x+holderview1.frame.size.width -holderview.frame.origin.x,100) image:@"spectDemo.png"];
     /*
     [holderview1 setFrame:CGRectMake(holderview.frame.origin.x, holderview.frame.origin.y, holderview1.frame.origin.x+holderview1.frame.size.width -holderview.frame.origin.x,100)];
     rightEye.image=[UIImage imageNamed:@"2.PNG"];
@@ -198,39 +206,41 @@
     
     UIButton *mailButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [mailButton setFrame:CGRectMake(320, 62,75 ,75)];
-    [mailButton setBackgroundImage:[UIImage imageNamed:@"TO_mail.png"] forState:UIControlStateNormal];
+    [mailButton setBackgroundImage:[UIImage imageNamed:@"FS_mailIcon.png"] forState:UIControlStateNormal];
     mailButton.titleLabel.textColor=[UIColor whiteColor];
     [mailButton addTarget:self action:@selector(mailButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [DoneTryOnView addSubview:mailButton];
     
     UIButton *fbButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [fbButton setFrame:CGRectMake(397, 62,75 ,75)];
-    [fbButton setBackgroundImage:[UIImage imageNamed:@"TO_fb.png"] forState:UIControlStateNormal];
+    [fbButton setBackgroundImage:[UIImage imageNamed:@"FSFbButton.png"] forState:UIControlStateNormal];
     fbButton.titleLabel.textColor=[UIColor whiteColor];
     [fbButton addTarget:self action:@selector(fbButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [DoneTryOnView addSubview:fbButton];
-    
+    /*
     UIButton *inButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [inButton setFrame:CGRectMake(475, 62,75 ,75)];
     [inButton setBackgroundImage:[UIImage imageNamed:@"TO_linkedin.png"] forState:UIControlStateNormal];
     inButton.titleLabel.textColor=[UIColor whiteColor];
     [inButton addTarget:self action:@selector(inButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [DoneTryOnView addSubview:inButton];
-
+*/
     UIButton *saveDoneButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [saveDoneButton setFrame:CGRectMake(552, 62,75 ,75)];
-    [saveDoneButton setBackgroundImage:[UIImage imageNamed:@"TO_save.png"] forState:UIControlStateNormal];
+    [saveDoneButton setFrame:CGRectMake(475, 62,75 ,75)];
+    [saveDoneButton setBackgroundImage:[UIImage imageNamed:@"FSsaveButton.png"] forState:UIControlStateNormal];
     saveDoneButton.titleLabel.textColor=[UIColor whiteColor];
     [saveDoneButton addTarget:self action:@selector(saveButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [DoneTryOnView addSubview:saveDoneButton];
     
     UIButton *printButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [printButton setFrame:CGRectMake(630, 62,75 ,75)];
-    [printButton setBackgroundImage:[UIImage imageNamed:@"TO_print1.png"] forState:UIControlStateNormal];
+    [printButton setFrame:CGRectMake(552, 62,75 ,75)];
+    [printButton setBackgroundImage:[UIImage imageNamed:@"FSPrintButton.png"] forState:UIControlStateNormal];
     printButton.titleLabel.textColor=[UIColor whiteColor];
     [printButton addTarget:self action:@selector(printButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [DoneTryOnView addSubview:printButton];
+    
     preViewImageView.image=[self screenshot];
+    //[holderview1 removeFromSuperview];
 }
 
 -(IBAction)noButtonClick:(id)sender
@@ -238,10 +248,24 @@
     
 }
 
+-(void)jump1
+{
+    UIImagePickerController *picker	= [[UIImagePickerController alloc]init];
+	picker.delegate = self;
+	picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	//picker.wantsFullScreenLayout = YES;
+    [self presentModalViewController:picker animated:YES];
+}
 
 -(void)jump
 {
-    popOverController = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+    UIImagePickerController *picker	= [[UIImagePickerController alloc]init];
+	picker.delegate = self;
+	picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	//picker.wantsFullScreenLayout = YES;
+   // [self presentModalViewController:picker animated:YES];
+    
+    popOverController = [[UIPopoverController alloc] initWithContentViewController:picker];
     popOverController.delegate = self;
    
     popOverController.popoverContentSize=CGSizeMake(200,200);
@@ -260,12 +284,18 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     
     [self addLeftCircle];
-    [self addRightCircle:CGRectMake(400,300,120,120) image:@"right.png"];
+    [self addRightCircle:CGRectMake(400,300,120,120) image:@"right1.png"];
     
     
     [picker dismissModalViewControllerAnimated:YES];
+   // [imagePickerController dismissModalViewControllerAnimated:YES];
     [popOverController dismissPopoverAnimated:YES];
     
+}
+-(void)imagePickerControllerDidCancel:
+(UIImagePickerController *)picker
+{
+    [picker dismissModalViewControllerAnimated:YES];
 }
 -(void)move:(id)sender {
 	
@@ -383,9 +413,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[[picker parentViewController] dismissModalViewControllerAnimated:YES];
-}
+
 
 
 - (void)viewDidUnload
@@ -649,7 +677,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
     // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
     //CGSize imagesize = [[UIScreen mainScreen] bounds].size;
-   CGSize imagesize= CGSizeMake(768,820);
+   CGSize imagesize= CGSizeMake(768,720);
     if (NULL != UIGraphicsBeginImageContextWithOptions)
         UIGraphicsBeginImageContextWithOptions(imagesize, NO, 0);
     else

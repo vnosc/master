@@ -15,7 +15,8 @@
 #import "FrameSelectionandValidationNew.h"
 #import "LensSelectionandValidation.h"
 #import "UnityOpticsVideoView.h"
-
+#import "FSHomePage.h"
+#import "FSFavoritesView.h"
 extern int providerId;
 extern ServiceObject* mobileSessionXML;
 
@@ -37,7 +38,7 @@ extern NSArray* patientImagesMeasured;
 @synthesize hackDropDownView2;
 @synthesize sectionBtns;
 @synthesize sectionSubmenuViews;
-
+@synthesize rdx;
 - (NSString*) backgroundImageName { return @"MenuBackground.png"; }
 //- (NSString*) buttonImageName { return @"MenuButton.png"; }
 //- (NSString*) buttonHighlightedImageName { return @"MenuButtonTouch.png"; }
@@ -125,6 +126,14 @@ extern NSArray* patientImagesMeasured;
 	ncFrameStyling = [[UINavigationController alloc] initWithRootViewController:fs];
 	ncFrameStyling.title = @"Frame Styling";
 	
+    
+   /* FrameCatelogs *frameCatelogs=[[FrameCatelogs alloc]init];
+    frameCatelogs.hidesBottomBarWhenPushed=YES;
+    TOTakePhotoView *takePhotoView=[[TOTakePhotoView alloc]init];
+    takePhotoView.hidesBottomBarWhenPushed=YES;
+    RXCustomTabBar1 *rdx=[[RXCustomTabBar1 alloc]init];
+    [rdx setViewControllers:[NSArray arrayWithObjects:frameCatelogs,takePhotoView, nil]];
+   */
 	// ----------
 	
 	/*h = [[CaptureOverview alloc]init];
@@ -181,9 +190,30 @@ extern NSArray* patientImagesMeasured;
 }
 
 - (IBAction)frameStylingBtnClick:(id)sender {
-	FrameStyling *p = [[FrameStyling alloc] init];
+	/*FrameStyling *p = [[FrameStyling alloc] init];
 	p.title = @"Frame Styling";
-	[self.navigationController pushViewController:p animated:YES];
+	[self.navigationController pushViewController:p animated:YES];*/
+    
+    FrameCatelogs *frameCatelogs=[[FrameCatelogs alloc]init];
+    //frameCatelogs.hidesBottomBarWhenPushed=YES;
+    
+  //  UINavigationController *frameCatNavController=[[UINavigationController alloc]initWithRootViewController:frameCatelogs];
+    
+    TOTakePhotoView *takePhotoView=[[TOTakePhotoView alloc]init];
+   // takePhotoView.hidesBottomBarWhenPushed=YES;
+   // UINavigationController *takePhotoNavController=[[UINavigationController alloc]initWithRootViewController:takePhotoView];
+    
+    FSHomePage *homePage=[[FSHomePage alloc]init];
+    
+    
+    FSFavoritesView *favorites=[[FSFavoritesView alloc]init];
+    
+     rdx=[[RXCustomTabBar1 alloc]init];
+    [rdx setViewControllers:[NSArray arrayWithObjects:homePage,frameCatelogs,takePhotoView,favorites, nil]];
+    //rdx.selectedIndex=2;
+//    self.navigationController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:rdx animated:YES]; 
+     
 }
 
 - (IBAction)privatePatientBtnClick:(id)sender {

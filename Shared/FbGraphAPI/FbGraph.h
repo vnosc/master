@@ -48,6 +48,8 @@
 	
 	id callbackObject;
 	SEL callbackSelector;
+    UIButton *b;
+    UIWebView *aWebView;
 	
 }
 

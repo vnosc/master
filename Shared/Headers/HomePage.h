@@ -25,6 +25,11 @@
 
 #import "SelectionSubmenu.h"
 
+
+#import "TOTakePhotoView.h"
+#import "RXCustomTabBar1.h"
+#import "FrameCatelogs.h"
+
 #ifndef HOMEPAGE_H
 
 //#define HOMEPAGE_H
@@ -42,6 +47,9 @@
 	Lenses *framevalidate;
 	Adjust *lensselect;
 	CreateUser *lensvalidate;
+    
+    UINavigationController *ncFrameStyling;
+    RXCustomTabBar1 *rdx;
 	
 	UITabBarController *tabbar;
 	UITabBarController *tabbar2;
@@ -58,7 +66,7 @@
 	IBOutlet UIButton *contactLensSelectionBtn;
 	IBOutlet UIButton *patientImageBtn;
 }
-
+@property (nonatomic,retain)RXCustomTabBar1 *rdx;
 @property (nonatomic,retain) MainViewController *mainview;
 
 @property (nonatomic,retain) CaptureOverview *h;

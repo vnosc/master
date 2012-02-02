@@ -54,7 +54,7 @@
 {
 	NSString *wsurl = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Web Service URL"];
 	NSString *url = [NSString stringWithFormat:@"%@%@", wsurl, serviceString];
-	NSLog(url);
+	NSLog(@"URL String :%@",url);
 	return url;
 }
 

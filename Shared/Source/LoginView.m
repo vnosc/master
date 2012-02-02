@@ -111,9 +111,13 @@ extern ServiceObject* mobileSessionXML;
 {
    if([username.text length]==0 || [password.text length]==0)
     {
+        
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
+        
+        
+       // [mainView showHome];
     }
     else
     {
