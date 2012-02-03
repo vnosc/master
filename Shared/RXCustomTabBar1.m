@@ -53,7 +53,7 @@
     UIImage *btnbgImage = [UIImage imageNamed:@"FStabar.png"];
 
     self.btnBg = [UIButton buttonWithType:UIButtonTypeCustom]; //Setup the button
-	btnBg.frame = CGRectMake(0,836, 768, 75);; // Set the frame (size and position) of the button)
+	btnBg.frame = CGRectMake(0,880, 768, 75);; // Set the frame (size and position) of the button)
 	[btnBg setBackgroundImage:btnbgImage forState:UIControlStateNormal]; // Set the image for the normal state of the button
 	//[btn1 setBackgroundImage:btnImageSelected forState:UIControlStateSelected]; // Set the image for the selected state of the button
 	[btnBg setTag:0]; // Assign the button a "tag" so when our "click" event is called we know which button was pressed.
@@ -65,7 +65,7 @@
 	UIImage *btnImageSelected = [UIImage imageNamed:@"home1.png"];
 	
 	self.btn1 = [UIButton buttonWithType:UIButtonTypeCustom]; //Setup the button
-	btn1.frame = CGRectMake(80,836, 80, 75); // Set the frame (size and position) of the button)
+	btn1.frame = CGRectMake(80,880, 80, 75); // Set the frame (size and position) of the button)
 	[btn1 setBackgroundImage:btnImage forState:UIControlStateNormal]; // Set the image for the normal state of the button
 	[btn1 setBackgroundImage:btnImageSelected forState:UIControlStateSelected]; // Set the image for the selected state of the button
 	[btn1 setTag:0]; // Assign the button a "tag" so when our "click" event is called we know which button was pressed.
@@ -75,7 +75,7 @@
 	btnImage = [UIImage imageNamed:@"search1.png"];
 	btnImageSelected = [UIImage imageNamed:@"search01.png"];
 	self.btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn2.frame = CGRectMake(240, 836, 80, 75);
+	btn2.frame = CGRectMake(240, 880, 80, 75);
 	[btn2 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn2 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
 	[btn2 setTag:1];
@@ -83,7 +83,7 @@
 	btnImage = [UIImage imageNamed:@"spect1.png"];
 	btnImageSelected = [UIImage imageNamed:@"spect01.png"];
 	self.btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn3.frame = CGRectMake(400,836, 80, 75);
+	btn3.frame = CGRectMake(400,880, 80, 75);
 	[btn3 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn3 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
 	[btn3 setTag:2];
@@ -92,7 +92,7 @@
 	btnImage = [UIImage imageNamed:@"FSfavorite.png"];
 	btnImageSelected = [UIImage imageNamed:@"FSfavorite01.png"];
 	self.btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn4.frame = CGRectMake(560, 836, 80, 75);
+	btn4.frame = CGRectMake(560, 880, 80, 75);
 	[btn4 setBackgroundImage:btnImage forState:UIControlStateNormal];
 	[btn4 setBackgroundImage:btnImageSelected forState:UIControlStateSelected];
 	[btn4 setTag:3];

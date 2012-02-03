@@ -79,14 +79,6 @@
     
     NSLog(@"Manufacture name list : %@",manName);
     
-    
-    
-    
-    
-    
-    
-    
-    
     // NSArray *array=[[NSArray alloc]initWithObjects:@"autoFex",@"Blue Ribbon",@"ok Optical",@"ok Suns",@"Calvin Klein Optical",@"Calvin Klein Suns",@"Coach Ophthalmic",@" Coach Sun" ,nil];
     // NSArray *imageArray=[[NSArray alloc]initWithObjects:@"spectdemo1.png",@"spectdemo2.png",@"spectdemo3.png",@"spect4.png",@"spect5.png",@"spectdemo6.png", nil];
     for (int i=0;i<[manName count]; i++)
@@ -267,7 +259,7 @@
     {
         [imageScrollView removeFromSuperview];
     }
-    imageScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(245, 580, 500, 150)];
+    imageScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(215, 635, 532, 125)];
     imageScrollView.layer.cornerRadius=10.0;
     imageScrollView.alwaysBounceHorizontal=YES;
     imageScrollView.alwaysBounceVertical=NO;
@@ -301,7 +293,7 @@
         }
         
         
-        CGRect imgRect=CGRectMake(i*150,0,150,125);
+        CGRect imgRect=CGRectMake(i*150,0,150,100);
         asyncImage = [[[AsyncImageView alloc]
                        initWithFrame:imgRect] autorelease];
         
@@ -324,7 +316,7 @@
         
         [imageScrollView addSubview:asyncImage];
         
-        UILabel *frameTypelbl=[[UILabel alloc]initWithFrame:CGRectMake(i*150,125,150,25)];
+        UILabel *frameTypelbl=[[UILabel alloc]initWithFrame:CGRectMake(i*150,100,150,25)];
         frameTypelbl.backgroundColor=[UIColor grayColor];
         frameTypelbl.text=[frameTypeArray objectAtIndex:i];
         frameTypelbl.textColor=[UIColor whiteColor];
@@ -334,7 +326,7 @@
          
     }
  //   NSLog(@"ARRAY COUNT :%i",[frameIdArray count]);
-    imageScrollView.contentSize=CGSizeMake([frameIdArray count]*150, 150);
+    imageScrollView.contentSize=CGSizeMake([frameIdArray count]*150, 125);
     [self.view addSubview:imageScrollView];
     
     
