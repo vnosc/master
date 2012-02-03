@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //#import "HomePage.h"
-@interface FSHomePage : UIViewController <UITabBarControllerDelegate>
+@interface FSHomePage : BackgroundViewController <UITabBarControllerDelegate>
 {
     //SmartI_HomePage *home;
     UIActivityIndicatorView *activityIndicator;

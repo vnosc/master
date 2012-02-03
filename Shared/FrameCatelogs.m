@@ -28,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        selectedCollectionBtn = [[UIButton alloc] retain];
+        selectedCollectionBtn = [[UIButton alloc] init];
     }
     NSLog(@".......1..............");
     return self;
@@ -38,7 +38,7 @@
 {
     [super viewWillAppear:animated];
     NSLog(@".......3..............");
-    
+
     frameView.layer.cornerRadius=20.0;
     
         //[self fillImageScrollView];
@@ -85,7 +85,7 @@
     // NSArray *imageArray=[[NSArray alloc]initWithObjects:@"spectdemo1.png",@"spectdemo2.png",@"spectdemo3.png",@"spect4.png",@"spect5.png",@"spectdemo6.png", nil];
     for (int i=0;i<[manName count]; i++)
     {
-        UIButton *catListBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *catListBtn=[[UIButton buttonWithType:UIButtonTypeCustom] retain];
         catListBtn.frame=CGRectMake(5,30*i,230, 30);
         [catListBtn setTitle:[manName objectAtIndex:i] forState:UIControlStateNormal];
         //catListBtn.titleLabel.textColor=[UIColor blackColor];
@@ -159,7 +159,7 @@
     UIButton *btn=(UIButton *)sender;
     
     
-    NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameImage.aspx?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
+    NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameThumbnail.aspx?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
     
     NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws//mobilewebservice.asmx/GetFrameInfoByFrameId?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
     
@@ -221,11 +221,13 @@
 -(void)clickCatelogsButton:(id)sender
 {
     UIButton *btn=(UIButton *)sender;
+
+    for (UIView *v in self.frameCatScrollView.subviews)
+    {
+        if ([v class] == [UIButton class])
+            [(UIButton*)v setSelected:NO];
+    }
     
-    if (selectedCollectionBtn != nil)
-        [selectedCollectionBtn setSelected:NO];
-    
-    selectedCollectionBtn = btn;
     [btn setSelected:YES];
     
     [titelButton setTitle:@"MARCHON" forState:UIControlStateNormal];
@@ -315,7 +317,7 @@
         
         asyncImage.tag =999;        
         
-        NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameImage.aspx?frameId=%@",[frameIdArray objectAtIndex:i]];
+        NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameThumbnail.aspx?frameId=%@",[frameIdArray objectAtIndex:i]];
         
         NSLog(@"the url three is : %@",urldata);
         

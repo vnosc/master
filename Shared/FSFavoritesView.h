@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FSFavoritesView : UIViewController
+@interface FSFavoritesView : BackgroundViewController
 {
     IBOutlet UIView *viewLayer;
 }

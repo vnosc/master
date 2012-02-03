@@ -10,7 +10,7 @@
 #import "FrameCollectionView.h"
 #import "asyncimageview.h"
 @class FrameCollectionView;
-@interface FrameCatelogs : UIViewController <MBProgressHUDDelegate>
+@interface FrameCatelogs : BackgroundViewController <MBProgressHUDDelegate>
 {
     IBOutlet UIScrollView *frameCatScrollView;
     IBOutlet UIImageView *selectMainFrameImage;
@@ -37,7 +37,6 @@
     IBOutlet UIButton *collectionButton;
     
     IBOutlet UIView *frameView;
-   
     
 }
 @property (nonatomic,retain)IBOutlet UILabel *EyeLbl;
