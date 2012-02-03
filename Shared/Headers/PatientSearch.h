@@ -14,16 +14,25 @@
 
 @interface PatientSearch : BackgroundViewController
 
-@property (retain, nonatomic) IBOutlet UITextField *patientId;
-@property (retain, nonatomic) IBOutlet DatePickerTextField *dob1;
-
+@property (retain, nonatomic) IBOutlet UITextField *patientFirstName;
 @property (retain, nonatomic) IBOutlet UITextField *patientLastName;
-@property (retain, nonatomic) IBOutlet DatePickerTextField *dob2;
+@property (retain, nonatomic) IBOutlet DatePickerTextField *dob;
 
-- (IBAction)searchByPatientId:(id)sender;
-- (IBAction)searchByLastName:(id)sender;
-- (IBAction)newPatient:(id)sender;
+@property (retain, nonatomic) IBOutlet UILabel *providerNameLbl;
+
+@property (retain, nonatomic) IBOutlet UIView *memberDetailsView;
+@property (retain, nonatomic) IBOutlet UIScrollView *patientListSV;
+@property (retain, nonatomic) IBOutlet UILabel *patientListHeader1;
+@property (retain, nonatomic) IBOutlet UILabel *patientListHeader2;
+@property (retain, nonatomic) IBOutlet UILabel *patientListHeader3;
+
+@property (retain, nonatomic) MBProgressHUD *HUD;
+
+- (IBAction)search:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (void)loadImagesAndFinish:(id)sender;
+- (void)loadPatientImages;
+- (void) showMemberDetails;
 
 -(void) continueToPrescriptionPage;
 -(void) continueToNewPatientPage;

@@ -11,10 +11,15 @@
 #import "ListsTableViewController.h"
 #import "PatientPrescription.h"
 #import "PatientRecord.h"
+#import "PatientCoverageSummary.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 @interface PackageSelection : BackgroundViewController
+{
+    UIViewController *nextPopup;
+    BOOL doSummonPopup;
+}
 @property (retain, nonatomic) IBOutlet UIScrollView *packageSelectorView;
 @property (retain, nonatomic) IBOutlet UIView *packageSelectorTestView;
 @property (retain, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -24,6 +29,7 @@
 @property (retain, nonatomic) IBOutlet UIView *frameSelectorContent;
 @property (retain, nonatomic) IBOutlet UIView *frameInfoView;
 @property (retain, nonatomic) IBOutlet UIView *packageInfoView;
+@property (retain, nonatomic) IBOutlet UIView *patientInfoView;
 @property (retain, nonatomic) IBOutlet UIView *priceView;
 @property (retain, nonatomic) IBOutlet UITextField *txtPatientName;
 @property (retain, nonatomic) IBOutlet UITextField *txtMemberId;

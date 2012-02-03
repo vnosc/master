@@ -24,6 +24,8 @@
     
     UIActivityIndicatorView *indicator;
     
+    UIButton *selectedCollectionBtn;
+    
     IBOutlet UILabel *EyeLbl;
     IBOutlet UILabel *ALbl;
     IBOutlet UILabel *BLbl;
@@ -32,6 +34,7 @@
     IBOutlet UILabel *templeLbl;
     
     IBOutlet UIButton *titelButton;
+    IBOutlet UIButton *collectionButton;
     
     IBOutlet UIView *frameView;
    

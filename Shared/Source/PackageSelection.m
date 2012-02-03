@@ -27,6 +27,7 @@ extern ServiceObject* prescriptionXML;
 @synthesize frameSelectorContent;
 @synthesize frameInfoView;
 @synthesize packageInfoView;
+@synthesize patientInfoView;
 @synthesize priceView;
 @synthesize txtPatientName;
 @synthesize txtMemberId;
@@ -103,6 +104,9 @@ extern ServiceObject* prescriptionXML;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 
+        nextPopup = [UIViewController alloc];
+        doSummonPopup = NO;
+        
 		self.toolbar.bounds = CGRectMake(self.toolbar.bounds.origin.x, self.navigationController.view.bounds.origin.y + self.navigationController.view.bounds.size.height, self.toolbar.bounds.size.width, self.toolbar.bounds.size.height);
 		
 		self.selectedFrameIndex = -1;
@@ -260,24 +264,67 @@ extern ServiceObject* prescriptionXML;
 	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	if (memberId == @"0" || patientId == 0)
 	{
-		PatientRecord *patient=[[PatientRecord alloc]init];
-		patient.title=@"Patient Record";
-		//[self.navigationController pushViewController:patient animated:YES];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"PatientRecordDidFinish" object:patient];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"PatientRecordDidCancel" object:patient];
-		
-		[self presentModalViewController:patient animated:YES];
+        [self beginPatientSearch];
+
 		return;
 	}
 	
 	if (!self.hasLoaded)
 	{
+ 
+        [self beginAuthorization];
+    
+        
 		[self loadEverything];
 	}
+    
+    if (doSummonPopup)
+    {
+        NSLog(@"summoning nextpopup");
+        [self presentModalViewController:nextPopup animated:YES]; 
+        nextPopup = nil;
+        doSummonPopup = NO;
+    }
 }
+
+- (void)beginPatientSearch
+{
+    MemberSearch *patient=[[MemberSearch alloc]init];
+    patient.title=@"Member Search";
+    //[self.navigationController pushViewController:patient animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"MemberSearchDidFinish" object:patient];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"MemberSearchDidCancel" object:patient];
+    
+    [self presentModalViewController:patient animated:YES];
+}
+
+- (void)beginAuthorization
+{
+    PatientCoverageSummary *patient=[[PatientCoverageSummary alloc]init];
+    patient.title=@"Patient Coverage";
+    //[self.navigationController pushViewController:patient animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientCoverageSummaryDidFinish:) name:@"PatientCoverageSummaryDidFinish" object:patient];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientCoverageSummaryDidCancel:) name:@"PatientCoverageSummaryDidCancel" object:patient];
+    
+    nextPopup = patient;
+    doSummonPopup = YES;
+}
+
+- (void)showPatientRecord
+{
+    PatientRecord *patient=[[PatientRecord alloc]init];
+    patient.title=@"Patient Record";
+    
+    nextPopup = patient;
+    doSummonPopup = YES;
+}
+
 - (void)memberSearchDidFinish:(NSNotification*)n
 {
+    
+    [self beginAuthorization];
 	[self loadEverything];
 }
 
@@ -287,6 +334,17 @@ extern ServiceObject* prescriptionXML;
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) patientCoverageSummaryDidFinish:(NSNotification*)n
+{
+	NSLog(@"found coverage");
+    [self showPatientRecord];
+}
+
+- (void) patientCoverageSummaryDidCancel:(NSNotification*)n
+{
+	NSLog(@"cancelled patient coverage summary in package selection");
+	[self.navigationController popViewControllerAnimated:YES];
+}
 - (void) setupView
 {
 	NSLog(@"View load");
@@ -294,7 +352,7 @@ extern ServiceObject* prescriptionXML;
 	self.fontName = @"Verdana";
 	
 	self.smallFont = [UIFont fontWithName:@"Verdana" size:11.0f];
-	self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"PackageSelectionBackground.png"]];
+	self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"MainBackground.png"]];
 		
 	self.materialList.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.materialList.tableView.backgroundColor = [UIColor clearColor];
@@ -320,7 +378,9 @@ extern ServiceObject* prescriptionXML;
 	self.frameSelectorView.contentSize = CGSizeMake(1500, self.frameSelectorView.frame.size.height);
 	
 	[self createGradientForLayer:self.frameInfoView.layer];
-	
+    [self createGradientForLayer:self.frameSelectorView.layer];
+    [self createGradientForLayer:self.packageInfoView.layer];
+	[self createGradientForLayer:self.patientInfoView.layer];
 }
 
 - (void) loadEverything
@@ -1361,6 +1421,7 @@ extern ServiceObject* prescriptionXML;
 	[self setFrameGender:nil];
 	[self setFrameTemple:nil];
 	[self setFrameColorLabel:nil];
+    [self setPatientInfoView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -1423,6 +1484,7 @@ extern ServiceObject* prescriptionXML;
 	[frameGender release];
 	[frameTemple release];
 	[frameColorLabel release];
+    [patientInfoView release];
 	[super dealloc];
 }
 

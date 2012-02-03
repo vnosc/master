@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PatientSearch.h"
+#import "MemberRecord.h"
 #import "PatientPrescription.h"
 #import "NewUser.h"
 
@@ -15,18 +15,28 @@ extern ServiceObject* mobileSessionXML;
 extern ServiceObject* patientXML;
 extern NSArray *patientImages;
 
-@implementation PatientSearch
+@implementation MemberRecord
 
+@synthesize memberSSN;
+@synthesize memberId;
 @synthesize dob;
-@synthesize patientFirstName;
-@synthesize patientLastName;
-@synthesize providerNameLbl;
+@synthesize memberFirstName;
+@synthesize memberDate;
+@synthesize memberNameLbl;
+@synthesize memberPlanLbl;
+@synthesize memberPlanTypeDescLbl;
+@synthesize memberInfoView;
+@synthesize authView;
+@synthesize authSubView;
+@synthesize patientListView;
+@synthesize patientListSubview;
 @synthesize memberDetailsView;
 @synthesize patientListSV;
 @synthesize patientListHeaderView;
 @synthesize patientListHeader1;
 @synthesize patientListHeader2;
 @synthesize patientListHeader3;
+@synthesize memberLastName;
 
 @synthesize HUD;
 
@@ -49,26 +59,33 @@ extern NSArray *patientImages;
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-	
+    [super viewWillAppear:animated];
+    
+    [self setBoxBackgroundLarge:self.memberInfoView];
+    [self setBoxBackgroundLarge:self.authView];
+    [self setBoxBackgroundLarge:self.patientListView];
+    
+    [self setBoxBackground:self.authSubView];
+    [self setBoxBackground:self.patientListSubview];
+    
 	self.patientListSV.bounces = NO;
 	self.patientListSV.showsVerticalScrollIndicator = YES;
 	self.patientListSV.showsHorizontalScrollIndicator = NO;
 	
 	NSString* memberId = [mobileSessionXML getTextValueByName:@"memberId"];
+    NSLog(@"memberId: %@", memberId);
+    
 	if ([memberId length] > 0 && [memberXML hasData])
 	{
-		NSString* memberId = [memberXML getTextValueByName:@"MemberID"];
-		NSString* memberDOB = [[memberXML getTextValueByName:@"DOB"] substringToIndex:10];
-		
-		self.memberId.text = memberId;
-		self.dob.text = memberDOB;
-		
 		[self showMemberDetails];
 	}
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
 	
 }
 
@@ -91,6 +108,12 @@ extern NSArray *patientImages;
 	[self setPatientListHeader3:nil];
 	[self setMemberPlanLbl:nil];
 	[self setMemberPlanTypeDescLbl:nil];
+    [self setSearchCriteriaView:nil];
+    [self setMemberInfoView:nil];
+    [self setAuthView:nil];
+    [self setPatientListView:nil];
+    [self setPatientListSubview:nil];
+    [self setAuthSubView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -107,7 +130,7 @@ extern NSArray *patientImages;
 	//[self.navigationController popViewControllerAnimated:YES];
 	
 	//[self dismissModalViewControllerAnimated:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberSearchDidFinish" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberRecordDidFinish" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 	
     /*PatientPrescription *patient=[[PatientPrescription alloc]init];
@@ -143,6 +166,11 @@ extern NSArray *patientImages;
 	[patientListHeader3 release];
 	[memberPlanLbl release];
 	[memberPlanTypeDescLbl release];
+    [memberInfoView release];
+    [authView release];
+    [patientListView release];
+    [patientListSubview release];
+    [authSubView release];
 	[super dealloc];
 }
 - (IBAction)search:(id)sender {
@@ -168,38 +196,9 @@ extern NSArray *patientImages;
 
 - (void) doSearch:(id)sender
 {
-	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMemberInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId.text, dob.text]];
-	
-	if([result hasData])
-	{
-		NSString* tempMemberId = [result getTextValueByName:@"MemberID"];
-		
-		if(!tempMemberId)
-		{
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"No members found." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];
-		}
-		else
-		{
-			memberXML = [result retain];
-			
-			[mobileSessionXML setObject:[NSString stringWithFormat:@"%@", tempMemberId] forKey:@"memberId"];
-			
-			[mobileSessionXML updateMobileSessionData];
-			
-			[self showMemberDetails];
-		}
-	}
-	else
-	{
-		//NSLog(@"Invalid response from web service at: %@", url);
-		
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Invalid response from server" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		[alert show];
-		[alert release];
-	}
+    [self showMemberDetails];
 }
+
 - (void) showMemberDetails
 {
 	NSString* memberFN = [[memberXML getTextValueByName:@"Memberfirstname"] uppercaseString];
@@ -254,15 +253,29 @@ extern NSArray *patientImages;
 			NSLog(@"adding patient %d", patientId);
 			[b addTarget:self action:@selector(patientBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 			
-            [self addMemberLabel:[NSString stringWithFormat:@"%@, %@", patientLN, memberFN] x:hx1 y:ny];
-            
-            [self addMemberLabel:memberDOB x:hx2 y:ny];
+			UILabel *l = [[UILabel alloc] init];
+			l.text = [NSString stringWithFormat:@"%@, %@", patientLastName, patientFirstName];
+			l.textColor = [UIColor whiteColor];
+			l.backgroundColor = [UIColor clearColor];
+			[l sizeToFit];
+			l.frame = CGRectMake(hx1, ny, l.frame.size.width, l.frame.size.height);			
+			[self.patientListSV addSubview:l];
 			
-            [self addMemberLabel:memberSSN4 x:hx3 y:ny];		
-            
-            [self addMemberLabel:[NSString stringWithFormat:@"%@, %@", memberCity, memberState] x:hx4 y:ny];
-            
-            [self addMemberLabel:@"ACTIVES BUY-UP" x:hx5 y:ny];
+			UILabel *l2 = [[UILabel alloc] init];
+			l2.text = patientRelation;
+			l2.textColor = [UIColor whiteColor];
+			l2.backgroundColor = [UIColor clearColor];
+			[l2 sizeToFit];
+			l2.frame = CGRectMake(hx2, ny, l2.frame.size.width, l2.frame.size.height);			
+			[self.patientListSV addSubview:l2];
+
+			UILabel *l3 = [[UILabel alloc] init];
+			l3.text = patientDOB;
+			l3.textColor = [UIColor whiteColor];
+			l3.backgroundColor = [UIColor clearColor];
+			[l3 sizeToFit];
+			l3.frame = CGRectMake(hx3, ny, l3.frame.size.width, l3.frame.size.height);			
+			[self.patientListSV addSubview:l3];
 			
 			ny += MAX(b.frame.size.height, l.frame.size.height);
 		}
@@ -275,17 +288,6 @@ extern NSArray *patientImages;
     [self applyChangesToSubviews:self.view];
     
 	self.memberDetailsView.hidden = NO;
-}
-
-- (void)addMemberLabel:(NSString*)text x:(int)x y:(int)y
-{
-    UILabel *l = [[UILabel alloc] init];
-    l.text = text;
-    l.textColor = [UIColor whiteColor];
-    l.backgroundColor = [UIColor clearColor];
-    [l sizeToFit];
-    l.frame = CGRectMake(x - self.memberListSV.frame.origin.x, y, l.frame.size.width, l.frame.size.height);			
-    [self.memberListSV addSubview:l];
 }
 
 - (void)patientBtnClick:(id)sender
@@ -346,7 +348,7 @@ extern NSArray *patientImages;
 }
 
 - (IBAction)cancel:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberSearchDidCancel" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberReportDidCancel" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 }
 @end

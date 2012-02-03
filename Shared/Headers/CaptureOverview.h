@@ -20,6 +20,8 @@
 #import "SupplyFrameInfo.h"
 #import "MBProgressHUD.h"
 
+#import "MemberSearch.h"
+
 @interface CaptureOverview : BackgroundViewController
 {
     int _patientId;

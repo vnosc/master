@@ -127,6 +127,8 @@
 		36A0C49B14CF008000AF5334 /* To_tabButtonOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A0C46A14CF008000AF5334 /* To_tabButtonOver.png */; };
 		36A0C49C14CF008000AF5334 /* TO_tweeter.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A0C46B14CF008000AF5334 /* TO_tweeter.png */; };
 		A70D99E41474119600008FBC /* CodeDescription.txt in Resources */ = {isa = PBXBuildFile; fileRef = A70D99E31474119600008FBC /* CodeDescription.txt */; };
+		A71F771314DB719B00B28F85 /* MemberRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A75C287B14DB5E8600D0A855 /* MemberRecord.m */; };
+		A71F771514DB71B300B28F85 /* MemberRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A75C287814DB5E6D00D0A855 /* MemberRecord.xib */; };
 		A724147C1481B20D003B3B0E /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A724147B1481B20D003B3B0E /* BackgroundViewController.m */; };
 		A724147D1481B20D003B3B0E /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A724147B1481B20D003B3B0E /* BackgroundViewController.m */; };
 		A72414811481B372003B3B0E /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A724147F1481B372003B3B0E /* MainBackground.png */; };
@@ -141,6 +143,8 @@
 		A73943BD14B36BFE006BFF36 /* face_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BA14B36BFE006BFF36 /* face_left.png */; };
 		A73943BE14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
 		A73943BF14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
+		A75C287914DB5E6D00D0A855 /* MemberRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A75C287814DB5E6D00D0A855 /* MemberRecord.xib */; };
+		A75C287C14DB5E8600D0A855 /* MemberRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A75C287B14DB5E8600D0A855 /* MemberRecord.m */; };
 		A76E78E514B49D5200D2A589 /* DefaultButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E214B49D5200D2A589 /* DefaultButton.png */; };
 		A76E78E614B49D5200D2A589 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E314B49D5200D2A589 /* LoginBackground.png */; };
 		A76E78E714B49D5200D2A589 /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E414B49D5200D2A589 /* MainBackground.png */; };
@@ -592,6 +596,10 @@
 		A7B82A0514DB3C60009CABD5 /* MeasureProcessStep.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B829DF14DB3C60009CABD5 /* MeasureProcessStep.m */; };
 		A7B82A0714DB3CD1009CABD5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B82A0614DB3CD1009CABD5 /* OpenGLES.framework */; };
 		A7B82A0914DB3CF5009CABD5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B82A0814DB3CF5009CABD5 /* CoreMotion.framework */; };
+		A7B82A0C14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B82A0B14DB47DC009CABD5 /* PatientCoverageSummary.m */; };
+		A7B82A0D14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B82A0B14DB47DC009CABD5 /* PatientCoverageSummary.m */; };
+		A7B82A0F14DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7B82A0E14DB47EB009CABD5 /* PatientCoverageSummary.xib */; };
+		A7B82A1014DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7B82A0E14DB47EB009CABD5 /* PatientCoverageSummary.xib */; };
 		A7BD1EA514AD069C006BEA80 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A796C69F1490BA8700D647C0 /* MessageUI.framework */; };
 		A7BD1EA714AD06A4006BEA80 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A796C6A01490BA8700D647C0 /* Security.framework */; };
 		A7BD1EA814AD06A4006BEA80 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79717B314830EEC0086C7B5 /* Twitter.framework */; };
@@ -1240,8 +1248,11 @@
 		A736C79A14746F6500A9B8E0 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = Shared/XIB/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		A73943BA14B36BFE006BFF36 /* face_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_left.png; sourceTree = "<group>"; };
 		A73943BB14B36BFE006BFF36 /* face_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_right.png; sourceTree = "<group>"; };
+		A747A3B314DB5FF40023097B /* MemberRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberRecord.h; sourceTree = "<group>"; };
 		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
+		A75C287814DB5E6D00D0A855 /* MemberRecord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberRecord.xib; sourceTree = "<group>"; };
+		A75C287B14DB5E8600D0A855 /* MemberRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberRecord.m; sourceTree = "<group>"; };
 		A76E78E214B49D5200D2A589 /* DefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButton.png; sourceTree = "<group>"; };
 		A76E78E314B49D5200D2A589 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginBackground.png; sourceTree = "<group>"; };
 		A76E78E414B49D5200D2A589 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainBackground.png; sourceTree = "<group>"; };
@@ -1572,6 +1583,9 @@
 		A7B829DF14DB3C60009CABD5 /* MeasureProcessStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasureProcessStep.m; sourceTree = "<group>"; };
 		A7B82A0614DB3CD1009CABD5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A7B82A0814DB3CF5009CABD5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		A7B82A0A14DB47CD009CABD5 /* PatientCoverageSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientCoverageSummary.h; sourceTree = "<group>"; };
+		A7B82A0B14DB47DC009CABD5 /* PatientCoverageSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientCoverageSummary.m; sourceTree = "<group>"; };
+		A7B82A0E14DB47EB009CABD5 /* PatientCoverageSummary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientCoverageSummary.xib; sourceTree = "<group>"; };
 		A7BD1EAA14AD2896006BEA80 /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
 		A7BD1EAB14AD2896006BEA80 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
 		A7BD1EAC14AD2896006BEA80 /* 13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 13.png; sourceTree = "<group>"; };
@@ -2775,6 +2789,9 @@
 		A7E9CB9E14743F94004EF3D4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A747A3B314DB5FF40023097B /* MemberRecord.h */,
+				A75C287B14DB5E8600D0A855 /* MemberRecord.m */,
+				A75C287814DB5E6D00D0A855 /* MemberRecord.xib */,
 				A7B829CA14DB3C60009CABD5 /* FS_compareframe1.png */,
 				A7B829CB14DB3C60009CABD5 /* FS_compareframes.png */,
 				A7B829CC14DB3C60009CABD5 /* FS_framecatelog.png */,
@@ -2803,6 +2820,9 @@
 				A7B8294F14DB3BD6009CABD5 /* QuestionnaireMedicalHistory.h */,
 				A7B8295014DB3BD6009CABD5 /* QuestionnaireMedicalHistory.m */,
 				A7B8295114DB3BD6009CABD5 /* QuestionnaireMedicalHistory.xib */,
+				A7B82A0A14DB47CD009CABD5 /* PatientCoverageSummary.h */,
+				A7B82A0B14DB47DC009CABD5 /* PatientCoverageSummary.m */,
+				A7B82A0E14DB47EB009CABD5 /* PatientCoverageSummary.xib */,
 				A7B8295214DB3BD6009CABD5 /* QuestionnairePatientInfo.m */,
 				A7B8295314DB3BD6009CABD5 /* QuestionnairePatientInfo.xib */,
 				A7B8295414DB3BD6009CABD5 /* QuestionnairePatientInfo.h */,
@@ -3416,6 +3436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A71F771514DB71B300B28F85 /* MemberRecord.xib in Resources */,
 				369B428E14D33FA7005CD54B /* FS_mailIcon.png in Resources */,
 				369B428F14D33FA7005CD54B /* FSMaleModelPhoto.jpg in Resources */,
 				369B429014D33FA7005CD54B /* FSMaleModelButton.png in Resources */,
@@ -3785,6 +3806,7 @@
 				A7B829FB14DB3C60009CABD5 /* Particle.png in Resources */,
 				A7B829FF14DB3C60009CABD5 /* LensThicknessPage.xib in Resources */,
 				A7B82A0114DB3C60009CABD5 /* ConsentText.html in Resources */,
+				A7B82A1014DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4149,6 +4171,8 @@
 				A7B829FA14DB3C60009CABD5 /* Particle.png in Resources */,
 				A7B829FE14DB3C60009CABD5 /* LensThicknessPage.xib in Resources */,
 				A7B82A0014DB3C60009CABD5 /* ConsentText.html in Resources */,
+				A7B82A0F14DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */,
+				A75C287914DB5E6D00D0A855 /* MemberRecord.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4159,6 +4183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A71F771314DB719B00B28F85 /* MemberRecord.m in Sources */,
 				369B42BB14D34011005CD54B /* NSObject+SBJSON.m in Sources */,
 				369B42BC14D34011005CD54B /* NSString+SBJSON.m in Sources */,
 				369B42BD14D34011005CD54B /* SBJSON.m in Sources */,
@@ -4345,6 +4370,7 @@
 				A7B829FD14DB3C60009CABD5 /* LensThicknessPage.m in Sources */,
 				A7B82A0314DB3C60009CABD5 /* PaintingView.m in Sources */,
 				A7B82A0514DB3C60009CABD5 /* MeasureProcessStep.m in Sources */,
+				A7B82A0D14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4540,6 +4566,8 @@
 				A7B829FC14DB3C60009CABD5 /* LensThicknessPage.m in Sources */,
 				A7B82A0214DB3C60009CABD5 /* PaintingView.m in Sources */,
 				A7B82A0414DB3C60009CABD5 /* MeasureProcessStep.m in Sources */,
+				A7B82A0C14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */,
+				A75C287C14DB5E8600D0A855 /* MemberRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

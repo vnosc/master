@@ -392,6 +392,8 @@ extern NSArray* patientImages;
     BOOL isValid = [self validateAll];
     if (isValid)
         [self uploadImagesAndFinish:self];
+    else
+        self.wantsToFinish = NO;
 }	
 
 - (BOOL) validateAll
@@ -412,13 +414,7 @@ extern NSArray* patientImages;
 	
 	if (currentPatientId == 0)
 	{
-		PatientRecord *patient=[[PatientRecord alloc]init];
-		patient.title=@"Patient Record";
-		//[self.navigationController pushViewController:patient animated:YES];
-
-		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAndContinue:) name:@"PatientRecordDidFinish" object:patient];
-		
-		[self presentModalViewController:patient animated:YES];
+        [self beginPatientSearch];
 		
 		return NO;
 	}
@@ -428,6 +424,13 @@ extern NSArray* patientImages;
 		return YES;
 	}
 	
+}
+
+- (void) beginPatientSearch
+{
+    MemberSearch *patient=[[MemberSearch alloc]init];
+    patient.title=@"Member Search";
+    [self presentModalViewController:patient animated:YES];
 }
 
 - (BOOL) validateFrame
@@ -539,10 +542,7 @@ extern NSArray* patientImages;
 	[tf resignFirstResponder];
 	[tf endEditing:YES];
 
-	PatientRecord *patient=[[PatientRecord alloc]init];
-	patient.title=@"Patient Record";
-	//[self.navigationController pushViewController:patient animated:YES];
-	[self presentModalViewController:patient animated:YES];
+    [self beginPatientSearch];
 }
 
 @end

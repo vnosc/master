@@ -8,6 +8,8 @@
 
 #import "CyberImagingAppDelegate.h"
 
+#import "PackageSelection.h"
+
 @implementation CyberImagingAppDelegate
 @synthesize viewController;
 
@@ -40,6 +42,10 @@
     [[UILabel appearanceWhenContainedIn:[UIPickerView class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
     
     [[HeaderLabel appearanceWhenContainedIn:[UIView class], nil] setColor:[UIColor blackColor]];
+
+    [[UILabel appearanceWhenContainedIn:[PackageSelection class], nil] setColor:[UIColor blackColor]];
+    [[UILabel appearanceWhenContainedIn:[UIButton class], [PackageSelection class], nil] setColor:[UIColor whiteColor]];
+    
 	
 #elif defined SMARTI
 	

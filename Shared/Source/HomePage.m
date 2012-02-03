@@ -188,26 +188,29 @@ extern NSArray* patientImagesMeasured;
 	p.title = @"Frame Styling";
 	[self.navigationController pushViewController:p animated:YES];
      */
-    /*FrameStyling *p = [[FrameStyling alloc] init];
-     p.title = @"Frame Styling";
-     [self.navigationController pushViewController:p animated:YES];*/
+
+    // [self.navigationController pushViewController:p animated:YES];*/
     
     FrameCatelogs *frameCatelogs=[[FrameCatelogs alloc]init];
-    frameCatelogs.hidesBottomBarWhenPushed=YES;
+    //frameCatelogs.hidesBottomBarWhenPushed=YES;
     
     //  UINavigationController *frameCatNavController=[[UINavigationController alloc]initWithRootViewController:frameCatelogs];
     
     TOTakePhotoView *takePhotoView=[[TOTakePhotoView alloc]init];
-     takePhotoView.hidesBottomBarWhenPushed=YES;
+    //takePhotoView.hidesBottomBarWhenPushed=YES;
+    
+    FrameStyling *oldfs = [[FrameStyling alloc] init];
+    oldfs.title = @"Frame Styling";
+    
     // UINavigationController *takePhotoNavController=[[UINavigationController alloc]initWithRootViewController:takePhotoView];
     
     FSHomePage *homePage1=[[FSHomePage alloc]init];
-    homePage1.hidesBottomBarWhenPushed=YES;
+    //homePage1.hidesBottomBarWhenPushed=YES;
     FSFavoritesView *fav=[[FSFavoritesView alloc]init];
 
     //FSFavoritesView *favorites=[[FSFavoritesView alloc]init];
     rdx=[[RXCustomTabBar1 alloc]init];
-    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav, nil]];
+    [rdx setViewControllers:[NSArray arrayWithObjects:homePage1,frameCatelogs,takePhotoView,fav,oldfs, nil]];
     //rdx.selectedIndex=2;
     //    self.navigationController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:rdx animated:YES]; 

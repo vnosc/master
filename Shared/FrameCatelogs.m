@@ -28,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        selectedCollectionBtn = [[UIButton alloc] retain];
     }
     NSLog(@".......1..............");
     return self;
@@ -35,11 +36,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     NSLog(@".......3..............");
     
     frameView.layer.cornerRadius=20.0;
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
     
         //[self fillImageScrollView];
 }
@@ -92,6 +92,7 @@
         //[catListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
        // [catListBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
         [catListBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [catListBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateSelected];
         [catListBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         catListBtn.tag=i;
         [catListBtn addTarget:self action:@selector(clickCatelogsButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -108,6 +109,7 @@
 
 - (void)dealloc
 {
+    [collectionButton release];
     [super dealloc];
 }
 
@@ -124,6 +126,8 @@
 
 - (void)viewDidLoad
 {
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
+    
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
@@ -217,7 +221,15 @@
 -(void)clickCatelogsButton:(id)sender
 {
     UIButton *btn=(UIButton *)sender;
-    [titelButton setTitle:btn.currentTitle forState:UIControlStateNormal];
+    
+    if (selectedCollectionBtn != nil)
+        [selectedCollectionBtn setSelected:NO];
+    
+    selectedCollectionBtn = btn;
+    [btn setSelected:YES];
+    
+    [titelButton setTitle:@"MARCHON" forState:UIControlStateNormal];
+    [collectionButton setTitle:btn.currentTitle forState:UIControlStateNormal];
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump2:) userInfo:sender repeats:NO];
     [indicator startAnimating];
 }
@@ -229,7 +241,7 @@
     UIButton *btn=(UIButton *)[sender userInfo];
    // http://smart-i.ws/mobilewebservice.asmx/GetFrameTypeByManufacturer?manufacturer=Nike
     
-    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameByBrandAndCollection?brand=MARCHON&collection=%@",btn.currentTitle];
+    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameByBrandAndCollection?brand=MARCHON&collection=%@",[btn.currentTitle stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
     
     NSLog(@"URL OF EVENT : %@",urlString);
     TBXML *tbxml1 =[TBXML tbxmlWithURL:[NSURL URLWithString:urlString]];
@@ -343,6 +355,8 @@
 
 - (void)viewDidUnload
 {
+    [collectionButton release];
+    collectionButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
