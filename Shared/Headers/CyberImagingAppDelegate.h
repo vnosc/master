@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CustomUI.h"
+
 @interface CyberImagingAppDelegate : NSObject <UIApplicationDelegate,UITabBarControllerDelegate> {
     UIViewController *viewController;
 	

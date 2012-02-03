@@ -37,6 +37,8 @@
     [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
     
     [[UILabel appearanceWhenContainedIn:[UIPickerView class], nil] setColor:[UIColor blackColor]];
+    
+    [[HeaderLabel appearanceWhenContainedIn:[UIView class], nil] setColor:[UIColor blackColor]];
 	
 #elif defined SMARTI
 	
@@ -51,7 +53,6 @@
     [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
     
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
-
 	
 #else
 	
