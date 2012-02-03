@@ -248,7 +248,7 @@ extern NSArray *patientImages;
 			NSString* patientRelation = [result getTextValueByName:[NSString stringWithFormat:@"%@/MemberRelation", key]];
 			NSString* patientDOB = [[result getTextValueByName:[NSString stringWithFormat:@"%@/DOB", key]] substringToIndex:10];
 			
-			UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+			UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
 			[b setTitle:@"Select" forState:UIControlStateNormal];
 			b.titleLabel.textColor = [UIColor blackColor];
 			b.titleLabel.font = [UIFont systemFontOfSize:10.0f];
@@ -291,6 +291,8 @@ extern NSArray *patientImages;
 	
 	[self.patientListSV setContentSize:CGSizeMake(self.patientListSV.frame.size.width, ny)];
 	
+    [self applyChangesToSubviews:self.view];
+    
 	self.memberDetailsView.hidden = NO;
 }
 

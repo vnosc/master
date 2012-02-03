@@ -99,6 +99,9 @@ extern ServiceObject* mobileSessionXML;
 }
 -(IBAction) loginButtonClick :(id)sender{
     
+    [self.username endEditing:YES];
+    [self.password endEditing:YES];
+    
 	HUD = [[MBProgressHUD alloc] initWithView:self.view];
 	[self.view addSubview:HUD];
 	

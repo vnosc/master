@@ -21,6 +21,7 @@
 @synthesize isRect;
 
 @synthesize startLockX, startLockY, endLockX, endLockY, startMovesEnd, endMovesStart;
+@synthesize relatedLines;
 
 -(id) init
 {
@@ -28,6 +29,8 @@
 	{
 		//self.lineColor = [UIColor whiteColor];
 		self.lineColor = [UIColor cyanColor];
+        
+        self.relatedLines = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -37,6 +40,7 @@
 	{
 		self.start = [[MeasurePoint alloc] initWithPoint:startPoint];
 		self.end = [[MeasurePoint alloc] initWithPoint:endPoint];
+        
 		NSLog(@"%@", self.start);
 		NSLog(@"%@", self.end);
 		
@@ -106,13 +110,18 @@
 }
 - (void)movePoint:(MeasurePoint*)mp from:(CGPoint)from to:(CGPoint)to recurse:(BOOL)recurse
 {
+    [self movePoint:mp from:from to:to recurse:recurse override:NO];
+}
+
+- (void)movePoint:(MeasurePoint*)mp from:(CGPoint)from to:(CGPoint)to recurse:(BOOL)recurse override:(BOOL)override
+{
 	CGPoint moved = CGPointMake(to.x - from.x, to.y - from.y);
-	NSLog(@"%f,%f", moved.x, moved.y);
+	NSLog(@"Line move point: %f,%f", moved.x, moved.y);
 	
 	if (mp == self.start)
-		mp.point = [self.start fromPoint:from toPoint:to lockX:self.startLockX lockY:self.startLockY];
+		mp.point = [self.start fromPoint:from toPoint:to lockX:self.startLockX lockY:self.startLockY override:override];
 	else if (mp == self.end)
-		mp.point = [self.end fromPoint:from toPoint:to lockX:self.endLockX lockY:self.endLockY];
+		mp.point = [self.end fromPoint:from toPoint:to lockX:self.endLockX lockY:self.endLockY override:override];
 	
 	if (recurse)
 		[self adjustForPoint:mp moved:moved];
@@ -125,7 +134,7 @@
 	{
 		if (self.startMovesEnd)
 		{
-			NSLog(@"Start moving end.");
+			NSLog(@"Start is moving end.");
 			[self movePoint:self.end from:mp.point to:CGPointMake(self.end.x + moved.x, self.end.y + moved.y) recurse:NO];
 		}
 	}		
@@ -133,10 +142,39 @@
 	{
 		if (self.endMovesStart)
 		{
-			NSLog(@"End moving start.");
+			NSLog(@"End is moving start.");
 			[self movePoint:self.start from:mp.point to:CGPointMake(self.start.x + moved.x, self.start.y + moved.y) recurse:NO];		
 		}
 	}
+    
+    for (MeasureLine *l in self.relatedLines)
+    {
+        if (mp != [self sharedPoint:l])
+        {
+            NSLog(@"Checking related line: %@", l.name);
+            if (![self containsPoint:l.start])
+            {
+                NSLog(@"-- RL unique start: %f,%f", l.start.x, l.start.y);
+                
+                [l movePoint:l.start from:l.start.point to:CGPointMake(l.start.point.x + moved.x, l.start.point.y + moved.y) recurse:NO override:YES];
+            
+                NSLog(@"-- RL unique start after: %f,%f", l.start.x, l.start.y);
+            }
+            if (![self containsPoint:l.end])
+            {
+                NSLog(@"-- RL unique end: %f,%f", l.end.x, l.end.y);
+                
+                [l movePoint:l.end from:l.end.point to:CGPointMake(l.end.point.x + moved.x, l.end.point.y + moved.y) recurse:NO override:YES];
+                
+                NSLog(@"-- RL unique end after: %f,%f", l.end.x, l.end.y);
+            }
+        }
+    }
+}
+
+- (BOOL) containsPoint:(MeasurePoint*)mp
+{
+    return (mp == self.start || mp == self.end);
 }
 
 - (void)drawRect:(CGRect)rect withColor:(UIColor*)color
@@ -267,6 +305,12 @@
 	
 	return nil;
 }
+
+- (MeasurePoint*) nonSharedPoint:(MeasureLine*) l
+{
+    return [self otherPointThan:[self sharedPoint:l]];
+}
+
 - (NSNumber*) angleBetween:(MeasureLine*)l
 {
 	MeasurePoint *mp = [self sharedPoint:l];

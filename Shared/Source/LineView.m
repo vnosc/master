@@ -133,7 +133,7 @@
 		
 		if (lev && rev && bv)
 		{
-			NSLog(@"found both eye verticals");
+			//NSLog(@"found both eye verticals");
 			CGContextRef c = UIGraphicsGetCurrentContext();
 			
 			//if(dragged) {
@@ -282,7 +282,7 @@
 		
 		if (lfch && lfbh)
 		{
-			NSLog(@"found both left frame horizontals");
+			//NSLog(@"found both left frame horizontals");
 			
             CGPoint cp = lfch.end.point;
             CGPoint bp = lfbh.end.point;
@@ -334,34 +334,48 @@
 		
 		if (rfch && rfbh)
 		{
-			NSLog(@"found both right frame horizontals");
+			//NSLog(@"found both right frame horizontals");
+            
+            CGPoint cp = rfch.end.point;
+            CGPoint bp = rfbh.end.point;
+            
+			if (lfch.end.x < rfbh.end.x)
+                bp = CGPointMake(rfch.end.x, rfbh.end.y);
+			else
+                cp = CGPointMake(rfbh.end.x, rfch.end.y);
+            
+            if (self.grabbedPoint == rfch.end)
+                rfbh.end.x = rfch.end.x;
+            else if (self.grabbedPoint == rfbh.end)
+                rfch.end.x = rfbh.end.x;
+            
 			[LINE_COLOR setStroke];
-			CGContextMoveToPoint(c, rfch.end.x, rfch.end.y);
-			CGContextAddLineToPoint(c, rfbh.end.x, rfbh.end.y);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, bp.x, bp.y);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rfch.end.x, rfch.end.y);
-			CGContextAddLineToPoint(c, rfch.end.x - ARROW_LENGTH, rfch.end.y + ARROW_LENGTH);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, cp.x - ARROW_LENGTH, cp.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rfch.end.x, rfch.end.y);
-			CGContextAddLineToPoint(c, rfch.end.x + ARROW_LENGTH, rfch.end.y + ARROW_LENGTH);        
+			CGContextMoveToPoint(c, cp.x, cp.y);
+			CGContextAddLineToPoint(c, cp.x + ARROW_LENGTH, cp.y + ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rfbh.end.x, rfbh.end.y);
-			CGContextAddLineToPoint(c, rfbh.end.x - ARROW_LENGTH, rfbh.end.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, bp.x, bp.y);
+			CGContextAddLineToPoint(c, bp.x - ARROW_LENGTH, bp.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
 			
-			CGContextMoveToPoint(c, rfbh.end.x, rfbh.end.y);
-			CGContextAddLineToPoint(c, rfbh.end.x + ARROW_LENGTH, rfbh.end.y - ARROW_LENGTH);        
+			CGContextMoveToPoint(c, bp.x, bp.y);
+			CGContextAddLineToPoint(c, bp.x + ARROW_LENGTH, bp.y - ARROW_LENGTH);        
 			CGContextSetLineWidth(c, LINE_WIDTH); 
 			CGContextClosePath(c);
 			CGContextStrokePath(c);
@@ -509,7 +523,7 @@
 	for (MeasureLine* l in self.lines)
 		if ([l.name isEqualToString:searchName])
 		{
-			NSLog(@"Found line! '%@' = '%@'", l.name, searchName);
+			//NSLog(@"Found line! '%@' = '%@'", l.name, searchName);
 			return l;
 		}
 
