@@ -131,11 +131,11 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_notouch.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="259610364">
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="912360626">
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -176,29 +176,10 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
-					<object class="IBUIButton" id="761226646">
-						<reference key="NSNextResponder" ref="766721923"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{170, 801}, {166, 51}}</string>
-						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="891723326"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Save</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1046601350"/>
-						<reference key="IBUINormalTitleColor" ref="1046601350"/>
-						<reference key="IBUINormalTitleShadowColor" ref="666473868"/>
-						<reference key="IBUINormalBackgroundImage" ref="684079798"/>
-						<reference key="IBUIFontDescription" ref="259610364"/>
-						<reference key="IBUIFont" ref="912360626"/>
-					</object>
 					<object class="IBUIButton" id="891723326">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{432, 801}, {166, 51}}</string>
+						<string key="NSFrame">{{279, 801}, {211, 51}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -206,13 +187,20 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Favorite</string>
+						<string key="IBUINormalTitle">Add to Favorites</string>
 						<reference key="IBUIHighlightedTitleColor" ref="1046601350"/>
 						<reference key="IBUINormalTitleColor" ref="1046601350"/>
 						<reference key="IBUINormalTitleShadowColor" ref="666473868"/>
 						<reference key="IBUINormalBackgroundImage" ref="684079798"/>
-						<reference key="IBUIFontDescription" ref="259610364"/>
-						<reference key="IBUIFont" ref="912360626"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">2</int>
+							<double key="pointSize">20</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">20</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIView" id="340799181">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -266,7 +254,7 @@
 								<string key="NSFrame">{{20, 469}, {372, 33}}</string>
 								<reference key="NSSuperview" ref="340799181"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="761226646"/>
+								<reference key="NSNextKeyView" ref="891723326"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -395,15 +383,6 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">saveButtonClickOnCatelogsView:</string>
-						<reference key="source" ref="761226646"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">86</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">saveButtonClickOnCatelogsView:</string>
 						<reference key="source" ref="891723326"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
@@ -443,7 +422,6 @@
 							<reference ref="203057627"/>
 							<reference ref="613959413"/>
 							<reference ref="285493548"/>
-							<reference ref="761226646"/>
 							<reference ref="340799181"/>
 							<reference ref="891723326"/>
 						</object>
@@ -472,11 +450,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">82</int>
 						<reference key="object" ref="285493548"/>
-						<reference key="parent" ref="766721923"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">83</int>
-						<reference key="object" ref="761226646"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -533,7 +506,6 @@
 					<string>80.IBPluginDependency</string>
 					<string>81.IBPluginDependency</string>
 					<string>82.IBPluginDependency</string>
-					<string>83.IBPluginDependency</string>
 					<string>87.IBPluginDependency</string>
 					<string>88.IBPluginDependency</string>
 					<string>89.IBPluginDependency</string>
@@ -545,7 +517,6 @@
 					<string>FrameCatelogs</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
