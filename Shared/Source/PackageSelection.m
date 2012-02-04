@@ -316,6 +316,21 @@ extern ServiceObject* prescriptionXML;
 {
     PatientRecord *patient=[[PatientRecord alloc]init];
     patient.title=@"Patient Record";
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientRecordDidFinish:) name:@"PatientRecordDidFinish" object:patient];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientRecordDidCancel:) name:@"PatientRecordDidCancel" object:patient];
+    
+    nextPopup = patient;
+    doSummonPopup = YES;
+}
+
+- (void)askFrameType
+{
+    OrderFrameChoice *patient=[[OrderFrameChoice alloc]init];
+    patient.title=@"Choose Frame Method";
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientRecordDidFinish:) name:@"OrderFrameChoiceDidFinish" object:patient];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientRecordDidCancel:) name:@"OrderFrameChoiceDidCancel" object:patient];
     
     nextPopup = patient;
     doSummonPopup = YES;
@@ -345,6 +360,19 @@ extern ServiceObject* prescriptionXML;
 	NSLog(@"cancelled patient coverage summary in package selection");
 	[self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void) patientRecordDidFinish:(NSNotification*)n
+{
+	NSLog(@"patient record continued");
+    [self askFrameType];
+}
+
+- (void) patientRecordDidCancel:(NSNotification*)n
+{
+	NSLog(@"cancelled patient record in package selection");
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void) setupView
 {
 	NSLog(@"View load");

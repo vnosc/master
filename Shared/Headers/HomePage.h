@@ -24,7 +24,7 @@
 #import "MainViewController.h"
 
 #import "SelectionSubmenu.h"
-
+#import "MarketingPage.h"
 
 #import "TOTakePhotoView.h"
 #import "RXCustomTabBar1.h"

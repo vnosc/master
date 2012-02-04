@@ -21,10 +21,13 @@ extern int providerId;
 @synthesize planView3;
 @synthesize planView4;
 @synthesize patientNameLabel;
+@synthesize serviceDateField;
 @synthesize serviceBtns1;
 @synthesize serviceBtns2;
 @synthesize serviceBtns3;
 @synthesize serviceBtns4;
+
+@synthesize HUD;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +56,8 @@ extern int providerId;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.serviceDateField selectDate:[NSDate date]];
     
     [self getLatestPatientFromService];
     
@@ -98,6 +103,7 @@ extern int providerId;
     [self setServiceBtns2:nil];
     [self setServiceBtns3:nil];
     [self setServiceBtns4:nil];
+    [self setServiceDateField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -121,6 +127,7 @@ extern int providerId;
     [serviceBtns2 release];
     [serviceBtns3 release];
     [serviceBtns4 release];
+    [serviceDateField release];
     [super dealloc];
 }
 
@@ -130,6 +137,21 @@ extern int providerId;
 
 - (IBAction)authorizeDummy:(id)sender {
 
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"Authorizing...";
+    
+    [HUD showWhileExecuting:@selector(getAuthorization:) onTarget:self withObject:self animated:YES];
+    
+}
+
+-(void)getAuthorization:(id)sender
+{
+    sleep(3);
+    
+    [HUD hide:YES];
+    
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Authorization Successful" message:@"An authorization was\nsuccessfully issued.\n\nYour authorization number is \n78364379."  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];    

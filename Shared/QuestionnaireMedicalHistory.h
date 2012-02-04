@@ -15,6 +15,13 @@
 @property (retain, nonatomic) IBOutlet UIButton *altPhoneDDL;
 @property (retain, nonatomic) IBOutlet UIButton *contactLensTypeDDL;
 
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *noBtns;
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *yesBtns;
+@property (retain, nonatomic) IBOutletCollection(UIView) NSArray *yesNoPanels;
+
+- (IBAction)yesNoBtnClick:(id)sender;
+
 - (IBAction)continueBtnClick:(id)sender;
+- (IBAction)contactLensTypeDDLClick:(id)sender;
 
 @end

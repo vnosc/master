@@ -48,4 +48,30 @@
 	return YES;
 }
 
+- (IBAction)back:(id)sender {
+    
+	[self goBack];
+}
+
+- (void)goBack
+{
+	NSString *notificationName = @"OrderFrameChoiceDidCancel";
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)continueWithNewFrameClick:(id)sender {
+    NSString *notificationName = @"OrderFrameChoiceDidFinish";
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)continueWithPOFClick:(id)sender {
+    NSString *notificationName = @"OrderFrameChoiceDidFinish";
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self];
+	[self dismissModalViewControllerAnimated:YES];
+}
 @end

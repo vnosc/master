@@ -80,14 +80,14 @@ extern ServiceObject* prescriptionXML;
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
 	self.imageLabels = [[NSArray alloc] initWithObjects:self.imageLabel1, self.imageLabel2, self.imageLabel3, self.imageLabel4, nil];	
     
+    [self setBoxBackground:self.measureDetailView];
+    
     [self initImageLabelsText];
     
-	[self.measureDetailView.layer setBorderWidth:3.0f];
+	/*[self.measureDetailView.layer setBorderWidth:3.0f];
 	[self.measureDetailView.layer setCornerRadius:25];
-	[self.measureDetailView.layer setMasksToBounds:YES];
+	[self.measureDetailView.layer setMasksToBounds:YES];*/
 	//CALayer *l = self.frameInfo.layer;
-	
-	[self createGradientForLayer:self.measureDetailView.layer];
 	
 	self.imageLabel1.layer.backgroundColor = [UIColor blackColor].CGColor;
 	self.imageLabel2.layer.backgroundColor = [UIColor blackColor].CGColor;
@@ -171,8 +171,9 @@ extern ServiceObject* prescriptionXML;
             {
                 obj.image = [UIImage imageNamed:@"frame_wrap_rotated.png"];
                 
-                [obj setContentMode:UIViewContentModeScaleAspectFit];
+                [obj setContentMode:UIViewContentModeCenter];
                 [obj setBackgroundColor:[UIColor whiteColor]];
+                [obj setNeedsDisplay];
                 
                 /*CGAffineTransform rotateTransform = CGAffineTransformRotate(CGAffineTransformIdentity,
                                                                             -90.0 * M_PI / 180.0f);

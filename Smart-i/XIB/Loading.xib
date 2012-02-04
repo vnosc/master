@@ -45,6 +45,7 @@
 						<string key="NSFrameSize">{768, 1120}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="502199405"/>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -52,15 +53,16 @@
 					<object class="IBUIImageView" id="502199405">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{94, 496}, {583, 128}}</string>
+						<string key="NSFrame">{{114, 419}, {540, 166}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">logo.jpg</string>
+							<string key="NSResourceName">PFO Logo_Horiz_CMYK.png</string>
 						</object>
 					</object>
 				</object>
@@ -118,8 +120,8 @@
 						<reference key="object" ref="766721923"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="502199405"/>
 							<reference ref="470952231"/>
+							<reference ref="502199405"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -176,8 +178,16 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">Loading</string>
+					<string key="className">BackgroundViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BackgroundViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">Loading</string>
+					<string key="superclassName">BackgroundViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/Loading.h</string>
@@ -194,8 +204,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">logo.jpg</string>
-			<string key="NS.object.0">{761, 211}</string>
+			<string key="NS.key.0">PFO Logo_Horiz_CMYK.png</string>
+			<string key="NS.object.0">{361, 83}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

@@ -12,7 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface PhotoPreview : UIViewController <UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,MFMailComposeViewControllerDelegate,UIPrintInteractionControllerDelegate>
+@interface PhotoPreview : BackgroundViewController <UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,MFMailComposeViewControllerDelegate,UIPrintInteractionControllerDelegate>
 {
     FbGraph *fbGraph;
     

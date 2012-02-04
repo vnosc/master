@@ -204,6 +204,11 @@ extern ServiceObject* patientXML;
 	[self goBack];
 }
 
+- (IBAction)continueBtnClick:(id)sender {
+    self.didSelectNewPatient = YES;
+    [self goBack];
+}
+
 - (void)goBack
 {
 	NSString *notificationName = @"PatientRecordDidCancel";

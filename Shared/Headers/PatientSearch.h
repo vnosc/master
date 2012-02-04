@@ -12,19 +12,28 @@
 #import "ServiceObject.h"
 #import "DatePickerTextField.h"
 
-@interface PatientSearch : BackgroundViewController
+#import "HeaderLabel.h"
 
+@interface PatientSearch : BackgroundViewController
+{
+    ServiceObject *_searchResults;
+}
 @property (retain, nonatomic) IBOutlet UITextField *patientFirstName;
 @property (retain, nonatomic) IBOutlet UITextField *patientLastName;
 @property (retain, nonatomic) IBOutlet DatePickerTextField *dob;
 
 @property (retain, nonatomic) IBOutlet UILabel *providerNameLbl;
+@property (retain, nonatomic) IBOutlet UIView *searchResultsView;
+@property (retain, nonatomic) IBOutlet UIView *foundPatientsView;
 
-@property (retain, nonatomic) IBOutlet UIView *memberDetailsView;
+@property (retain, nonatomic) IBOutlet UIView *searchCriteriaView;
+@property (retain, nonatomic) IBOutlet UIView *providerInfoView;
+@property (retain, nonatomic) IBOutlet UIView *patientDetailsView;
 @property (retain, nonatomic) IBOutlet UIScrollView *patientListSV;
-@property (retain, nonatomic) IBOutlet UILabel *patientListHeader1;
-@property (retain, nonatomic) IBOutlet UILabel *patientListHeader2;
-@property (retain, nonatomic) IBOutlet UILabel *patientListHeader3;
+@property (retain, nonatomic) IBOutletCollection(HeaderLabel) NSArray *patientListHeaders;
+
+@property (retain, nonatomic) IBOutlet UIButton *providerDDL;
+
 
 @property (retain, nonatomic) MBProgressHUD *HUD;
 
@@ -32,7 +41,9 @@
 - (IBAction)cancel:(id)sender;
 - (void)loadImagesAndFinish:(id)sender;
 - (void)loadPatientImages;
-- (void) showMemberDetails;
+- (void) showPatientList;
+
+- (void)addPatientLabel:(NSString*)text x:(int)x y:(int)y;
 
 -(void) continueToPrescriptionPage;
 -(void) continueToNewPatientPage;

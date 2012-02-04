@@ -1,5 +1,5 @@
 //
-//  MemberSearch.m
+//  PatientSearch.m
 //  CyberImaging
 //
 //  Created by Troy Potts on 10/18/11.
@@ -10,9 +10,10 @@
 #import "PatientPrescription.h"
 #import "NewUser.h"
 
-extern ServiceObject* memberXML;
+extern ServiceObject* providerXML;
 extern ServiceObject* mobileSessionXML;
 extern ServiceObject* patientXML;
+extern ServiceObject* providerId;
 extern NSArray *patientImages;
 
 @implementation PatientSearch
@@ -21,12 +22,14 @@ extern NSArray *patientImages;
 @synthesize patientFirstName;
 @synthesize patientLastName;
 @synthesize providerNameLbl;
-@synthesize memberDetailsView;
+@synthesize searchResultsView;
+@synthesize foundPatientsView;
+@synthesize searchCriteriaView;
+@synthesize providerInfoView;
+@synthesize patientDetailsView;
 @synthesize patientListSV;
-@synthesize patientListHeaderView;
-@synthesize patientListHeader1;
-@synthesize patientListHeader2;
-@synthesize patientListHeader3;
+@synthesize patientListHeaders;
+@synthesize providerDDL;
 
 @synthesize HUD;
 
@@ -58,39 +61,40 @@ extern NSArray *patientImages;
 	self.patientListSV.showsVerticalScrollIndicator = YES;
 	self.patientListSV.showsHorizontalScrollIndicator = NO;
 	
-	NSString* memberId = [mobileSessionXML getTextValueByName:@"memberId"];
-	if ([memberId length] > 0 && [memberXML hasData])
-	{
-		NSString* memberId = [memberXML getTextValueByName:@"MemberID"];
-		NSString* memberDOB = [[memberXML getTextValueByName:@"DOB"] substringToIndex:10];
-		
-		self.memberId.text = memberId;
-		self.dob.text = memberDOB;
-		
-		[self showMemberDetails];
-	}
+    [self setBoxBackgroundLarge:self.searchCriteriaView];
+    [self setBoxBackgroundLarge:self.providerInfoView];
+    [self setBoxBackgroundLarge:self.foundPatientsView];
+    
+    [self setBoxBackground:self.patientDetailsView];
+    
+    [self setDropDownBackground:self.providerDDL];
+    
+    [self loadProviderList];
+    
+    //[self showPatientList];
 	
 }
 
+- (void)loadProviderList
+{
+    //temp hack
+    NSString* providerFN = [providerXML getTextValueByName:@"ProviderName"];
+	NSString* providerLN = [providerXML getTextValueByName:@"ProviderLastName"];
+    
+	[self.providerDDL setTitle:[NSString stringWithFormat:@"%@, %@", providerLN, providerFN] forState:UIControlStateNormal];
+}
 - (void)viewDidUnload
 {
-	[self setMemberId:nil];
 	[self setDob:nil];
-	
-	[self setMemberLastName:nil];
-	[self setMemberDate:nil];
-
-	[self setMemberFirstName:nil];
-	[self setMemberSSN:nil];
-	[self setMemberNameLbl:nil];
-	[self setMemberDetailsView:nil];
+    
+	[self setPatientDetailsView:nil];
 	[self setPatientListSV:nil];
-	[self setPatientListHeaderView:nil];
-	[self setPatientListHeader1:nil];
-	[self setPatientListHeader2:nil];
-	[self setPatientListHeader3:nil];
-	[self setMemberPlanLbl:nil];
-	[self setMemberPlanTypeDescLbl:nil];
+
+    [self setPatientListHeaders:nil];
+    [self setProviderInfoView:nil];
+    [self setSearchCriteriaView:nil];
+    [self setSearchResultsView:nil];
+    [self setFoundPatientsView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -107,7 +111,7 @@ extern NSArray *patientImages;
 	//[self.navigationController popViewControllerAnimated:YES];
 	
 	//[self dismissModalViewControllerAnimated:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberSearchDidFinish" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"PatientSearchDidFinish" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 	
     /*PatientPrescription *patient=[[PatientPrescription alloc]init];
@@ -126,69 +130,61 @@ extern NSArray *patientImages;
 }
 
 - (void)dealloc {
-	[memberId release];
+
 	[dob release];
-	
-	[memberLastName release];
-	[memberDate release];
-	
-	[memberFirstName release];
-	[memberSSN release];
-	[memberNameLbl release];
-	[memberDetailsView release];
+
 	[patientListSV release];
-	[patientListHeaderView release];
-	[patientListHeader1 release];
-	[patientListHeader2 release];
-	[patientListHeader3 release];
-	[memberPlanLbl release];
-	[memberPlanTypeDescLbl release];
+    [patientListHeaders release];
+    [providerInfoView release];
+    [searchCriteriaView release];
+    [searchResultsView release];
+    [foundPatientsView release];
 	[super dealloc];
 }
 - (IBAction)search:(id)sender {
-		
-		if([memberId.text length]==0 || [dob.text length]==0)
-		{
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please enter a member ID and a date of birth." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-			[alert show];
-			[alert release];
-		}
-		else
-		{
-			HUD = [[MBProgressHUD alloc] initWithView:self.view];
-			[self.view addSubview:HUD];
-			
-			HUD.labelText = @"Searching...";
-			
-			[HUD showWhileExecuting:@selector(doSearch:) onTarget:self withObject:self animated:YES];
-			
-		}
-	
+
+    NSLog(@"1");
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"Searching...";
+    
+    NSLog(@"1.5");
+    [HUD showWhileExecuting:@selector(doSearch:) onTarget:self withObject:self animated:YES];
+    
 }
 
 - (void) doSearch:(id)sender
 {
-	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMemberInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId.text, dob.text]];
+    NSLog(@"1.75");
+    
+    int providerIdParam = [providerXML getIntValueByName:@"ProviderId"];
+    NSString *patientFNParam = self.patientFirstName.text;
+    NSString *patientLNParam = self.patientLastName.text;
+    
+    NSLog(@"2");
+    
+	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"SearchPatientInfoByProviderId?providerId=%d&firstName=%@&lastName=%@", providerIdParam, patientFNParam, patientLNParam] categoryKey:@"" startTag:@"Table"];
 	
+    NSLog(@"3");
+    
 	if([result hasData])
 	{
-		NSString* tempMemberId = [result getTextValueByName:@"MemberID"];
+		NSString* tempPatientId = [result getTextValueByName:@"Table1/PatientId"];
 		
-		if(!tempMemberId)
+		if(!tempPatientId)
 		{
-			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"No members found." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+			UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Error" message:@"No patients found.\n\nCreate a new patient?" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 			[alert show];
 			[alert release];
 		}
 		else
 		{
-			memberXML = [result retain];
+            
+            _searchResults = result;
 			
-			[mobileSessionXML setObject:[NSString stringWithFormat:@"%@", tempMemberId] forKey:@"memberId"];
-			
-			[mobileSessionXML updateMobileSessionData];
-			
-			[self showMemberDetails];
+			[self showPatientList];
 		}
 	}
 	else
@@ -200,34 +196,25 @@ extern NSArray *patientImages;
 		[alert release];
 	}
 }
-- (void) showMemberDetails
+- (void) showPatientList
 {
-	NSString* memberFN = [[memberXML getTextValueByName:@"Memberfirstname"] uppercaseString];
-	NSString* memberLN = [[memberXML getTextValueByName:@"MemberlastName"] uppercaseString];
+    ServiceObject *result = _searchResults;
+    
+	NSString* providerFN = [[providerXML getTextValueByName:@"ProviderName"] uppercaseString];
+	NSString* providerLN = [[providerXML getTextValueByName:@"ProviderLastName"] uppercaseString];
 	
-	NSString* memberPlan = [memberXML getTextValueByName:@"InsPlan"];
-	NSString* memberPlanType = [memberXML getTextValueByName:@"Plan"];
-	
-	NSString* memberId = [memberXML getTextValueByName:@"MemberID"];
-	NSString* memberDOB = [[memberXML getTextValueByName:@"DOB"] substringToIndex:10];
-	
-	self.memberNameLbl.text = [NSString stringWithFormat:@"%@, %@", memberLN, memberFN];
-	self.memberPlanLbl.text = memberPlan;
-	self.memberPlanTypeDescLbl.text = [NSString stringWithFormat:@"This is a %@ patient.", memberPlanType];
+	self.providerNameLbl.text = [NSString stringWithFormat:@"%@, %@", providerLN, providerFN];
 	
 	for (id v in self.patientListSV.subviews)
 		[v removeFromSuperview];
 	
 	NSLog(@"---------------------------------");
 	
-	ServiceObject* result = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetAllPatientInfoByMemberIdAndDOB?MemberId=%@&DOB=%@", memberId, memberDOB] categoryKey:@"" startTag:@"Table"];	
-	
 	BOOL hasObjs = YES;
 	
 	float ny=0;
-	float hx1 = self.patientListHeader1.frame.origin.x;
-	float hx2 = self.patientListHeader2.frame.origin.x;
-	float hx3 = self.patientListHeader3.frame.origin.x;
+	float hx1 = ((UILabel*)[self.patientListHeaders objectAtIndex:0]).frame.origin.x;
+	float hx2 = ((UILabel*)[self.patientListHeaders objectAtIndex:1]).frame.origin.x;
 	
 	for (int cnt=1; hasObjs; cnt++)
 	{
@@ -238,9 +225,8 @@ extern NSArray *patientImages;
 		{
 			int patientId = [result getIntValueByName:[NSString stringWithFormat:@"%@/PatientId", key]];
 			
-			NSString* patientLastName = [result getTextValueByName:[NSString stringWithFormat:@"%@/LastName", key]];
-			NSString* patientFirstName = [result getTextValueByName:[NSString stringWithFormat:@"%@/FirstName", key]];
-			NSString* patientRelation = [result getTextValueByName:[NSString stringWithFormat:@"%@/MemberRelation", key]];
+			NSString* patientLN = [result getTextValueByName:[NSString stringWithFormat:@"%@/LastName", key]];
+			NSString* patientFN = [result getTextValueByName:[NSString stringWithFormat:@"%@/FirstName", key]];
 			NSString* patientDOB = [[result getTextValueByName:[NSString stringWithFormat:@"%@/DOB", key]] substringToIndex:10];
 			
 			UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -254,17 +240,11 @@ extern NSArray *patientImages;
 			NSLog(@"adding patient %d", patientId);
 			[b addTarget:self action:@selector(patientBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 			
-            [self addMemberLabel:[NSString stringWithFormat:@"%@, %@", patientLN, memberFN] x:hx1 y:ny];
+            [self addPatientLabel:[NSString stringWithFormat:@"%@, %@", patientLN, patientFN] x:hx1 y:ny];
             
-            [self addMemberLabel:memberDOB x:hx2 y:ny];
+            [self addPatientLabel:patientDOB x:hx2 y:ny];
 			
-            [self addMemberLabel:memberSSN4 x:hx3 y:ny];		
-            
-            [self addMemberLabel:[NSString stringWithFormat:@"%@, %@", memberCity, memberState] x:hx4 y:ny];
-            
-            [self addMemberLabel:@"ACTIVES BUY-UP" x:hx5 y:ny];
-			
-			ny += MAX(b.frame.size.height, l.frame.size.height);
+			ny += MAX(b.frame.size.height, 20);
 		}
 		else
 			hasObjs = NO;
@@ -274,18 +254,19 @@ extern NSArray *patientImages;
 	
     [self applyChangesToSubviews:self.view];
     
-	self.memberDetailsView.hidden = NO;
+    self.searchResultsView.hidden = NO;
+	self.patientDetailsView.hidden = NO;
 }
 
-- (void)addMemberLabel:(NSString*)text x:(int)x y:(int)y
+- (void)addPatientLabel:(NSString*)text x:(int)x y:(int)y
 {
     UILabel *l = [[UILabel alloc] init];
     l.text = text;
     l.textColor = [UIColor whiteColor];
     l.backgroundColor = [UIColor clearColor];
     [l sizeToFit];
-    l.frame = CGRectMake(x - self.memberListSV.frame.origin.x, y, l.frame.size.width, l.frame.size.height);			
-    [self.memberListSV addSubview:l];
+    l.frame = CGRectMake(x - self.patientListSV.frame.origin.x, y, l.frame.size.width, l.frame.size.height);			
+    [self.patientListSV addSubview:l];
 }
 
 - (void)patientBtnClick:(id)sender
@@ -346,7 +327,8 @@ extern NSArray *patientImages;
 }
 
 - (IBAction)cancel:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"MemberSearchDidCancel" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"PatientSearchDidCancel" object:self];
 	[self dismissModalViewControllerAnimated:YES];
 }
+
 @end

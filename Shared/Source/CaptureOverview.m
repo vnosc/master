@@ -106,17 +106,17 @@ extern NSArray* patientImages;
 	self.imageLabel3.layer.backgroundColor = [UIColor blackColor].CGColor;
 	self.imageLabel4.layer.backgroundColor = [UIColor blackColor].CGColor;
 	
-	[self.frameInfo.layer setBorderWidth:3.0f];
+	/*[self.frameInfo.layer setBorderWidth:3.0f];
 	[self.frameInfo.layer setCornerRadius:25];
-	[self.frameInfo.layer setMasksToBounds:YES];
+	[self.frameInfo.layer setMasksToBounds:YES];*/
 	//CALayer *l = self.frameInfo.layer;
-	
-	[self createGradientForLayer:self.frameInfo.layer];
 	
 	[self getLatestPatientFromService];
 	
 	[self getFrameInfoFromService];
 	
+    [self validateFrame];
+    
 	captureVC = [[CapturePicture alloc]init];
 	captureVC.title=@"Image Capture";
 	
@@ -403,7 +403,7 @@ extern NSArray* patientImages;
 	isValid = isValid && [self validatePatient];
 	
     //isValid = isValid && [self validateFrame];
-    [self validateFrame];
+    //[self validateFrame];
 	
     return isValid;
 }
@@ -428,8 +428,8 @@ extern NSArray* patientImages;
 
 - (void) beginPatientSearch
 {
-    MemberSearch *patient=[[MemberSearch alloc]init];
-    patient.title=@"Member Search";
+    PatientSearch *patient=[[PatientSearch alloc]init];
+    patient.title=@"Patient Search";
     [self presentModalViewController:patient animated:YES];
 }
 

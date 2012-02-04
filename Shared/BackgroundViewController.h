@@ -14,6 +14,7 @@
 @property (retain) NSString* buttonImageName;
 @property (retain) NSString* buttonHighlightedImageName;
 @property (retain) UIColor* textColor;
+@property (retain) UIColor* highlightedTextColor;
 @property (assign) int buttonImageLeftCap;
 @property (assign) int buttonImageTopCap;
 @property (assign) int heightThreshold;

@@ -8,6 +8,11 @@
 
 #import "BackgroundViewController.h"
 
+#import <MediaPlayer/MediaPlayer.h>
+#import "UnityOpticsVideoView.h"
+
 @interface MarketingPage : BackgroundViewController
+- (IBAction)videoOptiClick:(id)sender;
+- (IBAction)videoUnityClick:(id)sender;
 
 @end

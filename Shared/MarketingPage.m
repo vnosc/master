@@ -27,14 +27,25 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+	
+	//[self.navigationController.navigationItem.leftBarButtonItem setTarget:self];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -48,4 +59,17 @@
 	return YES;
 }
 
+- (IBAction)videoOptiClick:(id)sender {
+    UnityOpticsVideoView *v=[[UnityOpticsVideoView alloc]init];
+    v.title=@"Project OptiSuite";
+    v.videoFilename = @"OptiSuite_Video_1.30.12.mp4";
+    [self.navigationController pushViewController:v animated:YES];
+}
+
+- (IBAction)videoUnityClick:(id)sender {
+    UnityOpticsVideoView *v=[[UnityOpticsVideoView alloc]init];
+    v.title=@"Unity Performance Optics";
+    v.videoFilename = @"unityVideo.mp4";
+    [self.navigationController pushViewController:v animated:YES];
+}
 @end

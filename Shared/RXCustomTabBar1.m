@@ -12,13 +12,6 @@
 
 @synthesize btn1, btn2, btn3, btn4,btnBg;
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self hidesBottomBarWhenPushed];
-	//self.selectedIndex=3;
-	[self hideTabBar];
-	[self addCustomElements];
-}
 
 - (void)hideTabBar
 {
@@ -48,6 +41,16 @@
     self.btn4.hidden = 0;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self hidesBottomBarWhenPushed];
+	//self.selectedIndex=3;
+	[self hideTabBar];
+	[self addCustomElements];
+    [[self.view.subviews objectAtIndex:0] setFrame:CGRectMake(0,0, 768, 1024)];
+    [self setTitle:@"Frame Styling"];
+}
 -(void)addCustomElements
 {
     

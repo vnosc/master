@@ -13,6 +13,9 @@ extern ServiceObject *providerXML;
 extern int providerId;
 
 @implementation QuestionnairePrimaryInsurance
+{
+    UIButton* _curBtn;
+}
 
 @synthesize vspAddressView;
 @synthesize vspAddressView2;
@@ -31,6 +34,7 @@ extern int providerId;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _curBtn = [UIButton alloc];
         // Custom initialization
     }
     return self;
@@ -42,6 +46,34 @@ extern int providerId;
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void) showDropDownFromButton:(UIButton*)btn title:(NSString*)title options:(NSString*)firstArg, ...
+{
+    _curBtn = btn;
+    
+    va_list args;
+    va_start(args, firstArg);
+    
+    UIActionSheet* as = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    for (NSString *arg = firstArg; arg != nil; arg = va_arg(args, NSString*))
+    {
+        [as addButtonWithTitle:arg];
+    }
+    va_end(args);
+    
+    [as showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex >= 0)
+    {
+        NSString* pv = [actionSheet buttonTitleAtIndex:buttonIndex];
+        [_curBtn setTitle:pv forState:UIControlStateNormal];
+    }
+    _curBtn = nil;
 }
 
 #pragma mark - View lifecycle
@@ -66,6 +98,15 @@ extern int providerId;
     [self setDropDownBackground:self.secondRelationshipDDL];
     [self setDropDownBackground:self.primaryVisionInsuranceDDL];
     [self setDropDownBackground:self.secondVisionInsuranceDDL];
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+    [dateFormat setDateFormat:@"MMMM d, y"];
+    
+    NSString *dateString = [dateFormat stringFromDate:date];
+    
+    [self.primaryDateField setText:dateString];
+    [self.secondDateFild setText:dateString];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -122,6 +163,27 @@ extern int providerId;
 - (IBAction)understandBtnClick:(id)sender {
     UIButton *btn = (UIButton*) sender;
     [btn setSelected:![btn isSelected]];
+}
+
+- (IBAction)relationshipDDLClick:(id)sender {
+    [self showDropDownFromButton:(UIButton*)sender title:@"Relationship to Patient" options:
+     @"Self", 
+     @"Parent/Guardian", 
+     @"Spouse", 
+     @"Domestic Partner",
+     @"Other", nil];
+}
+
+- (IBAction)insuranceTypeDDLClick:(id)sender {
+    [self showDropDownFromButton:(UIButton*)sender title:@"How did you hear about us?" options:
+     @"AVP", 
+     @"EyeMed", 
+     @"BS/BC", 
+     @"VSP",
+     @"MESC",
+     @"Medicare",
+     @"Medical",
+     @"Other", nil];
 }
 
 - (IBAction)continueBtnClick:(id)sender {

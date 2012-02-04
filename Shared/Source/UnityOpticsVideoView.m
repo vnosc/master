@@ -10,6 +10,10 @@
 
 @implementation UnityOpticsVideoView
 
+@synthesize videoFilename;
+
+- (NSString*) backgroundImageName { return @""; }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,11 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"unityVideo.mp4" ofType:nil];
-	NSURL *url = [NSURL fileURLWithPath:urlStr];
-	videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-	[self.view addSubview:videoPlayer.view];
-	videoPlayer.controlStyle = MPMovieControlStyleNone;
+    videoPlayer = [self createVideoPlayer:self.videoFilename];
 	videoPlayer.view.frame = CGRectMake(0, 0, 768, 768);
 	[videoPlayer play];
 	
@@ -50,6 +50,16 @@
 	 selector:@selector(videoFinished:)
 	 name:@"MPMoviePlayerPlaybackDidFinishNotification"
 	 object:videoPlayer];
+}
+
+- (MPMoviePlayerController*)createVideoPlayer:(NSString*)videoFileName
+{
+    NSString *urlStr = [[NSBundle mainBundle] pathForResource:videoFileName ofType:nil];
+	NSURL *url = [NSURL fileURLWithPath:urlStr];
+    MPMoviePlayerController *vp = [[MPMoviePlayerController alloc] initWithContentURL:url];
+	[self.view addSubview:vp.view];
+    vp.controlStyle = MPMovieControlStyleNone;
+    return vp;
 }
 
 - (void)removeVideo

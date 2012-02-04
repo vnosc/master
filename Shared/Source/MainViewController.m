@@ -49,6 +49,7 @@
     loading=[[Loading alloc]init];
     loading.mainView=self;
     [mainWindow addSubview:loading.view];
+    loading.view.frame = self.view.frame;
     // Do any additional setup after loading the view from its nib.
 }
 -(void)showLogin
@@ -68,7 +69,7 @@
 	home.title=@"Home";
 	home.mainview = self;
 	UINavigationController *navHomePage=[[UINavigationController alloc]initWithRootViewController:home];
-	[navHomePage.navigationBar setBarStyle:UIBarStyleBlack];
+	//[navHomePage.navigationBar setBarStyle:UIBarStyleBlack];
 	
 	/* Measurements *
 	measure=[[Measurements alloc]init];

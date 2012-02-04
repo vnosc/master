@@ -754,16 +754,15 @@ extern ServiceObject* frameXML;
 	else if (self.measureType == 2)
 	{
 		MeasureLine* vu = [self.touchView lineByName:@"Vertical Up"];
-		MeasureLine* vd = [self.touchView lineByName:@"Vertical Down"];
 		MeasureLine* fa = [self.touchView lineByName:@"Frame Across"];
 		
-		if (vu && vd && fa)
+		if (vu && fa)
 		{
 			MeasurePoint *shared = [fa sharedPoint:vu];
 			MeasureLine *cl;
-			if (fa.lowerPoint.y > shared.y)
+			/*if (fa.lowerPoint.y > shared.y)
 				cl = vd;
-			else
+			else*/
 				cl = vu;
 			
 			float pantho = [[cl angleBetween:fa] floatValue];

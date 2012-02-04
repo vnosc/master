@@ -12,6 +12,7 @@
 #import "PatientPrescription.h"
 #import "PatientRecord.h"
 #import "PatientCoverageSummary.h"
+#import "OrderFrameChoice.h"
 
 #import <QuartzCore/QuartzCore.h>
 

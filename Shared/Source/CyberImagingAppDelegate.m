@@ -21,6 +21,18 @@
 
 	// -------------------
 	
+    [[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
+	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], [BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
+    [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
+    
+    [[UILabel appearanceWhenContainedIn:[UIPickerView class], nil] setColor:[UIColor blackColor]];
+    [[UILabel appearanceWhenContainedIn:[UIPickerView class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
+    
+    [[HeaderLabel appearanceWhenContainedIn:[UIView class], nil] setColor:[UIColor blackColor]];
+    
+    [[UILabel appearanceWhenContainedIn:[UIActionSheet class], nil] setColor:[UIColor whiteColor]];
+    [[UILabel appearanceWhenContainedIn:[UIButton class], [UIActionSheet class], nil] setColor:[UIColor blackColor]];
+    
 #if defined OPTISUITE
 	
 	NSLog(@"OPTISUITE");
@@ -33,15 +45,6 @@
 	[[UILabel appearanceWhenContainedIn:[UITextField class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
 	
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
-    
-    [[UILabel appearanceWhenContainedIn:[MBProgressHUD class], nil] setColor:[UIColor whiteColor]];
-	[[UILabel appearanceWhenContainedIn:[MBProgressHUD class], [BackgroundViewController class], nil] setColor:[UIColor whiteColor]];
-    [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
-    
-    [[UILabel appearanceWhenContainedIn:[UIPickerView class], nil] setColor:[UIColor blackColor]];
-    [[UILabel appearanceWhenContainedIn:[UIPickerView class], [BackgroundViewController class], nil] setColor:[UIColor blackColor]];
-    
-    [[HeaderLabel appearanceWhenContainedIn:[UIView class], nil] setColor:[UIColor blackColor]];
 
     [[UILabel appearanceWhenContainedIn:[PackageSelection class], nil] setColor:[UIColor blackColor]];
     [[UILabel appearanceWhenContainedIn:[UIButton class], [PackageSelection class], nil] setColor:[UIColor whiteColor]];
@@ -51,7 +54,7 @@
 	
 	NSLog(@"SMART-I");
 	
-	[[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+	[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
 	
 //	[[UITabBar appearance] setTintColor:[UIColor whiteColor]]; 
 
@@ -60,6 +63,12 @@
     [[UILabel appearanceWhenContainedIn:[UIAlertView class], nil] setColor:[UIColor whiteColor]];
     
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
+    
+    [[UILabel appearanceWhenContainedIn:[UINavigationBar class], nil] setColor:[UIColor whiteColor]];
+    
+    UIColor *tint = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
+    [[UINavigationBar appearance] setTintColor:tint];
+    [[UITabBar appearance] setTintColor:tint];
 	
 #else
 	

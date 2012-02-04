@@ -20,6 +20,9 @@ extern int providerId;
 @synthesize dateField;
 @synthesize providerNameField;
 @synthesize understandBtn;
+@synthesize patientNameField;
+@synthesize patientPhoneField;
+@synthesize patientAddressField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -87,6 +90,9 @@ extern int providerId;
     [self setDateField:nil];
     [self setProviderNameField:nil];
     [self setUnderstandBtn:nil];
+    [self setPatientNameField:nil];
+    [self setPatientPhoneField:nil];
+    [self setPatientAddressField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -106,6 +112,9 @@ extern int providerId;
     [dateField release];
     [providerNameField release];
     [understandBtn release];
+    [patientNameField release];
+    [patientPhoneField release];
+    [patientAddressField release];
     [super dealloc];
 }
 - (IBAction)testRenderSignature:(id)sender {
@@ -131,6 +140,10 @@ extern int providerId;
     {
         QuestionnairePatientInfo *p = [[QuestionnairePatientInfo alloc] init];
         p.title = @"Patient Questionnaire";
+        
+        p.patientName = self.patientNameField.text;
+        p.patientPhone = self.patientPhoneField.text;
+        
         [self.navigationController pushViewController:p animated:YES];
     }
     else

@@ -14,6 +14,10 @@
 	MPMoviePlayerController *videoPlayer;
 }
 
+@property (retain, nonatomic) NSString* videoFilename;
+
+- (MPMoviePlayerController*)createVideoPlayer:(NSString*)videoFileName;
+
 - (void)videoFinished:(NSNotification*)n;
 - (IBAction)backToMainMenu:(id)sender;
 

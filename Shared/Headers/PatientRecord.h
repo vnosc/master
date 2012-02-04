@@ -30,5 +30,6 @@
 
 - (IBAction)searchForDifferentPatient:(id)sender;
 - (IBAction)back:(id)sender;
+- (IBAction)continueBtnClick:(id)sender;
 
 @end

@@ -21,6 +21,7 @@
 - (void) displayPopover;
 
 - (void) dateSelected:(id) sender;
+- (void) selectDate:(NSDate*)date;
 
 @property (nonatomic,retain) UIPopoverController* popover;
 @property (nonatomic,retain) IBOutlet UIView* displayView;

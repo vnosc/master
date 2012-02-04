@@ -143,8 +143,24 @@
 		A73943BD14B36BFE006BFF36 /* face_left.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BA14B36BFE006BFF36 /* face_left.png */; };
 		A73943BE14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
 		A73943BF14B36BFE006BFF36 /* face_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A73943BB14B36BFE006BFF36 /* face_right.png */; };
+		A73F047214DC633D002A6A3E /* OrderFrameChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F047014DC633C002A6A3E /* OrderFrameChoice.m */; };
+		A73F047314DC633D002A6A3E /* OrderFrameChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F047014DC633C002A6A3E /* OrderFrameChoice.m */; };
+		A73F047414DC633D002A6A3E /* OrderFrameChoice.xib in Resources */ = {isa = PBXBuildFile; fileRef = A73F047114DC633D002A6A3E /* OrderFrameChoice.xib */; };
+		A73F047514DC633D002A6A3E /* OrderFrameChoice.xib in Resources */ = {isa = PBXBuildFile; fileRef = A73F047114DC633D002A6A3E /* OrderFrameChoice.xib */; };
+		A73F047714DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F047614DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png */; };
+		A73F047814DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F047614DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png */; };
+		A73F047914DC7A8D002A6A3E /* BoxBackgroundLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297314DB3C05009CABD5 /* BoxBackgroundLarge.png */; };
+		A73F047B14DC7AA0002A6A3E /* BoxBackgroundLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F047A14DC7AA0002A6A3E /* BoxBackgroundLarge.png */; };
+		A73F047D14DC7B1D002A6A3E /* BoxBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F047C14DC7B1D002A6A3E /* BoxBackground.png */; };
 		A75C287914DB5E6D00D0A855 /* MemberRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = A75C287814DB5E6D00D0A855 /* MemberRecord.xib */; };
 		A75C287C14DB5E8600D0A855 /* MemberRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A75C287B14DB5E8600D0A855 /* MemberRecord.m */; };
+		A762022D14DC386D0090A389 /* MarketingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A762022B14DC386D0090A389 /* MarketingPage.m */; };
+		A762022E14DC386D0090A389 /* MarketingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A762022B14DC386D0090A389 /* MarketingPage.m */; };
+		A762022F14DC386D0090A389 /* MarketingPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = A762022C14DC386D0090A389 /* MarketingPage.xib */; };
+		A762023014DC386D0090A389 /* MarketingPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = A762022C14DC386D0090A389 /* MarketingPage.xib */; };
+		A762023314DC39190090A389 /* OptiSuite_Video_1.30.12.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A762023214DC39190090A389 /* OptiSuite_Video_1.30.12.mp4 */; };
+		A762023614DC3D600090A389 /* ScreenOpti.png in Resources */ = {isa = PBXBuildFile; fileRef = A762023414DC3D600090A389 /* ScreenOpti.png */; };
+		A762023714DC3D600090A389 /* ScreenUnity.png in Resources */ = {isa = PBXBuildFile; fileRef = A762023514DC3D600090A389 /* ScreenUnity.png */; };
 		A76E78E514B49D5200D2A589 /* DefaultButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E214B49D5200D2A589 /* DefaultButton.png */; };
 		A76E78E614B49D5200D2A589 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E314B49D5200D2A589 /* LoginBackground.png */; };
 		A76E78E714B49D5200D2A589 /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A76E78E414B49D5200D2A589 /* MainBackground.png */; };
@@ -173,6 +189,8 @@
 		A773170C147D7DB600D6338D /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731706147D7DB600D6338D /* SVSegmentedControl.m */; };
 		A773170D147D7DB600D6338D /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731708147D7DB600D6338D /* SVSegmentedThumb.m */; };
 		A773170E147D7DB600D6338D /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = A7731708147D7DB600D6338D /* SVSegmentedThumb.m */; };
+		A784113D14DC4A9E00223F08 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B82A0814DB3CF5009CABD5 /* CoreMotion.framework */; };
+		A784113E14DC4AA000223F08 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B82A0614DB3CD1009CABD5 /* OpenGLES.framework */; };
 		A78A24E5148D69EC001AFE4A /* HomePage.xib in Resources */ = {isa = PBXBuildFile; fileRef = A78A24E2148D69E4001AFE4A /* HomePage.xib */; };
 		A78AA35E1476F54D00AFFE04 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A78AA35A1476F54D00AFFE04 /* logo.png */; };
 		A78EB8681483E95300153C20 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A78EB8621483E95300153C20 /* LoginBackground.png */; };
@@ -498,8 +516,6 @@
 		A7B8296C14DB3BD6009CABD5 /* QuestionnairePrimaryInsurance.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7B8295714DB3BD6009CABD5 /* QuestionnairePrimaryInsurance.xib */; };
 		A7B8297114DB3BD6009CABD5 /* TiltMeasurer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8295C14DB3BD6009CABD5 /* TiltMeasurer.m */; };
 		A7B8297214DB3BD6009CABD5 /* TiltMeasurer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8295C14DB3BD6009CABD5 /* TiltMeasurer.m */; };
-		A7B8297614DB3C05009CABD5 /* BoxBackgroundLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297314DB3C05009CABD5 /* BoxBackgroundLarge.png */; };
-		A7B8297714DB3C05009CABD5 /* BoxBackgroundLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297314DB3C05009CABD5 /* BoxBackgroundLarge.png */; };
 		A7B8297814DB3C05009CABD5 /* DropDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297414DB3C05009CABD5 /* DropDownArrow.png */; };
 		A7B8297914DB3C05009CABD5 /* DropDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297414DB3C05009CABD5 /* DropDownArrow.png */; };
 		A7B8297A14DB3C05009CABD5 /* DropDownArrowHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B8297514DB3C05009CABD5 /* DropDownArrowHighlighted.png */; };
@@ -826,15 +842,12 @@
 		A7E9A8FF14D88AF100273CF0 /* RememberMeUnchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A8FD14D88AF100273CF0 /* RememberMeUnchecked.png */; };
 		A7E9A90114D8AA5800273CF0 /* frame_wrap_rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90014D8AA5800273CF0 /* frame_wrap_rotated.png */; };
 		A7E9A90214D8AA5800273CF0 /* frame_wrap_rotated.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90014D8AA5800273CF0 /* frame_wrap_rotated.png */; };
-		A7E9A90414D9A42000273CF0 /* BoxBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90314D9A42000273CF0 /* BoxBackground.png */; };
 		A7E9A90514D9A42000273CF0 /* BoxBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90314D9A42000273CF0 /* BoxBackground.png */; };
 		A7E9A90814D9B23C00273CF0 /* HeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9A90714D9B23B00273CF0 /* HeaderLabel.m */; };
 		A7E9A90914D9B23C00273CF0 /* HeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E9A90714D9B23B00273CF0 /* HeaderLabel.m */; };
 		A7E9A90D14D9B94B00273CF0 /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90C14D9B94B00273CF0 /* threelines.png */; };
 		A7E9A90E14D9B94B00273CF0 /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A90C14D9B94B00273CF0 /* threelines.png */; };
 		A7E9A90F14D9DD3E00273CF0 /* TOTakePhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A0C44714CF008000AF5334 /* TOTakePhotoView.xib */; };
-		A7E9A91214D9DDAA00273CF0 /* FStryon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A91014D9DDA400273CF0 /* FStryon.png */; };
-		A7E9A91414D9DDAA00273CF0 /* FStryonselected.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9A91114D9DDA600273CF0 /* FStryonselected.png */; };
 		A7E9CCA914743F94004EF3D4 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD614743F94004EF3D4 /* 1.png */; };
 		A7E9CCAB14743F94004EF3D4 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD714743F94004EF3D4 /* 2.PNG */; };
 		A7E9CCAD14743F94004EF3D4 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E9CBD814743F94004EF3D4 /* 3.png */; };
@@ -1248,11 +1261,23 @@
 		A736C79A14746F6500A9B8E0 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = Shared/XIB/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		A73943BA14B36BFE006BFF36 /* face_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_left.png; sourceTree = "<group>"; };
 		A73943BB14B36BFE006BFF36 /* face_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_right.png; sourceTree = "<group>"; };
+		A73F046F14DC633C002A6A3E /* OrderFrameChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFrameChoice.h; sourceTree = "<group>"; };
+		A73F047014DC633C002A6A3E /* OrderFrameChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFrameChoice.m; sourceTree = "<group>"; };
+		A73F047114DC633D002A6A3E /* OrderFrameChoice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderFrameChoice.xib; sourceTree = "<group>"; };
+		A73F047614DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PFO Logo_Horiz_CMYK.png"; sourceTree = "<group>"; };
+		A73F047A14DC7AA0002A6A3E /* BoxBackgroundLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoxBackgroundLarge.png; sourceTree = "<group>"; };
+		A73F047C14DC7B1D002A6A3E /* BoxBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoxBackground.png; sourceTree = "<group>"; };
 		A747A3B314DB5FF40023097B /* MemberRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberRecord.h; sourceTree = "<group>"; };
 		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
 		A75C287814DB5E6D00D0A855 /* MemberRecord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberRecord.xib; sourceTree = "<group>"; };
 		A75C287B14DB5E8600D0A855 /* MemberRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberRecord.m; sourceTree = "<group>"; };
+		A762022A14DC386D0090A389 /* MarketingPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketingPage.h; sourceTree = "<group>"; };
+		A762022B14DC386D0090A389 /* MarketingPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingPage.m; sourceTree = "<group>"; };
+		A762022C14DC386D0090A389 /* MarketingPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketingPage.xib; sourceTree = "<group>"; };
+		A762023214DC39190090A389 /* OptiSuite_Video_1.30.12.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = OptiSuite_Video_1.30.12.mp4; sourceTree = "<group>"; };
+		A762023414DC3D600090A389 /* ScreenOpti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScreenOpti.png; sourceTree = "<group>"; };
+		A762023514DC3D600090A389 /* ScreenUnity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScreenUnity.png; sourceTree = "<group>"; };
 		A76E78E214B49D5200D2A589 /* DefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultButton.png; sourceTree = "<group>"; };
 		A76E78E314B49D5200D2A589 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginBackground.png; sourceTree = "<group>"; };
 		A76E78E414B49D5200D2A589 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainBackground.png; sourceTree = "<group>"; };
@@ -1513,7 +1538,7 @@
 		A7A7EB2D14C88ADA00E33A19 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		A7B7BD3414588122006DE5E8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7B7BD3714588221006DE5E8 /* unityVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = unityVideo.mp4; sourceTree = "<group>"; };
-		A7B8294414DB3BB1009CABD5 /* PatientConsentForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientConsentForm.h; sourceTree = "<group>"; };
+		A7B8294414DB3BB1009CABD5 /* PatientConsentForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PatientConsentForm.h; path = ../../PatientConsentForm.h; sourceTree = "<group>"; };
 		A7B8294514DB3BB1009CABD5 /* PatientConsentForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientConsentForm.m; sourceTree = "<group>"; };
 		A7B8294614DB3BB1009CABD5 /* PatientConsentForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientConsentForm.xib; sourceTree = "<group>"; };
 		A7B8294C14DB3BD6009CABD5 /* QuestionnaireMedicalFamilyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionnaireMedicalFamilyHistory.m; sourceTree = "<group>"; };
@@ -2018,6 +2043,8 @@
 				B284180C1439E55E00E1986A /* ImageIO.framework in Frameworks */,
 				B284180E1439E58200E1986A /* AVFoundation.framework in Frameworks */,
 				B27EBA71143EFD7D007D369E /* OpenCV.framework in Frameworks */,
+				A784113D14DC4A9E00223F08 /* CoreMotion.framework in Frameworks */,
+				A784113E14DC4AA000223F08 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2789,6 +2816,9 @@
 		A7E9CB9E14743F94004EF3D4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A762023414DC3D600090A389 /* ScreenOpti.png */,
+				A762023514DC3D600090A389 /* ScreenUnity.png */,
+				A762023214DC39190090A389 /* OptiSuite_Video_1.30.12.mp4 */,
 				A747A3B314DB5FF40023097B /* MemberRecord.h */,
 				A75C287B14DB5E8600D0A855 /* MemberRecord.m */,
 				A75C287814DB5E6D00D0A855 /* MemberRecord.xib */,
@@ -2840,6 +2870,12 @@
 				A7E9CCA614743F94004EF3D4 /* XML */,
 				A7E9A90614D9B23A00273CF0 /* HeaderLabel.h */,
 				A7E9A90714D9B23B00273CF0 /* HeaderLabel.m */,
+				A762022A14DC386D0090A389 /* MarketingPage.h */,
+				A762022B14DC386D0090A389 /* MarketingPage.m */,
+				A762022C14DC386D0090A389 /* MarketingPage.xib */,
+				A73F046F14DC633C002A6A3E /* OrderFrameChoice.h */,
+				A73F047014DC633C002A6A3E /* OrderFrameChoice.m */,
+				A73F047114DC633D002A6A3E /* OrderFrameChoice.xib */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -2847,6 +2883,7 @@
 		A7E9CB9F14743F94004EF3D4 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				A7B8294414DB3BB1009CABD5 /* PatientConsentForm.h */,
 				A7E9A90B14D9B30000273CF0 /* CustomUI.h */,
 				A7DAC504148FF44000CFD968 /* MemberSearch.h */,
 				A78ECD531496558900ADA533 /* MeasureWrapAngle.h */,
@@ -3265,6 +3302,9 @@
 		A7F9C5561475CF3200AA9C33 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A73F047C14DC7B1D002A6A3E /* BoxBackground.png */,
+				A73F047A14DC7AA0002A6A3E /* BoxBackgroundLarge.png */,
+				A73F047614DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png */,
 				A7A7EA0B14C0E81200E33A19 /* Smart-i_iPad.png */,
 				A76E78ED14B4DA8E00D2A589 /* MenuBackground.png */,
 				A76E78EB14B4D6F600D2A589 /* LoginButton.png */,
@@ -3295,7 +3335,6 @@
 			children = (
 				A7B82A0814DB3CF5009CABD5 /* CoreMotion.framework */,
 				A7B82A0614DB3CD1009CABD5 /* OpenGLES.framework */,
-				A7B8294414DB3BB1009CABD5 /* PatientConsentForm.h */,
 				A7B8294514DB3BB1009CABD5 /* PatientConsentForm.m */,
 				A7B8294614DB3BB1009CABD5 /* PatientConsentForm.xib */,
 				A7E9CB9E14743F94004EF3D4 /* Shared */,
@@ -3761,7 +3800,6 @@
 				A7B8296414DB3BD6009CABD5 /* QuestionnaireMedicalHistory.xib in Resources */,
 				A7B8296814DB3BD6009CABD5 /* QuestionnairePatientInfo.xib in Resources */,
 				A7B8296C14DB3BD6009CABD5 /* QuestionnairePrimaryInsurance.xib in Resources */,
-				A7B8297714DB3C05009CABD5 /* BoxBackgroundLarge.png in Resources */,
 				A7B8297914DB3C05009CABD5 /* DropDownArrow.png in Resources */,
 				A7B8297B14DB3C05009CABD5 /* DropDownArrowHighlighted.png in Resources */,
 				A7B8298B14DB3C2D009CABD5 /* frames.png in Resources */,
@@ -3807,6 +3845,13 @@
 				A7B829FF14DB3C60009CABD5 /* LensThicknessPage.xib in Resources */,
 				A7B82A0114DB3C60009CABD5 /* ConsentText.html in Resources */,
 				A7B82A1014DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */,
+				A762023014DC386D0090A389 /* MarketingPage.xib in Resources */,
+				A762023314DC39190090A389 /* OptiSuite_Video_1.30.12.mp4 in Resources */,
+				A762023614DC3D600090A389 /* ScreenOpti.png in Resources */,
+				A762023714DC3D600090A389 /* ScreenUnity.png in Resources */,
+				A73F047514DC633D002A6A3E /* OrderFrameChoice.xib in Resources */,
+				A73F047814DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png in Resources */,
+				A73F047914DC7A8D002A6A3E /* BoxBackgroundLarge.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4116,17 +4161,13 @@
 				3694256014D20BD400262C1E /* FSFavoritesView.xib in Resources */,
 				A7E9A8F814D87F8300273CF0 /* frame_wrap.png in Resources */,
 				A7E9A90114D8AA5800273CF0 /* frame_wrap_rotated.png in Resources */,
-				A7E9A90414D9A42000273CF0 /* BoxBackground.png in Resources */,
 				A7E9A90D14D9B94B00273CF0 /* threelines.png in Resources */,
 				A7E9A90F14D9DD3E00273CF0 /* TOTakePhotoView.xib in Resources */,
-				A7E9A91214D9DDAA00273CF0 /* FStryon.png in Resources */,
-				A7E9A91414D9DDAA00273CF0 /* FStryonselected.png in Resources */,
 				A7B8294914DB3BB1009CABD5 /* PatientConsentForm.xib in Resources */,
 				A7B8295F14DB3BD6009CABD5 /* QuestionnaireMedicalFamilyHistory.xib in Resources */,
 				A7B8296314DB3BD6009CABD5 /* QuestionnaireMedicalHistory.xib in Resources */,
 				A7B8296714DB3BD6009CABD5 /* QuestionnairePatientInfo.xib in Resources */,
 				A7B8296B14DB3BD6009CABD5 /* QuestionnairePrimaryInsurance.xib in Resources */,
-				A7B8297614DB3C05009CABD5 /* BoxBackgroundLarge.png in Resources */,
 				A7B8297814DB3C05009CABD5 /* DropDownArrow.png in Resources */,
 				A7B8297A14DB3C05009CABD5 /* DropDownArrowHighlighted.png in Resources */,
 				A7B8298A14DB3C2D009CABD5 /* frames.png in Resources */,
@@ -4173,6 +4214,11 @@
 				A7B82A0014DB3C60009CABD5 /* ConsentText.html in Resources */,
 				A7B82A0F14DB47EB009CABD5 /* PatientCoverageSummary.xib in Resources */,
 				A75C287914DB5E6D00D0A855 /* MemberRecord.xib in Resources */,
+				A762022F14DC386D0090A389 /* MarketingPage.xib in Resources */,
+				A73F047414DC633D002A6A3E /* OrderFrameChoice.xib in Resources */,
+				A73F047714DC749F002A6A3E /* PFO Logo_Horiz_CMYK.png in Resources */,
+				A73F047B14DC7AA0002A6A3E /* BoxBackgroundLarge.png in Resources */,
+				A73F047D14DC7B1D002A6A3E /* BoxBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4371,6 +4417,8 @@
 				A7B82A0314DB3C60009CABD5 /* PaintingView.m in Sources */,
 				A7B82A0514DB3C60009CABD5 /* MeasureProcessStep.m in Sources */,
 				A7B82A0D14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */,
+				A762022E14DC386D0090A389 /* MarketingPage.m in Sources */,
+				A73F047314DC633D002A6A3E /* OrderFrameChoice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4568,6 +4616,8 @@
 				A7B82A0414DB3C60009CABD5 /* MeasureProcessStep.m in Sources */,
 				A7B82A0C14DB47DC009CABD5 /* PatientCoverageSummary.m in Sources */,
 				A75C287C14DB5E8600D0A855 /* MemberRecord.m in Sources */,
+				A762022D14DC386D0090A389 /* MarketingPage.m in Sources */,
+				A73F047214DC633D002A6A3E /* OrderFrameChoice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4756,7 +4806,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** \"$(SRCROOT)/**\" $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
@@ -4839,7 +4889,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** \"$(SRCROOT)/**\" $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";
 				WEB_SITE_URL = "http://dev.smart-i.mobi/";
@@ -4873,7 +4923,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MODULE_NAME = Entitlements.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Smart-i/Headers\" \"$(SRCROOT)/Shared\"/** \"$(SRCROOT)/**\" $(SRCROOT)/Library/** ${SDK_DIR}/usr/include/libxml2";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				WEB_SERVICE_URL = "http://dev.smart-i.ws/mobilewebservice.asmx/";

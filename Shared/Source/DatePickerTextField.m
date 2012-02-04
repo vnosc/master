@@ -107,13 +107,18 @@
 
 - (void) dateSelected:(id) sender
 {
-	NSLog(@"date %@", self.datePicker.date);
-	NSString* dateString = [self.dateFormatter stringFromDate:self.datePicker.date];
-	self.text = dateString;
-	NSLog(@"datestring %@", dateString);
+    [self selectDate:self.datePicker.date];
 	[self.popover dismissPopoverAnimated:YES];
 }
 
+- (void) selectDate:(NSDate*)date
+{
+    self.datePicker.date = date;
+    NSLog(@"date %@", self.datePicker.date);
+	NSString* dateString = [self.dateFormatter stringFromDate:self.datePicker.date];
+	self.text = dateString;
+	NSLog(@"datestring %@", dateString);
+}
 - (void) setText:(NSString*)text
 {
 

@@ -20,6 +20,9 @@
 @property (retain, nonatomic) IBOutlet UITextField *dateField;
 @property (retain, nonatomic) IBOutlet HeaderLabel *providerNameField;
 @property (retain, nonatomic) IBOutlet UIButton *understandBtn;
+@property (retain, nonatomic) IBOutlet UITextField *patientNameField;
+@property (retain, nonatomic) IBOutlet UITextField *patientPhoneField;
+@property (retain, nonatomic) IBOutlet UITextView *patientAddressField;
 - (IBAction)testRenderSignature:(id)sender;
 - (IBAction)understandBtnClick:(id)sender;
 - (IBAction)clearSignatureBtnClick:(id)sender;

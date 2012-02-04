@@ -25,8 +25,8 @@
 @property (retain, nonatomic) IBOutlet PaintingView *primarySignatureView;
 @property (retain, nonatomic) IBOutlet PaintingView *secondSignatureView;
 
-@property (retain, nonatomic) IBOutlet UIButton *primaryDateField;
-@property (retain, nonatomic) IBOutlet UIButton *secondDateFild;
+@property (retain, nonatomic) IBOutlet UITextField *primaryDateField;
+@property (retain, nonatomic) IBOutlet UITextField *secondDateFild;
 
 @property (retain, nonatomic) IBOutlet UIButton *primaryUnderstandBtn;
 @property (retain, nonatomic) IBOutlet UIButton *secondUnderstandBtn;
@@ -35,5 +35,7 @@
 - (IBAction)primaryEraseBtnClick:(id)sender;
 - (IBAction)secondEraseBtnClick:(id)sender;
 - (IBAction)understandBtnClick:(id)sender;
+- (IBAction)relationshipDDLClick:(id)sender;
+- (IBAction)insuranceTypeDDLClick:(id)sender;
 
 @end

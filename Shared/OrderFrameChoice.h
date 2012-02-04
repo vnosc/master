@@ -9,5 +9,8 @@
 #import "BackgroundViewController.h"
 
 @interface OrderFrameChoice : BackgroundViewController
+- (IBAction)back:(id)sender;
+- (IBAction)continueWithNewFrameClick:(id)sender;
+- (IBAction)continueWithPOFClick:(id)sender;
 
 @end

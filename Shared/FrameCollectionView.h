@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface FrameCollectionView : UIViewController 
+@interface FrameCollectionView : BackgroundViewController 
 {
     UILabel *collectionLabel;
     NSString *companyName;

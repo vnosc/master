@@ -43,6 +43,7 @@
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (UIColor*) textColor { return [UIColor whiteColor]; }
+- (UIColor*) highlightedTextColor { return [UIColor whiteColor]; }
 - (int) buttonImageLeftCap { return 15; }
 - (int) buttonImageTopCap { return 13; }
 - (int) heightThreshold { return 70; }
@@ -53,8 +54,9 @@
 - (NSString*) buttonImageName { return @"DefaultButton.png"; }
 - (NSString*) buttonHighlightedImageName { return @"DefaultButtonHighlighted.png"; }
 - (UIColor*) textColor { return [UIColor darkGrayColor]; }
-- (int) buttonImageLeftCap { return 6; }
-- (int) buttonImageTopCap { return 6; }
+- (UIColor*) highlightedTextColor { return [UIColor lightGrayColor]; }
+- (int) buttonImageLeftCap { return 13; }
+- (int) buttonImageTopCap { return 13; }
 - (int) heightThreshold { return 70; }
 
 #endif
@@ -122,6 +124,9 @@
 				//[b.layer setMasksToBounds:YES];
 				[b.layer setCornerRadius:0.0f];
 				[b setTitleColor:self.textColor forState:UIControlStateNormal];
+                
+                if (self.highlightedTextColor)
+                    [b setTitleColor:self.highlightedTextColor forState:UIControlStateHighlighted];
 			}
 		}
 		else if ([v isKindOfClass:[UIView class]] && ![v isKindOfClass:[UINavigationBar class]])
@@ -172,6 +177,19 @@
     [btn setNeedsDisplay];
 }
 
+- (UINavigationItem *)navigationItem
+{
+    UINavigationItem *navigationItem = [super navigationItem];
+    UILabel *customLabel = [[UILabel alloc] init];
+    customLabel.text = self.title;
+    customLabel.textColor = [UIColor blackColor];
+    customLabel.backgroundColor = [UIColor clearColor];
+    navigationItem.titleView = customLabel;
+    [customLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [customLabel sizeToFit];
+    [customLabel release];
+    return navigationItem;
+}
 /*- (void) viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];

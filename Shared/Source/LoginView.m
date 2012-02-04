@@ -54,7 +54,7 @@ extern ServiceObject* providerXML;
 
 #pragma mark - View lifecycle
 
-- (NSString*) backgroundImageName { return @"MainBackground.png"; }
+- (NSString*) backgroundImageName { return @"LoginBackground.png"; }
 // - (NSString*) buttonImageName { return @"LoginButton.png"; }
 // - (NSString*) buttonHighlightedImageName { return @"LoginButtonTouch.png"; }
 // - (int) buttonImageLeftCap { return 25; }
@@ -158,11 +158,15 @@ extern ServiceObject* providerXML;
             else
             {	
 				providerId = tempProviderId;
-				providerXML = so;
+                
 				NSString* mobileSessionId = [so getTextValueByName:@"mobilesessionid"];
 				
 				mobileSessionXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetMobileSessionInfo?sessionId=%@", mobileSessionId]];
 				
+                int providerIdL = [mobileSessionXML getIntValueByName:@"providerId"];
+                
+                providerXML = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"GetProviderInfo?providerId=%d", providerIdL]];
+                
 				NSLog(@"%@", mobileSessionId);
 				
                 if(a==1)

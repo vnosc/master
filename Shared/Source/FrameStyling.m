@@ -65,7 +65,7 @@ extern NSArray* patientImages;
 	
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickedPatientName:) name:@"UITextFieldTextDidBeginEditingNotification" object:self.txtPatientName];
 	
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:@"PatientRecordDidFinish" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:@"PatientSearchDidFinish" object:nil];
 	
 	[self getLatestPatientFromService];
 	
@@ -193,8 +193,8 @@ extern NSArray* patientImages;
 	
 	NSLog(@"%@ -> %@ -> %@", n.name, n.object, n.userInfo);
 	
-	PatientRecord *patient=[[PatientRecord alloc]init];
-	patient.title=@"Patient Record";
+	PatientSearch *patient=[[PatientSearch alloc]init];
+	patient.title=@"Patient Search";
 	//[self.navigationController pushViewController:patient animated:YES];
 	[self presentModalViewController:patient animated:YES];
 }
