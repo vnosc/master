@@ -64,11 +64,11 @@
     
 	[[UILabel appearanceWhenContainedIn:[BackgroundViewController class], nil] setColor:[UIColor darkGrayColor]];
     
-    [[UILabel appearanceWhenContainedIn:[UINavigationBar class], nil] setColor:[UIColor whiteColor]];
+    /*[[UILabel appearanceWhenContainedIn:[UINavigationBar class], nil] setColor:[UIColor whiteColor]];
     
     UIColor *tint = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
     [[UINavigationBar appearance] setTintColor:tint];
-    [[UITabBar appearance] setTintColor:tint];
+    [[UITabBar appearance] setTintColor:tint];*/
 	
 #else
 	

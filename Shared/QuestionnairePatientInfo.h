@@ -9,9 +9,10 @@
 #import "BackgroundViewController.h"
 #import "HeaderLabel.h"
 
-#import "QuestionnairePrimaryInsurance.h"
+#import "DatePickerTextField.h"
 
 @interface QuestionnairePatientInfo : BackgroundViewController <UIActionSheetDelegate>
+
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView;
 @property (retain, nonatomic) IBOutlet UIButton *phoneDDL;
 @property (retain, nonatomic) IBOutlet UIButton *altPhoneDDL;
@@ -19,6 +20,7 @@
 
 @property (retain, nonatomic) IBOutlet UITextField *patientNameField;
 @property (retain, nonatomic) IBOutlet UITextField *patientPhoneField;
+@property (retain, nonatomic) IBOutlet DatePickerTextField *patientDOBField;
 @property (retain, nonatomic) IBOutlet UITextField *providerNameField;
 
 @property (retain, nonatomic) NSString* patientName;

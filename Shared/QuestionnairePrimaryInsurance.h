@@ -14,6 +14,7 @@
 #import "QuestionnaireMedicalHistory.h"
 
 @interface QuestionnairePrimaryInsurance : BackgroundViewController
+
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView;
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView2;
 

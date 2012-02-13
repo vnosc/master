@@ -69,7 +69,7 @@ extern NSArray* patientImages;
 	
 	[self getLatestPatientFromService];
 	
-	[self loadPatientImages];
+	//[self loadPatientImages];
 	
 	[self.view addGestureRecognizer:self.tgr];
 	[self.tgr setNumberOfTapsRequired:1];
@@ -107,8 +107,8 @@ extern NSArray* patientImages;
 	
 	if (img != [NSNull null])
 	{
-		self.imageCompareL.image = img;
-		self.imageCompareR.image = img;
+		//self.imageCompareL.image = img;
+		//self.imageCompareR.image = img;
 	}
 	
     // Do any additional setup after loading the view from its nib.
@@ -354,6 +354,7 @@ extern NSArray* patientImages;
 			if ([img pointInside:p withEvent:event])
 			{
 				img.image = self.dragImage.image;
+                [img setAlpha:1.0f];
 				UILabel *l = [self.frameNameCompareLbls objectAtIndex:cnt];
 				UILabel *l2 = [self.frameNameLbls objectAtIndex:self.selectedImageView];
 				l.text = l2.text;

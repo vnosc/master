@@ -9,6 +9,8 @@
 #import "BackgroundViewController.h"
 #import "HeaderLabel.h"
 
+#import "QuestionnaireMedicalFamilyHistory.h"
+
 @interface QuestionnaireMedicalHistory : BackgroundViewController
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView;
 @property (retain, nonatomic) IBOutlet UIButton *phoneDDL;

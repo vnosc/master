@@ -9,8 +9,13 @@
 #import "FrameCatelogs.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ServiceObject.h"
+
+extern ServiceObject *mobileSessionXML;
+extern ServiceObject *patientXML;
+
 @implementation FrameCatelogs
 @synthesize frameCatScrollView;
+@synthesize frameNameLabel;
 @synthesize selectMainFrameImage;
 @synthesize imageScrollView;
 @synthesize asyncImage;
@@ -22,6 +27,8 @@
 @synthesize ALbl;
 @synthesize BLbl;
 @synthesize EDLbl,DBLLbl,templeLbl,EyeLbl;
+
+@synthesize selectedBrand;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,9 +43,17 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
+    for (UIView* v in frameCatScrollView.subviews)
+        [v removeFromSuperview];
+    
     [super viewWillAppear:animated];
     NSLog(@".......3..............");
 
+    [titelButton setImage:brandImage forState:UIControlStateNormal];
+    [self jump];
+    //[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
+    
     frameView.layer.cornerRadius=20.0;
     
         //[self fillImageScrollView];
@@ -48,7 +63,7 @@
 {
     manName=[[NSMutableArray alloc]init];
     
-    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameCollectionByBrand?brand=MARCHON"];
+    NSString *urlString=[NSString stringWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameCollectionByBrand?brand=%@", self.selectedBrand];
     
     NSLog(@"URL OF EVENT : %@",urlString);
     TBXML *tbxml1 =[TBXML tbxmlWithURL:[NSURL URLWithString:urlString]];
@@ -83,24 +98,35 @@
     
     // NSArray *array=[[NSArray alloc]initWithObjects:@"autoFex",@"Blue Ribbon",@"ok Optical",@"ok Suns",@"Calvin Klein Optical",@"Calvin Klein Suns",@"Coach Ophthalmic",@" Coach Sun" ,nil];
     // NSArray *imageArray=[[NSArray alloc]initWithObjects:@"spectdemo1.png",@"spectdemo2.png",@"spectdemo3.png",@"spect4.png",@"spect5.png",@"spectdemo6.png", nil];
-    for (int i=0;i<[manName count]; i++)
+    if ([manName count] > 0)
     {
-        UIButton *catListBtn=[[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        catListBtn.frame=CGRectMake(5,30*i,230, 30);
-        [catListBtn setTitle:[manName objectAtIndex:i] forState:UIControlStateNormal];
-        //catListBtn.titleLabel.textColor=[UIColor blackColor];
-        //[catListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-       // [catListBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
-        [catListBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        [catListBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateSelected];
-        [catListBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        catListBtn.tag=i;
-        [catListBtn addTarget:self action:@selector(clickCatelogsButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self.frameCatScrollView addSubview:catListBtn];
+        for (int i=0;i<[manName count]; i++)
+        {
+            UIButton *catListBtn=[[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            catListBtn.frame=CGRectMake(5,30*i,230, 30);
+            [catListBtn setTitle:[manName objectAtIndex:i] forState:UIControlStateNormal];
+            //catListBtn.titleLabel.textColor=[UIColor blackColor];
+            //[catListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+           // [catListBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
+            [catListBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+            [catListBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateSelected];
+            [catListBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            catListBtn.tag=i;
+            [catListBtn addTarget:self action:@selector(clickCatelogsButton:) forControlEvents:UIControlEventTouchUpInside];
+            [self.frameCatScrollView addSubview:catListBtn];
+        }
     }
     frameCatScrollView.contentSize=CGSizeMake(180,[manName count]*30);
+    
+    NSString *collectionTitle = @"";
+    
+    if ([manName count] > 0)
+    {
+        collectionTitle = [manName objectAtIndex:0];
+    }
+    
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:[manName objectAtIndex:0] forState:UIControlStateNormal];
+    [btn setTitle:collectionTitle forState:UIControlStateNormal];
     
     [self clickCatelogsButton:btn];
 
@@ -110,6 +136,7 @@
 - (void)dealloc
 {
     [collectionButton release];
+    [frameNameLabel release];
     [super dealloc];
 }
 
@@ -126,8 +153,6 @@
 
 - (void)viewDidLoad
 {
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump) userInfo:nil repeats:NO];
-    
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
@@ -158,8 +183,10 @@
     
     UIButton *btn=(UIButton *)sender;
     
+    NSString *frameIdx = [frameIdArray objectAtIndex:btn.tag];
+    _selectedFrameIdx = [frameIdx intValue];
     
-    NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameThumbnail.aspx?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
+    NSString *urldata=[[NSString alloc]initWithFormat:@"http://smart-i.mobi/ShowFrameImage.aspx?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
     
     NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws//mobilewebservice.asmx/GetFrameInfoByFrameId?frameId=%@",[frameIdArray objectAtIndex:btn.tag]];
     
@@ -180,7 +207,7 @@
                 if(tableEle)
                 {
                    // TBXMLElement *frameColorEle = [TBXML childElementNamed:@"FrameColor" parentElement:tableEle];
-                    //TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"FrameType" parentElement:tableEle];
+                    TBXMLElement *frameTypeEle = [TBXML childElementNamed:@"FrameType" parentElement:tableEle];
                     //TBXMLElement *frameNameEle = [TBXML childElementNamed:@"CPTCode" parentElement:tableEle];
                     TBXMLElement *frameAEle = [TBXML childElementNamed:@"ABox" parentElement:
                                                   tableEle];
@@ -197,6 +224,7 @@
                   // <ABox>48.00</ABox><BBox>25.00</BBox>
                     if(frameAEle)
                     {
+                        self.frameNameLabel.text = [TBXML textForElement:frameTypeEle];
                         EyeLbl.text=[TBXML textForElement:frameEyeEle];
                         ALbl.text=[TBXML textForElement:frameAEle];
                         BLbl.text=[TBXML textForElement:frameBEle];
@@ -230,7 +258,6 @@
     
     [btn setSelected:YES];
     
-    [titelButton setTitle:@"MARCHON" forState:UIControlStateNormal];
     [collectionButton setTitle:btn.currentTitle forState:UIControlStateNormal];
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(jump2:) userInfo:sender repeats:NO];
     [indicator startAnimating];
@@ -243,7 +270,7 @@
     UIButton *btn=(UIButton *)[sender userInfo];
    // http://smart-i.ws/mobilewebservice.asmx/GetFrameTypeByManufacturer?manufacturer=Nike
     
-    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameByBrandAndCollection?brand=MARCHON&collection=%@",[btn.currentTitle stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
+    NSString *urlString=[[NSString alloc]initWithFormat:@"http://smart-i.ws/mobilewebservice.asmx/GetFrameByBrandAndCollection?brand=%@&collection=%@", self.selectedBrand, [btn.currentTitle stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
     
     NSLog(@"URL OF EVENT : %@",urlString);
     TBXML *tbxml1 =[TBXML tbxmlWithURL:[NSURL URLWithString:urlString]];
@@ -353,12 +380,16 @@
     
 }
 
-
+- (void) setBrandButtonImage:(UIImage*)img
+{
+    brandImage = [img retain];
+}
 
 - (void)viewDidUnload
 {
     [collectionButton release];
     collectionButton = nil;
+    [self setFrameNameLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -375,6 +406,52 @@
     FrameCollectionView *frameCollection=[[FrameCollectionView alloc]init];
     frameCollection.companyName=btn.currentTitle;
     [self.navigationController pushViewController:frameCollection animated:YES];
+}
+
+- (IBAction)addToFavoritesBtnClick:(id)sender {
+    int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+    
+    if (patientId == 0)
+    {   
+        [self beginPatientSearch];
+    }
+    else
+    {
+        [self addToFavorites:_selectedFrameIdx];
+    }
+}
+
+- (void) beginPatientSearch
+{
+    PatientSearch *patient=[[PatientSearch alloc]init];
+    patient.title=@"Patient Search";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientSearchDidFinish:) name:@"PatientSearchDidFinish" object:patient];
+    
+    [self presentModalViewController:patient animated:YES];
+}
+
+- (void) patientSearchDidFinish:(NSNotification*)n
+{
+    [self addToFavorites:_selectedFrameIdx];
+}
+
+- (void) addToFavorites:(int)frameTypeId
+{
+    int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+    
+    if (patientId != 0)
+    {
+        ServiceObject *so = [ServiceObject fromServiceMethod:[NSString stringWithFormat:@"AddFavoriteForPatient?patientId=%d&frameTypeId=%d", patientId, frameTypeId]];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Success" message:[NSString stringWithFormat:@"The frame\n%@\nhas been added to your favorites.", self.frameNameLabel.text] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		[alert show];
+		[alert release];
+    }
+}
+
+- (IBAction)brandSelectBtnClick:(id)sender {
+    self.tabBarController.selectedIndex = 0;
 }
 
 -(IBAction)saveButtonClickOnCatelogsView:(id)sender

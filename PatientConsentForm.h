@@ -10,7 +10,7 @@
 #import "PaintingView.h"
 #import "HeaderLabel.h"
 
-#import "QuestionnairePatientInfo.h"
+#import "QuestionnaireProcess.h"
 
 @interface PatientConsentForm : BackgroundViewController
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView;

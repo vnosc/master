@@ -138,13 +138,11 @@ extern int providerId;
 - (IBAction)continueBtnClick:(id)sender {
     if (understandBtn.selected)
     {
-        QuestionnairePatientInfo *p = [[QuestionnairePatientInfo alloc] init];
-        p.title = @"Patient Questionnaire";
-        
+        QuestionnaireProcess *p = [[QuestionnaireProcess alloc] init];
+        p.navigationController = self.navigationController;
         p.patientName = self.patientNameField.text;
         p.patientPhone = self.patientPhoneField.text;
-        
-        [self.navigationController pushViewController:p animated:YES];
+        [p nextStep];
     }
     else
     {

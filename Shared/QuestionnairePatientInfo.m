@@ -16,12 +16,14 @@ extern int providerId;
 {
     UIButton *_curBtn;
 }
+
 @synthesize vspAddressView;
 @synthesize phoneDDL;
 @synthesize altPhoneDDL;
 @synthesize hearAboutDDL;
 @synthesize patientNameField;
 @synthesize patientPhoneField;
+@synthesize patientDOBField;
 @synthesize providerNameField;
 @synthesize patientName;
 @synthesize patientPhone;
@@ -86,6 +88,7 @@ extern int providerId;
     [self setPatientNameField:nil];
     [self setPatientPhoneField:nil];
     [self setProviderNameField:nil];
+    [self setPatientDOBField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -132,14 +135,13 @@ extern int providerId;
     [patientNameField release];
     [patientPhoneField release];
     [providerNameField release];
+    [patientDOBField release];
     [super dealloc];
 }
 
 - (IBAction)continueBtnClick:(id)sender {
     
-    QuestionnairePrimaryInsurance *p = [[QuestionnairePrimaryInsurance alloc] init];
-    p.title = @"Patient Questionnaire";
-    [self.navigationController pushViewController:p animated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QuestionnairePageDidFinish" object:self];
     
 }
 

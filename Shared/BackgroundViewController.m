@@ -177,7 +177,7 @@
     [btn setNeedsDisplay];
 }
 
-- (UINavigationItem *)navigationItem
+/*- (UINavigationItem *)navigationItem
 {
     UINavigationItem *navigationItem = [super navigationItem];
     UILabel *customLabel = [[UILabel alloc] init];
@@ -189,7 +189,8 @@
     [customLabel sizeToFit];
     [customLabel release];
     return navigationItem;
-}
+}*/
+
 /*- (void) viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];

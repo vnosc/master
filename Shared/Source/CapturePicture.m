@@ -290,6 +290,7 @@
 		 UIImage *image = [[UIImage alloc] initWithData:imageData];
 		
 		 self.iv.image = image;
+         [self.iv setAlpha:1.0f];
 	 }];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CapturePictureDidFinish" object:self];

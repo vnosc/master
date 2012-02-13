@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "FrameCollectionView.h"
 #import "asyncimageview.h"
+#import "PatientSearch.h"
+
 @class FrameCollectionView;
 @interface FrameCatelogs : BackgroundViewController <MBProgressHUDDelegate>
 {
@@ -38,6 +40,10 @@
     
     IBOutlet UIView *frameView;
     
+    UIImage *brandImage;
+    
+    int _selectedFrameIdx;
+    
 }
 @property (nonatomic,retain)IBOutlet UILabel *EyeLbl;
 @property (nonatomic,retain)IBOutlet UILabel *ALbl;
@@ -54,9 +60,15 @@
 @property (nonatomic,retain)IBOutlet UIScrollView *imageScrollView;
 @property (nonatomic,retain)UIImageView *selectMainFrameImage;
 @property (nonatomic,retain)UIScrollView *frameCatScrollView;
+@property (retain, nonatomic) IBOutlet UILabel *frameNameLabel;
+
+@property (nonatomic, retain) NSString *selectedBrand;
+
 -(void)selectCatelogsButton:(id)sender;
 -(void)clickCatelogsButton:(id)sender;
 -(void)indicaterMethodForCatButton:(id)sender;
 -(void)fillImageScrollView;
+- (IBAction)addToFavoritesBtnClick:(id)sender;
+- (IBAction)brandSelectBtnClick:(id)sender;
 -(IBAction)saveButtonClickOnCatelogsView:(id)sender;
 @end

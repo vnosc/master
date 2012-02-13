@@ -190,9 +190,7 @@ extern int providerId;
     
     if (primaryUnderstandBtn.selected)
     {
-        QuestionnaireMedicalHistory *p = [[QuestionnaireMedicalHistory alloc] init];
-        p.title = @"Patient Questionnaire";
-        [self.navigationController pushViewController:p animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QuestionnairePageDidFinish" object:self];
     }
     else
     {

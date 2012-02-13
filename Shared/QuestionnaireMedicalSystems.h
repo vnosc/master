@@ -8,22 +8,23 @@
 
 #import "BackgroundViewController.h"
 #import "HeaderLabel.h"
+#import "PaintingView.h"
 
-#import "QuestionnaireMedicalSystems.h"
-
-@interface QuestionnaireSocialHistory : BackgroundViewController
+@interface QuestionnaireMedicalSystems : BackgroundViewController
 @property (retain, nonatomic) IBOutlet UIView *vspAddressView;
-@property (retain, nonatomic) IBOutlet UIButton *phoneDDL;
-@property (retain, nonatomic) IBOutlet UIButton *altPhoneDDL;
-@property (retain, nonatomic) IBOutlet UIButton *contactLensTypeDDL;
+@property (retain, nonatomic) IBOutlet PaintingView *initialSigView;
 
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *noBtns;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *yesBtns;
 @property (retain, nonatomic) IBOutletCollection(UIView) NSArray *yesNoPanels;
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *relationDDLs;
+@property (retain, nonatomic) IBOutlet UIScrollView *systemsSV;
+@property (retain, nonatomic) IBOutlet UIView *systemsContainerView;
 
 - (IBAction)yesNoBtnClick:(id)sender;
 
 - (IBAction)continueBtnClick:(id)sender;
-
+- (IBAction)relationDDLClick:(id)sender;
+- (IBAction)sigEraseBtnClick:(id)sender;
 
 @end

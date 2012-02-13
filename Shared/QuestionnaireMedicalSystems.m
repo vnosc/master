@@ -6,24 +6,25 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "QuestionnaireMedicalHistory.h"
+#import "QuestionnaireMedicalSystems.h"
 
 extern ServiceObject *mobileSessionXML;
 extern ServiceObject *providerXML;
 extern int providerId;
 
-@implementation QuestionnaireMedicalHistory
+@implementation QuestionnaireMedicalSystems
 {
     UIButton *_curBtn;
 }
 
 @synthesize vspAddressView;
-@synthesize phoneDDL;
-@synthesize altPhoneDDL;
-@synthesize contactLensTypeDDL;
+@synthesize initialSigView;
 @synthesize noBtns;
 @synthesize yesBtns;
 @synthesize yesNoPanels;
+@synthesize relationDDLs;
+@synthesize systemsSV;
+@synthesize systemsContainerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +54,17 @@ extern int providerId;
 {
     [super viewDidLoad];
     
+    [self.systemsSV setContentSize:self.systemsSV.bounds.size];
+    [self.systemsSV setClipsToBounds:YES];
+    
+    [self.vspAddressView addSubview:self.systemsSV];
+    [self.systemsSV setFrame:self.systemsContainerView.frame];
+    
+    for (UIButton *btn in self.yesBtns)
+        [btn addTarget:self action:@selector(yesNoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    for (UIButton *btn in self.noBtns)
+        [btn addTarget:self action:@selector(yesNoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     /*NSString *pfn = [providerXML getTextValueByName:@"FirstName"];
     NSString *pln = [providerXML getTextValueByName:@"LastName"];
     NSString *pn = [NSString stringWithFormat:"%@ %@", pfn, pln];
@@ -60,9 +72,8 @@ extern int providerId;
     
     [self setBoxBackgroundLarge:self.vspAddressView];
     
-    [self setDropDownBackground:self.phoneDDL];
-    [self setDropDownBackground:self.altPhoneDDL];
-    [self setDropDownBackground:self.contactLensTypeDDL];
+    for (UIButton *ddl in self.relationDDLs)
+        [self setDropDownBackground:ddl];
     
     int cnt=0;
     for (id obj in self.yesNoPanels)
@@ -77,12 +88,13 @@ extern int providerId;
 - (void)viewDidUnload
 {
     [self setVspAddressView:nil];
-    [self setPhoneDDL:nil];
-    [self setAltPhoneDDL:nil];
-    [self setContactLensTypeDDL:nil];
     [self setNoBtns:nil];
     [self setYesBtns:nil];
     [self setYesNoPanels:nil];
+    [self setInitialSigView:nil];
+    [self setRelationDDLs:nil];
+    [self setSystemsSV:nil];
+    [self setSystemsContainerView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -96,12 +108,13 @@ extern int providerId;
 
 - (void)dealloc {
     [vspAddressView release];
-    [phoneDDL release];
-    [altPhoneDDL release];
-    [contactLensTypeDDL release];
     [noBtns release];
     [yesBtns release];
     [yesNoPanels release];
+    [initialSigView release];
+    [relationDDLs release];
+    [systemsSV release];
+    [systemsContainerView release];
     [super dealloc];
 }
 
@@ -161,16 +174,28 @@ extern int providerId;
 }
 
 - (IBAction)continueBtnClick:(id)sender {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"QuestionnairePageDidFinish" object:self];
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QuestionnairePageDidFinish" object:self];
+    
 }
 
-- (IBAction)contactLensTypeDDLClick:(id)sender {
-    [self showDropDownFromButton:(UIButton*)sender title:@"Type of Contact" options:
-     @"Soft", 
-     @"Gas Perm.", 
-     @"Extended Wear", nil];
+- (IBAction)relationDDLClick:(id)sender {
+    [self showDropDownFromButton:(UIButton*)sender title:@"Relationship to Patient" options:    
+     @"Not specified", 
+     @"Self", 
+     @"Father", 
+     @"Mother", 
+     @"Grandfather",
+     @"Grandmother",        
+     @"Brother", 
+     @"Sister", 
+     @"Son",
+     @"Daughter",     
+     nil];
+}
+
+- (IBAction)sigEraseBtnClick:(id)sender {
+    [self.initialSigView erase];
 }
 
 @end

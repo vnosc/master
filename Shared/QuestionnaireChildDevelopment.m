@@ -6,21 +6,18 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "QuestionnaireMedicalHistory.h"
+#import "QuestionnaireChildDevelopment.h"
 
 extern ServiceObject *mobileSessionXML;
 extern ServiceObject *providerXML;
 extern int providerId;
 
-@implementation QuestionnaireMedicalHistory
+@implementation QuestionnaireChildDevelopment
 {
     UIButton *_curBtn;
 }
 
 @synthesize vspAddressView;
-@synthesize phoneDDL;
-@synthesize altPhoneDDL;
-@synthesize contactLensTypeDDL;
 @synthesize noBtns;
 @synthesize yesBtns;
 @synthesize yesNoPanels;
@@ -53,16 +50,17 @@ extern int providerId;
 {
     [super viewDidLoad];
     
+    /*for (UIButton *btn in self.yesBtns)
+        [btn addTarget:self action:@selector(yesNoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    for (UIButton *btn in self.noBtns)
+        [btn addTarget:self action:@selector(yesNoBtnClick:) forControlEvents:UIControlEventTouchUpInside];*/
+    
     /*NSString *pfn = [providerXML getTextValueByName:@"FirstName"];
     NSString *pln = [providerXML getTextValueByName:@"LastName"];
     NSString *pn = [NSString stringWithFormat:"%@ %@", pfn, pln];
     [self.providerNameField setText:pn];*/
     
     [self setBoxBackgroundLarge:self.vspAddressView];
-    
-    [self setDropDownBackground:self.phoneDDL];
-    [self setDropDownBackground:self.altPhoneDDL];
-    [self setDropDownBackground:self.contactLensTypeDDL];
     
     int cnt=0;
     for (id obj in self.yesNoPanels)
@@ -77,9 +75,6 @@ extern int providerId;
 - (void)viewDidUnload
 {
     [self setVspAddressView:nil];
-    [self setPhoneDDL:nil];
-    [self setAltPhoneDDL:nil];
-    [self setContactLensTypeDDL:nil];
     [self setNoBtns:nil];
     [self setYesBtns:nil];
     [self setYesNoPanels:nil];
@@ -96,9 +91,6 @@ extern int providerId;
 
 - (void)dealloc {
     [vspAddressView release];
-    [phoneDDL release];
-    [altPhoneDDL release];
-    [contactLensTypeDDL release];
     [noBtns release];
     [yesBtns release];
     [yesNoPanels release];
@@ -161,16 +153,9 @@ extern int providerId;
 }
 
 - (IBAction)continueBtnClick:(id)sender {
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"QuestionnairePageDidFinish" object:self];
-
-}
-
-- (IBAction)contactLensTypeDDLClick:(id)sender {
-    [self showDropDownFromButton:(UIButton*)sender title:@"Type of Contact" options:
-     @"Soft", 
-     @"Gas Perm.", 
-     @"Extended Wear", nil];
+    
 }
 
 @end

@@ -1531,7 +1531,7 @@ extern ServiceObject* prescriptionXML;
 	}
 	else
 	{
-		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Please select a frame." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Instructions" message:@"Please select a frame." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 		[alert show];
 		[alert release];
 		
