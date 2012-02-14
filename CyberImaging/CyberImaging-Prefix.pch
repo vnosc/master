@@ -23,6 +23,7 @@
 
 // 1st-party
 #import "ServiceObject.h"
+#import "ServiceObjectTree.h"
 #import "BackgroundViewController.h"
 
 #endif

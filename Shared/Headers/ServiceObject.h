@@ -22,13 +22,16 @@
 
 + (ServiceObject*) fromServiceMethod:(NSString *)serviceString;
 + (ServiceObject*) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag;
++ (ServiceObject *) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag url:(NSString*)url;
 
 + (NSString*) urlOfServiceMethod:(NSString *)serviceString;
 + (NSString*) urlOfWebPage:(NSString *)pageString;
 
 + (NSString *) getStringFromServiceMethod:(NSString *)serviceString;
 + (void) executeServiceMethod:(NSString *)serviceString;
+
 + (TBXML *) executeRequest:(NSString *)serviceString;
++ (TBXML *) executeRequest:(NSString *)serviceString url:(NSString*)url;
 
 - (NSString *) getTextValueByName:(NSString *)name;
 - (int) getIntValueByName:(NSString *)name;

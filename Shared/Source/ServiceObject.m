@@ -31,6 +31,14 @@
 	return so;
 }
 
++ (ServiceObject *) fromServiceMethod:(NSString *)serviceString categoryKey:(NSString*)ck startTag:(NSString*)startTag url:(NSString*)url
+{
+	TBXML *tbxml= [ServiceObject executeRequest:serviceString url:url];
+	ServiceObject *so = [[ServiceObject alloc] initWithTBXML:tbxml categoryKey:ck startTag:startTag];
+	so.url = url;
+	return so;
+}
+
 + (NSString *) getStringFromServiceMethod:(NSString *)serviceString
 {
 	TBXML *tbxml= [ServiceObject executeRequest:serviceString];
@@ -47,6 +55,14 @@
 	NSString *url = [ServiceObject urlOfServiceMethod:serviceString];
 	NSLog(@"Service request: %@", url);
 	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url]];
+	return tbxml;
+}
+
++ (TBXML *) executeRequest:(NSString *)serviceString url:(NSString*)url
+{
+	NSString *url2 = [NSString stringWithFormat:@"%@%@", url, serviceString];
+	NSLog(@"Service request: %@", url2);
+	TBXML *tbxml= [TBXML tbxmlWithURL:[NSURL URLWithString:url2]];
 	return tbxml;
 }
 

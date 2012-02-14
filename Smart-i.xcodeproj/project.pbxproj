@@ -362,6 +362,9 @@
 		A78F700214E02B6900664824 /* QuestionnaireMedicalSystems.m in Sources */ = {isa = PBXBuildFile; fileRef = A78F6FFF14E02B6900664824 /* QuestionnaireMedicalSystems.m */; };
 		A78F700314E02B6900664824 /* QuestionnaireMedicalSystems.xib in Resources */ = {isa = PBXBuildFile; fileRef = A78F700014E02B6900664824 /* QuestionnaireMedicalSystems.xib */; };
 		A78F700414E02B6900664824 /* QuestionnaireMedicalSystems.xib in Resources */ = {isa = PBXBuildFile; fileRef = A78F700014E02B6900664824 /* QuestionnaireMedicalSystems.xib */; };
+		A792E34E14E9B7F80016BFBB /* OptiSuite-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A792E34D14E9B7F80016BFBB /* OptiSuite-info.plist */; };
+		A792E35514E9BDF20016BFBB /* ServiceObjectTree.m in Sources */ = {isa = PBXBuildFile; fileRef = A792E35414E9BDF20016BFBB /* ServiceObjectTree.m */; };
+		A792E35614E9BDF20016BFBB /* ServiceObjectTree.m in Sources */ = {isa = PBXBuildFile; fileRef = A792E35414E9BDF20016BFBB /* ServiceObjectTree.m */; };
 		A796C6201490BA6A00D647C0 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = A796C5861490BA6A00D647C0 /* SHKOAuthSharer.m */; };
 		A796C6211490BA6A00D647C0 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = A796C5861490BA6A00D647C0 /* SHKOAuthSharer.m */; };
 		A796C6221490BA6A00D647C0 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = A796C5881490BA6A00D647C0 /* SHKSharer.m */; };
@@ -1293,7 +1296,6 @@
 		A752451614E01AA500B141B9 /* QuestionnaireMedicalFamilyHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionnaireMedicalFamilyHistory.h; sourceTree = "<group>"; };
 		A752451714E01AA500B141B9 /* QuestionnaireMedicalFamilyHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionnaireMedicalFamilyHistory.m; sourceTree = "<group>"; };
 		A752451814E01AA500B141B9 /* QuestionnaireMedicalFamilyHistory.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionnaireMedicalFamilyHistory.xib; sourceTree = "<group>"; };
-		A759978C1474283300D9968C /* OptiSuite-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OptiSuite-info.plist"; path = "/Users/troypotts/Documents/cyber....code/cyber /CyberImaging 2/OptiSuite-info.plist"; sourceTree = "<absolute>"; };
 		A759978D1474295500D9968C /* Smart-i-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Smart-i-info.plist"; path = "../Smart-i-info.plist"; sourceTree = "<group>"; };
 		A75C287814DB5E6D00D0A855 /* MemberRecord.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberRecord.xib; sourceTree = "<group>"; };
 		A75C287B14DB5E8600D0A855 /* MemberRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberRecord.m; sourceTree = "<group>"; };
@@ -1421,6 +1423,9 @@
 		A78F6FFE14E02B6900664824 /* QuestionnaireMedicalSystems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionnaireMedicalSystems.h; sourceTree = "<group>"; };
 		A78F6FFF14E02B6900664824 /* QuestionnaireMedicalSystems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionnaireMedicalSystems.m; sourceTree = "<group>"; };
 		A78F700014E02B6900664824 /* QuestionnaireMedicalSystems.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionnaireMedicalSystems.xib; sourceTree = "<group>"; };
+		A792E34D14E9B7F80016BFBB /* OptiSuite-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OptiSuite-info.plist"; sourceTree = SOURCE_ROOT; };
+		A792E35314E9BDF20016BFBB /* ServiceObjectTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServiceObjectTree.h; path = Shared/ServiceObjectTree.h; sourceTree = "<group>"; };
+		A792E35414E9BDF20016BFBB /* ServiceObjectTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServiceObjectTree.m; path = Shared/ServiceObjectTree.m; sourceTree = "<group>"; };
 		A796C5851490BA6A00D647C0 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		A796C5861490BA6A00D647C0 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		A796C5871490BA6A00D647C0 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -3373,6 +3378,8 @@
 		F1D2A428141976F400E26C72 = {
 			isa = PBXGroup;
 			children = (
+				A792E35314E9BDF20016BFBB /* ServiceObjectTree.h */,
+				A792E35414E9BDF20016BFBB /* ServiceObjectTree.m */,
 				A7B82A0814DB3CF5009CABD5 /* CoreMotion.framework */,
 				A7B82A0614DB3CD1009CABD5 /* OpenGLES.framework */,
 				A7B8294514DB3BB1009CABD5 /* PatientConsentForm.m */,
@@ -3435,12 +3442,12 @@
 		F1D2A43E141976F400E26C72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A792E34D14E9B7F80016BFBB /* OptiSuite-info.plist */,
 				A7DAC4B1148D75E700CFD968 /* haarcascade_eye_tree_eyeglasses.xml */,
 				A7DAC4B2148D75E700CFD968 /* haarcascade_frontalface_alt2.xml */,
 				F1CACC311441506D0062A387 /* Entitlements.plist */,
 				F1E51B631447C0B90017D940 /* haarcascade_frontalface_default.xml */,
 				A759978D1474295500D9968C /* Smart-i-info.plist */,
-				A759978C1474283300D9968C /* OptiSuite-info.plist */,
 				F1D2A443141976F400E26C72 /* CyberImaging-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -4267,6 +4274,7 @@
 				A752451B14E01AA600B141B9 /* QuestionnaireMedicalFamilyHistory.xib in Resources */,
 				A78F700314E02B6900664824 /* QuestionnaireMedicalSystems.xib in Resources */,
 				A71FD7BE14E0479100CE7060 /* QuestionnaireChildDevelopment.xib in Resources */,
+				A792E34E14E9B7F80016BFBB /* OptiSuite-info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4471,6 +4479,7 @@
 				A78F700214E02B6900664824 /* QuestionnaireMedicalSystems.m in Sources */,
 				A7AE093E14E03B2F00ABA686 /* QuestionnaireProcess.m in Sources */,
 				A71FD7BD14E0479100CE7060 /* QuestionnaireChildDevelopment.m in Sources */,
+				A792E35614E9BDF20016BFBB /* ServiceObjectTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4674,6 +4683,7 @@
 				A78F700114E02B6900664824 /* QuestionnaireMedicalSystems.m in Sources */,
 				A7AE093D14E03B2F00ABA686 /* QuestionnaireProcess.m in Sources */,
 				A71FD7BC14E0479100CE7060 /* QuestionnaireChildDevelopment.m in Sources */,
+				A792E35514E9BDF20016BFBB /* ServiceObjectTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
