@@ -66,6 +66,8 @@
 @property CGPoint rightEyePoint;
 @property CGPoint leftEyePoint;
 @property CGPoint bridgePoint;
+@property CGPoint rightLaserPoint;
+@property CGPoint leftLaserPoint;
 
 @property int processStep;
 
@@ -97,6 +99,7 @@
 - (void) prepareForMeasureLine;
 - (void) prepareForMeasurePoint;
 
+- (float) calculateImageScale;
 - (float) transformPixelsToRealDistance:(float)pixels;
 
 - (void) changeInstructions:(NSString*)instructions;

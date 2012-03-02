@@ -255,11 +255,42 @@
     [guideBtn release];
 	[super dealloc];
 }
-	
+
+- (BOOL)audioJackInUse {
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    CFDictionaryRef asCFType = nil;
+    UInt32 dataSize = sizeof(asCFType);
+    AudioSessionGetProperty(kAudioSessionProperty_AudioRouteDescription, &dataSize, &asCFType);
+    NSDictionary *easyPeasy = (NSDictionary *)asCFType;
+    NSDictionary *firstOutput = (NSDictionary *)[[easyPeasy valueForKey:@"RouteDetailedDescription_Outputs"] objectAtIndex:0];
+    NSString *portType = (NSString *)[firstOutput valueForKey:@"RouteDetailedDescription_PortType"];
+    NSLog(@"first output port type is: %@!", portType);
+    return [portType isEqualToString:@"Headphones"];
+}
+
 -(IBAction) captureBtnClick:(id)sender
 {
 	//buttonClick=1;
 	
+    //NSURL *audiourl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/beep.wav", [[NSBundle mainBundle] resourcePath]]];
+    NSURL *audiourl = [[NSBundle mainBundle] URLForResource:@"beep" withExtension:@"mp3"];
+    NSError *audioerror;
+    
+    _player = [[[AVAudioPlayer alloc] initWithContentsOfURL:audiourl error:&audioerror] retain];
+    
+    if (_player == nil)
+        NSLog(@"%@", [audioerror description]);
+
+    if ([self audioJackInUse]) {
+        [_player play];
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval:.20 target:self selector:@selector(captureImage:) userInfo:nil repeats:NO];
+}
+
+- (void) captureImage:(id)sender
+{
+    
 	AVCaptureConnection *videoConnection = nil;
 	for (AVCaptureConnection *connection in stillImageOutput.connections)
 	{
@@ -289,10 +320,13 @@
 		 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
 		 UIImage *image = [[UIImage alloc] initWithData:imageData];
 		
+         if (_player != nil)
+             [_player stop];
+         
 		 self.iv.image = image;
          [self.iv setAlpha:1.0f];
 	 }];
-	
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CapturePictureDidFinish" object:self];
 	
 	[self.navigationController popViewControllerAnimated:YES];

@@ -36,6 +36,8 @@ const int kEyeHaarOptions = 0;
 	cv::Mat _cannyMat;
 	cv::CascadeClassifier _faceCascade;
 	cv::CascadeClassifier _eyeCascade;
+    
+    std::vector <std::vector<cv::Point> > contours;
 }
 
 - (void) loadCascade:(cv::CascadeClassifier&)cascade filename:(NSString *)fn;
@@ -70,6 +72,10 @@ const int kEyeHaarOptions = 0;
 @synthesize threshLabel;
 @synthesize labelSizeLabel;
 @synthesize labelSizeSlider;
+@synthesize houghCircleDPSlider;
+@synthesize houghCircleMinDistSlider;
+@synthesize houghCircleCannySlider;
+@synthesize houghCircleAccumulatorSlider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -328,6 +334,61 @@ const int kEyeHaarOptions = 0;
 	
 	self.imageView.image = tempImage;
 }
+
+- (void)doCircleHough
+{
+	NSLog(@"doin' circular hough");
+	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
+	cv::Mat eyeMatOut;
+
+	UIImage *tempImage = [UIImage imageWithCVMat:eyeMat];
+	
+	CGContextRef ctx;
+	
+	if (focusPoint.x > 0 && focusPoint.y > 0)
+	{
+		UIGraphicsBeginImageContext(CGSizeMake(240,320));
+		ctx = UIGraphicsGetCurrentContext();
+		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
+		[tempImage drawAtPoint:CGPointMake(-focusPoint.x, -focusPoint.y)];
+	}
+	else
+	{
+		UIGraphicsBeginImageContext(tempImage.size);
+		ctx = UIGraphicsGetCurrentContext();
+		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
+		[tempImage drawAtPoint:CGPointZero];			
+	}
+	
+	tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    std::vector<cv::Vec3f> circles;
+    
+    valDP = (double) self.houghCircleDPSlider.value;
+    valMinDist = (double) self.houghCircleMinDistSlider.value;
+    valCanny = (double) self.houghCircleCannySlider.value;
+    valAccumulator = (double) self.houghCircleAccumulatorSlider.value;
+    
+    NSLog(@"dp: %e   minDist: %e   canny: %e   accumulator: %e", valDP, valMinDist, valCanny, valAccumulator);
+    
+    cv::HoughCircles(eyeMat, circles, CV_HOUGH_GRADIENT, valDP, valMinDist, valCanny, valAccumulator, 10, 30);
+    //cv::HoughCircles(eyeMat, circles, CV_HOUGH_GRADIENT, 2, 1, 300, 50, 0, 0);
+    
+    [[UIColor blueColor] setStroke];
+    for (int i; i < circles.size(); i++)
+    {
+        float x = circles[i][0];
+        float y = circles[i][1];
+        float radius = circles[i][2];
+        CGContextStrokeEllipseInRect(ctx, CGRectMake(x-radius, y-radius, radius*2, radius*2));
+        NSLog(@"%f, %f, %f", x, y, radius);
+	}
+    
+    UIImage *imageWithCircles = UIGraphicsGetImageFromCurrentImageContext();
+    self.imageView.image = imageWithCircles;
+    UIGraphicsEndImageContext();
+}
+
 - (void)doEigen
 {
 	NSLog(@"doin' eigen");
@@ -391,18 +452,47 @@ const int kEyeHaarOptions = 0;
 }
 - (void)doContours
 {
-	std::vector <std::vector<cv::Point> > contours;
 	std::vector<cv::Vec4i> hier;
 	
 	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
+    _baseContourImage = [[UIImage imageWithCVMat:eyeMat] retain];
+    
 	//cv::Mat eyeMat = [_baseImage CVGrayscaleMat];
 	//cv::Mat eyeMat = [_baseImage CVMat];
 	cv::Mat eyeMatOut;
 	
-	UIImage *tempImage = [UIImage imageWithCVMat:eyeMat];
+	//eyeMat = [tempImage CVGrayscaleMat];
+	
+	//cv::threshold(eyeMat, eyeMat, 100, 255, cv::THRESH_BINARY);
+	//eyeMat = [tempImage CVMat];
+	
+	NSLog(@"doin' contours");
+
+	cv::findContours(eyeMat, contours, hier, CV_RETR_LIST, CV_CHAIN_APPROX_TC89_L1);
+    
+    
+	NSLog(@"contours: %d", (int) contours.size());
+	
+    int biggestContourIdx = 0;
+	for (int i = 0; i < contours.size(); i++)
+	{
+        if (contours[i].size() > contours[biggestContourIdx].size())
+            biggestContourIdx = i;
+    }
+    
+    cIdx = biggestContourIdx;
+    
+    [self drawContour:biggestContourIdx];
+    
+}
+
+- (void) drawContour:(int)contourIdx
+{
 	
 	CGContextRef ctx;
 	
+    UIImage *tempImage = _baseContourImage;
+    
 	if (focusPoint.x > 0 && focusPoint.y > 0)
 	{
 		UIGraphicsBeginImageContext(CGSizeMake(240,320));
@@ -417,28 +507,8 @@ const int kEyeHaarOptions = 0;
 		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
 		[tempImage drawAtPoint:CGPointZero];			
 	}
-	
-	tempImage = UIGraphicsGetImageFromCurrentImageContext();
-	
-	eyeMat = [tempImage CVGrayscaleMat];
-	
-	//cv::threshold(eyeMat, eyeMat, 100, 255, cv::THRESH_BINARY);
-	//eyeMat = [tempImage CVMat];
-	
-	NSLog(@"doin' contours");
-
-	cv::findContours(eyeMat, contours, hier, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
-
-	NSLog(@"contours: %d", (int) contours.size());
-	
-    int biggestContourIdx = 0;
-	for (int i = 0; i < contours.size(); i++)
-	{
-        if (contours[i].size() > contours[biggestContourIdx].size())
-            biggestContourIdx = i;
-    }
     
-    std::vector<cv::Point> contour = contours[biggestContourIdx];
+    std::vector<cv::Point> contour = contours[contourIdx];
     
     int csize = contour.size();
     NSLog(@"biggest contour details: size %d, first %d,%d, last %d,%d", csize, contour[0].x, contour[0].y, contour[csize-1].x, contour[csize-1].y );
@@ -625,6 +695,10 @@ const int kEyeHaarOptions = 0;
 	[self setThreshLabel:nil];
     [self setLabelSizeLabel:nil];
     [self setLabelSizeSlider:nil];
+    [self setHoughCircleDPSlider:nil];
+    [self setHoughCircleMinDistSlider:nil];
+    [self setHoughCircleCannySlider:nil];
+    [self setHoughCircleAccumulatorSlider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -660,6 +734,10 @@ const int kEyeHaarOptions = 0;
 	[threshLabel release];
     [labelSizeLabel release];
     [labelSizeSlider release];
+    [houghCircleDPSlider release];
+    [houghCircleMinDistSlider release];
+    [houghCircleCannySlider release];
+    [houghCircleAccumulatorSlider release];
     [super dealloc];
 }
 - (IBAction)revertBtnClick:(id)sender {
@@ -811,6 +889,19 @@ const int kEyeHaarOptions = 0;
 - (IBAction)labelSizeSliderChanged:(id)sender {
     self.labelSize = (int) self.labelSizeSlider.value;
     [self.labelSizeLabel setText:[NSString stringWithFormat:@"%d", self.labelSize]];
+}
+
+- (IBAction)houghCirclesBtnClick:(id)sender {
+    [self doCircleHough];
+}
+
+- (IBAction)nextContourBtnClick:(id)sender {
+    cIdx = cIdx + 1;
+    NSLog(@"contour idx: %d   num contours: %d", cIdx, contours.size());
+    if (cIdx == contours.size())
+        cIdx = 0;
+    int thing = cIdx;
+    [self drawContour:thing];
 }
 
 @end

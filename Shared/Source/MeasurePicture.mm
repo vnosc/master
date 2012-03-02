@@ -17,7 +17,7 @@ extern ServiceObject* frameXML;
 @synthesize touchView;
 @synthesize navigationTitleLabel;
 
-@synthesize rightEyePoint, leftEyePoint, bridgePoint;
+@synthesize rightEyePoint, leftEyePoint, bridgePoint, rightLaserPoint, leftLaserPoint;
 @synthesize processStep;
 
 @synthesize iv;
@@ -125,7 +125,8 @@ extern ServiceObject* frameXML;
 	
 	if (self.measureType == 0 || self.measureType == 1)
 	{
-        [self changeInstructions:@"Please touch the center of the\nright pupil."];
+        //[self changeInstructions:@"Please touch the center of the\nright pupil."];
+        [self changeInstructions:@"Please touch the right laser point."];
 	}
 	else if (self.measureType == 2)
 	{
@@ -136,7 +137,7 @@ extern ServiceObject* frameXML;
 	}
 	else if (self.measureType == 3)
 	{
-        [self changeInstructions:@"Please touch the center of the\n pupil."];
+        [self changeInstructions:@"Please touch the right laser point."];
 	}
 	
 }
@@ -195,7 +196,21 @@ extern ServiceObject* frameXML;
         p = [t locationInView:self.touchView];
     }
     
-    if (self.processStep == 0)
+    int stepCompare = 0;
+    
+    if (self.processStep == stepCompare++)
+    {
+        self.rightLaserPoint = p;
+        
+        [self beginPointStep:@"Please touch the center of the\nleft laser."];
+    }
+    else if (self.processStep == stepCompare++)
+    {
+        self.leftLaserPoint = p;
+        
+        [self beginPointStep:@"Please touch the center of the\nright pupil."];
+    }
+    else if (self.processStep == stepCompare++)
     {
         self.rightEyePoint = p;
         
@@ -205,7 +220,7 @@ extern ServiceObject* frameXML;
         
         [self beginPointStep:@"Please touch the center of the\nleft pupil."];
     }
-    else if (self.processStep == 1)
+    else if (self.processStep == stepCompare++)
     {
         self.leftEyePoint = p;
         
@@ -223,7 +238,7 @@ extern ServiceObject* frameXML;
         [self nextProcessStep:event notification:n];
     }
     
-    else if (self.processStep == 2)
+    else if (self.processStep == stepCompare++)
     {        
         // self.touchView.dragged = YES;
         [self.touchView setNeedsDisplay];
@@ -231,7 +246,7 @@ extern ServiceObject* frameXML;
         [self beginPointStep:@"Please touch the\nbottom of the right lens."];
     }
     
-    else if (self.processStep == 3)
+    else if (self.processStep == stepCompare++)
     {
         CGPoint bottomRightPoint = CGPointMake(self.rightEyePoint.x, p.y);
         CGPoint bottomLeftPoint = CGPointMake(self.rightEyePoint.x - 100, p.y);
@@ -268,7 +283,7 @@ extern ServiceObject* frameXML;
 
     }
     
-    else if (self.processStep == 4)
+    else if (self.processStep == stepCompare++)
     {
         CGPoint bottomLeftPoint = CGPointMake(self.leftEyePoint.x, p.y);
         CGPoint bottomRightPoint = CGPointMake(self.leftEyePoint.x + 100, p.y);
@@ -340,7 +355,22 @@ extern ServiceObject* frameXML;
         p = [t locationInView:self.touchView];
     }
     
-    if (self.processStep == 0)
+    int stepCompare = 0;
+    
+    
+    if (self.processStep == stepCompare++)
+    {
+        self.rightLaserPoint = p;
+        
+        [self beginPointStep:@"Please touch the center of the\nleft laser."];
+    }
+    else if (self.processStep == stepCompare++)
+    {
+        self.leftLaserPoint = p;
+        
+        [self beginPointStep:@"Please touch the center of the\n pupil."];
+    }
+    else if (self.processStep == stepCompare++)
     {
         self.rightEyePoint = p;
         
@@ -351,7 +381,7 @@ extern ServiceObject* frameXML;
         
         [self beginLineStep:@"Please touch and drag to draw a line across the front of the frame."];
     }
-    else if (self.processStep == 1)
+    else if (self.processStep == stepCompare++)
     {
         [self.touchView.points removeObjectAtIndex:0];
         
@@ -652,7 +682,9 @@ extern ServiceObject* frameXML;
 		MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Bottom Horizontal"];
 		MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Bottom Horizontal"];        
 		MeasureLine* bridge = [self.touchView lineByName:@"Bridge Vertical"];
-			
+
+        float imageScale = [self calculateImageScale];
+        
 		if (lev && rev && lfb && rfb && bridge)
 		{
 			float abox = [[frameXML getTextValueByName:@"ABox"] floatValue];
@@ -680,10 +712,19 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x]; // * (720 / self.vImagePreview.frame.size.width) ; ///rScaleABox + 0;
-			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; // * (720 / self.vImagePreview.frame.size.width); ///lScaleABox + 0;
-			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y]; // * (960 / self.vImagePreview.frame.size.height); /// rScaleBBox + 0;
-			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y]; // * (960 / self.vImagePreview.frame.size.height);  // / lScaleBBox + 0;
+            NSLog(@"frame width %f", self.vImagePreview.frame.size.width);
+            
+            float rDistPD = 0;
+            rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x];
+            NSLog(@"RDistPD in terms of touch space: %f", rDistPD);
+            rDistPD *= (720 / self.vImagePreview.frame.size.width);
+            NSLog(@"RDistPD in terms of image space: %f", rDistPD);            
+            rDistPD *= imageScale;
+            NSLog(@"RDistPD in terms of real space: %f", rDistPD);            
+
+			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x] * (720 / self.vImagePreview.frame.size.width) * imageScale; ///lScaleABox + 0;
+			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y] * (960 / self.vImagePreview.frame.size.height) * imageScale; /// rScaleBBox + 0;
+			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y] * (960 / self.vImagePreview.frame.size.height) * imageScale;  // / lScaleBBox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:rDistPD], @"RightDistPD",
@@ -789,9 +830,11 @@ extern ServiceObject* frameXML;
 		
 		if (l1 && l2)
 		{
+            float imageScale = [self calculateImageScale];
+            
 			CGPoint l2m = l2.midpoint;
 			
-			float vertex = [self transformPixelsToRealDistance:[l1 distanceFromLineTo:l2m]];
+			float vertex = [self transformPixelsToRealDistance:[l1 distanceFromLineTo:l2m]] * (720 / self.vImagePreview.frame.size.width) * imageScale;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:vertex], @"Vertex",
@@ -830,6 +873,24 @@ extern ServiceObject* frameXML;
 		
 }
 
+- (float) calculateImageScale
+{
+    
+    MeasurePoint *rlp = [[MeasurePoint alloc] initWithPoint:self.rightLaserPoint];
+    MeasurePoint *llp = [[MeasurePoint alloc] initWithPoint:self.leftLaserPoint];
+    
+    float laserdist = [rlp distanceFrom:rlp.point to:llp.point] * (720.0/768.0);
+    
+    NSLog(@"laserdist %f", laserdist);
+    float laserrealdist = [self transformPixelsToRealDistance:laserdist];
+    
+    NSLog(@"laserrealdist %f", laserrealdist);
+    
+    float imageScale = laserrealdist / 20.0;
+    NSLog(@"imageScale %f", imageScale);
+    
+    return imageScale;
+}
 - (float) transformPixelsToRealDistance:(float)pixels;
 {
 	return pixels * 25.4 / 132.0;

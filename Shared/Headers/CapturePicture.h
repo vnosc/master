@@ -21,6 +21,8 @@
 @interface CapturePicture : BackgroundViewController
 {
     UIImage *guideImage;
+    
+    AVAudioPlayer *_player;
 }
 @property (retain, nonatomic) IBOutlet UIView *vImagePreview;
 

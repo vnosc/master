@@ -15,6 +15,13 @@
 	
 	CGPoint focusPoint;
 	
+    double valDP;
+    double valMinDist;
+    double valCanny;
+    double valAccumulator;
+    
+    UIImage *_baseContourImage;
+    int cIdx;
 }
 
 @property CGPoint focusPoint;
@@ -44,6 +51,12 @@
 @property (retain, nonatomic) IBOutlet UILabel *threshLabel;
 @property (retain, nonatomic) IBOutlet UILabel *labelSizeLabel;
 @property (retain, nonatomic) IBOutlet UISlider *labelSizeSlider;
+@property (retain, nonatomic) IBOutlet UISlider *houghCircleDPSlider;
+@property (retain, nonatomic) IBOutlet UISlider *houghCircleMinDistSlider;
+@property (retain, nonatomic) IBOutlet UISlider *houghCircleCannySlider;
+@property (retain, nonatomic) IBOutlet UISlider *houghCircleAccumulatorSlider;
+
+- (void) drawContour:(int)contourIdx;
 
 - (IBAction)revertBtnClick:(id)sender;
 
@@ -71,5 +84,7 @@
 - (IBAction)threshSliderChanged:(id)sender;
 - (IBAction)detectPupilClick:(id)sender;
 - (IBAction)labelSizeSliderChanged:(id)sender;
+- (IBAction)houghCirclesBtnClick:(id)sender;
+- (IBAction)nextContourBtnClick:(id)sender;
 
 @end
