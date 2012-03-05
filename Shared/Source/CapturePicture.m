@@ -285,6 +285,7 @@
         [_player play];
     }
     
+    // delay to allow laser component to hear signal and turn on
     [NSTimer scheduledTimerWithTimeInterval:.20 target:self selector:@selector(captureImage:) userInfo:nil repeats:NO];
 }
 
@@ -306,6 +307,9 @@
 	}
 	
 	NSLog(@"about to request a capture from: %@", stillImageOutput);
+    
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+    
 	[stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
 	 {
 		 CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
@@ -322,14 +326,13 @@
 		
          if (_player != nil)
              [_player stop];
-         
-		 self.iv.image = image;
-         [self.iv setAlpha:1.0f];
-	 }];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"CapturePictureDidFinish" object:self];
-	
-	[self.navigationController popViewControllerAnimated:YES];
+         [userInfo setObject:[image retain] forKey:@"image"];
+         
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"CapturePictureDidFinish" object:self userInfo:userInfo];
+         
+         [self.navigationController popViewControllerAnimated:YES];
+	 }];
 	
 	/*
 	 UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Image from..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Image Gallary", nil];

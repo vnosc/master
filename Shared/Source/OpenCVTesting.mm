@@ -12,6 +12,9 @@
 
 #import "UIImage+OpenCV.h"
 
+#define CONTOUR std::vector<cv::Point>
+#define CONTOUR_LIST std::vector< CONTOUR >
+
 extern ServiceObject* mobileSessionXML;
 
 extern NSArray* patientImages;
@@ -40,6 +43,8 @@ const int kEyeHaarOptions = 0;
     std::vector <std::vector<cv::Point> > contours;
 }
 
+- (CONTOUR_LIST) filterContours:(CONTOUR_LIST)cons;
+- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour;
 - (void) loadCascade:(cv::CascadeClassifier&)cascade filename:(NSString *)fn;
 
 @end
@@ -110,7 +115,7 @@ const int kEyeHaarOptions = 0;
 	[self.view addSubview:self.propertySV];
 	
 	NSLog(@"images %@", patientImages);
-	[self revertImage];
+	[self setBaseImageFromPatient];
 	
 	[self loadCascade:_faceCascade filename:kFaceCascadeFilename];
 	[self loadCascade:_eyeCascade filename:kEyeCascadeFilename];
@@ -118,7 +123,7 @@ const int kEyeHaarOptions = 0;
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) revertImage
+- (void) setBaseImageFromPatient
 {
 	NSLog(@"---- REVERTED IMAGE ----");
 	
@@ -126,10 +131,16 @@ const int kEyeHaarOptions = 0;
 	if (img != [NSNull null])
 	{
 		_baseImage = img;
-		self.imageView.image = _baseImage;
+        [self revertImage];
+	}    
+}
+- (void) revertImage
+{
+	NSLog(@"---- REVERTED IMAGE ----");
+
+    self.imageView.image = _baseImage;
 		
-		[self.imageView.layer setMagnificationFilter:kCAFilterNearest];
-	}
+    [self.imageView.layer setMagnificationFilter:kCAFilterNearest];
 }
 
 - (void) recoverImage
@@ -267,9 +278,9 @@ const int kEyeHaarOptions = 0;
 
 	cv::Sobel(eyeMat, eyeMatOut, eyeMat.depth(), 1,0);
 	
-	_cannyImage = [UIImage imageWithCVMat:eyeMatOut];
+	UIImage *tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
-	self.imageView.image = _cannyImage;
+	self.imageView.image = tempImage;
 }
 
 - (void)doLaplace
@@ -283,9 +294,9 @@ const int kEyeHaarOptions = 0;
 	
 	cv::Laplacian(eyeMat, eyeMatOut, eyeMat.depth());
 	
-	_cannyImage = [UIImage imageWithCVMat:eyeMatOut];
+	UIImage *tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
-	self.imageView.image = _cannyImage;
+	self.imageView.image = tempImage;
 }
 
 - (void)doCanny
@@ -310,11 +321,11 @@ const int kEyeHaarOptions = 0;
 	
 	
 	//cv::dilate(eyeMatOut, eyeMatOut, nil);
-	_cannyImage = [UIImage imageWithCVMat:eyeMatOut];
+	UIImage *tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
 	//_cannyMat = eyeMatOut;
 	
-	self.imageView.image = _cannyImage;
+	self.imageView.image = tempImage;
 }
 
 - (void)doHarris
@@ -450,6 +461,7 @@ const int kEyeHaarOptions = 0;
 {
 	//cv::bitwise_and
 }
+
 - (void)doContours
 {
 	std::vector<cv::Vec4i> hier;
@@ -473,7 +485,7 @@ const int kEyeHaarOptions = 0;
     
 	NSLog(@"contours: %d", (int) contours.size());
 	
-    int biggestContourIdx = 0;
+    /*int biggestContourIdx = 0;
 	for (int i = 0; i < contours.size(); i++)
 	{
         if (contours[i].size() > contours[biggestContourIdx].size())
@@ -482,7 +494,11 @@ const int kEyeHaarOptions = 0;
     
     cIdx = biggestContourIdx;
     
-    [self drawContour:biggestContourIdx];
+    [self drawContour:biggestContourIdx];*/
+    
+    contours = [self filterContours:contours];
+    
+    [self drawContours:contours];
     
 }
 
@@ -492,6 +508,10 @@ const int kEyeHaarOptions = 0;
 	CGContextRef ctx;
 	
     UIImage *tempImage = _baseContourImage;
+    //UIImage *tempImage = _baseImage;
+    
+    float offsetX = 0;
+    float offsetY = 0;
     
 	if (focusPoint.x > 0 && focusPoint.y > 0)
 	{
@@ -499,6 +519,9 @@ const int kEyeHaarOptions = 0;
 		ctx = UIGraphicsGetCurrentContext();
 		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
 		[tempImage drawAtPoint:CGPointMake(-focusPoint.x, -focusPoint.y)];
+        
+        offsetX = -focusPoint.x;
+        offsetY = -focusPoint.y;
 	}
 	else
 	{
@@ -514,10 +537,10 @@ const int kEyeHaarOptions = 0;
     NSLog(@"biggest contour details: size %d, first %d,%d, last %d,%d", csize, contour[0].x, contour[0].y, contour[csize-1].x, contour[csize-1].y );
     
     [[UIColor greenColor] setStroke];
-    CGContextMoveToPoint(ctx, contour[0].x, contour[0].y);
+    CGContextMoveToPoint(ctx, contour[0].x + offsetX, contour[0].y + offsetY);
     for (int j = 1; j < csize; j++)
     {
-		CGContextAddLineToPoint(ctx, contour[j].x, contour[j].y);
+		CGContextAddLineToPoint(ctx, contour[j].x + offsetX, contour[j].y + offsetY);
 	}
 	
 	CGContextClosePath(ctx);
@@ -533,9 +556,11 @@ const int kEyeHaarOptions = 0;
     
     //cv::moments([imageWithContours CVMat]);
 
-    double contourArea = cv::contourArea(contour);
-    NSLog(@"contour area: %f", contourArea);
+    //double contourArea = cv::contourArea(contour);
+    //NSLog(@"contour area: %f", contourArea);
     
+    //float contourAreaInMM = powf([self transformPixelsToRealDistance:sqrt(contourArea)], 2);
+    //NSLog(@"contour area in mm: %f", contourAreaInMM);
     std::vector<cv::Point> approxPoly;
     
     cv::approxPolyDP(contour, approxPoly, 5, YES);
@@ -545,8 +570,101 @@ const int kEyeHaarOptions = 0;
     [[UIColor blueColor] setStroke];
     for (int j = 0; j < psize; j++)
     {
-        CGContextStrokeRect(ctx, CGRectMake(approxPoly[j].x, approxPoly[j].y, 3, 3));
+        CGContextStrokeRect(ctx, CGRectMake(approxPoly[j].x + offsetX, approxPoly[j].y + offsetY, 3, 3));
 	}
+    
+    UIImage *imageWithContours = UIGraphicsGetImageFromCurrentImageContext();
+    self.imageView.image = imageWithContours;
+    UIGraphicsEndImageContext();
+}
+
+- (void) drawContours:(std::vector< std::vector<cv::Point> >)cons
+{
+	
+	CGContextRef ctx;
+	
+    UIImage *tempImage = self.imageView.image;
+    //UIImage *tempImage = _baseImage;
+    
+    float offsetX = 0;
+    float offsetY = 0;
+    
+	if (focusPoint.x > 0 && focusPoint.y > 0)
+	{
+		UIGraphicsBeginImageContext(CGSizeMake(240,320));
+		ctx = UIGraphicsGetCurrentContext();
+		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
+		[tempImage drawAtPoint:CGPointMake(-focusPoint.x, -focusPoint.y)];
+        
+        offsetX = -focusPoint.x;
+        offsetY = -focusPoint.y;
+	}
+	else
+	{
+		UIGraphicsBeginImageContext(tempImage.size);
+		ctx = UIGraphicsGetCurrentContext();
+		CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
+		[tempImage drawAtPoint:CGPointZero];			
+	}
+    
+    CONTOUR lastContour;
+    
+    for (int i=0; i < cons.size(); i++)
+    {
+        std::vector<cv::Point> contour = cons[i];
+        
+        int csize = contour.size();
+        
+        if (lastContour.size() != 0)
+        {
+            [[UIColor redColor] setStroke];
+            cv::RotatedRect lastrrect = cv::fitEllipse(lastContour);
+            CGContextMoveToPoint(ctx, lastrrect.center.x + offsetX, lastrrect.center.y + offsetY);
+            cv::RotatedRect rrect = cv::fitEllipse(contour);
+            CGContextAddLineToPoint(ctx, rrect.center.x + offsetX, rrect.center.y + offsetY);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+        }
+        
+        [[UIColor greenColor] setStroke];
+        CGContextMoveToPoint(ctx, contour[0].x + offsetX, contour[0].y + offsetY);
+        for (int j = 1; j < csize; j++)
+        {
+            CGContextAddLineToPoint(ctx, contour[j].x + offsetX, contour[j].y + offsetY);
+        }
+        
+        CGContextClosePath(ctx);
+        CGContextStrokePath(ctx);
+        
+        /*for (int i = 0; i < corners.size(); i++)
+         {
+         cv::Point2d corner = corners[i];
+         CGRect circleRect = CGRectMake(corner.x - 2, corner.y - 2, 4, 4);
+         //circleRect = CGRectInset(circleRect, 5, 5);
+         CGContextStrokeEllipseInRect(ctx, circleRect);
+         }*/
+        
+        //cv::moments([imageWithContours CVMat]);
+        
+        //double contourArea = cv::contourArea(contour);
+        //NSLog(@"contour area: %f", contourArea);
+        
+        //float contourAreaInMM = powf([self transformPixelsToRealDistance:sqrt(contourArea)], 2);
+        //NSLog(@"contour area in mm: %f", contourAreaInMM);
+        std::vector<cv::Point> approxPoly;
+        
+        cv::approxPolyDP(contour, approxPoly, 5, YES);
+        
+        int psize = approxPoly.size();
+        
+        [[UIColor blueColor] setStroke];
+        for (int j = 0; j < psize; j++)
+        {
+            CGContextStrokeRect(ctx, CGRectMake(approxPoly[j].x - 1 + offsetX, approxPoly[j].y - 1 + offsetY, 3, 3));
+        }
+        
+        lastContour = contour;
+    }
     
     UIImage *imageWithContours = UIGraphicsGetImageFromCurrentImageContext();
     self.imageView.image = imageWithContours;
@@ -557,7 +675,7 @@ const int kEyeHaarOptions = 0;
 {
 	std::vector <cv::Point2d> corners;
 	
-	//cv::Mat eyeMat = [_cannyImage CVGrayscaleMat];
+	//cv::Mat eyeMat = [tempImage CVGrayscaleMat];
 	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
 	//cv::Mat eyeMat = [_baseImage CVMat];
 	cv::Mat eyeMatOut;
@@ -668,6 +786,16 @@ const int kEyeHaarOptions = 0;
 	//cv::filter2D(eyeMat, eyeMat, <#int ddepth#>, <#InputArray kernel#>)
 	
 	self.imageView.image = [UIImage imageWithCVMat:eyeMat];	
+}
+
+- (float) transformPixelsToRealDistance:(float)pixels
+{
+    // pixels * (mm / in) / (pixels / in)
+    // pixels * (mm / in) * (in / pixels)
+    // (pixels * mm * in) / (pixels * in)
+    // mm
+    
+	return pixels * 25.4 / 132.0; // in mm
 }
 
 - (void)viewDidUnload
@@ -896,12 +1024,87 @@ const int kEyeHaarOptions = 0;
 }
 
 - (IBAction)nextContourBtnClick:(id)sender {
-    cIdx = cIdx + 1;
-    NSLog(@"contour idx: %d   num contours: %d", cIdx, contours.size());
-    if (cIdx == contours.size())
-        cIdx = 0;
-    int thing = cIdx;
-    [self drawContour:thing];
+    int checkedContours = 0;
+    
+    CONTOUR_LIST filteredContours = [self filterContours:contours];
+    
+    [self drawContours:filteredContours];
+    
+    while (checkedContours < contours.size())
+    {
+        cIdx = cIdx + 1;
+        if (cIdx == contours.size())
+            cIdx = 0;
+        
+        int thing = cIdx;
+        checkedContours++;
+        
+        BOOL validContour = [self checkContourValidity:contours[thing]];
+        
+        //cv::RotatedRect rect = cv::fitEllipse(contours[thing]);
+        //cv::appro
+        if (validContour)
+        {
+            [self drawContour:thing];
+            break;
+        }
+    }
 }
 
+- (IBAction)drawLaserCandidatesBtnClick:(id)sender {
+    [self drawContours:contours];
+}
+
+- (IBAction)changeImageBtnClick:(id)sender {
+    
+    UIButton *btn = (UIButton*)sender;
+    UIImagePickerController *pc = [[UIImagePickerController alloc] init];
+    pc.delegate = self;
+    
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:pc];
+    [popover presentPopoverFromRect:btn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (CONTOUR_LIST) filterContours:(CONTOUR_LIST)cons
+{
+    CONTOUR_LIST filteredContours;
+    
+    for (int i=0; i < cons.size(); i++)
+    {
+        std::vector <cv::Point> contour = cons[i];
+        
+        if ([self checkContourValidity:contour])
+            filteredContours.push_back(contour);
+    }
+    
+    return filteredContours;
+}
+
+- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour
+{
+    float contourArea = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour))], 2);
+    BOOL validArea = contourArea > 2 && contourArea < 6;
+    
+    if (!validArea) return NO;
+    
+    // cv::Rect rect = cv::boundingRect(contours[thing]);
+    cv::RotatedRect rrect = cv::fitEllipse(contour);
+    float widthMM = [self transformPixelsToRealDistance:rrect.size.width];
+    float heightMM = [self transformPixelsToRealDistance:rrect.size.height];
+    float rectRatio = widthMM / heightMM;
+    
+    BOOL validDimensions = rectRatio > 0.7 && rectRatio < 1.3;
+    
+    BOOL validContour = validArea && validDimensions;
+    
+    NSLog(@"contour idx: %d / %lu - area: %f, dimensions: %f x %f, dimension ratio %f - %d ", cIdx, contours.size(), contourArea, widthMM, heightMM, rectRatio, validContour);
+    
+    return validContour;
+}
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    self.imageView.image = [image retain];
+    _baseImage = image;
+}
 @end

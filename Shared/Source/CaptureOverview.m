@@ -22,6 +22,7 @@ extern NSArray* patientImages;
 @synthesize imageView3;
 @synthesize imageView4;
 @synthesize imageViews;
+@synthesize imageModified;
 @synthesize imageLabel1;
 @synthesize imageLabel2;
 @synthesize imageLabel3;
@@ -100,6 +101,7 @@ extern NSArray* patientImages;
     [self setBoxBackground:self.frameInfo];
     
 	self.imageViews = [[NSArray alloc] initWithObjects:self.imageView1, self.imageView2, self.imageView3, self.imageView4, nil];
+    self.imageModified = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO], nil];
 	
 	self.imageLabel1.layer.backgroundColor = [UIColor blackColor].CGColor;
 	self.imageLabel2.layer.backgroundColor = [UIColor blackColor].CGColor;
@@ -343,7 +345,25 @@ extern NSArray* patientImages;
 	self.captureVC.title = [NSString stringWithFormat:@"Image Capture - %@", [self.measureTexts objectAtIndex:imageIdx ]];
 	self.captureVC.iv = [self.imageViews objectAtIndex:self.selectedImageView];
 	self.captureVC.measureType = imageIdx;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capturePictureDidFinish:) name:@"CapturePictureDidFinish" object:self.captureVC];
+    
 	[self.navigationController pushViewController:captureVC animated:YES];
+}
+
+- (void) capturePictureDidFinish:(NSNotification*)n
+{
+    NSLog(@"capturePictureDidFinish");
+    NSDictionary *userInfo = n.userInfo;
+    
+    UIImage *img = (UIImage*) [userInfo objectForKey:@"image"];
+    UIImageView *affectedIV = (UIImageView*) [self.imageViews objectAtIndex:self.selectedImageView];
+    affectedIV.image = [img retain];
+    [affectedIV setAlpha:1.0f];
+    
+    [self.imageModified replaceObjectAtIndex:self.selectedImageView withObject:[NSNumber numberWithBool:YES]];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CapturePictureDidFinish" object:self.captureVC];
 }
 
 - (IBAction)clearImage:(id)sender {
@@ -493,17 +513,22 @@ extern NSArray* patientImages;
 	
 	for (int i=0; i < 4; i++)
 	{
-				UIImageView* uiv = [self.imageViews objectAtIndex:i];
-		
-		if (uiv.image)
-		{
-			NSString* suffix = [suffixes objectAtIndex:i];
-			NSString *fileName = [NSString stringWithFormat:@"%d_%@.png", patientId, suffix];
-			
-			// Upload an image
-			NSData *imageData = UIImageJPEGRepresentation(uiv.image, 0);
-			[request addData:imageData withFileName:fileName andContentType:@"image/png" forKey:[NSString stringWithFormat:@"image_%@", suffix]];
-		}
+        if ([[self.imageModified objectAtIndex:i] boolValue] == YES)
+        {                
+            UIImageView* uiv = [self.imageViews objectAtIndex:i];
+            
+            if (uiv.image)
+            {
+                NSLog(@"Updating image %d", i);
+                NSString* suffix = [suffixes objectAtIndex:i];
+                NSString *fileName = [NSString stringWithFormat:@"%d_%@.png", patientId, suffix];
+                
+                UIImage *rotatedImage = [uiv.image rotate:UIImageOrientationRight];
+                // Upload an image
+                NSData *imageData = UIImagePNGRepresentation(rotatedImage);
+                [request addData:imageData withFileName:fileName andContentType:@"image/png" forKey:[NSString stringWithFormat:@"image_%@", suffix]];
+            }
+        }
 	}
 	
 	[request setDelegate:self];

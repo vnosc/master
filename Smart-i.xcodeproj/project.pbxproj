@@ -160,6 +160,8 @@
 		A746020415002EA200E197E3 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A746020215002EA200E197E3 /* beep.mp3 */; };
 		A74602061500451000E197E3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74602051500451000E197E3 /* AudioToolbox.framework */; };
 		A74602071500451800E197E3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74602051500451000E197E3 /* AudioToolbox.framework */; };
+		A746020A150192A600E197E3 /* UKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A7460209150192A500E197E3 /* UKImage.m */; };
+		A746020B150192A600E197E3 /* UKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A7460209150192A500E197E3 /* UKImage.m */; };
 		A752451214E0115900B141B9 /* QuestionnaireSocialHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A752451014E0115900B141B9 /* QuestionnaireSocialHistory.m */; };
 		A752451314E0115900B141B9 /* QuestionnaireSocialHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = A752451014E0115900B141B9 /* QuestionnaireSocialHistory.m */; };
 		A752451414E0115900B141B9 /* QuestionnaireSocialHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = A752451114E0115900B141B9 /* QuestionnaireSocialHistory.xib */; };
@@ -1295,6 +1297,8 @@
 		A73F047C14DC7B1D002A6A3E /* BoxBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoxBackground.png; sourceTree = "<group>"; };
 		A746020215002EA200E197E3 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A74602051500451000E197E3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A7460208150192A500E197E3 /* UKImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKImage.h; sourceTree = "<group>"; };
+		A7460209150192A500E197E3 /* UKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKImage.m; sourceTree = "<group>"; };
 		A747A3B314DB5FF40023097B /* MemberRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberRecord.h; sourceTree = "<group>"; };
 		A752450F14E0115900B141B9 /* QuestionnaireSocialHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionnaireSocialHistory.h; sourceTree = "<group>"; };
 		A752451014E0115900B141B9 /* QuestionnaireSocialHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionnaireSocialHistory.m; sourceTree = "<group>"; };
@@ -2930,6 +2934,8 @@
 				A73F046F14DC633C002A6A3E /* OrderFrameChoice.h */,
 				A73F047014DC633C002A6A3E /* OrderFrameChoice.m */,
 				A73F047114DC633D002A6A3E /* OrderFrameChoice.xib */,
+				A7460208150192A500E197E3 /* UKImage.h */,
+				A7460209150192A500E197E3 /* UKImage.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -4492,6 +4498,7 @@
 				A7AE093E14E03B2F00ABA686 /* QuestionnaireProcess.m in Sources */,
 				A71FD7BD14E0479100CE7060 /* QuestionnaireChildDevelopment.m in Sources */,
 				A792E35614E9BDF20016BFBB /* ServiceObjectTree.m in Sources */,
+				A746020B150192A600E197E3 /* UKImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4696,6 +4703,7 @@
 				A7AE093D14E03B2F00ABA686 /* QuestionnaireProcess.m in Sources */,
 				A71FD7BC14E0479100CE7060 /* QuestionnaireChildDevelopment.m in Sources */,
 				A792E35514E9BDF20016BFBB /* ServiceObjectTree.m in Sources */,
+				A746020A150192A600E197E3 /* UKImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

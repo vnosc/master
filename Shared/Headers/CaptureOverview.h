@@ -33,6 +33,7 @@
 @property (retain, nonatomic) IBOutlet UIImageView *imageView3;
 @property (retain, nonatomic) IBOutlet UIImageView *imageView4;
 @property (retain, nonatomic) IBOutlet NSArray* imageViews;
+@property (retain, nonatomic) IBOutlet NSMutableArray* imageModified;
 @property (retain, nonatomic) IBOutlet UILabel *imageLabel1;
 @property (retain, nonatomic) IBOutlet UILabel *imageLabel2;
 @property (retain, nonatomic) IBOutlet UILabel *imageLabel3;

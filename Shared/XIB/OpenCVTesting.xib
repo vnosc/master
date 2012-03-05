@@ -545,7 +545,7 @@
 						<string key="NSFrame">{{929, 20}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="677420956"/>
+						<reference key="NSNextKeyView" ref="966690700"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -588,17 +588,17 @@
 					<object class="IBUIButton" id="677420956">
 						<reference key="NSNextResponder" ref="744175608"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{1024, 20}, {91, 37}}</string>
+						<string key="NSFrame">{{929, 110}, {202, 37}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="966690700"/>
+						<reference key="NSNextKeyView" ref="913860709"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Contours</string>
+						<string key="IBUINormalTitle">Detect Laser Candidates</string>
 						<reference key="IBUIHighlightedTitleColor" ref="338303862"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -905,7 +905,7 @@
 					<object class="IBUISlider" id="36120939">
 						<reference key="NSNextResponder" ref="744175608"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{1954, 28}, {82, 23}}</string>
+						<string key="NSFrame">{{1954, 28}, {145, 23}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="939247898"/>
@@ -916,12 +916,12 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<float key="IBUIValue">1</float>
 						<float key="IBUIMinValue">1</float>
-						<float key="IBUIMaxValue">5</float>
+						<float key="IBUIMaxValue">10</float>
 					</object>
 					<object class="IBUILabel" id="939247898">
 						<reference key="NSNextResponder" ref="744175608"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{2036, 28}, {42, 21}}</string>
+						<string key="NSFrame">{{2112, 28}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="781667839"/>
@@ -978,7 +978,7 @@
 					<object class="IBUIButton" id="781667839">
 						<reference key="NSNextResponder" ref="744175608"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{2096, 20}, {120, 37}}</string>
+						<string key="NSFrame">{{2162, 19}, {120, 37}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="761448118"/>
@@ -1025,7 +1025,7 @@
 						<string key="NSFrame">{{2297, 75}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="913860709"/>
+						<reference key="NSNextKeyView" ref="677420956"/>
 						<string key="NSReuseIdentifierKey">_NS:345</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -1150,7 +1150,7 @@
 					<object class="IBUIButton" id="913860709">
 						<reference key="NSNextResponder" ref="744175608"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{929, 110}, {120, 37}}</string>
+						<string key="NSFrame">{{1147, 110}, {192, 37}}</string>
 						<reference key="NSSuperview" ref="744175608"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -1160,7 +1160,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Next Contour</string>
+						<string key="IBUINormalTitle">Draw Laser Candidates</string>
 						<reference key="IBUIHighlightedTitleColor" ref="338303862"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -1265,7 +1265,7 @@
 						<string key="NSFrame">{{15, 395}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="869414970"/>
+						<reference key="NSNextKeyView" ref="811876473"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -1296,6 +1296,29 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Recover</string>
+						<reference key="IBUIHighlightedTitleColor" ref="338303862"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="275928663"/>
+						<reference key="IBUIFontDescription" ref="637762104"/>
+						<reference key="IBUIFont" ref="721960334"/>
+					</object>
+					<object class="IBUIButton" id="811876473">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">269</int>
+						<string key="NSFrame">{{11, 947}, {81, 37}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="869414970"/>
+						<string key="NSReuseIdentifierKey">_NS:241</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Image...</string>
 						<reference key="IBUIHighlightedTitleColor" ref="338303862"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -1813,12 +1836,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">nextContourBtnClick:</string>
+						<string key="label">drawLaserCandidatesBtnClick:</string>
 						<reference key="source" ref="913860709"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">140</int>
+					<int key="connectionID">142</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">changeImageBtnClick:</string>
+						<reference key="source" ref="811876473"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">144</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1850,6 +1882,7 @@
 							<reference ref="155080835"/>
 							<reference ref="1048578827"/>
 							<reference ref="69056309"/>
+							<reference ref="811876473"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1899,17 +1932,14 @@
 							<reference ref="176654145"/>
 							<reference ref="689499723"/>
 							<reference ref="273599297"/>
-							<reference ref="677420956"/>
 							<reference ref="966690700"/>
 							<reference ref="314336420"/>
 							<reference ref="874299465"/>
 							<reference ref="469799952"/>
 							<reference ref="632415403"/>
 							<reference ref="36120939"/>
-							<reference ref="939247898"/>
 							<reference ref="359456190"/>
 							<reference ref="866147131"/>
-							<reference ref="781667839"/>
 							<reference ref="161303219"/>
 							<reference ref="897381447"/>
 							<reference ref="411816263"/>
@@ -1918,6 +1948,9 @@
 							<reference ref="150509652"/>
 							<reference ref="848775423"/>
 							<reference ref="302231101"/>
+							<reference ref="781667839"/>
+							<reference ref="939247898"/>
+							<reference ref="677420956"/>
 							<reference ref="913860709"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -2197,6 +2230,11 @@
 						<reference key="object" ref="913860709"/>
 						<reference key="parent" ref="744175608"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">143</int>
+						<reference key="object" ref="811876473"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -2224,6 +2262,7 @@
 				<string key="134.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="139.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="143.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -2272,7 +2311,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">140</int>
+			<int key="maxID">144</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2290,11 +2329,13 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cannyBtnClick:">id</string>
 						<string key="cannySliderChanged:">id</string>
+						<string key="changeImageBtnClick:">id</string>
 						<string key="contoursBtnClick:">id</string>
 						<string key="customBtnClick:">id</string>
 						<string key="cvBlobDetectBtnClick:">id</string>
 						<string key="detectPupilClick:">id</string>
 						<string key="dilateBtnClick:">id</string>
+						<string key="drawLaserCandidatesBtnClick:">id</string>
 						<string key="eigenBtnClick:">id</string>
 						<string key="equalizeHistBtnClick:">id</string>
 						<string key="erodeBtnClick:">id</string>
@@ -2325,6 +2366,10 @@
 							<string key="name">cannySliderChanged:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="changeImageBtnClick:">
+							<string key="name">changeImageBtnClick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="contoursBtnClick:">
 							<string key="name">contoursBtnClick:</string>
 							<string key="candidateClassName">id</string>
@@ -2343,6 +2388,10 @@
 						</object>
 						<object class="IBActionInfo" key="dilateBtnClick:">
 							<string key="name">dilateBtnClick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="drawLaserCandidatesBtnClick:">
+							<string key="name">drawLaserCandidatesBtnClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="eigenBtnClick:">

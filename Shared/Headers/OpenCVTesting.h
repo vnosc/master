@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OpenCVTesting : BackgroundViewController
+@interface OpenCVTesting : BackgroundViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
 	UIImage* _baseImage;
-	UIImage* _cannyImage;
 	
 	CGPoint focusPoint;
 	
@@ -57,6 +56,7 @@
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleAccumulatorSlider;
 
 - (void) drawContour:(int)contourIdx;
+- (float) transformPixelsToRealDistance:(float)pixels;
 
 - (IBAction)revertBtnClick:(id)sender;
 
@@ -86,5 +86,7 @@
 - (IBAction)labelSizeSliderChanged:(id)sender;
 - (IBAction)houghCirclesBtnClick:(id)sender;
 - (IBAction)nextContourBtnClick:(id)sender;
+- (IBAction)drawLaserCandidatesBtnClick:(id)sender;
+- (IBAction)changeImageBtnClick:(id)sender;
 
 @end

@@ -879,7 +879,7 @@ extern ServiceObject* frameXML;
     MeasurePoint *rlp = [[MeasurePoint alloc] initWithPoint:self.rightLaserPoint];
     MeasurePoint *llp = [[MeasurePoint alloc] initWithPoint:self.leftLaserPoint];
     
-    float laserdist = [rlp distanceFrom:rlp.point to:llp.point] * (720.0/768.0);
+    float laserdist = [rlp distanceFrom:rlp.point to:llp.point] * (720.0/self.vImagePreview.frame.size.width);
     
     NSLog(@"laserdist %f", laserdist);
     float laserrealdist = [self transformPixelsToRealDistance:laserdist];
@@ -891,9 +891,14 @@ extern ServiceObject* frameXML;
     
     return imageScale;
 }
-- (float) transformPixelsToRealDistance:(float)pixels;
+- (float) transformPixelsToRealDistance:(float)pixels
 {
-	return pixels * 25.4 / 132.0;
+    // pixels * (mm / in) / (pixels / in)
+    // pixels * (mm / in) * (in / pixels)
+    // (pixels * mm * in) / (pixels * in)
+    // mm
+    
+	return pixels * 25.4 / 132.0; // in mm
 }
 
 - (IBAction)cancelMeasure:(id)sender {
