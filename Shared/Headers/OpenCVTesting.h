@@ -10,6 +10,7 @@
 
 @interface OpenCVTesting : BackgroundViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
+    UIImage* _firstImage;
 	UIImage* _baseImage;
 	
 	CGPoint focusPoint;
@@ -55,8 +56,18 @@
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleCannySlider;
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleAccumulatorSlider;
 
+- (void) setBaseImageFromPatient:(int)idx;
+
 - (void) drawContour:(int)contourIdx;
 - (float) transformPixelsToRealDistance:(float)pixels;
+
+- (UIImage*)detectAndDrawLasers:(UIImage*)baseInputImg;
+
+- (void)findLasers:(UIImage*)inputImg;
+- (UIImage*)drawLasers:(UIImage*)inputImg;
+- (float)getLaserDistance:(UIImage*)baseInputImg;
+
+- (UIImage*)doMethod2:(UIImage*)inputImg;
 
 - (IBAction)revertBtnClick:(id)sender;
 
@@ -65,6 +76,7 @@
 - (IBAction)trackBtnClick:(id)sender;
 - (IBAction)trackSliderChanged:(id)sender;
 - (IBAction)threshBtnClick:(id)sender;
+- (IBAction)adaptiveThreshBtnClick:(id)sender;
 - (IBAction)pyrMeanShiftFilterBtnClick:(id)sender;
 - (IBAction)harrisBtnClick:(id)sender;
 - (IBAction)eigenBtnClick:(id)sender;
@@ -88,5 +100,15 @@
 - (IBAction)nextContourBtnClick:(id)sender;
 - (IBAction)drawLaserCandidatesBtnClick:(id)sender;
 - (IBAction)changeImageBtnClick:(id)sender;
+- (IBAction)patientImageBtnClick:(id)sender;
+- (IBAction)mixRedBtnClick:(id)sender;
+- (IBAction)mixBlueBtnClick:(id)sender;
+- (IBAction)mixGreenBtnClick:(id)sender;
+- (IBAction)convertToHSVBtnClick:(id)sender;
+- (IBAction)testChannelSubBtnClick:(id)sender;
+- (IBAction)normalizeBtnClick:(id)sender;
+
+- (IBAction)method1:(id)sender;
+- (IBAction)method2:(id)sender;
 
 @end

@@ -26,26 +26,73 @@ NSString * const kFaceCascadeFilename = @"haarcascade_frontalface_alt2";
 //NSString * const kFaceCascadeFilename = @"haarcascade_righteye_2splits";
 
 // Name of eye cascade resource file without xml extension
-//NSString * const kEyeCascadeFilename = @"haarcascade_mcs_righteye";
 NSString * const kEyeCascadeFilename = @"haarcascade_eye_tree_eyeglasses";
+NSString * const kEyeCascadeRFilename = @"ojoD";
+NSString * const kEyeCascadeLFilename = @"ojoI";
+
 
 // Options for cv::CascadeClassifier::detectMultiScale
 
 const int kFaceHaarOptions =  CV_HAAR_FIND_BIGGEST_OBJECT | CV_HAAR_DO_ROUGH_SEARCH;
 const int kEyeHaarOptions = 0;
 
+class PointGroup
+{
+public:
+    std::vector <cv::Point> points;
+    cv::Rect boundingRect;
+    float tolerance;
+    
+    bool pointIsTolerated(cv::Point point)
+    {       
+        bool isTolerated = true;
+        isTolerated = isTolerated && (point.x > (boundingRect.x - tolerance));
+        isTolerated = isTolerated && (point.x < (boundingRect.x + boundingRect.width + tolerance));
+        isTolerated = isTolerated && (point.y > (boundingRect.y - tolerance));
+        isTolerated = isTolerated && (point.y < (boundingRect.y + boundingRect.height + tolerance));
+        return isTolerated;
+    }
+    
+    void addPoint(cv::Point point)
+    {
+        if (std::find(points.begin(), points.end(), point) == points.end())
+        {
+            this->points.push_back(point);
+            NSLog(@"number of points: %lu", points.size());
+            this->boundingRect = cv::boundingRect(this->points);
+            NSLog(@"bounding rect: %d,%d,%d,%d", boundingRect.x, boundingRect.y, boundingRect.width, boundingRect.height);
+            //if (tolerance > 0)
+            //    tolerance -= 1;
+        }
+        else
+            NSLog(@"ignoring point, it was found");
+    }
+    
+    cv::Point center()
+    {
+        cv::Point c;
+        c.x = boundingRect.x + (boundingRect.width / 2);
+        c.y = boundingRect.y + (boundingRect.height / 2);
+        return c;
+    }
+};
+
 @interface OpenCVTesting ()
 {
 	cv::Mat _cannyMat;
 	cv::CascadeClassifier _faceCascade;
 	cv::CascadeClassifier _eyeCascade;
+    cv::CascadeClassifier _eyeCascadeR;
+    cv::CascadeClassifier _eyeCascadeL;
     
     std::vector <std::vector<cv::Point> > contours;
 }
 
 - (CONTOUR_LIST) filterContours:(CONTOUR_LIST)cons;
-- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour;
+- (CONTOUR_LIST) filterContourRelations:(CONTOUR_LIST)cons;
 - (void) loadCascade:(cv::CascadeClassifier&)cascade filename:(NSString *)fn;
+- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour idx:(int)idx;
+- (float) getRealDistanceBetweenContour:(CONTOUR)contour1 andContour:(CONTOUR)contour2;
 
 @end
 
@@ -115,22 +162,25 @@ const int kEyeHaarOptions = 0;
 	[self.view addSubview:self.propertySV];
 	
 	NSLog(@"images %@", patientImages);
-	[self setBaseImageFromPatient];
+	[self setBaseImageFromPatient:0];
 	
 	[self loadCascade:_faceCascade filename:kFaceCascadeFilename];
 	[self loadCascade:_eyeCascade filename:kEyeCascadeFilename];
+    [self loadCascade:_eyeCascadeR filename:kEyeCascadeRFilename];
+    [self loadCascade:_eyeCascadeL filename:kEyeCascadeLFilename];
 	
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) setBaseImageFromPatient
+- (void) setBaseImageFromPatient:(int)idx
 {
 	NSLog(@"---- REVERTED IMAGE ----");
 	
-	id img = [patientImages objectAtIndex:0];
+	id img = [patientImages objectAtIndex:idx];
 	if (img != [NSNull null])
 	{
 		_baseImage = img;
+        _firstImage = img;
         [self revertImage];
 	}    
 }
@@ -138,7 +188,7 @@ const int kEyeHaarOptions = 0;
 {
 	NSLog(@"---- REVERTED IMAGE ----");
 
-    self.imageView.image = _baseImage;
+    self.imageView.image = _firstImage;
 		
     [self.imageView.layer setMagnificationFilter:kCAFilterNearest];
 }
@@ -239,15 +289,13 @@ const int kEyeHaarOptions = 0;
 	self.imageView.image = retImg;
 }
 
-- (void)doGaussianBlur
+- (UIImage*)doGaussianBlur:(UIImage*)inputImg type:(int)blurType
 {
 	NSLog(@"doin' gaussian blur");
-	cv::Mat eyeMat = [self.imageView.image CVMat];
+	cv::Mat eyeMat = [inputImg CVMat];
 	cv::Mat eyeMatOut;
 	
 	//cv::equalizeHist(eyeMat, eyeMat);
-	
-	int blurType = self.blurTypeSegment.selectedSegmentIndex;
 	
 	switch (blurType)
 	{
@@ -264,23 +312,20 @@ const int kEyeHaarOptions = 0;
 	
 	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
-	self.imageView.image = tempImage;
+    return tempImage;
 }
 
-- (void)doSobel
+- (UIImage*)doSobel:(UIImage*)inputImg dx:(int)dx dy:(int)dy
 {
 	NSLog(@"doin' sobel");
-	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
-	//cv::Mat eyeMat = [_baseImage CVMat];
+	cv::Mat eyeMat = [inputImg CVGrayscaleMat];
 	cv::Mat eyeMatOut;
 	
 	cv::equalizeHist(eyeMat, eyeMat);
 
-	cv::Sobel(eyeMat, eyeMatOut, eyeMat.depth(), 1,0);
+	cv::Sobel(eyeMat, eyeMatOut, eyeMat.depth(), dx,dy);
 	
-	UIImage *tempImage = [UIImage imageWithCVMat:eyeMatOut];
-	
-	self.imageView.image = tempImage;
+    return [UIImage imageWithCVMat:eyeMatOut];
 }
 
 - (void)doLaplace
@@ -425,15 +470,152 @@ const int kEyeHaarOptions = 0;
 	self.imageView.image = tempImage;
 }
 
-- (void)doThresh
+- (UIImage*)doThresh:(UIImage*)inputImg threshold:(int)threshold
 {
-	NSLog(@"doin' thresh");
+	NSLog(@"doin' thresh - %d", threshold);
+	cv::Mat eyeMat = [inputImg CVGrayscaleMat];
+	cv::Mat eyeMatOut;
+	
+	//cv::equalizeHist(eyeMat, eyeMat);
+
+	cv::threshold(eyeMat, eyeMatOut, threshold, 255, cv::THRESH_BINARY);
+    
+    return [UIImage imageWithCVMat:eyeMatOut];
+}
+
+- (void)doAdaptiveThresh
+{
+	NSLog(@"doin' adaptive thresh");
 	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
 	cv::Mat eyeMatOut;
 	
 	cv::equalizeHist(eyeMat, eyeMat);
+   
+    int adaptiveMethod = 0;
+    
+    int blurType = self.blurTypeSegment.selectedSegmentIndex;
+	
+	switch (blurType)
+	{
+		case 0:
+            adaptiveMethod = cv::ADAPTIVE_THRESH_MEAN_C;
+			break;
+		case 2:
+            adaptiveMethod = cv::ADAPTIVE_THRESH_GAUSSIAN_C;
+			break;
+	}
+    
+    cv::adaptiveThreshold(eyeMat, eyeMatOut, 255, adaptiveMethod, cv::THRESH_BINARY, 41, 0);
+	
+	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
+	
+	self.imageView.image = tempImage;
+}
 
-	cv::threshold(eyeMat, eyeMatOut, (int) self.threshSlider.value, 255, cv::THRESH_BINARY);
+- (UIImage*)doMixRed:(UIImage*)inputImg
+{
+    NSLog(@"doin' mix red");
+    
+    UIImage* tempImage = [self getImageFrom:inputImg channel:0];
+	
+    return tempImage;
+}
+
+- (UIImage*)doMixGreen:(UIImage*)inputImg
+{
+    NSLog(@"doin' mix green");
+    
+    UIImage* tempImage = [self getImageFrom:inputImg channel:1];
+	
+    return tempImage;
+}
+
+- (UIImage*)doMixBlue:(UIImage*)inputImg
+{
+    NSLog(@"doin' mix blue");
+    
+    UIImage* tempImage = [self getImageFrom:inputImg channel:2];
+	
+    return tempImage;
+}
+
+- (UIImage*)doDampenGreenBlue:(UIImage*)inputImg
+{
+    NSLog(@"doin' green+blue dampen");
+    
+    cv::Mat eyeMat = [inputImg CVMat];
+    cv::Mat eyeMatOut;
+    
+    std::vector<cv::Mat> channels;
+    cv::split(eyeMat, channels);
+    
+    cv::Mat eyeMatRed = channels[0];
+    cv::Mat eyeMatGreen = channels[1];
+    cv::Mat eyeMatBlue = channels[2];
+    
+    cv::addWeighted(eyeMatGreen, -0.9, eyeMatRed, 1.0, 0, eyeMatRed);
+    
+    cv::addWeighted(eyeMatBlue, -0.9, eyeMatRed, 1.0, 0, eyeMatRed);
+    
+    cv::merge(channels, eyeMatOut);
+    
+    return [UIImage imageWithCVMat:eyeMatOut];
+}
+
+- (void)doNormalize
+{
+    NSLog(@"doin' normalize");
+
+    cv::Mat eyeMat = [self.imageView.image CVMat];
+    cv::Mat eyeMatOut;
+    
+    cv::normalize(eyeMat, eyeMatOut);
+    eyeMatOut = eyeMatOut * 255;
+
+    UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
+	
+	self.imageView.image = tempImage;
+}
+
+- (UIImage*)getImageFrom:(UIImage*)inputImg channel:(int)channelIdx
+{
+
+	cv::Mat eyeMat = [inputImg CVMat];
+	cv::Mat eyeMatOut = [inputImg CVMat];
+	
+    std::vector<cv::Mat> input;
+    input.push_back(eyeMat);
+    
+    std::vector<cv::Mat> output;
+    output.push_back(eyeMatOut);
+    
+    std::vector<int> fromTo;
+    
+    int redSrc = (channelIdx == 0) ? 0 : -1;
+    int greenSrc = (channelIdx == 1) ? 1 : -1;
+    int blueSrc = (channelIdx == 2) ? 2 : -1;
+    
+    fromTo.push_back(redSrc);
+    fromTo.push_back(0);
+    
+    fromTo.push_back(greenSrc);
+    fromTo.push_back(1);
+    
+    fromTo.push_back(blueSrc);
+    fromTo.push_back(2); 
+    
+    cv::mixChannels(input, output, fromTo);
+	
+    return [UIImage imageWithCVMat:eyeMatOut];
+}
+
+- (void)doConvertToHSV
+{
+	NSLog(@"doin' convert to HSV");
+	cv::Mat eyeMat = [self.imageView.image CVMat];
+	cv::Mat eyeMatOut;
+	
+    cv::cvtColor(eyeMat, eyeMatOut, cv::COLOR_RGB2HSV);
 	
 	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
@@ -462,11 +644,11 @@ const int kEyeHaarOptions = 0;
 	//cv::bitwise_and
 }
 
-- (void)doContours
+- (CONTOUR_LIST)doContours:(UIImage*)inputImg
 {
 	std::vector<cv::Vec4i> hier;
 	
-	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
+	cv::Mat eyeMat = [inputImg CVGrayscaleMat];
     _baseContourImage = [[UIImage imageWithCVMat:eyeMat] retain];
     
 	//cv::Mat eyeMat = [_baseImage CVGrayscaleMat];
@@ -480,10 +662,10 @@ const int kEyeHaarOptions = 0;
 	
 	NSLog(@"doin' contours");
 
-	cv::findContours(eyeMat, contours, hier, CV_RETR_LIST, CV_CHAIN_APPROX_TC89_L1);
+    CONTOUR_LIST localContours;
+	cv::findContours(eyeMat, localContours, hier, CV_RETR_LIST, CV_CHAIN_APPROX_TC89_L1);
     
-    
-	NSLog(@"contours: %d", (int) contours.size());
+	NSLog(@"contours: %d", (int) localContours.size());
 	
     /*int biggestContourIdx = 0;
 	for (int i = 0; i < contours.size(); i++)
@@ -496,9 +678,7 @@ const int kEyeHaarOptions = 0;
     
     [self drawContour:biggestContourIdx];*/
     
-    contours = [self filterContours:contours];
-    
-    [self drawContours:contours];
+    return [self filterContourRelations:[self filterContours:localContours]];
     
 }
 
@@ -578,12 +758,12 @@ const int kEyeHaarOptions = 0;
     UIGraphicsEndImageContext();
 }
 
-- (void) drawContours:(std::vector< std::vector<cv::Point> >)cons
+- (UIImage*) drawContours:(UIImage*)inputImg contours:(std::vector< std::vector<cv::Point> >)cons
 {
 	
 	CGContextRef ctx;
 	
-    UIImage *tempImage = self.imageView.image;
+    UIImage *tempImage = inputImg;
     //UIImage *tempImage = _baseImage;
     
     float offsetX = 0;
@@ -617,13 +797,29 @@ const int kEyeHaarOptions = 0;
         
         if (lastContour.size() != 0)
         {
-            [[UIColor redColor] setStroke];
-            cv::RotatedRect lastrrect = cv::fitEllipse(lastContour);
-            CGContextMoveToPoint(ctx, lastrrect.center.x + offsetX, lastrrect.center.y + offsetY);
             cv::RotatedRect rrect = cv::fitEllipse(contour);
-            CGContextAddLineToPoint(ctx, rrect.center.x + offsetX, rrect.center.y + offsetY);
-            CGContextClosePath(ctx);
-            CGContextStrokePath(ctx);
+            cv::RotatedRect lastrrect = cv::fitEllipse(lastContour);
+            
+            MeasurePoint *mp1 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect.center.x, rrect.center.y)];
+            MeasurePoint *mp2 = [[MeasurePoint alloc] initWithPoint:CGPointMake(lastrrect.center.x, lastrrect.center.y)];
+            
+            float distBetween = [mp1 distanceFrom:mp1.point to:mp2.point];
+            NSLog(@"distBetween: %f", distBetween);
+            NSLog(@"distBetween real: %f", [self transformPixelsToRealDistance:distBetween]);
+            
+            bool validConnection = true;
+            validConnection = validConnection && true;
+
+            if (validConnection)
+            {
+                [[UIColor redColor] setStroke];
+                
+                CGContextMoveToPoint(ctx, lastrrect.center.x + offsetX, lastrrect.center.y + offsetY);
+
+                CGContextAddLineToPoint(ctx, rrect.center.x + offsetX, rrect.center.y + offsetY);
+                CGContextClosePath(ctx);
+                CGContextStrokePath(ctx);
+            }
         }
         
         [[UIColor greenColor] setStroke];
@@ -667,8 +863,9 @@ const int kEyeHaarOptions = 0;
     }
     
     UIImage *imageWithContours = UIGraphicsGetImageFromCurrentImageContext();
-    self.imageView.image = imageWithContours;
     UIGraphicsEndImageContext();
+    
+    return imageWithContours;
 }
 
 - (void)doGoodFeaturesToTrack
@@ -729,16 +926,14 @@ const int kEyeHaarOptions = 0;
 	
 }
 
-- (void)doDilate
+- (UIImage*)doDilate:(UIImage*)inputImg
 {
 	NSLog(@"doin' dilate");
-	cv::Mat eyeMat;
-	eyeMat = [self.imageView.image CVMat];
+	cv::Mat eyeMat = [inputImg CVMat];
 	
-	NSLog(@"dilate matrix made");
 	cv::dilate(eyeMat, eyeMat, cv::Mat());
-	
-	self.imageView.image = [UIImage imageWithCVMat:eyeMat];
+    
+    return [UIImage imageWithCVMat:eyeMat];
 }
 
 - (void)doErode
@@ -892,7 +1087,11 @@ const int kEyeHaarOptions = 0;
 }
 
 - (IBAction)threshBtnClick:(id)sender {
-	[self doThresh];
+	self.imageView.image = [self doThresh:self.imageView.image threshold:(int)self.threshSlider.value];
+}
+
+- (IBAction)adaptiveThreshBtnClick:(id)sender {
+    [self doAdaptiveThresh];
 }
 
 - (IBAction)pyrMeanShiftFilterBtnClick:(id)sender {
@@ -908,22 +1107,23 @@ const int kEyeHaarOptions = 0;
 }
 
 - (IBAction)contoursBtnClick:(id)sender {
-	[self doContours];
+	CONTOUR_LIST localContours = [self doContours:self.imageView.image];
+    contours = localContours;
 }
 
 - (IBAction)gaussianBlurBtnClick:(id)sender {
-	[self doGaussianBlur];
+    self.imageView.image = [self doGaussianBlur:self.imageView.image type:self.blurTypeSegment.selectedSegmentIndex];
 }
 
 - (IBAction)cvBlobDetectBtnClick:(id)sender {
 }
 
 - (IBAction)sobelBtnClick:(id)sender {
-	[self doSobel];
+	self.imageView.image = [self doSobel:self.imageView.image dx:0 dy:1];
 }
 
 - (IBAction)dilateBtnClick:(id)sender {
-	[self doDilate];
+	self.imageView.image = [self doDilate:self.imageView.image];
 }
 
 - (IBAction)erodeBtnClick:(id)sender {
@@ -981,10 +1181,13 @@ const int kEyeHaarOptions = 0;
 	cv::goodFeaturesToTrack(eyeMat, corners, 5, 0.5, 20);*/
 	
 	std::vector<cv::Rect> eyes;
+    
+    std::vector< PointGroup > eyePointGroups;
 	
 	cv::Mat mat = [self.imageView.image CVGrayscaleMat];
 	
-	_eyeCascade.detectMultiScale(mat, eyes, 1.2, 0, kEyeHaarOptions, cv::Size(1, 1));
+	_eyeCascade.detectMultiScale(mat, eyes, 1.2, 5, kEyeHaarOptions, cv::Size(0,0));
+    
 	//_eyeCascade.detectMultiScale(<#const cv::Mat &image#>, <#vector<Rect> &objects#>, <#vector<int> &rejectLevels#>, <#vector<double> &levelWeights#>)
 	
 	// -------------
@@ -995,18 +1198,72 @@ const int kEyeHaarOptions = 0;
 	[tempImage drawAtPoint:CGPointZero];
 	
 	//cv::equalizeHist(eyeMat, eyeMat);
-	
-	[[UIColor greenColor] setStroke];
-	
-	
+
+    float totalEyeX = 0;
+    float totalEyeY = 0;
+    
+    float groupTolerantDist = 20.0f;
+    
 	for (int i = 0; i < eyes.size(); i++)
 	{
 		cv::Rect r = eyes[i];
-		NSLog(@"eye at %d,%d size %d,%d", r.x, r.y, r.width, r.height);
+        cv::Point c;
+        c.x = r.x + (r.width / 2);
+        c.y = r.y + (r.height / 2);
+        
+		//NSLog(@"eye at %d,%d size %d,%d", r.x, r.y, r.width, r.height);
+        
+        [[UIColor greenColor] setStroke];
 		CGRect circleRect = CGRectMake(r.x - 2 + r.width / 2, r.y - 2 + r.height / 2, 4, 4);
-		//circleRect = CGRectInset(circleRect, 5, 5);
-		CGContextStrokeEllipseInRect(ctx, circleRect);
+        CGContextStrokeEllipseInRect(ctx, circleRect);
+        
+        //[[UIColor blueColor] setStroke];
+        //CGRect circleRect2 = CGRectMake(r.x, r.y, r.width, r.height);
+        //CGContextStrokeEllipseInRect(ctx, circleRect2);
+        
+        bool added = false;
+        for (int j = 0; j < eyePointGroups.size(); j++)
+        {
+            PointGroup &pg = eyePointGroups[j];
+            if (pg.pointIsTolerated(c))
+            {
+                NSLog(@"Point %d added to group %d at %d,%d", i, j, c.x, c.y);
+                pg.addPoint(c);
+                added = true;
+                break;
+            }
+        }
+        if (!added)
+        {
+            NSLog(@"Point %d making new group at %d,%d", i, c.x, c.y);
+            PointGroup newGroup;
+            newGroup.tolerance = 20;
+            newGroup.addPoint(c);
+            eyePointGroups.push_back(newGroup);
+        }
 	}
+    
+    for (int i = 0; i < eyePointGroups.size(); i++)
+    {
+        cv::Point c = eyePointGroups[i].center();
+        
+        [[UIColor yellowColor] setStroke];
+        CGRect circleRect3 = CGRectMake(c.x - 3, c.y - 3, 6, 6);
+        CGContextStrokeEllipseInRect(ctx, circleRect3); 
+        
+        cv::Rect bounds = eyePointGroups[i].boundingRect;
+        CGRect circleRect4 = CGRectMake(bounds.x, bounds.y, bounds.width, bounds.height);
+        
+        NSLog(@"circleRect4 %f, %f, %f, %f", circleRect4.origin.x, circleRect4.origin.y, circleRect4.size.width, circleRect4.size.height);
+        CGContextStrokeEllipseInRect(ctx, circleRect4); 
+    }
+    
+    totalEyeX = totalEyeX / eyes.size();
+    totalEyeY = totalEyeY / eyes.size();
+    
+    [[UIColor yellowColor] setStroke];
+    CGRect circleRect3 = CGRectMake(totalEyeX - 3, totalEyeY - 3, 6, 6);
+    CGContextStrokeEllipseInRect(ctx, circleRect3);
 	
 	self.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
@@ -1023,36 +1280,8 @@ const int kEyeHaarOptions = 0;
     [self doCircleHough];
 }
 
-- (IBAction)nextContourBtnClick:(id)sender {
-    int checkedContours = 0;
-    
-    CONTOUR_LIST filteredContours = [self filterContours:contours];
-    
-    [self drawContours:filteredContours];
-    
-    while (checkedContours < contours.size())
-    {
-        cIdx = cIdx + 1;
-        if (cIdx == contours.size())
-            cIdx = 0;
-        
-        int thing = cIdx;
-        checkedContours++;
-        
-        BOOL validContour = [self checkContourValidity:contours[thing]];
-        
-        //cv::RotatedRect rect = cv::fitEllipse(contours[thing]);
-        //cv::appro
-        if (validContour)
-        {
-            [self drawContour:thing];
-            break;
-        }
-    }
-}
-
 - (IBAction)drawLaserCandidatesBtnClick:(id)sender {
-    [self drawContours:contours];
+    self.imageView.image = [self drawContours:self.imageView.image contours:contours];
 }
 
 - (IBAction)changeImageBtnClick:(id)sender {
@@ -1065,6 +1294,106 @@ const int kEyeHaarOptions = 0;
     [popover presentPopoverFromRect:btn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+- (IBAction)patientImageBtnClick:(id)sender {
+    int tag = [sender tag];
+    [self setBaseImageFromPatient:tag];
+}
+
+- (IBAction)mixRedBtnClick:(id)sender {
+    self.imageView.image = [self doMixRed:self.imageView.image];
+}
+
+- (IBAction)mixBlueBtnClick:(id)sender {
+    self.imageView.image = [self doMixBlue:self.imageView.image];
+}
+
+- (IBAction)mixGreenBtnClick:(id)sender {
+    self.imageView.image = [self doMixGreen:self.imageView.image];
+}
+
+- (IBAction)convertToHSVBtnClick:(id)sender {
+    [self doConvertToHSV];
+}
+
+- (IBAction)testChannelSubBtnClick:(id)sender {
+    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+}
+
+- (IBAction)normalizeBtnClick:(id)sender {
+    [self doNormalize];
+}
+
+- (IBAction)method1:(id)sender {
+    
+	int blurType = 1;
+    self.imageView.image = [self doGaussianBlur:self.imageView.image type:blurType];
+    
+    self.imageView.image = [self doDilate:self.imageView.image];
+    self.imageView.image = [self doDilate:self.imageView.image];
+    
+    self.imageView.image = [self doThresh:self.imageView.image threshold:200.0f];
+    
+    self.imageView.image = [self drawLasers:self.imageView.image];
+}
+
+- (IBAction)method2:(id)sender {
+    
+    self.imageView.image = [self doMethod2:self.imageView.image];
+}
+
+- (UIImage*)doMethod2:(UIImage*)inputImg
+{
+    UIImage *tempImage = inputImg;
+    
+    int blurType = 1;
+    tempImage = [self doGaussianBlur:tempImage type:blurType];
+    
+    tempImage = [self doDampenGreenBlue:tempImage];
+    tempImage = [self doMixRed:tempImage];
+    
+    tempImage = [self doThresh:tempImage threshold:20];
+    
+    return tempImage;
+}
+
+- (UIImage*)detectAndDrawLasers:(UIImage*)baseInputImg
+{
+    UIImage *tempImage = baseInputImg;
+    
+    tempImage = [self doMethod2:tempImage];
+    
+    CONTOUR_LIST localContours = [self doContours:tempImage];
+    contours = localContours;
+    
+    return [self drawContours:baseInputImg contours:localContours];
+}
+
+- (UIImage*)drawLasers:(UIImage*)inputImg
+{
+    CONTOUR_LIST localContours = [self doContours:inputImg];
+    contours = localContours;
+    
+    return [self drawContours:inputImg contours:localContours];
+}
+
+- (float)getLaserDistance:(UIImage*)baseInputImg
+{
+    UIImage *tempImage = baseInputImg;
+    
+    tempImage = [self doMethod2:tempImage];
+    
+    CONTOUR_LIST localContours = [self doContours:tempImage];
+    
+    NSLog(@"Are there 2 contours?...");
+    if (localContours.size() != 2)
+    {
+        NSLog(@"Nope...");
+        return 0;
+    }
+    
+    return [self getRealDistanceBetweenContour:localContours[0] andContour:localContours[1]];
+}
+
 - (CONTOUR_LIST) filterContours:(CONTOUR_LIST)cons
 {
     CONTOUR_LIST filteredContours;
@@ -1073,19 +1402,82 @@ const int kEyeHaarOptions = 0;
     {
         std::vector <cv::Point> contour = cons[i];
         
-        if ([self checkContourValidity:contour])
+        if ([self checkContourValidity:contour idx:i])
+        {
+            NSLog(@"new idx %lu", filteredContours.size());
             filteredContours.push_back(contour);
+        }
     }
     
     return filteredContours;
 }
 
-- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour
+- (CONTOUR_LIST) filterContourRelations:(CONTOUR_LIST)cons
 {
-    float contourArea = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour))], 2);
-    BOOL validArea = contourArea > 2 && contourArea < 6;
+    CONTOUR_LIST filteredContours;
     
-    if (!validArea) return NO;
+    for (int i=0; i < cons.size(); i++)
+    {
+        for (int j=i+1; j < cons.size(); j++)
+        {
+            std::vector <cv::Point> contour1 = cons[i];
+            std::vector <cv::Point> contour2 = cons[j];
+            
+            float distBetweenReal = [self getRealDistanceBetweenContour:contour1 andContour:contour2];
+            
+            float minDist = 12;
+            float maxDist = 25;
+            
+            BOOL validDistance = distBetweenReal > minDist && distBetweenReal < maxDist;
+            
+            float contour1Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour1))], 2);
+            float contour2Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour2))], 2);
+            float contourAreaRatio = contour1Area / contour2Area;
+            
+            BOOL similarAreas = fabsf(contourAreaRatio - 1) < 0.6;
+        
+            BOOL validRelation = validDistance && similarAreas;
+            
+            NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio);
+            
+            if (validRelation)
+            {
+                filteredContours.push_back(contour1);
+                filteredContours.push_back(contour2);
+            }
+        }
+    }
+    
+    return filteredContours;
+}
+
+- (float) getRealDistanceBetweenContour:(CONTOUR)contour1 andContour:(CONTOUR)contour2
+{    
+    cv::RotatedRect rrect1 = cv::fitEllipse(contour1);
+    cv::RotatedRect rrect2 = cv::fitEllipse(contour2);
+    
+    MeasurePoint *mp1 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect1.center.x, rrect1.center.y)];
+    MeasurePoint *mp2 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect2.center.x, rrect2.center.y)];
+    
+    float distBetween = [mp1 distanceFrom:mp1.point to:mp2.point];
+    float distBetweenReal = [self transformPixelsToRealDistance:distBetween];
+    
+    return distBetweenReal;
+}
+
+- (BOOL) checkContourValidity:(std::vector<cv::Point>) contour idx:(int)idx
+{
+    NSString *contourPrefix = [NSString stringWithFormat:@"contour %d", idx];
+    if (contour.size() < 5) { NSLog(@"%@: %lu points, 5 needed", contourPrefix, contour.size()); return NO; }
+    
+    float contourArea = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour))], 2);
+    
+    float minContourArea = 1.3;
+    float maxContourArea = 20;
+    
+    BOOL validArea = contourArea > minContourArea && contourArea < maxContourArea;
+    
+    if (!validArea) { NSLog(@"%@: area of %f not between %f and %f", contourPrefix, contourArea, minContourArea, maxContourArea); return NO; }
     
     // cv::Rect rect = cv::boundingRect(contours[thing]);
     cv::RotatedRect rrect = cv::fitEllipse(contour);
@@ -1093,11 +1485,11 @@ const int kEyeHaarOptions = 0;
     float heightMM = [self transformPixelsToRealDistance:rrect.size.height];
     float rectRatio = widthMM / heightMM;
     
-    BOOL validDimensions = rectRatio > 0.7 && rectRatio < 1.3;
+    BOOL validDimensions = fabsf(rectRatio - 1) < 0.4;
     
     BOOL validContour = validArea && validDimensions;
     
-    NSLog(@"contour idx: %d / %lu - area: %f, dimensions: %f x %f, dimension ratio %f - %d ", cIdx, contours.size(), contourArea, widthMM, heightMM, rectRatio, validContour);
+    NSLog(@"%@: area: %f, dimensions: %f x %f, dimension ratio %f (%f checked) - %d ", contourPrefix, contourArea, widthMM, heightMM, rectRatio, fabsf(rectRatio - 1), validContour);
     
     return validContour;
 }

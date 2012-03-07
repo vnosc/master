@@ -19,6 +19,7 @@
 #import <ImageIO/ImageIO.h>
 
 #import "LineView.h"
+#import "OpenCVTesting.h"
 
 /*@interface MeasureProcessStep
 {
@@ -105,6 +106,8 @@
 - (void) changeInstructions:(NSString*)instructions;
 
 - (void) setZoomLevel:(float)zoomValue;
+
+- (float) getLaserDistance;
 
 - (IBAction)captureBtnClick:(id)sender;
 - (IBAction)cancelMeasure:(id)sender;

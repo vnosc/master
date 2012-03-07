@@ -125,8 +125,9 @@ extern ServiceObject* frameXML;
 	
 	if (self.measureType == 0 || self.measureType == 1)
 	{
-        //[self changeInstructions:@"Please touch the center of the\nright pupil."];
-        [self changeInstructions:@"Please touch the right laser point."];
+        [self drawLaserLine];
+        [self changeInstructions:@"Please touch the center of the\nright pupil."];
+        //[self changeInstructions:@"Please touch the right laser point."];
 	}
 	else if (self.measureType == 2)
 	{
@@ -137,7 +138,9 @@ extern ServiceObject* frameXML;
 	}
 	else if (self.measureType == 3)
 	{
-        [self changeInstructions:@"Please touch the right laser point."];
+        [self drawLaserLine];
+        [self changeInstructions:@"Please touch the center of the\n pupil."];
+        //[self changeInstructions:@"Please touch the right laser point."];
 	}
 	
 }
@@ -198,7 +201,7 @@ extern ServiceObject* frameXML;
     
     int stepCompare = 0;
     
-    if (self.processStep == stepCompare++)
+    /*if (self.processStep == stepCompare++)
     {
         self.rightLaserPoint = p;
         
@@ -210,7 +213,7 @@ extern ServiceObject* frameXML;
         
         [self beginPointStep:@"Please touch the center of the\nright pupil."];
     }
-    else if (self.processStep == stepCompare++)
+    else */if (self.processStep == stepCompare++)
     {
         self.rightEyePoint = p;
         
@@ -358,7 +361,7 @@ extern ServiceObject* frameXML;
     int stepCompare = 0;
     
     
-    if (self.processStep == stepCompare++)
+    /*if (self.processStep == stepCompare++)
     {
         self.rightLaserPoint = p;
         
@@ -370,7 +373,7 @@ extern ServiceObject* frameXML;
         
         [self beginPointStep:@"Please touch the center of the\n pupil."];
     }
-    else if (self.processStep == stepCompare++)
+    else */if (self.processStep == stepCompare++)
     {
         self.rightEyePoint = p;
         
@@ -875,7 +878,26 @@ extern ServiceObject* frameXML;
 
 - (float) calculateImageScale
 {
+    float laserrealdist = [self getLaserDistance];
     
+    NSLog(@"laserrealdist %f", laserrealdist);
+    
+    float imageScale = 20.0 / laserrealdist;
+    NSLog(@"imageScale %f", imageScale);
+    
+    return imageScale;
+}
+
+- (void) drawLaserLine
+{
+    OpenCVTesting *detector = [[OpenCVTesting alloc] init];
+    self.vImagePreview.image = [detector detectAndDrawLasers:self.vImagePreview.image];    
+}
+
+- (float) getLaserDistance
+{
+    // MANUAL
+    /*
     MeasurePoint *rlp = [[MeasurePoint alloc] initWithPoint:self.rightLaserPoint];
     MeasurePoint *llp = [[MeasurePoint alloc] initWithPoint:self.leftLaserPoint];
     
@@ -883,14 +905,14 @@ extern ServiceObject* frameXML;
     
     NSLog(@"laserdist %f", laserdist);
     float laserrealdist = [self transformPixelsToRealDistance:laserdist];
+    return laserrealdist;*/
     
-    NSLog(@"laserrealdist %f", laserrealdist);
-    
-    float imageScale = laserrealdist / 20.0;
-    NSLog(@"imageScale %f", imageScale);
-    
-    return imageScale;
+    // AUTOMATIC DETECTION
+    OpenCVTesting *detector = [[OpenCVTesting alloc] init];
+    float laserrealdist = [detector getLaserDistance:self.img];
+    return laserrealdist;
 }
+
 - (float) transformPixelsToRealDistance:(float)pixels
 {
     // pixels * (mm / in) / (pixels / in)

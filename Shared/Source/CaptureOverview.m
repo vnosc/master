@@ -511,6 +511,8 @@ extern NSArray* patientImages;
 
 	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	
+    int cnt=0;
+    
 	for (int i=0; i < 4; i++)
 	{
         if ([[self.imageModified objectAtIndex:i] boolValue] == YES)
@@ -527,18 +529,23 @@ extern NSArray* patientImages;
                 // Upload an image
                 NSData *imageData = UIImagePNGRepresentation(rotatedImage);
                 [request addData:imageData withFileName:fileName andContentType:@"image/png" forKey:[NSString stringWithFormat:@"image_%@", suffix]];
+                
+                cnt++;
             }
         }
 	}
 	
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(uploadRequestFinished:)];
-	[request setDidFailSelector:@selector(uploadRequestFailed:)];
-		
-	//HUD.labelText = @"Uploading images...";
-	//[HUD show:YES];
-	
-	[request startAsynchronous];
+    if (cnt > 0)
+    {
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(uploadRequestFinished:)];
+        [request setDidFailSelector:@selector(uploadRequestFailed:)];
+            
+        //HUD.labelText = @"Uploading images...";
+        //[HUD show:YES];
+        
+        [request startAsynchronous];
+    }
 	
 	
 }
