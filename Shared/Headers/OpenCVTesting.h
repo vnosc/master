@@ -68,6 +68,7 @@
 - (float)getLaserDistance:(UIImage*)baseInputImg;
 
 - (UIImage*)doMethod2:(UIImage*)inputImg;
+- (float)getMaxValue;
 
 - (IBAction)revertBtnClick:(id)sender;
 
@@ -107,8 +108,14 @@
 - (IBAction)convertToHSVBtnClick:(id)sender;
 - (IBAction)testChannelSubBtnClick:(id)sender;
 - (IBAction)normalizeBtnClick:(id)sender;
+- (IBAction)displayHueBtnClick:(id)sender;
+- (IBAction)displaySaturationBtnClick:(id)sender;
+- (IBAction)displayValueBtnClick:(id)sender;
 
 - (IBAction)method1:(id)sender;
 - (IBAction)method2:(id)sender;
+- (IBAction)method3:(id)sender;
+- (IBAction)method4:(id)sender;
+- (IBAction)method5:(id)sender;
 
 @end

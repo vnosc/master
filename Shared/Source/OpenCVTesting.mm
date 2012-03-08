@@ -491,7 +491,7 @@ public:
 	
 	cv::equalizeHist(eyeMat, eyeMat);
    
-    int adaptiveMethod = 0;
+    int adaptiveMethod = 2;
     
     int blurType = self.blurTypeSegment.selectedSegmentIndex;
 	
@@ -505,7 +505,7 @@ public:
 			break;
 	}
     
-    cv::adaptiveThreshold(eyeMat, eyeMatOut, 255, adaptiveMethod, cv::THRESH_BINARY, 41, 0);
+    cv::adaptiveThreshold(eyeMat, eyeMatOut, 255, adaptiveMethod, cv::THRESH_BINARY, 7, 0);
 	
 	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
@@ -553,9 +553,9 @@ public:
     cv::Mat eyeMatGreen = channels[1];
     cv::Mat eyeMatBlue = channels[2];
     
-    cv::addWeighted(eyeMatGreen, -0.9, eyeMatRed, 1.0, 0, eyeMatRed);
+    cv::scaleAdd(eyeMatGreen, -0.5, eyeMatRed, eyeMatRed);
     
-    cv::addWeighted(eyeMatBlue, -0.9, eyeMatRed, 1.0, 0, eyeMatRed);
+    cv::scaleAdd(eyeMatBlue, -0.5, eyeMatRed, eyeMatRed);
     
     cv::merge(channels, eyeMatOut);
     
@@ -570,8 +570,8 @@ public:
     cv::Mat eyeMatOut;
     
     cv::normalize(eyeMat, eyeMatOut);
-    eyeMatOut = eyeMatOut * 255;
-
+    eyeMatOut = eyeMatOut * (double) 255.0;
+    
     UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
 	self.imageView.image = tempImage;
@@ -622,6 +622,23 @@ public:
 	self.imageView.image = tempImage;
 }
 
+- (UIImage*)getHSVChannel:(UIImage*)inputImg idx:(int)idx
+{
+	NSLog(@"doin' display hue");
+	cv::Mat eyeMat = [inputImg CVMat];
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::cvtColor(eyeMat, eyeMat, cv::COLOR_RGB2HSV);
+    cv::split(eyeMat, channels);
+    
+    cv::Mat eyeMatOut = channels[idx];
+    
+	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
+	
+    return tempImage;
+}
+
 - (void)doPyrMeanShiftFilter 
 {
 	NSLog(@"doin' pyramid mean shift filter");
@@ -630,7 +647,7 @@ public:
 	cv::cvtColor(eyeMat, eyeMat, CV_RGBA2RGB);
 	cv::Mat eyeMatOut;
 
-	cv::pyrMeanShiftFiltering(eyeMat, eyeMatOut, 3, 5);
+	cv::pyrMeanShiftFiltering(eyeMat, eyeMatOut, 10, 10);
 
 	UIImage* tempImage = [UIImage imageWithCVMat:eyeMatOut];
 	
@@ -962,13 +979,34 @@ public:
 	self.imageView.image = [UIImage imageWithCVMat:eyeMatOut];
 }
 
-- (void)doEqualizeHist
+- (UIImage*)doEqualizeHist:(UIImage*)inputImg
 {
-	cv::Mat eyeMat = [self.imageView.image CVGrayscaleMat];
+	cv::Mat eyeMat = [inputImg CVGrayscaleMat];
 	
 	cv::equalizeHist(eyeMat, eyeMat);
 	
-	self.imageView.image = [UIImage imageWithCVMat:eyeMat];	
+    return [UIImage imageWithCVMat:eyeMat];	
+}
+
+- (float)getMaxValue:(UIImage*)inputImg
+{
+	cv::Mat eyeMat = [inputImg CVMat];
+	
+    std::vector<cv::Mat> channels;
+    cv::split(eyeMat, channels);
+    
+    cv::Mat eyeMatRed = channels[0];
+    cv::Mat eyeMatGreen = channels[1];
+    cv::Mat eyeMatBlue = channels[2];
+    
+    double minVal;
+    double maxVal;
+        
+    cv::minMaxIdx(eyeMatRed, &minVal, &maxVal);
+    
+    NSLog(@"maxVal: %F", maxVal);
+
+    return (float) maxVal;
 }
 
 - (void)doCustom
@@ -1131,7 +1169,7 @@ public:
 }
 
 - (IBAction)equalizeHistBtnClick:(id)sender {
-	[self doEqualizeHist];
+	self.imageView.image = [self doEqualizeHist:self.imageView.image];
 }
 
 - (IBAction)morphBtnClick:(id)sender {
@@ -1323,6 +1361,18 @@ public:
     [self doNormalize];
 }
 
+- (IBAction)displayHueBtnClick:(id)sender {
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:0];
+}
+
+- (IBAction)displaySaturationBtnClick:(id)sender {
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:1];
+}
+
+- (IBAction)displayValueBtnClick:(id)sender {
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
+}
+
 - (IBAction)method1:(id)sender {
     
 	int blurType = 1;
@@ -1339,6 +1389,42 @@ public:
 - (IBAction)method2:(id)sender {
     
     self.imageView.image = [self doMethod2:self.imageView.image];
+    
+    self.imageView.image = [self drawLasers:self.imageView.image];
+}
+
+- (IBAction)method3:(id)sender {
+    
+    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:0];
+    
+    self.imageView.image = [self doThresh:self.imageView.image threshold:100];
+}
+
+- (IBAction)method4:(id)sender {
+    
+    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    
+    self.imageView.image = [self doMixRed:self.imageView.image];
+    
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
+    
+    self.imageView.image = [self doThresh:self.imageView.image threshold:130];
+}
+
+- (IBAction)method5:(id)sender {
+    
+    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    
+    self.imageView.image = [self doMixRed:self.imageView.image];
+    
+    self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
+    
+    self.imageView.image = [self doEqualizeHist:self.imageView.image];
+    
+    self.imageView.image = [self doThresh:self.imageView.image threshold:253];
+    
 }
 
 - (UIImage*)doMethod2:(UIImage*)inputImg
@@ -1351,7 +1437,9 @@ public:
     tempImage = [self doDampenGreenBlue:tempImage];
     tempImage = [self doMixRed:tempImage];
     
-    tempImage = [self doThresh:tempImage threshold:20];
+    float thresh = [self getMaxValue:tempImage];
+    NSLog(@"thresh: %f", thresh);
+    tempImage = [self doThresh:tempImage threshold:thresh-10];
     
     return tempImage;
 }
@@ -1398,14 +1486,17 @@ public:
 {
     CONTOUR_LIST filteredContours;
     
-    for (int i=0; i < cons.size(); i++)
+    if (cons.size() < 100)
     {
-        std::vector <cv::Point> contour = cons[i];
-        
-        if ([self checkContourValidity:contour idx:i])
+        for (int i=0; i < cons.size(); i++)
         {
-            NSLog(@"new idx %lu", filteredContours.size());
-            filteredContours.push_back(contour);
+            std::vector <cv::Point> contour = cons[i];
+            
+            if ([self checkContourValidity:contour idx:i])
+            {
+                NSLog(@"new idx %lu", filteredContours.size());
+                filteredContours.push_back(contour);
+            }
         }
     }
     
@@ -1425,7 +1516,7 @@ public:
             
             float distBetweenReal = [self getRealDistanceBetweenContour:contour1 andContour:contour2];
             
-            float minDist = 12;
+            float minDist = 10;
             float maxDist = 25;
             
             BOOL validDistance = distBetweenReal > minDist && distBetweenReal < maxDist;
@@ -1472,7 +1563,7 @@ public:
     
     float contourArea = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour))], 2);
     
-    float minContourArea = 1.3;
+    float minContourArea = 1.1;
     float maxContourArea = 20;
     
     BOOL validArea = contourArea > minContourArea && contourArea < maxContourArea;
@@ -1485,7 +1576,7 @@ public:
     float heightMM = [self transformPixelsToRealDistance:rrect.size.height];
     float rectRatio = widthMM / heightMM;
     
-    BOOL validDimensions = fabsf(rectRatio - 1) < 0.4;
+    BOOL validDimensions = fabsf(rectRatio - 1) < 0.5;
     
     BOOL validContour = validArea && validDimensions;
     
