@@ -112,6 +112,7 @@
 - (IBAction)displaySaturationBtnClick:(id)sender;
 - (IBAction)displayValueBtnClick:(id)sender;
 
+- (IBAction)patientBtnClick:(id)sender;
 - (IBAction)method1:(id)sender;
 - (IBAction)method2:(id)sender;
 - (IBAction)method3:(id)sender;

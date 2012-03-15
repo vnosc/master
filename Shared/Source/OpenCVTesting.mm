@@ -1373,6 +1373,9 @@ public:
     self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
 }
 
+- (IBAction)patientBtnClick:(id)sender {
+}
+
 - (IBAction)method1:(id)sender {
     
 	int blurType = 1;
@@ -1404,13 +1407,9 @@ public:
 
 - (IBAction)method4:(id)sender {
     
-    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    self.imageView.image = [self doMethod4:self.imageView.image];
     
-    self.imageView.image = [self doMixRed:self.imageView.image];
-    
-    self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
-    
-    self.imageView.image = [self doThresh:self.imageView.image threshold:130];
+    self.imageView.image = [self drawLasers:self.imageView.image];
 }
 
 - (IBAction)method5:(id)sender {
@@ -1444,11 +1443,26 @@ public:
     return tempImage;
 }
 
+- (UIImage*)doMethod4:(UIImage*)inputImg
+{
+    UIImage *tempImage = inputImg;
+    
+    tempImage = [self doDampenGreenBlue:tempImage];
+    
+    tempImage = [self doMixRed:tempImage];
+    
+    tempImage = [self getHSVChannel:tempImage idx:2];
+    
+    tempImage = [self doThresh:tempImage threshold:120];
+    
+    return tempImage;
+}
+
 - (UIImage*)detectAndDrawLasers:(UIImage*)baseInputImg
 {
     UIImage *tempImage = baseInputImg;
     
-    tempImage = [self doMethod2:tempImage];
+    tempImage = [self doMethod4:tempImage];
     
     CONTOUR_LIST localContours = [self doContours:tempImage];
     contours = localContours;
@@ -1468,7 +1482,7 @@ public:
 {
     UIImage *tempImage = baseInputImg;
     
-    tempImage = [self doMethod2:tempImage];
+    tempImage = [self doMethod4:tempImage];
     
     CONTOUR_LIST localContours = [self doContours:tempImage];
     
@@ -1486,7 +1500,7 @@ public:
 {
     CONTOUR_LIST filteredContours;
     
-    if (cons.size() < 100)
+    if (cons.size() < 1000)
     {
         for (int i=0; i < cons.size(); i++)
         {
@@ -1507,34 +1521,37 @@ public:
 {
     CONTOUR_LIST filteredContours;
     
-    for (int i=0; i < cons.size(); i++)
+    if (cons.size() < 100)
     {
-        for (int j=i+1; j < cons.size(); j++)
+        for (int i=0; i < cons.size(); i++)
         {
-            std::vector <cv::Point> contour1 = cons[i];
-            std::vector <cv::Point> contour2 = cons[j];
-            
-            float distBetweenReal = [self getRealDistanceBetweenContour:contour1 andContour:contour2];
-            
-            float minDist = 10;
-            float maxDist = 25;
-            
-            BOOL validDistance = distBetweenReal > minDist && distBetweenReal < maxDist;
-            
-            float contour1Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour1))], 2);
-            float contour2Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour2))], 2);
-            float contourAreaRatio = contour1Area / contour2Area;
-            
-            BOOL similarAreas = fabsf(contourAreaRatio - 1) < 0.6;
-        
-            BOOL validRelation = validDistance && similarAreas;
-            
-            NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio);
-            
-            if (validRelation)
+            for (int j=i+1; j < cons.size(); j++)
             {
-                filteredContours.push_back(contour1);
-                filteredContours.push_back(contour2);
+                std::vector <cv::Point> contour1 = cons[i];
+                std::vector <cv::Point> contour2 = cons[j];
+                
+                float distBetweenReal = [self getRealDistanceBetweenContour:contour1 andContour:contour2];
+                
+                float minDist = 10;
+                float maxDist = 25;
+                
+                BOOL validDistance = distBetweenReal > minDist && distBetweenReal < maxDist;
+                
+                float contour1Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour1))], 2);
+                float contour2Area = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour2))], 2);
+                float contourAreaRatio = contour1Area / contour2Area;
+                
+                BOOL similarAreas = fabsf(contourAreaRatio - 1) < 1.0;
+            
+                BOOL validRelation = validDistance && similarAreas;
+                
+                NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio);
+                
+                if (validRelation)
+                {
+                    filteredContours.push_back(contour1);
+                    filteredContours.push_back(contour2);
+                }
             }
         }
     }

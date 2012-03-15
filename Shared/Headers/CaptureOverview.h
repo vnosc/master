@@ -22,6 +22,8 @@
 
 #import "MemberSearch.h"
 
+#import "ImageCache.h"
+
 @interface CaptureOverview : BackgroundViewController
 {
     int _patientId;
