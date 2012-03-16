@@ -715,19 +715,19 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-            NSLog(@"frame width %f", self.vImagePreview.frame.size.width);
+            NSLog(@"frame width %f", self.vImagePreview.bounds.size.width);
             
             float rDistPD = 0;
             rDistPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x];
             NSLog(@"RDistPD in terms of touch space: %f", rDistPD);
-            rDistPD *= (720 / self.vImagePreview.frame.size.width);
+            rDistPD *= (720 / self.vImagePreview.bounds.size.width);
             NSLog(@"RDistPD in terms of image space: %f", rDistPD);            
             rDistPD *= imageScale;
             NSLog(@"RDistPD in terms of real space: %f", rDistPD);            
 
-			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x] * (720 / self.vImagePreview.frame.size.width) * imageScale; ///lScaleABox + 0;
-			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y] * (960 / self.vImagePreview.frame.size.height) * imageScale; /// rScaleBBox + 0;
-			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y] * (960 / self.vImagePreview.frame.size.height) * imageScale;  // / lScaleBBox + 0;
+			float lDistPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x] * (720 / self.vImagePreview.bounds.size.width) * imageScale; ///lScaleABox + 0;
+			float rHeight = [self transformPixelsToRealDistance:rfb.lowerPoint.y - rev.lowerPoint.y] * (960 / self.vImagePreview.bounds.size.height) * imageScale; /// rScaleBBox + 0;
+			float lHeight = [self transformPixelsToRealDistance:lfb.lowerPoint.y - lev.lowerPoint.y] * (960 / self.vImagePreview.bounds.size.height) * imageScale;  // / lScaleBBox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:rDistPD], @"RightDistPD",
@@ -777,7 +777,7 @@ extern ServiceObject* frameXML;
 			lScaleABox /= abox;
 			lScaleBBox /= bbox;
 			
-			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x] * (720 / self.vImagePreview.frame.size.width); // /rScaleABox + 0;
+			float rNearPD = [self transformPixelsToRealDistance:bridge.lowerPoint.x - rev.lowerPoint.x] * (720 / self.vImagePreview.bounds.size.width); // /rScaleABox + 0;
 			float lNearPD = [self transformPixelsToRealDistance:lev.lowerPoint.x - bridge.lowerPoint.x]; // /lScaleABox + 0;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -837,7 +837,7 @@ extern ServiceObject* frameXML;
             
 			CGPoint l2m = l2.midpoint;
 			
-			float vertex = [self transformPixelsToRealDistance:[l1 distanceFromLineTo:l2m]] * (720 / self.vImagePreview.frame.size.width) * imageScale;
+			float vertex = [self transformPixelsToRealDistance:[l1 distanceFromLineTo:l2m]] * (720 / self.vImagePreview.bounds.size.width) * imageScale;
 			
 			d = [[NSDictionary alloc] initWithObjectsAndKeys:
 				 [NSNumber numberWithFloat:vertex], @"Vertex",
