@@ -125,7 +125,7 @@ extern ServiceObject* frameXML;
 	
 	if (self.measureType == 0 || self.measureType == 1)
 	{
-        [self drawLaserLine];
+        //[self drawLaserLine];
         [self changeInstructions:@"Please touch the center of the\nright pupil."];
         //[self changeInstructions:@"Please touch the right laser point."];
 	}
@@ -138,7 +138,7 @@ extern ServiceObject* frameXML;
 	}
 	else if (self.measureType == 3)
 	{
-        [self drawLaserLine];
+        //[self drawLaserLine];
         [self changeInstructions:@"Please touch the center of the\n pupil."];
         //[self changeInstructions:@"Please touch the right laser point."];
 	}
