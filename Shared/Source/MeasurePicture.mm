@@ -30,6 +30,8 @@ extern ServiceObject* frameXML;
 @synthesize instView;
 @synthesize instTextView;
 
+@synthesize HUD;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,6 +39,7 @@ extern ServiceObject* frameXML;
 		self.measureType = -1;
 		minScale = 1.0f;
 		maxScale = 3.0f;
+        realLaserDistance = 15.0f;
         // Custom initialization
     }
     return self;
@@ -55,7 +58,7 @@ extern ServiceObject* frameXML;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     [self setBoxBackground:self.instView];
     
 	//[self.view addGestureRecognizer:self.pinchGR];
@@ -668,6 +671,24 @@ extern ServiceObject* frameXML;
 	[self.touchView setNeedsDisplay];
 	[self.touchView drawRect:self.touchView.frame];*/
 	
+    if (self.measureType != 2)
+    {
+        HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:HUD];
+        
+        HUD.labelText = @"Analyzing image...";
+        
+        HUD.delegate = self;
+        
+        [HUD showWhileExecuting:@selector(calculateImageScale) onTarget:self withObject:nil animated:YES];
+    }
+    else
+        [self finish];
+}
+
+- (void) finish
+{
+    
 	UIGraphicsBeginImageContext(self.vImagePreview.bounds.size);
 	[vImagePreview.layer renderInContext:UIGraphicsGetCurrentContext()];
 	[touchView.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -675,7 +696,7 @@ extern ServiceObject* frameXML;
 	UIGraphicsEndImageContext();
 	
 	NSDictionary* d;
-	
+    
 	if (self.measureType == 0)
 	{
 		MeasureLine* lev = [self.touchView lineByName:@"Left Eye Vertical"];
@@ -685,8 +706,6 @@ extern ServiceObject* frameXML;
 		MeasureLine* lfb = [self.touchView lineByName:@"Left Frame Bottom Horizontal"];
 		MeasureLine* rfb = [self.touchView lineByName:@"Right Frame Bottom Horizontal"];        
 		MeasureLine* bridge = [self.touchView lineByName:@"Bridge Vertical"];
-
-        float imageScale = [self calculateImageScale];
         
 		if (lev && rev && lfb && rfb && bridge)
 		{
@@ -833,7 +852,6 @@ extern ServiceObject* frameXML;
 		
 		if (l1 && l2)
 		{
-            float imageScale = [self calculateImageScale];
             
 			CGPoint l2m = l2.midpoint;
 			
@@ -876,22 +894,46 @@ extern ServiceObject* frameXML;
 		
 }
 
-- (float) calculateImageScale
+- (void) calculateImageScale
 {
-    float laserrealdist = [self getLaserDistance];
+    
+    [self doDetection];
+    
+    float laserrealdist = detectedLaserDistance;
     
     NSLog(@"laserrealdist %f", laserrealdist);
     
-    float imageScale = 20.0 / laserrealdist;
+    imageScale = realLaserDistance / laserrealdist;
     NSLog(@"imageScale %f", imageScale);
     
-    return imageScale;
+    if (detectedLaserDistance > 0)
+    {
+        [self finish];   
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Error" message:@"Picture is not suitable for measurement.  Please take another picture." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        
+        return;
+    }
+    //imageScale;
 }
 
+- (void) hudWasHidden
+{
+    
+}
 - (void) drawLaserLine
 {
     OpenCVTesting *detector = [[OpenCVTesting alloc] init];
     self.vImagePreview.image = [detector detectAndDrawLasers:self.vImagePreview.image];    
+}
+
+- (void) doDetection
+{
+    detectedLaserDistance = [self getLaserDistance];
 }
 
 - (float) getLaserDistance

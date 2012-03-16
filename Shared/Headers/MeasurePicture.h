@@ -41,7 +41,7 @@
 
 @end*/
 
-@interface MeasurePicture : BackgroundViewController
+@interface MeasurePicture : BackgroundViewController <MBProgressHUDDelegate>
 {
 	LineView* touchView;
 	
@@ -54,6 +54,10 @@
 	float maxScale;
 	
 	CGRect initialLocation;
+    
+    float realLaserDistance;
+    float detectedLaserDistance;
+    float imageScale;
 }
 
 @property (retain, nonatomic) IBOutlet UIView *imageContainer;
@@ -63,6 +67,8 @@
 @property int measureType;
 @property (retain, nonatomic) IBOutlet UIView *instView;
 @property (retain, nonatomic) IBOutlet UITextView *instTextView;
+
+@property (retain, nonatomic) MBProgressHUD* HUD;
 
 @property CGPoint rightEyePoint;
 @property CGPoint leftEyePoint;

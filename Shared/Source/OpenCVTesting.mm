@@ -1426,6 +1426,21 @@ public:
     
 }
 
+- (UIImage*)doMethod1:(UIImage*)inputImg
+{
+    UIImage *tempImage = inputImg;
+    
+    int blurType = 1;
+    tempImage = [self doGaussianBlur:tempImage type:blurType];
+    
+    tempImage = [self doDilate:tempImage];
+    tempImage = [self doDilate:tempImage];
+    
+    tempImage = [self doThresh:tempImage threshold:200.0f];
+    
+    return tempImage;
+}
+
 - (UIImage*)doMethod2:(UIImage*)inputImg
 {
     UIImage *tempImage = inputImg;
@@ -1443,6 +1458,19 @@ public:
     return tempImage;
 }
 
+- (UIImage*)doMethod3:(UIImage*)inputImg
+{
+    UIImage *tempImage = inputImg;
+    
+    tempImage = [self doDampenGreenBlue:tempImage];
+    
+    tempImage = [self getHSVChannel:tempImage idx:0];
+    
+    tempImage = [self doThresh:tempImage threshold:100];
+    
+    return tempImage;
+}
+
 - (UIImage*)doMethod4:(UIImage*)inputImg
 {
     UIImage *tempImage = inputImg;
@@ -1454,6 +1482,23 @@ public:
     tempImage = [self getHSVChannel:tempImage idx:2];
     
     tempImage = [self doThresh:tempImage threshold:120];
+    
+    return tempImage;
+}
+
+- (UIImage*)doMethod5:(UIImage*)inputImg {
+    
+    UIImage *tempImage = inputImg;
+    
+    tempImage = [self doDampenGreenBlue:tempImage];
+    
+    tempImage = [self doMixRed:tempImage];
+    
+    tempImage = [self getHSVChannel:tempImage idx:2];
+    
+    tempImage = [self doEqualizeHist:tempImage];
+    
+    tempImage = [self doThresh:tempImage threshold:253];
     
     return tempImage;
 }
@@ -1480,18 +1525,46 @@ public:
 
 - (float)getLaserDistance:(UIImage*)baseInputImg
 {
-    UIImage *tempImage = baseInputImg;
     
-    tempImage = [self doMethod4:tempImage];
+    int attempt = 1;
     
-    CONTOUR_LIST localContours = [self doContours:tempImage];
+    CONTOUR_LIST localContours;
     
-    NSLog(@"Are there 2 contours?...");
-    if (localContours.size() != 2)
+    while (attempt < 5)
     {
-        NSLog(@"Nope...");
-        return 0;
+        UIImage *tempImage = baseInputImg;
+        
+        NSLog(@"Detect attempt %d...", attempt);
+        
+        int attemptCheck = 1;
+        if (attempt == attemptCheck++)
+            tempImage = [self doMethod4:tempImage];
+        else if (attempt == attemptCheck++)
+            tempImage = [self doMethod2:tempImage];
+        else if (attempt == attemptCheck++)
+            tempImage = [self doMethod5:tempImage];
+        else if (attempt == attemptCheck++)
+            tempImage = [self doMethod1:tempImage];
+        else if (attempt == attemptCheck++)
+            tempImage = [self doMethod3:tempImage];
+        
+        localContours = [self doContours:tempImage];
+        
+        NSLog(@"Are there 2 contours?...");
+        if (localContours.size() == 2)
+        {
+            NSLog(@"Yes! Using.");
+            break;
+        }
+        else
+        {
+            NSLog(@"Nope...");
+            attempt++;
+        }
     }
+    
+    if (attempt >= 5)
+        return -1;
     
     return [self getRealDistanceBetweenContour:localContours[0] andContour:localContours[1]];
 }

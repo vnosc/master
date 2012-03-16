@@ -223,6 +223,7 @@ extern NSArray* patientImages;
 	
 	patientImages = [[[NSArray alloc] initWithObjects:img1, img2, img3, img4, nil] retain];
 
+    [self.view setNeedsDisplay];
 }
 
 - (void) refreshPatientImages
