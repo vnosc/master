@@ -88,6 +88,7 @@
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *sectionBtns;
 @property (retain, nonatomic) IBOutletCollection(UIView) NSArray *sectionSubmenuViews;
 @property (retain, nonatomic) IBOutlet UIButton *testsBtn;
+@property (retain, nonatomic) IBOutlet UILabel *lblVersion;
 
 -(IBAction) measurementBtnClick:(id)sender;
 - (IBAction)patientCareBtnClick:(id)sender;

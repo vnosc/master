@@ -1201,6 +1201,17 @@
 		F1E51B641447C0B90017D940 /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = F1E51B631447C0B90017D940 /* haarcascade_frontalface_default.xml */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		A786E2F61513DD5B0058160D /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
 		3694255C14D20BD400262C1E /* FSFavoritesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFavoritesView.h; sourceTree = "<group>"; };
 		3694255D14D20BD400262C1E /* FSFavoritesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFavoritesView.m; sourceTree = "<group>"; };
@@ -3516,6 +3527,7 @@
 				F1D2A431141976F400E26C72 /* Resources */,
 			);
 			buildRules = (
+				A786E2F61513DD5B0058160D /* PBXBuildRule */,
 			);
 			dependencies = (
 			);

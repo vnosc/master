@@ -43,6 +43,7 @@ extern NSArray* patientImagesMeasured;
 @synthesize sectionBtns;
 @synthesize sectionSubmenuViews;
 @synthesize testsBtn;
+@synthesize lblVersion;
 @synthesize mainview;
 @synthesize adjust,lense,createuser,selectspect;
 @synthesize frameselect,framevalidate,lensselect,lensvalidate;
@@ -74,7 +75,11 @@ extern NSArray* patientImagesMeasured;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Version"];
+    [lblVersion setText:[NSString stringWithFormat:@"Version: %@", version]];
 	
 #ifdef DEBUG
 	self.testsBtn.hidden = NO;
@@ -425,6 +430,7 @@ extern NSArray* patientImagesMeasured;
 	[self setSectionBtns:nil];
 	[self setSectionSubmenuViews:nil];
     [self setTestsBtn:nil];
+    [self setLblVersion:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -442,6 +448,7 @@ extern NSArray* patientImagesMeasured;
 	[sectionBtns release];
 	[sectionSubmenuViews release];
     [testsBtn release];
+    [lblVersion release];
     [super dealloc];
 }
 
