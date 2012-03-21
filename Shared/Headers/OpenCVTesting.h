@@ -15,6 +15,13 @@
 	
 	CGPoint focusPoint;
 	
+    float defaultMinArea;
+    float defaultMaxArea;
+    float defaultMinDist;
+    float defaultMaxDist;
+    float defaultMinAngle;
+    float defaultMaxAngle;
+    
     double valDP;
     double valMinDist;
     double valCanny;
@@ -26,6 +33,12 @@
 
 @property CGPoint focusPoint;
 @property (assign) int labelSize;
+@property (assign) float detectMinArea;
+@property (assign) float detectMaxArea;
+@property (assign) float detectMinDist;
+@property (assign) float detectMaxDist;
+@property (assign) float detectMinAngle;
+@property (assign) float detectMaxAngle;
 
 @property (retain, nonatomic) IBOutlet UIScrollView *propertySV;
 
@@ -55,6 +68,18 @@
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleMinDistSlider;
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleCannySlider;
 @property (retain, nonatomic) IBOutlet UISlider *houghCircleAccumulatorSlider;
+@property (retain, nonatomic) IBOutlet UILabel *detectMinAreaLabel;
+@property (retain, nonatomic) IBOutlet UILabel *detectMaxAreaLabel;
+@property (retain, nonatomic) IBOutlet UILabel *detectMinDistLabel;
+@property (retain, nonatomic) IBOutlet UILabel *detectMaxDistLabel;
+@property (retain, nonatomic) IBOutlet UILabel *detectMinAngleLabel;
+@property (retain, nonatomic) IBOutlet UILabel *detectMaxAngleLabel;
+@property (retain, nonatomic) IBOutlet UISlider *detectMinAreaSlider;
+@property (retain, nonatomic) IBOutlet UISlider *detectMaxAreaSlider;
+@property (retain, nonatomic) IBOutlet UISlider *detectMinDistSlider;
+@property (retain, nonatomic) IBOutlet UISlider *detectMaxDistSlider;
+@property (retain, nonatomic) IBOutlet UISlider *detectMinAngleSlider;
+@property (retain, nonatomic) IBOutlet UISlider *detectMaxAngleSlider;
 
 - (void) setBaseImageFromPatient:(int)idx;
 
@@ -67,7 +92,12 @@
 - (UIImage*)drawLasers:(UIImage*)inputImg;
 - (float)getLaserDistance:(UIImage*)baseInputImg;
 
+- (UIImage*)doMethod1:(UIImage*)inputImg;
 - (UIImage*)doMethod2:(UIImage*)inputImg;
+- (UIImage*)doMethod3:(UIImage*)inputImg;
+- (UIImage*)doMethod4:(UIImage*)inputImg;
+- (UIImage*)doMethod5:(UIImage*)inputImg;
+
 - (float)getMaxValue;
 
 - (IBAction)revertBtnClick:(id)sender;
@@ -111,6 +141,13 @@
 - (IBAction)displayHueBtnClick:(id)sender;
 - (IBAction)displaySaturationBtnClick:(id)sender;
 - (IBAction)displayValueBtnClick:(id)sender;
+- (IBAction)detectMinAreaSliderChanged:(id)sender;
+- (IBAction)detectMaxAreaSliderChanged:(id)sender;
+- (IBAction)detectMinDistSliderChanged:(id)sender;
+- (IBAction)detectMaxDistSliderChanged:(id)sender;
+- (IBAction)detectMinAngleSliderChanged:(id)sender;
+- (IBAction)detectMaxAngleSliderChanged:(id)sender;
+- (IBAction)resetDetectParams:(id)sender;
 
 - (IBAction)patientBtnClick:(id)sender;
 - (IBAction)method1:(id)sender;

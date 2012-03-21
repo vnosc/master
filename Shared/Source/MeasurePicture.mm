@@ -39,7 +39,7 @@ extern ServiceObject* frameXML;
 		self.measureType = -1;
 		minScale = 1.0f;
 		maxScale = 3.0f;
-        realLaserDistance = 15.0f;
+        realLaserDistance = 16.0f;
         // Custom initialization
     }
     return self;

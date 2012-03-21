@@ -93,6 +93,7 @@ public:
 - (void) loadCascade:(cv::CascadeClassifier&)cascade filename:(NSString *)fn;
 - (BOOL) checkContourValidity:(std::vector<cv::Point>) contour idx:(int)idx;
 - (float) getRealDistanceBetweenContour:(CONTOUR)contour1 andContour:(CONTOUR)contour2;
+- (float) getAngleBetweenContour:(CONTOUR)contour1 andContour:(CONTOUR)contour2;
 
 @end
 
@@ -100,6 +101,13 @@ public:
 
 @synthesize focusPoint;
 @synthesize labelSize;
+@synthesize detectMinArea;
+@synthesize detectMaxArea;
+@synthesize detectMinDist;
+@synthesize detectMaxDist;
+@synthesize detectMinAngle;
+@synthesize detectMaxAngle;
+
 @synthesize propertySV;
 
 @synthesize imageView;
@@ -128,11 +136,30 @@ public:
 @synthesize houghCircleMinDistSlider;
 @synthesize houghCircleCannySlider;
 @synthesize houghCircleAccumulatorSlider;
+@synthesize detectMinAreaLabel;
+@synthesize detectMaxAreaLabel;
+@synthesize detectMinDistLabel;
+@synthesize detectMaxDistLabel;
+@synthesize detectMinAngleLabel;
+@synthesize detectMaxAngleLabel;
+@synthesize detectMinAreaSlider;
+@synthesize detectMaxAreaSlider;
+@synthesize detectMinDistSlider;
+@synthesize detectMaxDistSlider;
+@synthesize detectMinAngleSlider;
+@synthesize detectMaxAngleSlider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        defaultMinArea = 1.1;
+        defaultMaxArea = 20;
+        defaultMinDist = 6;
+        defaultMaxDist = 25;
+        defaultMinAngle = 0;
+        defaultMaxAngle = 15;
+        [self initDetectParams];
         // Custom initialization
     }
     return self;
@@ -154,7 +181,11 @@ public:
 	
     self.labelSize = 100;
     
-	[self loadPatientImages];
+    [self initDetectParams];
+    [self changeDetectDisplay];
+ 
+    int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
+	[self loadPatientImages:patientId];
 	
 	self.apertureSegment.selectedSegmentIndex = 1;
 	
@@ -172,6 +203,47 @@ public:
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void) initDetectParams
+{
+    self.detectMinArea = defaultMinArea;
+    self.detectMaxArea = defaultMaxArea;
+    self.detectMinDist = defaultMinDist;
+    self.detectMaxDist = defaultMaxDist;
+    self.detectMinAngle = defaultMinAngle;
+    self.detectMaxAngle = defaultMaxAngle;
+}
+
+- (void) changeDetectDisplay
+{
+    [self.detectMinAreaSlider setValue:self.detectMinArea * 10];
+    [self.detectMaxAreaSlider setValue:self.detectMaxArea * 10];
+    [self.detectMinDistSlider setValue:self.detectMinDist * 10];
+    [self.detectMaxDistSlider setValue:self.detectMaxDist * 10];
+    [self.detectMinAngleSlider setValue:self.detectMinAngle * 10];
+    [self.detectMaxAngleSlider setValue:self.detectMaxAngle * 10];
+    
+    [self.detectMinAreaLabel setText:[NSString stringWithFormat:@"%.02f", self.detectMinArea]];
+    [self.detectMaxAreaLabel setText:[NSString stringWithFormat:@"%.02f", self.detectMaxArea]];
+    [self.detectMinDistLabel setText:[NSString stringWithFormat:@"%.02f", self.detectMinDist]];
+    [self.detectMaxDistLabel setText:[NSString stringWithFormat:@"%.02f", self.detectMaxDist]];
+    [self.detectMinAngleLabel setText:[NSString stringWithFormat:@"%.02f°", self.detectMinAngle]];
+    [self.detectMaxAngleLabel setText:[NSString stringWithFormat:@"%.02f°", self.detectMaxAngle]];
+}
+- (void) changeDetectParams
+{
+    self.detectMinArea = [self.detectMinAreaSlider value] / 10;
+    self.detectMaxArea = [self.detectMaxAreaSlider value] / 10;
+    self.detectMinDist = [self.detectMinDistSlider value] / 10;
+    self.detectMaxDist = [self.detectMaxDistSlider value] / 10;
+    self.detectMinAngle = [self.detectMinAngleSlider value] / 10;
+    self.detectMaxAngle = [self.detectMaxAngleSlider value] / 10;
+}
+
+- (void) updateDetect
+{
+    [self changeDetectParams];
+    [self changeDetectDisplay];
+}
 - (void) setBaseImageFromPatient:(int)idx
 {
 	NSLog(@"---- REVERTED IMAGE ----");
@@ -243,11 +315,10 @@ public:
     }	
 }
 
-- (void)loadPatientImages
+- (void)loadPatientImages:(int)patientId
 {
 	CaptureOverview* co = [[CaptureOverview alloc] init];
 	
-	int patientId = [mobileSessionXML getIntValueByName:@"patientId"];
 	int cnt=0;
 	
 	cnt=0;
@@ -812,30 +883,33 @@ public:
         
         int csize = contour.size();
         
-        if (lastContour.size() != 0)
+        if ((i % 2) == 1)
         {
-            cv::RotatedRect rrect = cv::fitEllipse(contour);
-            cv::RotatedRect lastrrect = cv::fitEllipse(lastContour);
-            
-            MeasurePoint *mp1 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect.center.x, rrect.center.y)];
-            MeasurePoint *mp2 = [[MeasurePoint alloc] initWithPoint:CGPointMake(lastrrect.center.x, lastrrect.center.y)];
-            
-            float distBetween = [mp1 distanceFrom:mp1.point to:mp2.point];
-            NSLog(@"distBetween: %f", distBetween);
-            NSLog(@"distBetween real: %f", [self transformPixelsToRealDistance:distBetween]);
-            
-            bool validConnection = true;
-            validConnection = validConnection && true;
-
-            if (validConnection)
+            if (lastContour.size() != 0)
             {
-                [[UIColor redColor] setStroke];
+                cv::RotatedRect rrect = cv::fitEllipse(contour);
+                cv::RotatedRect lastrrect = cv::fitEllipse(lastContour);
                 
-                CGContextMoveToPoint(ctx, lastrrect.center.x + offsetX, lastrrect.center.y + offsetY);
+                MeasurePoint *mp1 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect.center.x, rrect.center.y)];
+                MeasurePoint *mp2 = [[MeasurePoint alloc] initWithPoint:CGPointMake(lastrrect.center.x, lastrrect.center.y)];
+                
+                float distBetween = [mp1 distanceFrom:mp1.point to:mp2.point];
+                NSLog(@"distBetween: %f", distBetween);
+                NSLog(@"distBetween real: %f", [self transformPixelsToRealDistance:distBetween]);
+                
+                bool validConnection = true;
+                validConnection = validConnection && true;
 
-                CGContextAddLineToPoint(ctx, rrect.center.x + offsetX, rrect.center.y + offsetY);
-                CGContextClosePath(ctx);
-                CGContextStrokePath(ctx);
+                if (validConnection)
+                {
+                    [[UIColor redColor] setStroke];
+                    
+                    CGContextMoveToPoint(ctx, lastrrect.center.x + offsetX, lastrrect.center.y + offsetY);
+
+                    CGContextAddLineToPoint(ctx, rrect.center.x + offsetX, rrect.center.y + offsetY);
+                    CGContextClosePath(ctx);
+                    CGContextStrokePath(ctx);
+                }
             }
         }
         
@@ -1060,6 +1134,14 @@ public:
     [self setHoughCircleMinDistSlider:nil];
     [self setHoughCircleCannySlider:nil];
     [self setHoughCircleAccumulatorSlider:nil];
+    [self setDetectMinAreaLabel:nil];
+    [self setDetectMaxAreaLabel:nil];
+    [self setDetectMinDistLabel:nil];
+    [self setDetectMaxDistLabel:nil];
+    [self setDetectMinAngleSlider:nil];
+    [self setDetectMaxAngleSlider:nil];
+    [self setDetectMinAngleLabel:nil];
+    [self setDetectMaxAngleLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -1099,6 +1181,14 @@ public:
     [houghCircleMinDistSlider release];
     [houghCircleCannySlider release];
     [houghCircleAccumulatorSlider release];
+    [detectMinAreaLabel release];
+    [detectMaxAreaLabel release];
+    [detectMinDistLabel release];
+    [detectMaxDistLabel release];
+    [detectMinAngleSlider release];
+    [detectMaxAngleSlider release];
+    [detectMinAngleLabel release];
+    [detectMaxAngleLabel release];
     [super dealloc];
 }
 - (IBAction)revertBtnClick:(id)sender {
@@ -1373,18 +1463,63 @@ public:
     self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
 }
 
+- (IBAction)detectMinAreaSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)detectMaxAreaSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)detectMinDistSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)detectMaxDistSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)detectMinAngleSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)detectMaxAngleSliderChanged:(id)sender {
+    [self updateDetect];
+}
+
+- (IBAction)resetDetectParams:(id)sender {
+    [self initDetectParams];
+    [self changeDetectDisplay];
+}
+
 - (IBAction)patientBtnClick:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(patientChanged:) name:@"PatientRecordDidFinish" object:nil];
+    [self beginPatientSearch];
+}
+
+- (void) beginPatientSearch
+{
+    PatientSearch *patient=[[PatientSearch alloc]init];
+    patient.title=@"Patient Search";
+    [self presentModalViewController:patient animated:YES];
+}
+
+- (void)patientChanged:(NSNotification*)n
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PatientRecordDidFinish" object:nil];
+    
+	int currentPatientId = [mobileSessionXML getIntValueByName:@"patientId"];
+    
+    NSLog(@"check currentPatientId = %d", currentPatientId);
+	
+	if (currentPatientId != 0)
+        [self loadPatientImages:currentPatientId];
 }
 
 - (IBAction)method1:(id)sender {
     
-	int blurType = 1;
-    self.imageView.image = [self doGaussianBlur:self.imageView.image type:blurType];
-    
-    self.imageView.image = [self doDilate:self.imageView.image];
-    self.imageView.image = [self doDilate:self.imageView.image];
-    
-    self.imageView.image = [self doThresh:self.imageView.image threshold:200.0f];
+    self.imageView.image = [self doMethod1:self.imageView.image];
     
     self.imageView.image = [self drawLasers:self.imageView.image];
 }
@@ -1398,11 +1533,9 @@ public:
 
 - (IBAction)method3:(id)sender {
     
-    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    self.imageView.image = [self doMethod3:self.imageView.image];
     
-    self.imageView.image = [self getHSVChannel:self.imageView.image idx:0];
-    
-    self.imageView.image = [self doThresh:self.imageView.image threshold:100];
+    self.imageView.image = [self drawLasers:self.imageView.image];
 }
 
 - (IBAction)method4:(id)sender {
@@ -1414,15 +1547,9 @@ public:
 
 - (IBAction)method5:(id)sender {
     
-    self.imageView.image = [self doDampenGreenBlue:self.imageView.image];
+    self.imageView.image = [self doMethod5:self.imageView.image];    
     
-    self.imageView.image = [self doMixRed:self.imageView.image];
-    
-    self.imageView.image = [self getHSVChannel:self.imageView.image idx:2];
-    
-    self.imageView.image = [self doEqualizeHist:self.imageView.image];
-    
-    self.imageView.image = [self doThresh:self.imageView.image threshold:253];
+    self.imageView.image = [self drawLasers:self.imageView.image];
     
 }
 
@@ -1605,8 +1732,8 @@ public:
                 
                 float distBetweenReal = [self getRealDistanceBetweenContour:contour1 andContour:contour2];
                 
-                float minDist = 10;
-                float maxDist = 25;
+                float minDist = self.detectMinDist;
+                float maxDist = self.detectMaxDist;
                 
                 BOOL validDistance = distBetweenReal > minDist && distBetweenReal < maxDist;
                 
@@ -1616,9 +1743,16 @@ public:
                 
                 BOOL similarAreas = fabsf(contourAreaRatio - 1) < 1.0;
             
-                BOOL validRelation = validDistance && similarAreas;
+                float minAngle = self.detectMinAngle;
+                float maxAngle = self.detectMaxAngle;
                 
-                NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio);
+                float angle = [self getAngleBetweenContour:contour1 andContour:contour2];
+                
+                BOOL validAngleDifference = minAngle <= angle && angle <= maxAngle;
+                
+                BOOL validRelation = validDistance && similarAreas && validAngleDifference;
+                
+                NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f - angle: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio, angle);
                 
                 if (validRelation)
                 {
@@ -1646,6 +1780,24 @@ public:
     return distBetweenReal;
 }
 
+- (float) getAngleBetweenContour:(CONTOUR)contour1 andContour:(CONTOUR)contour2
+{    
+    cv::RotatedRect rrect1 = cv::fitEllipse(contour1);
+    cv::RotatedRect rrect2 = cv::fitEllipse(contour2);
+    
+    MeasurePoint *mp1 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect1.center.x, rrect1.center.y)];
+    MeasurePoint *mp2 = [[MeasurePoint alloc] initWithPoint:CGPointMake(rrect2.center.x, rrect2.center.y)];
+    
+    MeasureLine *ml = [[MeasureLine alloc] initWithStartPoint:mp1.point endPoint:mp2.point];
+    MeasureLine *horiz = [[MeasureLine alloc] init];
+    horiz.start = ml.lowerPoint;
+    horiz.end = [[MeasurePoint alloc] initWithPoint:CGPointMake(ml.upperPoint.x, ml.lowerPoint.y)];
+    
+    float angleBetween = [[horiz angleBetween:ml] floatValue];
+    
+    return angleBetween;
+}
+
 - (BOOL) checkContourValidity:(std::vector<cv::Point>) contour idx:(int)idx
 {
     NSString *contourPrefix = [NSString stringWithFormat:@"contour %d", idx];
@@ -1653,8 +1805,8 @@ public:
     
     float contourArea = powf([self transformPixelsToRealDistance:sqrt(cv::contourArea(contour))], 2);
     
-    float minContourArea = 1.1;
-    float maxContourArea = 20;
+    float minContourArea = self.detectMinArea;
+    float maxContourArea = self.detectMaxArea;
     
     BOOL validArea = contourArea > minContourArea && contourArea < maxContourArea;
     
@@ -1680,4 +1832,5 @@ public:
     self.imageView.image = [image retain];
     _baseImage = image;
 }
+
 @end
