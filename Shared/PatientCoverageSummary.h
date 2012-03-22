@@ -8,6 +8,7 @@
 
 #import "BackgroundViewController.h"
 #import "HeaderLabel.h"
+#import "MemberSearch.h"
 
 #import "DatePickerTextField.h"
 
@@ -38,6 +39,7 @@
 - (IBAction)selectAllServiceBtnClick3:(id)sender;
 - (IBAction)selectAllServiceBtnClick4:(id)sender;
 
+- (IBAction)searchForDifferentPatient:(id)sender;
 - (IBAction)continueBtnClick:(id)sender;
 - (IBAction)authorizeDummy:(id)sender;
 - (IBAction)notAuthorizeDummy:(id)sender;

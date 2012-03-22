@@ -37,6 +37,6 @@
 	<key>Web Site URL</key>
 	<string>${WEB_SITE_URL}</string>
 	<key>Version</key>
-	<string>2012-03-16 v2</string>
+	<string>2012-03-21 v1</string>
 </dict>
 </plist>

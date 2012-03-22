@@ -41,8 +41,8 @@
 		self.start = [[MeasurePoint alloc] initWithPoint:startPoint];
 		self.end = [[MeasurePoint alloc] initWithPoint:endPoint];
         
-		NSLog(@"%@", self.start);
-		NSLog(@"%@", self.end);
+		//NSLog(@"%@", self.start);
+		//NSLog(@"%@", self.end);
 		
 	}
 	return self;

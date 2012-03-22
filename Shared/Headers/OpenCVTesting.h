@@ -29,6 +29,9 @@
     
     UIImage *_baseContourImage;
     int cIdx;
+
+    UIImage *detectedImage;
+    int methodNumber;
 }
 
 @property CGPoint focusPoint;
@@ -41,6 +44,7 @@
 @property (assign) float detectMaxAngle;
 
 @property (retain, nonatomic) IBOutlet UIScrollView *propertySV;
+@property (retain, nonatomic) IBOutlet UILabel *attemptLabel;
 
 @property (retain, nonatomic) IBOutlet UIImageView *imageView;
 @property (retain, nonatomic) IBOutlet UIImageView *drawView;
@@ -155,5 +159,6 @@
 - (IBAction)method3:(id)sender;
 - (IBAction)method4:(id)sender;
 - (IBAction)method5:(id)sender;
+- (IBAction)detectWithAnyMethod:(id)sender;
 
 @end

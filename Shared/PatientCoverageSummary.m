@@ -59,18 +59,23 @@ extern int providerId;
     
     [self.serviceDateField selectDate:[NSDate date]];
     
-    [self getLatestPatientFromService];
+    [self setBoxBackgroundLarge:self.vspAddressView];
+    [self setBoxBackground:self.planView1];
+    [self setBoxBackground:self.planView2];
+    [self setBoxBackground:self.planView3];
+    [self setBoxBackground:self.planView4];
     
     /*NSString *pfn = [providerXML getTextValueByName:@"FirstName"];
     NSString *pln = [providerXML getTextValueByName:@"LastName"];
     NSString *pn = [NSString stringWithFormat:"%@ %@", pfn, pln];
     [self.providerNameField setText:pn];*/
     
-    [self setBoxBackgroundLarge:self.vspAddressView];
-    [self setBoxBackground:self.planView1];
-    [self setBoxBackground:self.planView2];
-    [self setBoxBackground:self.planView3];
-    [self setBoxBackground:self.planView4];
+    [self loadEverything];
+}
+
+- (void) loadEverything
+{
+    [self getLatestPatientFromService];
     
     NSString *pfn = [patientXML getTextValueByName:@"FirstName"];
     NSString *pln = [patientXML getTextValueByName:@"LastName"];
@@ -231,4 +236,25 @@ extern int providerId;
         [btn setSelected:[allBtn isSelected]];
     }
 }
+
+- (IBAction)searchForDifferentPatient:(id)sender {
+        MemberSearch *patient=[[MemberSearch alloc]init];
+        patient.title=@"Member Search";
+        //[self.navigationController pushViewController:patient animated:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidFinish:) name:@"MemberSearchDidFinish" object:patient];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberSearchDidCancel:) name:@"MemberSearchDidCancel" object:patient];
+        
+        [self presentModalViewController:patient animated:YES];
+}
+
+- (void)memberSearchDidFinish:(NSNotification*)n
+{
+	[self loadEverything];
+}
+
+- (void)memberSearchDidCancel:(NSNotification*)n
+{
+}
+
 @end

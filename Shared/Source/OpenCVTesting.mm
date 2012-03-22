@@ -109,6 +109,7 @@ public:
 @synthesize detectMaxAngle;
 
 @synthesize propertySV;
+@synthesize attemptLabel;
 
 @synthesize imageView;
 @synthesize drawView;
@@ -154,7 +155,7 @@ public:
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         defaultMinArea = 1.1;
-        defaultMaxArea = 20;
+        defaultMaxArea = 110;
         defaultMinDist = 6;
         defaultMaxDist = 25;
         defaultMinAngle = 0;
@@ -1142,6 +1143,7 @@ public:
     [self setDetectMaxAngleSlider:nil];
     [self setDetectMinAngleLabel:nil];
     [self setDetectMaxAngleLabel:nil];
+    [self setAttemptLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -1189,6 +1191,7 @@ public:
     [detectMaxAngleSlider release];
     [detectMinAngleLabel release];
     [detectMaxAngleLabel release];
+    [attemptLabel release];
     [super dealloc];
 }
 - (IBAction)revertBtnClick:(id)sender {
@@ -1553,6 +1556,14 @@ public:
     
 }
 
+- (IBAction)detectWithAnyMethod:(id)sender {
+    [self getLaserDistance:self.imageView.image];
+    
+    self.imageView.image = detectedImage;
+    
+    self.imageView.image = [self drawLasers:self.imageView.image];
+}
+
 - (UIImage*)doMethod1:(UIImage*)inputImg
 {
     UIImage *tempImage = inputImg;
@@ -1681,6 +1692,9 @@ public:
         if (localContours.size() == 2)
         {
             NSLog(@"Yes! Using.");
+            detectedImage = [tempImage retain];
+            methodNumber = attempt;
+            [self.attemptLabel setText:[NSString stringWithFormat:@"Att.%d", methodNumber]];
             break;
         }
         else
@@ -1752,7 +1766,7 @@ public:
                 
                 BOOL validRelation = validDistance && similarAreas && validAngleDifference;
                 
-                NSLog(@"distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f - angle: %f", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio, angle);
+                NSLog(@"%@ - distBetween %d and %d, real: %f - contour area (%f, %f) ratio: %f - angle: %f", validRelation ? @"VALID" : @"INVALID", i, j, distBetweenReal, contour1Area, contour2Area, contourAreaRatio, angle);
                 
                 if (validRelation)
                 {
